@@ -10,12 +10,12 @@ and the purity it is given, with error measured on the whole experiment against 
 
 - **Immediate release has a price.** For the qutrit Werner–Holevo channel, vanishing error needs log2 3 bits
   of purity per use when each output leaves at once, but O(log n) bits in total when all outputs may leave
-  together. At error n^-2 the change comes at batches of about log n; the zero-purity side holds for every
-  unital channel.
+  together. At error n^-2 the change comes at batches of about log n; the zero supplied-purity-rate side holds
+  for every unital channel.
 - **One set of channels divides cheap from expensive repeated use:** the closure of the channels that a
-  finite, maximally mixed bath implements exactly. Purity marks it, and for channels with a flat probe so
-  does memory: sublinear inside, linear outside. Rybár and Ziman's question on repeating a channel without
-  resets is answered along the way.
+  finite, maximally mixed bath implements exactly. Purity marks it, and with maximally mixed fresh qubits so
+  does memory: sublinear inside for channels with a flat probe, linear outside at small error. Rybár and
+  Ziman's question on repeating a channel without resets is answered along the way.
 - **For channels built from group relations, one use governs many:** at high precision, the memory of n uses
   equals the cost of the best single use up to squared logarithms. Devices acting through Houghton's group
   need and attain memory n^(1/3) up to logarithmic factors.
