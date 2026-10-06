@@ -2,7 +2,9 @@
 
 Seth Douglas and Nidhal Mghirbi, October 2026.
 
-This repository holds the paper, its LaTeX source and the finite numerical checks that accompany it.
+This repository holds the paper, its LaTeX source and the finite numerical checks that accompany it. It is
+version 1.0.0 (doi:10.5281/zenodo.23198907) of the Zenodo record doi:10.5281/zenodo.23198906; that concept DOI
+always resolves to the latest version.
 
 How much memory does a device need to apply one quantum channel n times, if each output must leave before
 the next input arrives? The paper counts the qubits the device keeps, the qubits it exchanges for fresh ones,
