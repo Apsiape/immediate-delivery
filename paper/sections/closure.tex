@@ -1,0 +1,166 @@
+%======================================================================
+\section{A qualitative closure law}\label{sec:closure}
+%======================================================================
+
+Recall the sets $\mathcal F_m$ and their closure $\overline{\mathcal F}$ from Section~\ref{sec:services}, and the normalized Choi
+distance $d_J$. Put
+\[
+D_{\rm mix,\Phi}(\delta)=\min\{m:\ d_J(\Phi,\Psi)\le\delta,\quad\Psi\in\operatorname{conv}\mathcal F_m\}.
+\]
+The corresponding profile for single finite tracial factorizations is
+$D_{J,\Phi}(\delta)=\min\{m:\ d_J(\Phi,\Psi)\le\delta,\ \Psi\in\mathcal F_m\}$. Infinite profile values are allowed.
+Finite mixtures and single factorizations have the same closure (Lemma~\ref{lem:mixture-flat}; see also~\cite[Proposition~3.8(ii)]{Musat2025}),
+but their exact bath dimensions need not agree~\cite[Propositions~3.6 and~3.8(i)]{Musat2025}.
+
+\begin{theorem}[Qualitative closure law]\label{thm:closure-law}
+Let $\Phi$ be fixed on $M_d$, with a flat probe of rank $r\ge2$.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item If $\Phi\in\overline{\mathcal F}$ and $0<\epsilon_n\le1/16$ satisfies $\log(1/\epsilon_n)=o(n)$, there are services of the exact
+target $\Phi$ with error at most $\epsilon_n$, $Q=o(n)$, $C=0$, $P\le Q$, and $J\le\lfloor(n-1)\log r/2\rfloor$.
+\item (\cite[Theorem~3.2(b)]{DouglasMghirbiB}) For any channel on $M_d$, not necessarily with a flat probe, let
+$\Delta=\operatorname{dist}_J(\Phi,\overline{\mathcal F})>0$. Every between-round service with error at most $\epsilon$, at any exchange, satisfies
+\[
+ P+C\ge\frac{n(\Delta-\epsilon)_+^2}{2\ln2},\qquad
+ Q+C\ge\frac{n(\Delta-\epsilon)_+^2}{2\ln2}.
+\]
+In particular, flat imports and fixed $\epsilon<\Delta$ force $Q=\Omega_{\Phi,\epsilon}(n)$.
+\end{enumerate}
+\end{theorem}
+
+Part~(b) is the purity floor of~\cite[Theorem~3.2(b)]{DouglasMghirbiB},
+restated for completeness. Part~(a) sharpens~\cite[Corollary~3.3(c)]{DouglasMghirbiB},
+which gives sublinear memory at a vanishing error with no prescribed rate, to every subexponential error with
+maximally mixed imports.
+The operational mechanism is local tracialization:
+a round producing $a$ bits of bath entropy is within
+$d_J\leq\sqrt{2\ln2\,a}$ of a mixture of finite tracial factorizations
+(Lemma~\ref{lem:tracialization}). Small production therefore supplies
+a finite-bath approximant. A channel a positive distance from the
+closure must produce entropy on a positive fraction of rounds,
+which is paid for by supplied purity. This includes exactly
+factorizable channels outside the closure: an infinite-dimensional
+tracial realization alone does not provide finite memory.
+
+The theorem is qualitative. Part~(a) uses the rank-rate exchange budget and allows initial purity up to the memory; part~(b) holds at
+any exchange, and its error threshold is the distance $\Delta$ of the given channel.
+
+\subsection{From a finite approximant to an exact flat source}
+
+\begin{lemma}[Mixtures to one maximally mixed bath]\label{lem:mixture-flat}
+A channel in $\operatorname{conv}\mathcal F_m$ can be approximated at half-diamond error at most $\gamma$ by a single finite
+tracial factorization with bath dimension $N=\lceil(d^4+1)m/\gamma\rceil$, for $0<\gamma\le1$.
+\end{lemma}
+The proof is in Appendix~\ref{app:closure-proofs}.
+
+\begin{lemma}[Positive-Gram repair for a finite tracial approximant]\label{lem:generic-repair}
+For a fixed channel $\Phi$ with a flat probe, a finite tracial factorization with bath dimension $k$ and Choi distance at most $\delta$ from
+$\Phi$ yields an exact rectangular dilation of $\Phi$ with source rank $k_1$, output dimension at most $rk_1$, and flat-round entropy
+production $a_1$ satisfying
+\[
+ \log k_1\le\log k+O_\Phi(\log(1/\delta)),\qquad
+ a_1\le C_\Phi\sqrt\delta\log(e/\delta)
+\]
+for sufficiently small $\delta$. The source is flat and its Gram is exactly $I_r$.
+\end{lemma}
+The proof is in Appendix~\ref{app:closure-proofs}.
+
+\subsection{The quantitative upper bound}
+
+\begin{theorem}[Profile-controlled exact-target upper]\label{thm:generic-upper}
+For a fixed flat-probe channel there are $C_\Phi,\delta_\Phi>0$ such that, for $n\ge2$ and $0<\epsilon<1$,
+\begin{align*}
+ \Qs(n,\epsilon)\le C_\Phi\inf_{0<\delta\le\delta_\Phi}\bigl\{&
+ \log(D_{\rm mix,\Phi}(\delta)+1)+\log(1/\delta)\\
+ &+n\sqrt\delta\log^2(e/\delta)+\log(n/\epsilon)\log(e/\delta)\\
+ &+\log(2+\log(D_{\rm mix,\Phi}(\delta)+1))\bigr\}.
+\end{align*}
+The service has $C=0$, $P\le Q$ and $J\le\lfloor(n-1)\log r/2\rfloor$.
+\end{theorem}
+The proof is in Appendix~\ref{app:closure-proofs}.
+
+\subsection{The nonclosure direction}
+
+\begin{lemma}[Local tracialization]\label{lem:tracialization}
+For a round $(U,\rho)$ with maximally mixed system input and entropy production $a$, its channel is within Choi distance
+$\sqrt{2\ln2\,a}$ of a finite mixture of finite tracial factorizations, each with bath dimension at most that of $\rho$.
+\end{lemma}
+This is~\cite[Lemma~5.4]{DouglasMghirbiB}; Appendix~\ref{app:closure-proofs} gives a short proof.
+
+\subsection{Repeatability without resets}\label{sec:repeatable}
+
+Ryb\'ar and Ziman's device~\cite[Sections~II and~III]{RybarZiman2008} is one
+unitary $U$ on $\C^d\otimes\C^M$ and one memory state $\xi_1$ on $\C^M$.
+There is no reset and no exchange. Uncorrelated inputs
+$\rho_1,\rho_2,\dots$ arrive one at a time. The memory before use $j$ is
+$\xi_j$, with $\xi_{j+1}=\Tr_dU(\rho_j\otimes\xi_j)U^*$, and use $j$
+induces the channel $X\mapsto\Tr_MU(X\otimes\xi_j)U^*$. The device
+\emph{repeats} $\Phi$ for $n$ uses if this channel is $\Phi$ for every
+$j\leq n$ and every choice of uncorrelated inputs. The channel is
+\emph{$n$-repeatable with memory dimension $M$} if some such device
+repeats it for $n$ uses, and \emph{repeatable} if one finite device
+repeats it for every $n$. A device is a \emph{catalytic dilation} if
+$\Tr_dU(\rho\otimes\xi_1)U^*=\xi_1$ for every input
+$\rho$~\cite[Definition~2]{LieSonBoesNgWilming2026}. Its memory state
+never changes, so it repeats its channel for every $n$.
+
+\begin{proposition}[Repeatability without resets]\label{prop:repeatable}
+Let $\Phi$ be a channel on $M_d$.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item If a device with memory dimension $M$ and initial state $\xi_1$
+repeats $\Phi$ for $n$ uses, then
+\[
+ \log M-S(\xi_1)\geq
+ \frac{n\operatorname{dist}_J(\Phi,\operatorname{conv}\mathcal F_M)^2}{2\ln2}
+ \geq\frac{n\operatorname{dist}_J(\Phi,\overline{\mathcal F})^2}{2\ln2}.
+\]
+\item If $\Phi$ is $n$-repeatable with memory dimension $M$ for every
+$n$, then $\Phi=\sum_kp_k\Psi_k$ with $p_k>0$,
+$\Psi_k\in\mathcal F_{m_k}$ and $\sum_km_k\leq M$. In particular $\Phi$
+is unital and $\Phi\in\operatorname{conv}\mathcal F_M\subseteq\overline{\mathcal F}$.
+For a device whose memory state is unchanged by a maximally mixed
+input, this is the characterization of Lie, Son, Boes, Ng and
+Wilming~\cite[Proposition~4 and Equation~(14)]{LieSonBoesNgWilming2026}.
+\item Every device that repeats the qutrit channel $\Theta$ of
+Section~\ref{sec:qutrit-purity} for $n$ uses has
+$\log M\geq S(\xi_1)+n\log3$. Ryb\'ar and Ziman's $n$-cell
+device~\cite[Section~III]{RybarZiman2008} with pure three-dimensional
+cells has $M=3^n$ and attains equality. Hence $\Theta$, which is unital
+and not random-unitary~\cite{LandauStreater1993}, is not repeatable.
+\item (Haagerup and Musat~\cite[Example~3.3]{HaagerupMusat2011}; Lie,
+Son, Boes, Ng and Wilming~\cite[Proposition~15]{LieSonBoesNgWilming2026}.)
+Put $v_0=(1,0,0)$ and
+$v_j=5^{-1/2}\bigl(1,2\cos\frac{2\pi j}{5},2\sin\frac{2\pi j}{5}\bigr)$
+for $1\leq j\leq5$, and $B_{kl}=v_k\cdot v_l$. The Schur channel
+$T_B(X)=B\circ X$ on $M_6$ is unital and not random-unitary. With
+$w_k=v_{k,1}\sigma_x+v_{k,2}\sigma_y+v_{k,3}\sigma_z$, the unitary
+$U=\sum_{k=0}^5\ket k\bra k\otimes w_k$ and the memory state
+$\xi_1=I/2$ form a catalytic dilation of $T_B$. So $T_B$ is repeatable
+with one memory qubit.
+\end{enumerate}
+\end{proposition}
+
+Part~(d) answers Ryb\'ar and Ziman's
+question~\cite[Section~IV]{RybarZiman2008}: a unital channel that is not
+random-unitary can be repeated without resets. The channel and the proof
+that it is not random-unitary are Haagerup and Musat's; the matrix $B$ is
+that of~\cite[Example~3.3]{HaagerupMusat2011}, whose $(2,6)$ entry is
+printed there as $-5^{-1/2}$ although the decomposition given there makes
+it $+5^{-1/2}$. Lie, Son, Boes, Ng and Wilming gave a catalytic dilation
+of every real Schur channel, with memory dimension
+$2^{\rank B}$~\cite[Proposition~15]{LieSonBoesNgWilming2026}, and used
+this channel to show that catalytic channels need not be
+random-unitary~\cite[Appendix~C]{LieSonBoesNgWilming2026}. Part~(d) adds
+that a catalytic dilation repeats its channel, and that for this $B$ the
+three Pauli matrices give one memory qubit. Part~(b)
+places every repeatable channel among the finite mixtures of finite
+tracial factorizations. These are the strongly factorizable channels
+of~\cite{LieSonBoesNgWilming2026}, and they are dense in
+$\overline{\mathcal F}$. Lie and Jeong showed that catalytic channels are
+factorizable~\cite{LieJeong2021}. Part~(c) shows that unitality is not
+enough in dimension three, although it is for
+qubits~\cite[Section~IV]{RybarZiman2008}. Part~(b) also rules out the
+channels in $\overline{\mathcal F}$ that need an infinite-dimensional
+ancilla~\cite[Theorem~4.1]{MusatRordam2019}. The proof, in
+Appendix~\ref{app:closure-proofs}, uses only maximally mixed inputs and
+single-use marginals, so the outputs may be correlated through the
+memory.

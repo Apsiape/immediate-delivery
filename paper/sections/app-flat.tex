@@ -1,0 +1,179 @@
+%======================================================================
+\section{Proofs for Section~\ref{sec:flat}: leakage and the twisted torus}\label{app:flat}
+%======================================================================
+
+We write $S_u(X)=-\Tr X\log X$ for $X\ge0$, the entropy of an unnormalized operator, and use two facts.
+\begin{itemize}[leftmargin=2.8em]
+\item[(F5)] \emph{Subadditivity.} For $M,N\ge0$, $S_u(M+N)\le S_u(M)+S_u(N)$, because $\log$ is operator monotone, so $\Tr M\log(M+N)\ge\Tr M\log M$. A positive
+operator of trace $m$ and rank at most $R$ has $S_u\le m\log(R/m)$.
+\item[(F6)] \emph{Concavity, unnormalized.} If $A,B\ge0$ have traces $m_A,m_B$ with $m_A+m_B=m$, then $S_u(A+B)\ge S_u(A)+S_u(B)-m\,h_2(m_A/m)$.
+\end{itemize}
+
+\subsection{Exact regions}
+
+\begin{proof}[Proof of Lemma~\ref{lem:restrict}]
+Write $\rho=(1-\nu)\rho_0+\nu\rho_\perp$ with $\rho_\perp$ flat on $K\ominus K_0$. The channel and $T$ are linear in the bath, so
+$\Psi_{\rho_0}-\Phi=(\Psi_\rho-\Phi-\nu(\Psi_{\rho_\perp}-\Phi))/(1-\nu)$ with $\ddia(\Psi_{\rho_\perp},\Phi)\le1$, which gives the distance. Since $\rho_\perp\le I/(\nu k)$,
+$U(\tau_d\otimes\rho_\perp)U^*\le I/(d\nu k)$, and the partial trace gives $T(\rho_\perp)\le I/(\nu k)$, so $S(T(\rho_\perp))\ge\log(\nu k)$. Concavity gives
+$S(T(\rho))\ge(1-\nu)S(T(\rho_0))+\nu\log(\nu k)$; with $S(T(\rho))=a+\log k$ this reads $S(T(\rho_0))\le\log k+(a+\nu\log(1/\nu))/(1-\nu)$, and subtracting
+$S(\rho_0)=\log((1-\nu)k)$ gives the bound on $a_0$. If $U(\xi\otimes\kappa)=\sum_iA_i\xi\otimes X_i\kappa$ on $\C^d\otimes K_0$, then
+$\Psi_{\rho_0}(X)=\sum_{i,j}A_iXA_j^*\Tr(X_i\rho_0X_j^*)$, whose Choi state is supported in the Kraus span.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:exact-region}]
+(a) By Lemma~\ref{lem:restrict}, $(U,\rho_0)$ has leakage $0$, $S(\rho_0)\le S$ and distance at most $(\frac1{16}+\frac18)/\frac78=\frac3{14}<\frac14$, and since
+$\log(1/(1-\nu))\le\frac87\nu/\ln2\le2\nu$ for $\nu\le\frac18$, $n\,a_0\le\frac87(n\,a+n\nu\log(1/\nu))+2n\nu\le2(n\,a+n\nu\log(e/\nu))$. By Lemma~\ref{lem:zero-leak} its
+gadget family has flat Gram off-diagonals at most $2\cdot\frac3{14}<\frac12$, and Theorem~\ref{thm:flat-zero}(c) applies.
+
+(b) At a triangle-good point every slot of label $g$ acts by $f(g)$, so $U(\xi\otimes\ket\omega)=\sum_gA_g\xi\otimes\ket{f(g)\omega}$, and by linearity the span of the
+good points of $K$ is an exact region. By Lemma~\ref{lem:perm-leak}, $\nu=p(\mathrm{bad})\le4d\ell$. For $\ell\le C_0/n$ and $n\ge32dC_0$, $\nu\le\frac18$ and (a) applies;
+$x\log(e/x)$ increases on $(0,1]$, so $n\nu\log(e/\nu)\le4dC_0\log(en/(4dC_0))$.
+\end{proof}
+
+\subsection{First-order rounding}
+
+\begin{proof}[Proof of Theorem~\ref{thm:F}]
+\emph{Decomposition.} Let $W=U(I\otimes\iota_K)$, and expand it in the orthogonal basis $\{A_g/\nrm{A_g}_F\}\cup\{E_\alpha\}$ of $M_d$, where $(E_\alpha)$ is a
+Hilbert--Schmidt orthonormal basis of $\spn\{A_g\}^\perp$: $W=G+L$ with $G=\sum_gA_g\otimes X_g$ and $L=\sum_\alpha E_\alpha\otimes L_\alpha$. Then:
+\begin{itemize}[leftmargin=2.4em,itemsep=1pt]
+\item[(f1)] $\ell=\nrm L_F^2/(dk)$. Indeed $\cJ(\Psi)$ is the marginal of $v=d^{-1/2}(\sum_g\vert A_g\rangle\!\rangle\otimes X_g\xi+\sum_\alpha\vert E_\alpha\rangle\!\rangle\otimes L_\alpha\xi)$,
+$\xi=P_K/\sqrt k$ (proof of Lemma~\ref{lem:zero-leak}), and $I-\Pi_\Phi$ keeps exactly the second sum.
+\item[(f2)] $\nrm W_F^2=dk=\nrm G_F^2+\nrm L_F^2$ and $\nrm G_F^2=\sum_gd\mu_gk\,\tau(X_g^*X_g)$, so $\sum_g\mu_g\tau(X_g^*X_g)=1-\ell$.
+\item[(f3)] $T(\rho)=\sigma_X+\sigma_L$ with $\sigma_X=\sum_g\mu_gX_gX_g^*/k$ and $\sigma_L=\Tr_dL(\tau_d\otimes\rho)L^*\ge0$, $\Tr\sigma_L=\ell$: the cross terms vanish because
+$\Tr(A_g^*E_\alpha)=0$, and $\Tr(A_h^*A_g)=d\mu_g\delta_{gh}$.
+\item[(f4)] $X_g=\sum_{a\in S_g}\bar c_aW_a/\sum_{a\in S_g}|c_a|^2$ over the slots $a$ of label $g$, where $W_a$ is the block of $W$ at the position of $a$ and $\nrm{W_a}\le1$.
+Every slot coefficient has modulus $1$ or $1/\sqrt2$, so $\nrm{X_g}\le\sqrt2\le d$.
+\end{itemize}
+
+\emph{Defects.} From $W^*W=I$, $G^*G-I=-(G^*L+L^*G+L^*L)$, whose unnormalized trace norm is at most $2\nrm G_F\nrm L_F+\nrm L_F^2\le dk(2\sqrt\ell+\ell)$. By the
+block structure of Lemma~\ref{lem:dilation}(a) and (F1), the anchor block of $G^*G$ at $z_g$ is $X_g^*X_g$, and the off-diagonal block of a triangle $t=(x,y,z)$ is
+$\frac12R_t$ with $R_t:=X_1^*X_{[y]}-X_{[x]}^*X_{[z]}$. A block has trace norm at most that of the operator, so in the normalized trace norm on $K$,
+$\nrm{X_g^*X_g-I}_1\le3d\sqrt\ell$ and $\nrm{R_t}_1\le6d\sqrt\ell$.
+
+\emph{Construction.} Let $Y^0=[X_g^*X_h]_{g,h}\ge0$ on $\C^r\otimes K$.
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item $P:=\sum_g(X_g^*X_g-I)_+$, so $\tau(P)\le3dr\sqrt\ell$; $T:=(I+P)^{-1/2}$ and $Y_A:=(I_r\otimes T)Y^0(I_r\otimes T)$. Since $X_g^*X_g\le I+P$, $(Y_A)_{gg}\le I$.
+\item Link two ordered pairs of distinct labels if an identity $(1,[y])\sim([x],[z])$ of a triangle or the adjoint relation $(g,h)\sim(h,g)$ joins them. On a class,
+of at most $r^2$ pairs, the constraints say that each block is a fixed common block or its adjoint. Let $\widehat Y_{\rm off}$ be the Frobenius-orthogonal projection of the
+off-diagonal blocks of $Y_A$ onto the constraints: on each class the average of the transported blocks, followed by $R\mapsto(R+R^*)/2$ if the class closes on
+itself through an adjoint. Each identity edge has defect $\nrm{TR_tT}_1\le\nrm{R_t}_1\le6d\sqrt\ell$ and adjoint edges have none, so every block moves by at most
+$3r^2\cdot6d\sqrt\ell$ in $\nrm\cdot_1$.
+\item $E:=\widehat Y_{\rm off}-(Y_A)_{\rm off}$ is Hermitian with zero diagonal blocks, hence traceless, and $\Tr|E|/k\le\sum_{g\ne h}\nrm{E_{gh}}_1\le18dr^4\sqrt\ell$.
+\item For $N\ge0$ on $\C^r\otimes K$, $N\le r\,I_r\otimes\Tr_{\C^r}N$: the average of $N$ over conjugation by the $r^2$ Weyl unitaries of $\C^r$ is $\frac Ir\otimes\Tr_{\C^r}N$,
+and $N$ is one of $r^2$ positive terms. With $E=E_+-E_-$ and $Z:=r\Tr_{\C^r}(E_-)$, $E+I_r\otimes Z\ge E_+\ge0$ and $\tau(Z)=r\Tr E_-/k=r\Tr|E|/(2k)\le9dr^5\sqrt\ell$.
+\item $Y_1:=Y_A+\Delta+E+I_r\otimes Z$ with $\Delta:=\bigoplus_g(I-(Y_A)_{gg})\ge0$. Then $Y_1\ge0$, $(Y_1)_{gg}=I+Z$ and $(Y_1)_{gh}=\widehat Y_{gh}$ for $g\ne h$.
+\item $Y:=S_cY_1S_c$ with $S_c:=I_r\otimes(I+Z)^{-1/2}$. Then $Y\ge0$ and $Y_{gg}=I$, and the off-diagonal blocks satisfy every identity and the adjoint relations,
+since a common congruence acts on both sides; the identities with $[y]=1$ read $I=I$, because in a triangle $[y]=1$ if and only if $[x]=[z]$.
+\item $X'_g:=Y^{1/2}(\ket g\otimes I_K)$ has $X'^*_gX'_h=Y_{gh}$: these are isometries with the exact identities. By Lemma~\ref{lem:dilation}(a) and~(c) they give a round with
+bath flat on a copy of $K$ inside $\C^r\otimes K$, with leakage $0$ and $S'=\log k$.
+\end{enumerate}
+
+\emph{Gram.} For $g\ne h$ the anchor entry of $\Psi$ is $\bra{z_g}\Psi(\ket{z_g}\bra{z_h})\ket{z_h}=\Tr(\rho W_{z_hz_h}^*W_{z_gz_g})$, with $W_{z_gz_g}=X_g+\Lambda_g$ and
+$\Lambda_g=\sum_\alpha(E_\alpha)_{z_gz_g}L_\alpha$. By Cauchy--Schwarz and $\sum_\alpha|(E_\alpha)_{z_gz_g}|^2\le1$, $\Lambda_g^*\Lambda_g\le\sum_\alpha L_\alpha^*L_\alpha$, so
+$\nrm{\Lambda_g\xi}_F^2\le\Tr(L^*L)/k=d\ell$. By (F2) the entry has modulus at most $2u$, and with $\nrm{X_g}\le d$, $|\tau(X_g^*X_h)|\le2u+2d\sqrt{d\ell}+d\ell$. Then
+$|\tau((Y_A)_{gh})-\tau(X_g^*X_h)|=|\tau((I-T^2)X_g^*X_h)|\le d^2\tau(P)$, since $0\le I-T^2\le P$; the projection moves $\tau$ by at most $18dr^2\sqrt\ell$; and
+$|\tau(Y_{gh})-\tau(\widehat Y_{gh})|=|\tau((I-(I+Z)^{-1})\widehat Y_{gh})|\le d^2\tau(Z)$, since $\nrm{\widehat Y_{gh}}\le d^2$. With $\ell\le\sqrt\ell$,
+$|\tau(Y_{gh})|\le2u+(2d^{3/2}+d+3d^3r+18dr^2+9d^3r^5)\sqrt\ell=2u+C_1\sqrt\ell$.
+
+\emph{Entropy.} The new round's bath map applied to its flat bath is $\sum_g\mu_gX'_gX'^*_g/k$, whose nonzero spectrum is that of $DYD/k$ with
+$D:=\diag(\sqrt{\mu_g})\otimes I_K$, and $\Tr(DYD)/k=\sum_g\mu_g=1$; so $a'=S(DYD/k)-\log k$.
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item $Y=S_cY_AS_c+S_cY_BS_c$ with $Y_B:=\Delta+E+I_r\otimes Z\ge0$. $D$ commutes with $S_c$, so $DYD=M_A+M_B$ with $M_A:=DS_cY_AS_cD\ge0$ and
+$M_B:=DS_cY_BS_cD\ge0$, and by (F5) $S(DYD/k)\le S_u(M_A/k)+S_u(M_B/k)$.
+\item $m_B:=\Tr M_B/k\le\Tr(DY_BD)/k$, since $S_c^2\le I$, and $\Tr(DY_BD)/k=\sum_g\mu_g\tau(I-TX_g^*X_gT)+\tau(Z)=\ell+\sum_g\mu_g\tau(X_g(I-T^2)X_g^*)+\tau(Z)\le
+\ell+d^2\tau(P)+\tau(Z)\le\bar m$, by (f2). $M_B$ has rank at most $rk$, so by (F5) $S_u(M_B/k)\le m_B\log k+m_B\log(r/m_B)$.
+\item With $\mathcal X:=[X_1\cdots X_r]:\C^r\otimes K\to\C^M$ and $R:=T(I+Z)^{-1/2}$, a contraction, $S_cY_AS_c=(I\otimes R)^*\mathcal X^*\mathcal X(I\otimes R)$, so $M_A/k$ has
+the nonzero spectrum of $A':=\sum_g\mu_gX_gRR^*X_g^*/k\le\sigma_X$. Put $B':=\sigma_X-A'\ge0$, $m_X:=\Tr\sigma_X=1-\ell$, $m_A:=\Tr A'=1-m_B$ and
+$m_{B'}:=\Tr B'=m_B-\ell$. By (F6), $S_u(A')\le S_u(\sigma_X)-S_u(B')+h_2(m_{B'}/m_X)$. Since $B'\le\sigma_X\le d^2I/k$, $S_u(B')\ge m_{B'}\log(k/d^2)$. By (f3) and
+concavity, $\log k+a=S(\sigma_X+\sigma_L)\ge m_XS(\sigma_X/m_X)$, so $S_u(\sigma_X)=m_XS(\sigma_X/m_X)-m_X\log m_X\le\log k+a+\ell/\ln2$.
+\item Adding, the terms in $\log k$ combine to $(m_B-m_{B'})\log k=\ell\log k$:
+\[
+a'\le a+\ell\log k+\ell/\ln2+2m_{B'}\log d+h_2(m_{B'}/m_X)+m_B\log(r/m_B).
+\]
+With $m_{B'}\le m_B\le\bar m\le\frac14$, $m_X\ge\frac12$, $h_2$ increasing on $[0,\frac12]$ and $x\log(r/x)$ increasing on $(0,r/e]$, this is
+$a'\le a+\ell S+\ell/\ln2+2\bar m\log d+h_2(2\bar m)+\bar m\log(r/\bar m)$.
+\end{enumerate}
+
+\emph{Constants.} $\bar m\le C_m\sqrt\ell$ with $C_m=1+3d^3r+9dr^5$. Use $\log(e/\ell)\ge\max(1.443,\log(1/\ell))$. Then $\ell/\ln2\le1.443\sqrt\ell\le\sqrt\ell\log(e/\ell)$;
+$2\bar m\log d\le1.39C_m\log d\cdot\sqrt\ell\log(e/\ell)$; $\bar m\log r\le0.70C_m\log r\cdot\sqrt\ell\log(e/\ell)$; and
+$h_2(2\bar m)+\bar m\log(1/\bar m)\le2\bar m\log(e/(2\bar m))+\bar m\log(1/\bar m)=3\bar m\log(1/\bar m)+0.886\bar m$. As $x\log(1/x)$ increases on $(0,1/e)$ and $C_m\ge1$,
+$3\bar m\log(1/\bar m)\le3C_m\sqrt\ell\log(1/\sqrt\ell)=1.5C_m\sqrt\ell\log(1/\ell)$, and $0.886\bar m\le0.614C_m\sqrt\ell\log(e/\ell)$. The total is at most
+$C_2\sqrt\ell\log(e/\ell)$ with $C_2=1+C_m(1.39\log d+0.70\log r+2.2)$, since $1.5+0.614<2.2$.
+
+\emph{The twisted gadget.} For $\Phi_\omega$ the slots carry phases, the identities read $B_1^*B_{[y]}=\zeta_tB_{[x]}^*B_{[z]}$, and the triangle defect becomes
+$R_t=\varphi_yX_1^*X_{[y]}-\bar\varphi_x\varphi_{xy}X_{[x]}^*X_{[z]}$ with the phases $\varphi_w$ of the slot words. The constraints of step 2 are then that each block of a
+class is a phase times a common block or its adjoint. The section $\hat\lambda$ of the twisted regular representation satisfies them all exactly, with every block
+$\hat\lambda(g)^*\hat\lambda(h)$ a nonzero unitary, so no class forces its blocks to vanish, the projection of step 2 is the phase-transported average, and the identities
+with $[y]=1$ carry the phase $1$. Every other step is unchanged.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:F}]
+For $n\ge n_F$ and $\ell\le\frac2{15n}$, $C_1\sqrt\ell\le C_1\sqrt{2/(15n_F)}\le\frac14$, so Theorem~\ref{thm:F} gives a zero-leakage flat round with $S'=S$, flat Gram
+off-diagonals at most $\frac2{16}+\frac14<\frac12$, and, since $C_m\le C_1$, $a'\le a+\ell S+C_2\sqrt\ell\log(e/\ell)$. Theorem~\ref{thm:flat-zero}(c) uses only the
+identities, the flat Gram bound and the flat entropy production, so it applies with $c=\frac12$ and gives $Q\le K\log^3(n/\epsilon)(1+S+n\,a')$. Here
+$n\ell S\le\frac2{15}S$ and $nC_2\sqrt\ell\log(e/\ell)\le C_2\sqrt{2n/15}\log(15en/2)\le0.37C_2\sqrt n\log(20n)$, since $\sqrt{2/15}<0.3652$ and $15e/2<20.4$. At
+$\ell\le(\log n)^m/n^2$, $nC_2\sqrt\ell\log(e/\ell)\le C_2(\log n)^{m/2}\log(en^2)=O((\log n)^{m/2+1})$.
+\end{proof}
+
+\subsection{The twisted torus}
+
+Write $\hat\lambda(u,v)=\lambda(\sfa)^u\lambda(\sfb)^v$ for the section of the twisted regular representation; every slot word $w$ with label $(u,v)$ has
+$\lambda(w)=\omega^{f(w)}\hat\lambda(u,v)$ for an integer $f(w)$ that depends only on the commutation rule, and every unitary pair $(\mathcal A,\mathcal B)$ with
+$\mathcal B\mathcal A=\zeta\mathcal A\mathcal B$ satisfies the same identities with $\zeta^{f(w)}$ in place of $\omega^{f(w)}$. So $\Phi_\omega$ has the Kraus operators
+$A_g=\sum_{a\in S_g}c_a\varphi_aE_a$ with $\varphi_a=\omega^{f(w_a)}$. Put $F=\max_a|f(w_a)|$.
+
+\begin{proof}[Proof of Lemma~\ref{lem:L1}]
+Let $\bar\tau=\sum_g\mu_gB_gB_g^*/k$, $E$ a top-$k$ eigenspace of $\bar\tau$ and $w=1-\Tr(P_E\bar\tau)$.
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Mass outside $E$.} By Lemma~\ref{lem:top}, $w\le a\ln2$; phases do not enter $\bar\tau$. Put $C_g=P_EB_g$ and $D_g=(I-P_E)B_g$. Then
+$\sum_g\mu_g\tau(D_g^*D_g)=\Tr((I-P_E)\bar\tau)=w$, so $\nrm{D_g}_2^2\le w/\mu_g$.
+\item \emph{The identities split.} The ranges of $P_E$ and $I-P_E$ are orthogonal, so $B_g^*B_h=C_g^*C_h+D_g^*D_h$ and
+$C_1^*C_{[y]}-\zeta_tC_{[x]}^*C_{[z]}=\zeta_tD_{[x]}^*D_{[z]}-D_1^*D_{[y]}$. By H\"older's inequality the right side has $\nrm\cdot_1\le w(1/\sqrt{\mu_x\mu_z}+1/\sqrt{\mu_1\mu_y})$.
+\item \emph{Polar parts.} Identify $E$ with $\C^k$ and write $C_g=V_g|C_g|$ with $V_g$ unitary. Since $C_g^*C_g=I-D_g^*D_g\le I$ and $1-s\le1-s^2$ on $[0,1]$,
+$\nrm{C_g-V_g}_1=\tau(I-|C_g|)\le\tau(D_g^*D_g)\le w/\mu_g$. All operators involved are contractions and $\nrm{AB}_1\le\nrm A_1\nrm B$, so replacing $C_g$ by $V_g$ for
+$g\in\{1,[x],[y],[z]\}$ changes the defect by at most $\sum_gw/\mu_g$.
+\item \emph{Normalization.} Replacing every $V_g$ by $V_1^*V_g$ changes neither the defects nor any $\tau(V_g^*V_h)$, and makes $V_1=I$.
+\item \emph{Gram.} $|\tau(D_g^*D_h)|\le\nrm{D_g}_2\nrm{D_h}_2\le w/\mu_{\min}$ and $|\tau(C_g^*C_h)-\tau(V_g^*V_h)|\le\nrm{C_g-V_g}_1+\nrm{C_h-V_h}_1\le2w/\mu_{\min}$.
+\end{enumerate}
+Finally the defect is at most $6w/\mu_{\min}\le6d\,a\ln2$, since $\mu_{\min}\ge1/d$.
+\end{proof}
+
+\begin{lemma}[Thin rounds]\label{lem:thin}
+Let $\mathcal S$ be the cyclic shift and $\mathcal D=\diag(e^{2\pi ipj/N})$ on $\C^N$, $\gcd(p,N)=1$, $N>4$, so that $\mathcal D\mathcal S=e^{2\pi ip/N}\mathcal S\mathcal D$, and let
+$U$ be the gadget unitary of $\Phi_\omega$ with $\sfa\mapsto\mathcal S$, $\sfb\mapsto\mathcal D$. With the flat bath $I/N$ this is a square round with $a=0$, $S=\log N$, leakage $\ell\le F^2e^2$ and distance at most
+$F\sqrt d\,e$, where $e=|e^{2\pi ip/N}-\omega|$.
+\end{lemma}
+
+\begin{proof}
+The slot operators are $M_a=\theta_a\mathcal S^{u_a}\mathcal D^{v_a}$ with $\theta_a=\zeta^{pf(w_a)}$, $\zeta=e^{2\pi i/N}$. Labels have $|u|,|v|\le1$, so for $N>4$,
+$\tau_N(M_b^*M_a)=\theta_a\bar\theta_b$ if $a$ and $b$ carry the same label and $0$ otherwise; the channel is therefore $\sum_gA'_gXA'^*_g$ with
+$A'_g=\sum_{a\in S_g}c_a\theta_aE_a$. Since $|\theta_a-\varphi_a|\le|f(w_a)|\,e\le Fe$ and $A_g$ lies in the Kraus span of $\Phi_\omega$,
+$\ell=\frac1d\sum_g\nrm{P_\perp A'_g}_F^2\le\frac1d\sum_g\nrm{A'_g-A_g}_F^2=\frac1d\sum_a|c_a|^2|\theta_a-\varphi_a|^2\le F^2e^2$. The Stinespring isometries
+$V'=\sum_gA'_g\otimes\ket g$ and $V=\sum_gA_g\otimes\ket g$ have $\nrm{V'\rho V'^*-V\rho V^*}_1\le2\nrm{V'-V}\le2\nrm{V'-V}_F\le2F\sqrt d\,e$, so the distance is at most
+$F\sqrt d\,e$. The bath is flat and $T$ is unital, so $a=0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:twisted}]
+(a) By Lemma~\ref{lem:zero-leak}, with the phases of $\Phi_\omega$, the round gives isometries $B_g$ with $B_1^*B_{[y]}=\zeta_tB_{[x]}^*B_{[z]}$, and Lemma~\ref{lem:L1} gives
+unitaries $V_g$ on $\C^k$, $V_1=I$, with every identity holding to $\delta:=6d\ln2\cdot a$ in $\nrm\cdot_1$. Among the triangles are $(\sfa,\sfa^{-1},\varnothing)$,
+$(\sfa,\sfb,\sfa\sfb)$ and $(\sfa\sfb,\sfa^{-1},\sfa\sfb\sfa^{-1})$, with $[\sfa\sfb\sfa^{-1}]=[\sfb]$. With phases $\zeta_1,\zeta_3,\zeta_4$ of modulus one they give
+$\nrm{V_{\sfa^{-1}}-\zeta_1V_\sfa^*}_1\le\delta$, $\nrm{V_{\sfa\sfb}-\bar\zeta_3V_\sfa V_\sfb}_1\le\delta$ and $\nrm{V_{\sfa^{-1}}-\zeta_4V_{\sfa\sfb}^*V_\sfb}_1\le\delta$.
+Multiplication by unitaries and adjoints preserve $\nrm\cdot_1$, so $\nrm{\zeta_1V_\sfa^*-\zeta_3\zeta_4V_\sfb^*V_\sfa^*V_\sfb}_1\le3\delta$; multiplying by $V_\sfb$ on the
+left and by $V_\sfb^*V_\sfa$ on the right, $\nrm{C-\varphi I}_1\le3\delta$ with $C:=V_\sfb V_\sfa^*V_\sfb^*V_\sfa$ and $\varphi:=\bar\zeta_1\zeta_3\zeta_4$. The section $\hat\lambda$
+satisfies the same identities exactly with the same phases, so the same steps give $\hat\lambda(\sfb)\hat\lambda(\sfa)^*\hat\lambda(\sfb)^*\hat\lambda(\sfa)=\varphi I$. The
+left side does not change if $\hat\lambda(\sfa),\hat\lambda(\sfb)$ are rephased, so it equals $\lambda(\sfb)\lambda(\sfa)^{-1}\lambda(\sfb)^{-1}\lambda(\sfa)$, and inverting
+$\lambda(\sfb)\lambda(\sfa)=\omega\lambda(\sfa)\lambda(\sfb)$ shows that this is $\bar\omega I$. Hence $\varphi=\bar\omega$. Now $\det C=1$; write the eigenvalues of $C$ as
+$\varphi e^{i\psi_j}$ with $\psi_j\in(-\pi,\pi]$. Then $\varphi^ke^{i\sum_j\psi_j}=1$, so $\sum_j\psi_j\in2\pi k\theta+2\pi\Z$ and $|\sum_j\psi_j|\ge2\pi\|k\theta\|$. $C$ is normal
+and $|e^{i\psi}-1|=2|\sin(\psi/2)|\ge2|\psi|/\pi$ on $[-\pi,\pi]$, so $\nrm{C-\varphi I}_1=\frac1k\sum_j|e^{i\psi_j}-1|\ge\frac2{\pi k}\sum_j|\psi_j|\ge4\|k\theta\|/k$. Hence
+$4\|k\theta\|/k\le3\delta=18d\ln2\cdot a$. For $\theta=(\sqrt5-1)/2$ every partial quotient is $1$. For a convergent denominator $q_j$,
+$\|q_j\theta\|=1/(q_j(\alpha_{j+1}+q_{j-1}/q_j))$ with $\alpha_{j+1}<2$, so $\|q_j\theta\|>1/(3q_j)$; for $q_j\le q<q_{j+1}$, $\|q\theta\|\ge\|q_j\theta\|$ by the best
+approximation property; so $\|q\theta\|\ge1/(3q)$ for every $q\ge1$, and $a\ge2/(27d\ln2\cdot k^2)$.
+
+(b) For $N=F_m$ and $p=F_{m-1}$, $|\theta-p/N|<1/N^2$, so $e=|e^{2\pi ip/N}-\omega|\le2\pi|p/N-\theta|<2\pi/N^2$, and Lemma~\ref{lem:thin} gives the stated round. An exact
+flat round with $S'\le\lambda S+C_0$ has bath rank $k'\le2^{C_0}N^\lambda$, so by (a) $a'\ge2/(27d\ln2\cdot k'^2)\ge0.0062\cdot4^{-C_0}N^{-2\lambda}$. If also
+$a'\le C_1\ell^\gamma(\log1/\ell)^m$, then, since $x^\gamma(\log1/x)^m$ increases for small $x$, $a'\le C_1(4\pi^2F^2)^\gamma N^{-4\gamma}(\log(N^4/(4\pi^2F^2)))^m$. As
+$N\to\infty$ this forces $2\lambda\ge4\gamma$.
+
+(c) For $N$ large, $C_m\sqrt\ell\le\frac14$, and Theorem~\ref{thm:F} for $\Phi_\omega$ gives a zero-leakage flat round with $S'=\log N$ and
+$a'\le\ell\log N+C_2\sqrt\ell\log(e/\ell)=O((\log N)/N^2)$.
+\end{proof}

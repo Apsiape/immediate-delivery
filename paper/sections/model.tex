@@ -1,0 +1,345 @@
+%======================================================================
+\section{Model and profiles}\label{sec:model}
+%======================================================================
+
+\paragraph{Conventions.} Logarithms are to base $2$ and $\ln$ is natural. We write $\tau_m=\Tr/m$ for the normalized trace on $M_m$,
+$\nrm{X}_F$ for the Hilbert--Schmidt norm, $\nrm X_2=\tau(X^*X)^{1/2}$ for its normalized version, $\nrm X$ for the operator norm, and
+$h_2$ for the binary entropy. For a channel $\Psi$ on $M_d$, $\cJ(\Psi)=(\Psi\otimes\id)(\ket\Omega\bra\Omega)$ with
+$\ket\Omega=d^{-1/2}\sum_i\ket{ii}$ is its normalized Choi state, $\ddia(\Psi,\Psi')=\frac12\nrm{\Psi-\Psi'}_\diamond$, and
+$d_J(\Psi,\Psi')=\frac12\nrm{\cJ(\Psi)-\cJ(\Psi')}_1$ is the \emph{normalized Choi distance}, and
+$\operatorname{dist}_J(\Psi,\mathcal S)=\inf_{\Psi'\in\mathcal S}d_J(\Psi,\Psi')$ for a set $\mathcal S$ of channels.
+
+Throughout, $\Phi$ is a channel on $M_d$ with linearly independent Kraus operators $A_1,\dots,A_r$, $r\ge2$. So $r$ is the Choi rank of
+$\Phi$, and the support projection $\Pi_\Phi$ of $\cJ(\Phi)$ projects onto the span of the vectorized Kraus operators. A \emph{flat probe} is
+a pure state $\psi_*$ of the input and a reference whose output $(\Phi\otimes\id)(\psi_*)$ is flat of rank $r$; equivalently, its input
+marginal $\rho_*$ satisfies $\Tr(\rho_*A_i^*A_j)=\delta_{ij}/r$.
+
+\subsection{Rounds}
+
+\begin{definition}[Rounds]\label{def:round}
+A \emph{round} of $\Phi$ is a pair $(U,\rho)$ of a unitary $U$ on $\C^d\otimes\C^M$ and a state $\rho$ on $\C^M$, the \emph{bath}. It has the
+channel and the bath map
+\[
+\Psi(X)=\Tr_M U(X\otimes\rho)U^*,\qquad T(\rho)=\Tr_d U(\tau_d\otimes\rho)U^* ,
+\]
+and four numbers: its \emph{distance} $u=\ddia(\Psi,\Phi)$, its \emph{support leakage} $\ell=\Tr[(I-\Pi_\Phi)\cJ(\Psi)]$, its \emph{entropy
+production} $a=S(T(\rho))-S(\rho)$, and its \emph{bath entropy} $S=S(\rho)$. The round is \emph{flat} if $\rho=P_K/k$ is the normalized
+projection onto a subspace $K$ of dimension $k$, has \emph{zero leakage} if $\ell=0$, and is \emph{exact} if $\ell=0$ and $u=0$.
+\end{definition}
+
+The map $T$ is unital and trace preserving, so $a\ge0$. A round is one use of a device seen from inside: the bath is the memory, $\rho$ is its
+state when the input arrives, and $T(\rho)$ is the memory after a use with maximally mixed input. Leakage measures how far the round leaves
+the Kraus span of $\Phi$; entropy production measures how much the memory is stirred. The letter $a$ always denotes entropy production; group
+generators that are traditionally called $a$ and $b$ are written $\sfa,\sfb$.
+
+\subsection{Canonical untwisted anchored gadgets}\label{sec:gadgets}
+
+\begin{definition}[Canonical untwisted anchored gadget]\label{def:canonical-gadget}
+Choose a group $G$, a finite generating set $S$, and a finite list
+$R$ of words in $S^{\pm1}$, of length at least two, equal to $1$ in
+$G$. The list need not present $G$. Let the nonempty \emph{symbols} consist of the $2|S|$ formal
+signed letters and one tagged prefix $(i,j)$ for each word
+$r_i=\sigma_{i,1}\cdots\sigma_{i,m_i}\in R$ and
+$2\leq j<m_i$. Tags distinguish physical positions even when
+two prefixes name the same word or group element. Write
+$p_{i,1}=\sigma_{i,1}$, $p_{i,m_i}=\varnothing$, and let
+$p_{i,j}$ denote the tagged prefix for $2\leq j<m_i$.
+The triangle list is
+$(p_{i,j-1},\sigma_{i,j},p_{i,j})$, $2\leq j\leq m_i$,
+together with $(s,s^{-1},\varnothing)$, $s\in S$.
+Use exactly the scalar coefficients and block placement in
+\eqref{eq:canonical-unitary} below, with a singleton diagonal
+slot for the identity and for each nonempty symbol.
+
+The adjective \emph{canonical} refers to this fixed table and its
+regular-trace channel. \emph{Untwisted} means that triangle products
+are ordinary products: no projective phase or cocycle enters a
+label relation. The minus sign in each two-by-two block is part of
+the fixed table. \emph{Anchored} means that every distinct group
+label has a coefficient-$1$ diagonal slot whose row and column
+have no other slot. We also call these channels \emph{canonical gadgets}.
+If $s=|S|$, $r_0=|R|$ and $\Lambda=\sum_i m_i$, the table has
+$2s+\Lambda-2r_0$ nonempty symbols and
+$\Lambda-r_0+s$ triangles, hence
+$d=1+4s+3\Lambda-4r_0$.
+\end{definition}
+
+This is the construction of~\cite[Section~9]{DouglasMghirbiC}.
+Write $[w]$ for the element of $G$ represented by a symbol, so every
+triangle has $[x][y]=[z]$. Assign arbitrary unitaries $\lambda(w)$
+to the nonempty symbols and set $\lambda(\varnothing)=I$.
+The physical \emph{gadget unitary} is
+\begin{equation}\label{eq:canonical-unitary}
+U_\lambda=\diag\bigl(I,(\lambda(w))_w\bigr)\oplus\bigoplus_{(x,y,z)}\tfrac1{\sqrt2}\begin{pmatrix}I&\lambda(y)\\\lambda(x)&-\lambda(x)\lambda(y)\end{pmatrix},
+\end{equation}
+which is unitary for every unitary $\lambda$. The gadget channel evaluates the symbols in the left regular representation and traces out the
+group von Neumann algebra: $\Phi_G(X)=(\id\otimes\tau)[U_\lambda(X\otimes1)U_\lambda^*]$. Writing $U_\lambda=\sum_ac_aE_a\otimes\lambda([w_a])$ over the
+\emph{slots} $a$ (nonzero entries), the group elements $[w_a]$ are the \emph{labels}, $\cL$ is their set, and
+\[
+\Phi_G(X)=\sum_{g\in\cL}A_gXA_g^*,\qquad A_g=\sum_{[w_a]=g}c_aE_a .
+\]
+So every gadget channel is factorizable by construction, through
+$M_d\otimes L(G)$ with the trace $\tau_d\otimes\tau$ and the unitary
+$U_\lambda^*$, in the sense of
+Anantharaman-Delaroche~\cite{AnantharamanDelaroche2006}, in the unitary
+form of~\cite[Theorem~2.2]{HaagerupMusat2011}.
+The only question is whether it lies in the closure
+$\overline{\mathcal F}$ of finite tracial factorizations
+(Section~\ref{sec:services}).
+The $A_g$ have disjoint supports, so $r=|\cL|$ is the Choi rank. Every label has an \emph{anchor}: a diagonal slot $z_g$ with coefficient $1$
+whose row and column contain no other slot. Hence the \emph{label weights} $\mu_g=\nrm{A_g}_F^2/d$ satisfy $\mu_g\ge1/d$ and
+$\sum_g\mu_g=1$, and half of a maximally entangled state on the $r$ anchors is a flat probe of rank $r$~\cite[Section~9]{DouglasMghirbiC}.
+The labels are the actual distinct elements $\mathcal L\subseteq G$,
+rather than the words naming them. In particular equal words in $G$
+share a Kraus operator. The finite \emph{presented label group} is
+\[
+ P_\Phi=\langle v_g\ (g\in\mathcal L)\mid v_1=1,\
+ v_{[x]}v_{[y]}=v_{[z]}\text{ for every triangle }(x,y,z)\rangle .
+\]
+It is finitely presented and has the surjective homomorphism
+$q:P_\Phi\to\langle\mathcal L\rangle\leq G$, $q(v_g)=g$.
+This quotient need not be an isomorphism. All representation
+criteria below concern $P_\Phi$ and its named label set.
+A representation \emph{separates the labels} if it distinguishes
+$v_g$ and $v_h$ whenever $g\ne h$ in $\mathcal L$.
+
+A \emph{label chunk} $E$ is a finite subset of the presented label
+group containing these named labels, with partial multiplication
+$xy=z$ whenever $x,y,z\in E$ and that equality holds. Its
+\emph{sofic profile} $\sigma_E(s)$, $s>1$, is the least $N$ for
+which some map $f:E\to\Sym_N$ with $f(1)=\id$ has normalized Hamming
+multiplicative defect at most $1/s$ on defined products and
+distance at least $1-1/s$ between distinct elements, and $+\infty$ if
+there is none~\cite[Definitions~3.2 and~3.4]{Cornulier2013}. In
+Cornulier's terms such an $f$ is a $(1-s^{-1})$-expansive
+$s^{-1}$-morphism. In source-specific applications
+we specify whether $E$ is instead the image chunk in $G$.
+
+\paragraph{Example: a two-element group.}
+Take $G=\Z/2$ with generator $\sfa$, $S=\{\sfa\}$ and $R=\{\sfa^2\}$,
+so $s=r_0=1$ and $\Lambda=2$. The relator $\sfa\sfa$ has no tagged
+prefix, so the nonempty symbols are the two signed letters
+$\sfa,\sfa^{-1}$. The triangles are $(\sfa,\sfa,\varnothing)$ from the
+relator and $(\sfa,\sfa^{-1},\varnothing)$. Hence $d=1+2+2\cdot2=7$.
+In the regular representation $\lambda(\sfa)=\lambda(\sfa^{-1})=u$
+with $u^2=1$, and~\eqref{eq:canonical-unitary} reads
+\[
+ U_\lambda=\diag(1,u,u)\oplus\tfrac1{\sqrt2}\begin{pmatrix}1&u\\u&-1\end{pmatrix}
+ \oplus\tfrac1{\sqrt2}\begin{pmatrix}1&u\\u&-1\end{pmatrix}.
+\]
+The labels are $1$ and $\sfa$, so $r=2$. With the basis ordered as in
+this display, the Kraus operators are
+\[
+ A_1=E_{11}+\tfrac1{\sqrt2}(E_{44}-E_{55}+E_{66}-E_{77}),\qquad
+ A_{\sfa}=E_{22}+E_{33}+\tfrac1{\sqrt2}(E_{45}+E_{54}+E_{67}+E_{76}),
+\]
+and $A_1^*A_1+A_{\sfa}^*A_{\sfa}=I_7$. The slots $(1,1)$ and $(2,2)$ are
+anchors, so half of a maximally entangled state on
+$\spn\{\ket1,\ket2\}$ is a flat probe. The presented label group
+$P_\Phi$ is $\Z/2$ itself.
+
+\paragraph{Example: the Houghton gadget.}
+Take Johnson's presentation of $H_3$ in Section~\ref{sec:houghton}.
+The relator $\alpha^2$ contributes the single triangle
+$(\alpha,\alpha,\varnothing)$; the other relators contribute their
+successive prefixes in the same way. Its table has 33 nonempty symbols, 35 triangles, $d=104$ and
+$r=26$ actual labels. In particular $1$ and
+$\gamma=\alpha\sfa\alpha\sfa^{-1}$ have separate singleton anchors.
+The latter is a three-cycle in the action on the rays.
+This supplies both a physical channel and the finite presentation
+$P_{\Phi_H}$; here the full Johnson relators recover $H_3$ after
+eliminating prefix generators. Other gadgets use relations that
+hold in the group without presenting it. The configuration-lamp
+gadget is one: its presented label group is only known to map onto
+the group generated by its labels.
+
+\paragraph{Permutation rounds.} Let $f:\cL\to\Sym(\Omega)$ be any map with $f(1)=\id$ on a finite set $\Omega$, and let $U_f$ be the gadget
+unitary with $\lambda(w)$ the permutation matrix of $f([w])$; it is unitary although no relation need hold~\cite[proof of
+Proposition~12.1]{DouglasMghirbiC}. With a diagonal bath $\rho=\diag(p)$ this is a \emph{permutation round}. A point $\omega$ is
+\emph{triangle-good} if $f([x])f([y])\omega=f([z])\omega$ for every triangle, labels $g\ne h$ \emph{collide} at $\omega$ if
+$f(g)\omega=f(h)\omega$, and the round is \emph{free} if no labels collide on the points it uses. At a triangle-good point every slot of label
+$g$ sends $\omega$ to $f(g)\omega$, so $U_f(\xi\otimes\ket\omega)=\sum_gA_g\xi\otimes\ket{f(g)\omega}$. For a bath supported on triangle-good
+points, $S=H(p)$ and $a=H(\mathcal Tp)-H(p)$ with $\mathcal Tp=\sum_g\mu_gf(g)_*p$. The regular action of a group in which the gadget relations
+hold and the labels are distinct gives free permutation rounds with every bias.
+
+\begin{lemma}[Leakage of permutation rounds]\label{lem:perm-leak}
+In a permutation round with distance $u$ and leakage $\ell$, the pure-point round at $\omega$ has leakage $0$ if $\omega$ is triangle-good,
+whatever the collisions, and at least $1/(4d)$ otherwise; hence the bath gives mass at most $4d\ell$ to triangle-bad points. Moreover, for
+labels $g\ne h$, the bath gives mass at most $2u$ to the points where $g$ and $h$ collide.
+\end{lemma}
+
+\subsection{Causal services}\label{sec:services}
+
+We use the model of~\cite[Definition~2.3]{DouglasMghirbiB}. It extends the no-reset setting of Ryb\'ar and Ziman~\cite{RybarZiman2008},
+in which one fixed unitary acts on a finite memory and each use must induce the channel exactly on uncorrelated inputs. Here the unitaries may
+depend on the round, memory qubits may be exchanged, inputs may be adaptive and entangled, and the error is approximate and joint. The joint
+criterion matters: one fair bath bit controlling $I$ or $Z$ on every qubit repeats dephasing in their sense, but its joint error is at least
+$1-2^{1-n}$~\cite[Proposition~8.1]{DouglasClosedMemory}. A \emph{causal service} of $\Phi$ for $n$ rounds has a memory of $Q$ qubits in a
+fixed initial state $\beta_0$ and, in each round, a fixed unitary on the input and the memory, after which the output is released; after each
+round but the last, a prescribed set of memory qubits is exported for good and replaced by imported qubits in a fixed state, independent of
+everything else. An observer chooses the inputs adaptively, possibly entangled with quantum references of its own, and the \emph{error} is
+the largest half trace distance between the observer's final state and its final state with $n$ independent uses of $\Phi$. The resources are
+the memory $Q$, the \emph{exchange} $J$ (the number of exported qubits) and the \emph{purity} $P+C$, with $P=Q-S(\beta_0)$ and $C$ the sum over the
+imports of their number of qubits minus their entropy. Every retained qubit counts.
+
+The prescribed exchange takes place \emph{between rounds}; this is
+the between-round service contract used throughout, except for the
+explicit timing extension in Theorem~\ref{thm:qutrit-purity}.
+A \emph{public service} has its unitaries, schedule and imported
+states described to the observer, and no uncounted runtime seed is
+supplied. Randomness in the specified mixed source states is allowed
+and counted in the purity. The description does not reveal the
+samples drawn from such sources.
+A \emph{chronological compiler} turns a one-round
+response family into such a service, releasing each output before
+the next round and charging every workspace and clock qubit.
+In the language
+of quantum strategies, the observer error is one half of the full
+strategy discrimination norm: equal-prior discrimination succeeds
+with probability $1/2+\Delta/2$ when our error is $\Delta$
+\cite[Definition~1 and Section~3.3]{Gutoski2012}.
+
+A channel has a \emph{finite tracial factorization} if $\Psi(X)=(\id\otimes\tau_M)[U(X\otimes I_M)U^*]$ for a unitary $U$ on $\C^d\otimes\C^M$;
+the bath dimension is $M$. Write $\mathcal F_m$ for the channels with a finite tracial factorization of bath dimension at most $m$, and
+$\overline{\mathcal F}$ for the closure of their union. Finite tracial factorizations are the noisy operations
+of~\cite{HorodeckiHorodeckiOppenheim2003}, and $\overline{\mathcal F}$ is the closed set of noisy operations
+of~\cite{GourEtAl2015}. The finite mixtures of finite tracial factorizations are the strongly factorizable channels
+of~\cite{LieSonBoesNgWilming2026}, and $\overline{\mathcal F}$ is their closure. By a theorem of
+Haagerup and Musat, $\overline{\mathcal F}$ consists of the factorizable channels, in the unitary form of~\cite[Theorem~2.2]{HaagerupMusat2011}, that admit an
+exact factorization through $M_d\otimes N$ for some tracial von Neumann algebra $N$ with a trace-preserving embedding into an ultrapower of the
+hyperfinite $\mathrm{II}_1$ factor, and whether it contains every factorizable channel is equivalent to the Connes embedding
+problem~\cite[Theorems~3.6 and~3.7]{HaagerupMusat2015}. Gadget channels of hyperlinear groups lie in the closure: the regular
+group trace has matrix approximants, which realize the fixed table.
+This uses the theorem that the group von Neumann algebra of a countable
+group embeds in $\mathcal R^\omega$ exactly when the group is
+hyperlinear~\cite[Theorem~8.5]{Pestov2008}; Pestov credits it to
+Kirchberg~\cite{Kirchberg1994} and
+R\u adulescu~\cite[Proposition~2.5]{Radulescu2002}, among others.
+Haagerup--Musat's characterization applies
+\cite[Theorem~3.6]{HaagerupMusat2015}. More generally the criterion
+is separation of the finite labels of $P_\Phi$ in
+$U(\mathcal R^\omega)$, as stated in Section~\ref{sec:classification}. For a gadget channel in the closure,
+$\frac12\log r$ qubits per use is the optimal exchange rate~\cite[Propositions~3.1 and~9.1]{DouglasMghirbiB}. We work at this rate: a service is at the \emph{rank rate} if $J\le\frac n2\log r$, and
+$\Qs(n,\epsilon)$ denotes the least memory of a rank-rate service of $\Phi$ for $n$ rounds with error at most $\epsilon$, with any purity.
+
+We write $\Qf(n,\epsilon)$ when imports are required to be flat ($C=0$), with the sharper schedule
+$J\le\lfloor(n-1)\log r/2\rfloor$. The explicit upper constructions meet this contract. Initial purity is always
+charged as $P=Q-S(\beta_0)$ and may be as large as the retained memory.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+\toprule
+Symbol & Meaning\\
+\midrule
+$Q,J,P,C$ & Retained qubits, replacement slots counted once, initial entropy deficit, imported entropy deficit\\
+$u,\epsilon$ & One-round half-diamond error; complete adaptive-experiment half trace distance\\
+$S,a,\ell$ & Source entropy; Choi-input bath entropy production; normalized-Choi support leakage\\
+$L^*_\Phi,Z_\Phi,U_\Phi$ & Leaky entropy cost; exact-support entropy cost; exact rectangular rank cost\\
+$\mathcal F_m,\overline{\mathcal F}$ & Channels with a finite tracial factorization of bath dimension at most $m$; closure of their union\\
+$D_{\rm mix,\Phi}$ & Approximation profile using finite mixtures of finite tracial factorizations\\
+$B_g,\mu_g$ & Response isometries; fixed Choi weights $\|A_g\|_F^2/d$\\
+\bottomrule
+\end{tabularx}
+\caption{Notation used across the main results. Entropies are in bits.}\label{tab:notation}
+\end{table}
+
+\subsection{Profiles}
+
+\begin{definition}[Two-scale profiles]\label{def:profile}
+For $n\ge1$, $u\ge0$ and $\ell_0\ge0$ put
+\[
+L_\Phi(n;u,\ell_0)=\inf\bigl\{S(\rho)+n\,a:\ (U,\rho)\text{ a round of }\Phi\text{ with distance}\le u\text{ and leakage}\le\ell_0\bigr\},
+\]
+over rounds with any finite bath, and $L_\Phi(n,\epsilon)=L_\Phi(n;\epsilon,\tfrac{32}{15}\epsilon/n)$. The \emph{two-scale profile} is
+\[
+\Ls(n)=L_\Phi\bigl(n;\tfrac1{16},\tfrac2{15n}\bigr).
+\]
+For a class $\mathcal C$ of rounds, $L^{\mathcal C}(n;u,\ell_0)$ is the same infimum over rounds of $\mathcal C$.
+\end{definition}
+
+The distance $\frac1{16}$ and the leakage $\frac2{15n}$ are the values that Theorem~\ref{thm:lower} obtains from a service with error at most
+$\frac1{16}$, using the extraction theorem with $\lambda=2$. The bath entropy and the entropy production enter at different scales: the constraint on leakage is read at
+$1/n$, while entropy production is charged $n$ times.
+
+\begin{remark}[An upper comparison with the hyperlinear profile]\label{rem:hyperlinear-upper}
+Let $E$ be a label chunk in $P_\Phi$. In the convention of
+Slofstra--Vidick~\cite[Definition~7.1]{SlofstraVidick2018},
+$\eta(E;\delta,e)$ is the least unitary dimension with normalized
+Frobenius multiplicative defect at most $e$ and pair separation at
+least $\delta$. Their conditions (defects on all products in $E$,
+separation of all distinct pairs, $\phi(1)=I$) are stronger than the
+triangle and label conditions used here, so the bound below applies. For a canonical untwisted anchored gadget, constants
+$t_\Phi\in\mathbb N$ and $c_\Phi>0$ give
+\[
+ L^*_\Phi(n)\leq L^{\rm flat}_\Phi(n;1/16,2/(15n))
+ \leq t_\Phi\log_2\!\left(4\eta(E;1,c_\Phi/\sqrt n)\right).
+\]
+The constructed round is a finite tracial factorization, so its
+production is zero. Fixed
+amplification pays only the displayed logarithmic dimension cost;
+Appendix~\ref{app:hyperlinear-upper} proves the comparison.
+This is a one-sided flat-round bound, rather than an equivalence with
+sofic profiles or with biased or rectangular source costs.
+\end{remark}
+
+The profile of~\cite[Remark~5.3]{DouglasMghirbiB} reads a round under the single budget $\ell+a\le v$. At the rank rate the budget that a
+service supplies is of order $(Q+\log n)/n$, which is far above the error scale $1/n$ for leakage and is exactly the cost scale for entropy
+production; reading both quantities at one scale is what the two-scale profile avoids.
+
+\begin{lemma}[Monotonicity]\label{lem:monotone}
+$L_\Phi(n;u,\ell_0)$ is nonincreasing in $u$ and in $\ell_0$, and $L_\Phi(n,\epsilon)\ge\Ls(n)$ for $0<\epsilon\le\frac1{16}$. If
+$0<c_1\le c$ and $K\ge c/c_1$, then $L_\Phi(n;u,c_1/n)\le L_\Phi(Kn;u,c/(Kn))$.
+\end{lemma}
+
+So an upper bound proved at leakage $c_1/n$ instead of $c/n$ costs a constant rescaling of $n$, which is harmless for profiles that grow at
+most polynomially.
+
+\begin{proposition}[The linear ceiling]\label{prop:ceiling}
+Every channel $\Phi$ with Choi rank $r$ has, for all $n\ge1$, a causal service with error $0$, exchange $J=0$ and memory $Q=n\lceil\log r\rceil$.
+In particular $\Qs(n,\epsilon)\le n\lceil\log r\rceil$.
+\end{proposition}
+
+This is the $n$-cell construction of Ryb\'ar and Ziman~\cite[Section~III]{RybarZiman2008}, with minimal pure Stinespring environments.
+
+The same device read as a round shows $\Ls(n)\le n\log r$: the Stinespring dilation with a pure environment of dimension $r$ is an exact round
+with $S=0$ and $a\le\log r$. So both sides of the law lie between $0$ and $n\lceil\log r\rceil$. The profile is sublinear only through
+rounds with $a=o(1)$, and a round with $a\ge1/\mathrm{polylog}(n)$ already costs at least $n/\mathrm{polylog}(n)$.
+
+\subsection{Dilations}
+
+\begin{definition}[Rectangular dilations~{\cite[Theorem~12.2]{DouglasMghirbiC}}]\label{def:dilation}
+Maps $B_1,\dots,B_r:\C^k\to\C^{k'}$, $k\le k'$, form an \emph{exact rectangular dilation} of $\Phi$ if $W=\sum_iA_i\otimes B_i$ is an isometry,
+$\Tr(B_i^*B_j)=k\,\delta_{ij}$ and $\sum_iB_i^*B_i=r\,I_k$. Its \emph{room} is $\log(k'/k)$, and
+\[
+U_\Phi(n)=\inf\bigl\{\log k+n\log(k'/k)\bigr\}
+\]
+over exact rectangular dilations.
+\end{definition}
+
+For a gadget channel, maps $B_g$ indexed by the labels form a \emph{gadget family} if they satisfy the identities of
+Lemma~\ref{lem:dilation}(a). Its \emph{flat Gram} is the matrix $(\tau_k(B_g^*B_h))_{g,h}$.
+
+\begin{lemma}[Gadget dilations]\label{lem:dilation}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item For a gadget channel and maps $B_g:\C^k\to\C^{k'}$, $W=\sum_gA_g\otimes B_g$ is an isometry if and only if every $B_g$ is an isometry and
+$B_1^*B_{[y]}=B_{[x]}^*B_{[z]}$ for every triangle $(x,y,z)$. Then $\sum_gB_g^*B_g=rI$, and replacing every $B_g$ by $VB_g$ with $V$ unitary
+changes nothing; so one may take $B_1$ to be the inclusion of $\C^k$.
+\item If $\Phi$ has a flat probe, then $W^*W=I$ implies $\sum_iB_i^*B_i=rI_k$.
+\item An exact rectangular dilation gives an exact round with bath dimension $k'$, $S=\log k$ and $a\le\log(k'/k)$. Hence
+$L_\Phi(n;0,0)\le U_\Phi(n)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{lemma}[Zero-leakage rounds are exact on their support]\label{lem:zero-leak}
+Let $(U,\rho)$ be a round of $\Phi$ with $\ell=0$, and $K=\supp\rho$. There are operators $X_i$ on $\C^M$ with
+$U(\xi\otimes\kappa)=\sum_iA_i\xi\otimes X_i\kappa$ for all $\xi\in\C^d$ and $\kappa\in K$. Thus $W=\sum_iA_i\otimes X_i|_K$ is an isometry
+and $\Psi(X)=\sum_{i,j}\Tr(\rho X_j^*X_i)\,A_iXA_j^*$. With a flat probe, $\sum_iX_i^*X_i=rI$ on $K$. For a gadget channel the restrictions
+$X_g|_K$ form a gadget family, and its \emph{weighted Gram} $G_{gh}=\Tr(\rho X_g^*X_h)$ satisfies $|G_{gh}|\le2u$ for $g\ne h$.
+\end{lemma}
+
+The expansion of $U$ is the finite form of the coefficient expansion in~\cite[Theorem~2.2]{HaagerupMusat2011}.
+
+So a flat round with zero leakage is a gadget family with exact identities whose flat Gram is off the identity by at most $2u$, and at $u=0$ it
+is an exact rectangular dilation. What separates a zero-leakage round from a rectangular dilation is only the bias of its bath and the size of
+its output space. Lemmas~\ref{lem:perm-leak}--\ref{lem:zero-leak} and Proposition~\ref{prop:ceiling} are proved in Appendix~\ref{app:lower}.

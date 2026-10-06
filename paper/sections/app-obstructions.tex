@@ -1,0 +1,56 @@
+%======================================================================
+\section{Proofs for Section~\ref{sec:obstructions}}\label{app:obstructions}
+%======================================================================
+
+\begin{proof}[Proof of Theorem~\ref{thm:global-haar}]
+(a) $B_\sfa^*B_\sfa=\cos^2\vartheta\,U^*U+\sin^2\vartheta\,U^*U=I$, and likewise for the others. $B_1^*B_{\sfa^{-1}}=\cos\vartheta\,U^*=B_\sfa^*B_1$ is the identity of the triangle
+$(\sfa,\sfa^{-1},\varnothing)$. $\Tr(B_1^*B_{\sfa^{\pm1}})=\cos\vartheta\Tr U^{\pm1}=0$ and $\Tr(B_\sfa^*B_{\sfa^{-1}})=\cos2\vartheta\Tr U^{-2}=0$ for $k\ge3$, so the traces are exact, and the
+span of the images is $\C^{2k}$ since $\sin\vartheta\ne0$. For the flat round, $T(I/k)=\sum_g\mu_gB_gB_g^*/k$, since the $A_g$ have disjoint supports, and the off-diagonal blocks
+$\pm0.3\cos\vartheta\sin\vartheta\,I$ cancel: $T(I/k)=\diag((1-0.6\sin^2\vartheta)I_k,0.6\sin^2\vartheta\,I_k)/k$, so $a=h_2(0.6\sin^2\vartheta)$.
+
+(b) Let $J$ be an isometry onto $\mathcal A$. The cosines of the principal angles between $Y_1$ and $Y_\sfa$ are the singular values of
+$J^*(B_1\otimes I)^*(B_\sfa\otimes I)J=\cos\vartheta\,J^*(U\otimes I)J$, a compression of a unitary, so all principal angles are at least $\vartheta$. On $Y_1+Y_\sfa$ the operator
+$X=(P_{Y_1}+P_{Y_\sfa})/2$ has the eigenvalues $(1\pm\cos\varphi_i)/2$, $\varphi_i\ge\vartheta$, and the two eigenvalues of each pair sum to $1$. Write $c=\cos\vartheta$. The sum of the
+$D+m$ largest eigenvalues ($0\le m\le D$) is at most $m+(D-m)(1+c)/2=D(1+c)/2+m(1-c)/2$, and the sum of the $D'$ largest ($D'\le D$) is at most $D'(1+c)/2$. The hypothesis gives
+$\Tr(\Pi X)\ge(1-\eta)D$, and Ky Fan's maximum principle~\cite[Theorem~1]{Fan1949} bounds $\Tr(\Pi X)$ by the sum of the $\rank\Pi$ largest eigenvalues of $X$. If
+$\rank\Pi\ge2D$ there is nothing to prove. If $\rank\Pi=D+m$ with $0\le m\le D$, then $m\ge D(1-2\eta/(1-c))$. If $\rank\Pi=D'\le D$, then $D'\ge2(1-\eta)D/(1+c)$ and
+$\eta\ge(1-c)/2$; and $2(1-\eta)/(1+c)-(2-2\eta/(1-c))=2c(c-1+2\eta)/(1-c^2)\ge0$, so again $\rank\Pi\ge D(2-2\eta/(1-c))$. In the device
+of~\cite[Theorem~12.2]{DouglasMghirbiC} the round-one memory is $I/D_0$ on the active space $\mathcal A_0$, unchanged by $V_1$, and by (F1) the anchor input of $g$ leaves the memory
+in $(B_g\otimes I)(I/D_0)(B_g\otimes I)^*=P_{Y_g}/D_0$.
+
+(c) For a gadget channel $\Tr(A_h^*A_g)=d\mu_g\delta_{gh}$, so with maximally mixed input a round maps $\sigma$ to $\sum_g\mu_g(B_g\otimes I)V\sigma V^*(B_g\otimes I)^*$, and
+$\Tr\sigma'^2=\sum_{g,h}\mu_g\mu_h\Tr(V\sigma V^*Y_{gh}V\sigma V^*Y_{gh}^*)$ with $Y_{gh}=B_g^*B_h\otimes I$. For $g=h$ the term is $\Tr\sigma^2$. For Haar $V$ on dimension $N$,
+$\E[(V\sigma V^*)^{\otimes2}]=\alpha I+\beta\mathrm F$ with $\mathrm F$ the swap, $\alpha=(1-\Tr\sigma^2/N)/(N^2-1)$ and $\beta=(\Tr\sigma^2-1/N)/(N^2-1)$, so
+$\E\Tr(V\sigma V^*YV\sigma V^*Y^*)=\alpha\Tr(YY^*)+\beta|\Tr Y|^2$. Exact traces give $\Tr Y_{gh}=0$ for $g\ne h$, and $\Tr(YY^*)\le N$, so the cross terms are at most
+$N/(N^2-1)\le2/N$. This proves the recursion, since the unitaries after the round do not change the spectrum and an export followed by a flat import cannot increase the
+purity: $\Tr((\Tr_e\sigma)^2)/e\le\Tr\sigma^2$. Unrolling with $N_s\ge D_0q^s$ and $\Tr\sigma_1^2\le\Tr\sigma_0^2=1/D_0$,
+$\E\Tr\sigma_t^2\le s_2^{t-1}/D_0+\sum_{u=1}^{t-1}2s_2^{t-1-u}/(D_0q^u)\le3q^{-(t-1)}/(D_0(1-qs_2))$. By Markov's inequality, with probability at least $\frac12$,
+$\Tr\sigma_t^2\le6q^{-(t-1)}/(D_0(1-qs_2))$. For $\Pi$ with $\Tr(\Pi\sigma_t)\ge1-\eta$, Cauchy--Schwarz gives $(1-\eta)^2\le(\Tr\Pi\sigma_t\Pi)^2\le\rank\Pi\cdot\Tr\sigma_t^2$, and
+$D_t\le2q^tD_0$~\cite[proof of Theorem~12.2]{DouglasMghirbiC} finishes.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:second-order}]
+The thin rounds of Theorem~\ref{thm:twisted}(b) have distance at most $2\pi F\sqrt d/N^2\le\frac1{16}$ for large Fibonacci $N$. A rounding with $S'\le S+C_0$ and
+$a'\le a+C_1\ell\log(1/\ell)$ is the case $\lambda=\gamma=m=1$ of Theorem~\ref{thm:twisted}(b), which requires $\lambda\ge2\gamma$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:square}]
+(a) The rounds of Lemma~\ref{lem:thin} are square. A zero-leakage square round has $B_gK\subseteq K$, so its $B_g$ are unitaries of $K$; replacing each $B_g$ by $B_1^*B_g$, which leaves every
+$B_g^*B_h$ unchanged, gives $B_1=I$, and
+Lemma~\ref{lem:zero-leak}, with the phases of $\Phi_\omega$, gives $B_{[y]}=\zeta_tB_{[x]}^*B_{[z]}$ on every triangle. As in the proof of Theorem~\ref{thm:twisted}(a), now with exact
+identities, the commutator $C=B_\sfb B_\sfa^*B_\sfb^*B_\sfa$ equals $\bar\omega I$, and $\det C=1$ gives $\bar\omega^k=1$, which is impossible for irrational $\theta$.
+
+(b) The smoothed rounds of~\cite[Proposition~4.14]{DouglasMghirbiB} are gadget unitaries of unitary assignments on a finite space, hence square, with flat baths, so $a=0$; their
+distance is at most $\frac1{16}$ and their leakage tends to $0$. A zero-leakage square round at distance below $\frac12$ would, by Lemma~\ref{lem:vacuous}, give a finite-dimensional
+representation of $P_\Phi$ that separates the labels. Composed with the homomorphism $H_3\to P_\Phi$ that sends each generator to its label (the relators map to $1$ by chaining
+the triangles along them, and the word $\alpha\sfa\alpha\sfa^{-1}$ maps to the label $\gamma$), it would separate $\gamma$ from $1$ in a finite-dimensional representation of $H_3$,
+which Remark~\ref{rem:houghton-map} excludes. The same argument excludes zero-leakage square rounds at distance below
+$\frac12$ for every gadget channel whose labels no finite-dimensional representation separates.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:sixth}]
+By~\cite[Proposition~4.4]{DouglasMghirbiB}, $A^*(3N)\ge(3N)^2/16$ when $3N\ge23$, so for $N\ge8$ condition~\eqref{eq:amplification} forces
+$10^8\cdot2^{17}\cdot\frac9{16}N^{5/2}\sqrt\nu\le1$, that is $N\le(16/(9\cdot10^8\cdot2^{17}))^{2/5}\nu^{-1/5}=7.13\cdot10^{-6}\nu^{-1/5}$. At the rank rate, Theorem~\ref{thm:extraction}
+with $\lambda=2$ and Proposition~\ref{prop:purity} give a round with $\nu\le\frac{32}{15}(3Q+7+\log n)/n$, so the method certifies at most $Q\ge S(\rho)\ge N/16$ with
+$N\lesssim((Q+\log n)/n)^{-1/5}$, that is $Q^{6/5}\lesssim n^{1/5}$ up to logarithms: at most $Q$ of order $n^{1/6}$.
+\end{proof}

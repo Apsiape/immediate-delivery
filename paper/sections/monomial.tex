@@ -1,0 +1,94 @@
+%======================================================================
+\section{A bounded mixture profile for phased monomial dynamics}\label{sec:monomial}
+%======================================================================
+
+This appendix isolates a tractable structured case of the mixture
+profile used in Section~\ref{sec:closure}. For phased-monomial
+dynamics, a finite tile description bounds each component bath
+uniformly in the approximation accuracy. The argument concerns
+mixtures, not a bounded exact single-factor realization.
+
+Fix product bases on $\C^d\otimes\C^M$. A phased-monomial unitary has exactly one nonzero entry of modulus one in each row and column.
+Let $\mathcal C_{\rm mon}(d)$ be its reduced channels with bath $I_M/M$, for arbitrary finite $M$, and let
+$\mathcal F_B^{\rm mon}$ be finite convex mixtures of such factors with component bath dimension at most $B$.
+
+\begin{theorem}[Bounded exact mixture]\label{thm:monomial-mixture}
+Put
+\[
+ E(d)=\sum_{k=1}^d\binom dk^2k!,\qquad
+ B(d)=d\left\lceil(d+1)^{(E(d)+1)/2}\right\rceil .
+\]
+Then $\mathcal C_{\rm mon}(d)\subseteq\mathcal F_{B(d)}^{\rm mon}$, this latter set is compact, and
+$\overline{\mathcal C_{\rm mon}(d)}=\mathcal F_{B(d)}^{\rm mon}$.
+Every member is a mixture of at most $d^4+1$ components. In particular, for every $\Phi\in\overline{\mathcal C_{\rm mon}(d)}$,
+\[
+ D_{J,\Phi}(\gamma)\le\left\lceil(d^4+1)B(d)/\gamma\right\rceil,\qquad 0<\gamma\le1.
+\]
+No bounded exact single-factor bath is asserted.
+\end{theorem}
+\begin{proof}
+An edge label $e$ is a nonempty partial bijection $A_e\to B_e$ of subsets of $[d]$; there are $E(d)$ labels.
+An input tile is a collection of labels whose domains partition $[d]$, an output tile one whose ranges partition $[d]$.
+Each contains at most $d$ edges; repeated labels inside a tile are impossible.
+For a monomial unitary, group the system slots of an input bath point $b$ by their output bath point $y$.
+Each group gives one edge, and the resulting input tile is $T_b$. Reversing the grouping gives the output tiles $S_y$.
+
+Let $x_T,y_S$ be normalized tile counts. They lie in the rational polytope
+\[
+ x,y\ge0,\quad\sum_Tx_T=1,\quad
+ \sum_{T:e\in T}x_T=\sum_{S:e\in S}y_S\quad(e\text{ any edge}).
+\]
+Multiplying these balances by $|A_e|$ and summing gives $\sum_Sy_S=1$, so the polytope is compact.
+The constraint matrix has $E(d)+1$ rows, entries $0,\pm1$, and each column has Euclidean norm at most $\sqrt{d+1}$.
+A vertex has at most $E(d)+1$ positive coordinates with independent columns.
+Selecting a nonsingular square minor and using Cramer's rule and Hadamard's determinant bound gives a common denominator
+\[
+ D\le\left\lceil(d+1)^{(E(d)+1)/2}\right\rceil .
+\]
+Realize $Dx_T$ input points and $Dy_S$ output points. Pair equally labelled edge stubs using the balances.
+This gives a bipartite multigraph, but parallel edges between a pair of bath points must not be left as separate Kraus terms:
+they would create coherences absent from the tile formula.
+
+Take a $d$-fold cyclic cover. For every parallel-edge family assign distinct shifts in $\Z_d$; there are at most $d$ edges in a family.
+An edge with shift $a$ joins $(b,t)$ to $(y,t+a)$.
+Thus no covered bath pair carries two edges. The domain partition at each input and range partition at each output make the covered
+system--bath map a genuine permutation unitary, with bath dimension $dD\le B(d)$.
+
+For a tile $T$ and phases $|z_s|=1$, define
+\[
+ V_{e,z}=\sum_{s\in A_e}z_s\ket{e(s)}\bra s,\qquad
+ \mathcal E_{T,z}(X)=\sum_{e\in T}V_{e,z}XV_{e,z}^* .
+\]
+The original channel is $\sum_Tx_T\overline{\mathcal E}_T$, where the bar is the conditional phase average over input bath points with tile $T$.
+This identity includes all coherences. Decompose $(x,y)$ into vertices of the tile polytope.
+For each vertex realization, sample independently at its covered input points the original conditional phase law of that point's tile.
+Because the cover separates bath pairs, its expected channel is exactly the corresponding vertex tile average.
+Averaging vertices recovers the original channel.
+
+For bath sizes up to $B(d)$ there are finitely many permutations and compact phase tori; their channels form a compact set.
+Its convex hull is compact in the finite-dimensional real channel space, and Carath\'eodory reduces the averages to at most $d^4+1$
+actual components. This proves containment and compactness.
+Conversely every finite mixture of these components is approximated by block copies of finite tracial factorizations with identity filler
+(Lemma~\ref{lem:mixture-flat}), which are again phased monomial. This proves the closure equality and single-factor profile bound.
+\end{proof}
+
+\begin{corollary}[Product-diagonal-preserving finite-radius dynamics]\label{cor:monomial-qca}
+Consider a reversible finite-radius quantum cellular automaton on a finite-dimensional lattice with product trace.
+If it preserves the product diagonal maximal abelian algebra, every finite-time reduced channel of a fixed $d$-dimensional probe,
+and every ordinary or Ces\`aro limit of these channels, belongs to $\mathcal F_{B(d)}^{\rm mon}$.
+\end{corollary}
+\begin{proof}
+At any finite time the probe matrix algebra embeds into a finite window $M_d\otimes M_M$.
+The images $w_{ab}$ of its matrix units are \emph{partial} normalizers of the window diagonal algebra, not generally unitaries.
+Since $w_{aa}$ is diagonal and $w_{ab}$ is a partial isometry normalizing diagonals, it has at most one nonzero entry per row and column,
+each of modulus one. Trace preservation gives $\rank w_{aa}=M$.
+Choose a basis $\{v_b\}_{b=1}^M$ of $\operatorname{ran}w_{11}$ from the preferred window basis.
+The vectors $w_{a1}v_b$ form that full basis up to phases, so
+$W\ket{a,b}=w_{a1}v_b$ is a phased-monomial unitary implementing the embedding.
+Theorem~\ref{thm:monomial-mixture} applies, and compactness passes to limits and time averages.
+\end{proof}
+
+This statement concerns maximally mixed baths and a specified product diagonal algebra. It does not prohibit a hard channel from Gaussian baths
+with arbitrary non-Gaussian controllers, from blocked or dressed diagonal structures, or from general quantum local dynamics.
+Physically incoherent operations have a related projector--phase-permutation description~\cite{ChitambarGour2016}; the theorem's bath
+cap and exact-mixture assertion are stated without a priority claim.

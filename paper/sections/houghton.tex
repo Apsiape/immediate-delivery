@@ -1,0 +1,179 @@
+%======================================================================
+\section{Houghton's channel}\label{sec:houghton}
+%======================================================================
+
+Houghton's group $H_3$~\cite{Houghton1978} is finitely presented~\cite{Brown1987}.
+Let $\Phi_H$ be the gadget channel of Johnson's presentation of $H_3$~\cite{Johnson1999},
+\[
+H_3=\langle\sfa,\sfb,\alpha\mid \alpha^2,\ (\alpha\sfa\alpha\sfa^{-1})^3,\ [\alpha,\sfa^2\alpha\sfa^{-2}],\ \sfa\sfb\sfa^{-1}\sfb^{-1}\alpha^{-1},\
+\sfa\alpha\sfa^{-1}\sfb\alpha^{-1}\sfb^{-1}\rangle ,
+\]
+as in~\cite[Section~4]{DouglasMghirbiB}: $d=104$ and $r=26$ labels. Houghton's group has a chunk whose sofic profile~\cite[Definition~3.4]{Cornulier2013} is not bounded by any
+polynomial~\cite[Theorem~1.1 and Corollary~1.2]{DouglasMghirbiA}. Through
+the far-commutator area bound~\cite[Theorem~3.2]{DouglasMghirbiA}, the one-round theorem of~\cite{DouglasMghirbiB} gives memory at least $c\,n^{1/(2\log107+2)}$ at the rank rate, an exponent of about $0.06459$,
+and devices reach $n^{1/3}$ up to logarithms~\cite[Corollary~6.7]{DouglasMghirbiB} (Remark~\ref{rem:general-houghton}). This section shows that the exponent is $\frac13$ for devices whose rounds act through the group
+itself, by two independent lower bounds, and that for general devices both the two-scale law and the exponent $\frac13$ come down to one lower
+bound on $\Ls_{\Phi_H}$.
+
+\begin{remark}[No finite-dimensional separating representation]\label{rem:houghton-map}
+Every finite-dimensional unitary representation of $H_3$ is trivial on the finitary alternating group: for $n\ge5$ the simple group $\Alt(n)$
+embeds in $H_3$, and a faithful image in $U(D)$ would be a finite subgroup with no nontrivial abelian normal subgroup, whose order Jordan's
+theorem bounds in terms of $D$~\cite{Jordan1878}. The label $\gamma=[\alpha\sfa\alpha\sfa^{-1}]$ is a three-cycle, so every finite-dimensional
+representation identifies it with the label $1$, and Corollary~\ref{cor:map} does not apply. By Lemma~\ref{lem:vacuous}, no zero-leakage round of
+$\Phi_H$ at distance below $\frac12$ is square.
+\end{remark}
+
+\subsection{Genuine rounds}
+
+\begin{definition}[Representation rounds]\label{def:genuine}
+Let $\pi$ be a unitary representation of the free group on $\sfa,\sfb,\alpha$ on a Hilbert space $H$, and $U_\pi$ the gadget unitary of $\Phi_H$
+with each symbol $w$ evaluated as $\pi(w)$ and the lower right slot of a triangle $(x,y,z)$ as $-\pi(x)\pi(y)$. A \emph{representation round} is a
+round $(U,\rho)$ in which $\rho$ is a finite-rank state on $H$ with support $K$, and $U$ is a unitary on $\C^d\otimes V$ that extends $U_\pi$ on
+$\C^d\otimes K$, for a finite-dimensional $V\subseteq H$ containing $K$ and $\pi(w)K$ for every slot word $w$. It is \emph{genuine} if $\pi$ factors
+through $H_3$.
+\end{definition}
+
+Every $H_3$-set with a finitely supported law gives a genuine round, and the regular action gives exact ones with every bias. For $\xi=\sqrt\rho$ and
+an operator $W$ we use the displacement $E(W)=\nrm{(W-I)\xi}_F$ and the centrality defect $\chi(W)=\nrm{W\xi-\xi W}_F$
+of~\cite[Appendix~C.1]{DouglasMghirbiC}. Put $\gamma=\alpha\sfa\alpha\sfa^{-1}$ and, for $i\ge0$, the \emph{copies}
+$c_i=\pi(\sfa^{3i}\gamma\sfa^{-3i})$ and $x_i=\pi(\sfa^{3i}\alpha\sfa^{-3i})$, with $\Delta_i=E(c_i)$, $\theta_i=\chi(c_i)$ and $\eta_i=\chi(x_i)$. In
+$H_3$ these are a three-cycle and a transposition on the triple of consecutive points of the line through the first two rays shifted by
+$3i$, so the copies generate commuting copies of $S_3$.
+
+\begin{lemma}[Exact local sector bound]\label{lem:sector}
+Let $c_i,x_i$ ($0\le i<N$) be unitaries on a Hilbert space with $c_i^3=x_i^2=I$, $x_ic_ix_i=c_i^{-1}$, and $c_i,x_i$ commuting with $c_k$ for
+$k<i$. For every state $\rho$ of finite rank,
+\[
+S(\rho)\ \ge\ \sum_i\Bigl[\frac{\Delta_i^2}3-\frac{\eta_i^2}{2\ln2}-h_2\Bigl(\frac{\theta_i^2}3\Bigr)-\frac{\theta_i^2}3\Bigr].
+\]
+\end{lemma}
+
+Each copy pays only its own centrality. In the weighted sector bound of~\cite[Theorem~C.6]{DouglasMghirbiC} the copies commute only approximately
+and the bound carries row sums over all pairs; here they commute exactly and the row sums disappear. Equality holds for the flat state on a tensor
+product of standard representations of $S_3$.
+
+\begin{lemma}[Centrality from entropy production]\label{lem:centrality}
+In every representation round, $\chi(\pi(w))\le2\sqrt{d\,a\ln2}$ for every symbol $w$.
+\end{lemma}
+
+\begin{theorem}[Genuine rounds cost $n^{1/3}$]\label{thm:genuine}
+A genuine round of $\Phi_H$ at distance at most $1/8$ has
+\[
+ S(\rho)+1\geq c_Ha^{-1/2},\qquad
+ S(\rho)+na+1\geq c'_Hn^{1/3},
+\]
+for fixed positive constants. More generally, a representation
+round obeys the same entropy mechanism up to the number
+$N_{\rm ex}$ of copies satisfying the exact local sector relations:
+with $\delta_{\rm cent}=\max\{\chi(\pi(\sfa)),\chi(\pi(\alpha))\}$,
+\[
+ S(\rho)+1\geq c_H\min\{N_{\rm ex},\delta_{\rm cent}^{-1}\},\qquad
+ \delta_{\rm cent}\leq2\sqrt{104\ln2\,a}.
+\]
+The explicit constants are in Theorem~\ref{thm:genuine-constants}.
+\end{theorem}
+
+In particular no genuine round at distance $\frac18$ has $a=0$, and a round with $S+n\,a\le n^{1/3-\delta}$ is not a representation round in which the
+copies up to distance of order $a^{-1/2}$ commute exactly.
+
+\subsection{Genuine devices}
+
+A round unitary $U$ is \emph{genuine on} a memory subspace $V$ if there are a genuine representation $\pi$ on $H$, an isometry $J:V\to H$ and an
+isometry $R$ from $\spn\{\pi(w)JV\}$ into the memory with $U(\xi\otimes v)=(I\otimes R)U_\pi(\xi\otimes Jv)$; memory unitaries before and after the
+round are absorbed in $J$ and $R$. A causal service of $\Phi_H$ is \emph{genuine with discard $\delta$} if every round unitary $U_t$ is genuine on some
+$V_t$ and, for the observer that tests the support in every round (the observer of Theorem~\ref{thm:extraction}), the memory has mass at most
+$(1-\epsilon)\delta$ outside $V_t$ at the start of every round $t$. Devices that store points of an $H_3$-set and apply the gadget to them, with any
+processing of the bath between rounds (permutations of points and slots, block twirls, re-folds, exports), are genuine on their windows.
+
+\begin{theorem}[Genuine services]\label{thm:genuine-services}
+For $n\ge n_0$, every genuine service of $\Phi_H$ with error $\epsilon\le\frac1{16}$,
+$J\le\frac n2\log26$ and discard at most $1/n^2$ has
+$Q\ge c_H n^{1/3}$ for a fixed $c_H>0$.
+The zero-discard and small-discard constants are preserved in
+Theorem~\ref{thm:genuine-services-constants}.
+\end{theorem}
+
+\begin{theorem}[The Houghton exponent on genuine devices]\label{thm:houghton-genuine}
+Let $\Qs_{\rm gen}(n,\epsilon)$ be the least memory of a genuine rank-rate service of $\Phi_H$ with discard at most $1/n^2$ and error at most $\epsilon$. For
+$0<\epsilon\le\frac1{16}$ and $n\ge n_0(\epsilon)$,
+\[
+c_H n^{1/3}\ \le\ \Qs_{\rm gen}(n,\epsilon)\ \le\ C_H\,n^{1/3}(\log n)^{2/3}\bigl(\log(n/\epsilon)\bigr)^{1/3}.
+\]
+\end{theorem}
+
+The upper bound is the device of Theorem~\ref{thm:houghton-groups} for $q=3$, which re-folds the translation part of the regular action and
+carries finite symmetric groups as fibres. The lower bound reads the group through a sector bound. A second, independent route reads it through
+its growth.
+
+\begin{corollary}[The growth route]\label{cor:growth-route}
+Every genuine round of $\Phi_H$ given by the regular action of $H_3$, with a bath that is diagonal in the basis of group elements, has
+$S+n\,a\ge c\,n^{1/3}-C$.
+\end{corollary}
+
+The constants are worse than those of Theorem~\ref{thm:genuine}, and the corollary covers only classical baths on the regular action; but it uses
+nothing about $S_3$ or sector bounds, only that $H_3$ has exponential growth, which follows from Chou's theorem~\cite[Theorem~3.2]{Chou1980}
+because $H_3$ is elementary amenable and not virtually nilpotent (Remark~\ref{rem:houghton-map}: it is not residually finite). Both routes
+place the regular action at $n^{1/3}$, and the device of Theorem~\ref{thm:houghton-groups} attains it.
+
+\begin{proposition}[Genuine rounds are streamed]\label{prop:genuine-vacuous}
+There is $K$ such that for $n\ge2$ and $0<\epsilon\le\frac1{16}$, every genuine round of $\Phi_H$ at distance at most $\frac18$ satisfies
+$\Qs(n,\epsilon)\le K\log^2(n/\epsilon)(1+S+n\,a)$.
+\end{proposition}
+
+So genuine rounds stream, and biasing a genuine action cannot separate the two halves of the law.
+
+\subsection{Smoothed one-round realizations}
+
+Appendix~\ref{app:houghton-sources} studies an explicit family of
+smoothed rounds of $\Phi_H$, built from the corner links
+of~\cite[Section~4.2]{DouglasMghirbiB} with a clock and several tensor
+copies of a fermionic register. Their static cost is of order $n^{1/3}$
+for symmetric sources, for a moderate number of copies and for sources
+near the stationary algebra, while for unrestricted sources with
+positive production the proved lower bound is only $n^{1/4}$
+(Theorems~\ref{thm:houghton-entropy} and~\ref{thm:houghton-flux}, and
+Table~\ref{tab:houghton-scope} in Appendix~\ref{app:houghton-sources}).
+
+\subsection{General devices}
+
+\begin{proposition}[The two-scale ceiling; compare~{\cite[Proposition~4.14]{DouglasMghirbiB}}]\label{prop:ceiling-houghton}
+For every $\epsilon\in(0,\frac1{16}]$ there is $C(\epsilon)$ with $L_{\Phi_H}(n,\epsilon)\le C(\epsilon)\,n^{1/3}$; in particular $\Ls_{\Phi_H}(n)\le C\,n^{1/3}$.
+\end{proposition}
+
+So no lower bound obtained from the two-scale profile through Theorem~\ref{thm:lower} can exceed $n^{1/3}$, the exponent of the genuine devices.
+
+\begin{remark}[The single budget]\label{rem:quarter}
+Under the single budget $\ell+a\le t_n$ of~\cite[Theorem~5.2]{DouglasMghirbiB} with the purity budget $P+C<3Q+6$, the same smoothed rounds cap the
+one-round method at $O(n^{1/4})$: the leakage is then read at the purity scale $(Q+\log n)/n$ instead of the error scale $1/n$. The two-scale
+profile removes this cap.
+\end{remark}
+
+\begin{theorem}[What the law and the exponent reduce to]\label{thm:houghton-reduction}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item If $\Ls_{\Phi_H}(n)\ge n^{1/3}/p(n)$ for a polylogarithm $p$, then the two-scale law holds for $\Phi_H$, and $\Qs_{\Phi_H}(n,\epsilon)=n^{1/3}\cdot\mathrm{polylog}(n/\epsilon)$
+at every fixed $\epsilon\le\frac1{16}$.
+\item Conversely, if the two-scale law holds for $\Phi_H$ and $\Qs_{\Phi_H}(n,\epsilon)=n^{1/3+o(1)}$, then $\Ls_{\Phi_H}(n)\ge n^{1/3-o(1)}$. So if
+$\Ls_{\Phi_H}(n)\le n^{1/3-\delta}$ for some $\delta>0$ and infinitely many $n$, the law or the exponent $\frac13$ fails for $\Phi_H$.
+\item Rounds of $\Phi_H$ at distance at most $\frac18$ with
+$S+n\,a<c_Hn^{1/3}-C_H$ are not genuine, for fixed positive constants.
+\end{enumerate}
+\end{theorem}
+
+\begin{conjecture}[The Houghton exponent]\label{conj:houghton}
+At every fixed error $\epsilon\le\frac1{16}$, $\Qs_{\Phi_H}(n,\epsilon)=n^{1/3+o(1)}$.
+\end{conjecture}
+
+By Theorem~\ref{thm:houghton-reduction}, the conjecture and the law for $\Phi_H$ follow together from the single lower bound
+$\Ls_{\Phi_H}(n)\ge n^{1/3}/\mathrm{polylog}(n)$, which says that the ceiling of Proposition~\ref{prop:ceiling-houghton} is attained.
+A round below this scale cannot be genuine. If it is a permutation
+round, it cannot come from the regular action
+(Corollary~\ref{cor:growth-route}). These exclusions do not identify
+a collision mechanism or rule out other finite approximate realizations.
+
+\begin{remark}[General devices]\label{rem:general-houghton}
+For general devices, the one-round theorem~\cite[Theorem~5.5]{DouglasMghirbiB} with Theorem~\ref{thm:extraction} and Proposition~\ref{prop:purity}
+gives $\Qs_{\Phi_H}(n,\epsilon)\ge c\,n^{\beta_H/(1+\beta_H)}$ for $n\ge n_0$, with $\beta_H=1/(2\log107+1)$, so $\beta_H/(1+\beta_H)=1/(2\log107+2)\approx0.06459$; the device of
+Theorem~\ref{thm:houghton-genuine} gives $\Qs_{\Phi_H}(n,\epsilon)\le C\,n^{1/3}(\log n)^{2/3}(\log(n/\epsilon))^{1/3}$ for $n\ge n_0(\epsilon)$. This improves the dependence on $\epsilon$ in the
+bound $O((n/\epsilon)^{1/3}\log^{4/3}(2n/\epsilon))$ for general devices~\cite[Corollary~6.7]{DouglasMghirbiB}. The one-round method cannot close this gap: it certifies at most $n^{1/6}$, whatever area
+bound is used (Proposition~\ref{prop:sixth}). The proofs of this section are in Appendix~\ref{app:houghton}.
+\end{remark}

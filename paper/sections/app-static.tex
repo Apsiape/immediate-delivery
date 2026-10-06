@@ -1,0 +1,657 @@
+\section{Static entropic comparisons and their boundaries}
+\label{app:static}
+
+This appendix separates source compression, exact support repair and
+profile optimization. Compression preserves rare support leakage
+\emph{multiplicatively}. Repair is controlled by a weighted trace norm,
+not by the same probability. Keeping these currencies distinct is
+essential to the open comparison~\eqref{eq:missing-comparison}.
+
+\subsection{Soft compression at source-entropy scale}
+\begin{lemma}[Soft source filter]\label{lem:soft-source}
+For an isometric ensemble $\rho_g=B_g\rho B_g^*$ of $r$ members, with
+weights $\mu_g$ and gain $a=S(\sum_g\mu_g\rho_g)-S(\rho)$, put
+\begin{gather*}
+ f_s(p)=(\sqrt p-\sqrt s)_+^2,\qquad
+ T=2^{-64(S(\rho)+1)-14},\qquad T/4\leq s\leq T,\\
+ Z_f=\Tr f_s(\rho),\qquad \nu=f_s(\rho)/Z_f.
+\end{gather*}
+Then $Z_f\geq31/32$, $\|\nu-\rho\|_1/2\leq1/32$,
+$\log_2\rank\nu\leq64(S(\rho)+1)+16$, and
+\begin{gather*}
+ a_\nu\leq h_2(b)+b\log_2(r-1),\quad
+ b=\min\{(\ln2)a/Z_f,(r-1)/r\},\\
+ \qquad na_\nu\leq2(1+na)\log_2(er(n+1)).
+\end{gather*}
+For a general unitary round on a $d$-dimensional system the same
+rank and distance estimates hold. For $\beta=(\ln2)a/Z_f\leq1/2$,
+\begin{equation}\label{eq:general-filter-production}
+ a_\nu\leq h_2(\beta)+\beta\log_2(d^2-1)+4d\beta/\ln2.
+\end{equation}
+Its channel error changes by at most $1/32$ and any positive Choi test
+increases by at most $Z_f^{-1}$. An equivalent smaller round has bath
+dimension at most $d^2\rank\nu$.
+One can select $s$ from this interval so that, in addition,
+\begin{equation}\label{eq:selected-source-floor}
+ \log_2[1/p_{\min}(\nu)]\leq192(S(\rho)+1)+51.
+\end{equation}
+No gap in the original source spectrum is assumed.
+\end{lemma}
+
+\begin{proof}
+For states $X,Y$, diagonalizing both gives classical probability arrays
+$x_i|\langle i|j\rangle|^2,y_j|\langle i|j\rangle|^2$ whose relative
+entropy equals $D_{\rm nat}(X\Vert Y)$. Jensen gives
+\[
+ \|\sqrt X-\sqrt Y\|_2^2=2(1-\Tr\sqrt X\sqrt Y)
+ \leq D_{\rm nat}(X\Vert Y).
+\]
+The positive part is the Hilbert--Schmidt metric projection onto the
+positive cone and is nonexpansive. Indeed
+$\Tr[(H-H_+)(C-H_+)]=-\Tr(H_-C)\leq0$ for $C\succeq0$;
+apply this twice and add. With
+$A_g=(\sqrt{\rho_g}-\sqrt sI)_+$ and
+$\bar A=\sum_g\mu_gA_g$,
+\[
+ Z_f-\|\bar A\|_2^2
+ \leq\sum_g\mu_g\|A_g-(\sqrt\sigma-\sqrt sI)_+\|_2^2
+ \leq(\ln2)a.
+\]
+The canonical-purification mixture
+$\sum_g\mu_g|\operatorname{vec}A_g/\sqrt{Z_f}\rangle
+\langle\operatorname{vec}A_g/\sqrt{Z_f}|$ has rank at most $r$
+and largest eigenvalue at least $1-(\ln2)a/Z_f$. Its entropy bounds
+the filtered Holevo information by partial-trace data processing,
+giving the first production estimate. Splitting $a$ into the ranges
+$a\leq1/n$, $1/n<a\leq1/2$, and $a>1/2$ gives the uniform estimate.
+
+Eigenvalues below $2^{-64(S+1)}$ have total mass at most $1/64$.
+Above it, $p-f_s(p)\leq2\sqrt{ps}\leq p/64$. Thus
+$1-Z_f\leq1/32$. Since $f_s(\rho)\leq\rho$,
+$\rho=Z_f\nu+(1-Z_f)\rho_{\rm res}$, proving distance and
+positive-test domination. The nonzero filtered eigenvalues have
+$p>s\geq T/4$, which proves the rank bound. To select a spectral floor,
+collect the distinct square roots of source eigenvalues strictly between
+$A=\sqrt T/2$ and $B=\sqrt T$, and include $A,B$ as endpoints.
+There are $N\leq4/T$ interior points. A longest consecutive gap has
+length at least $\sqrt T/[2(N+1)]$. Let $\sqrt s$ be its midpoint.
+Every square-root eigenvalue above this midpoint is at distance at
+least $\sqrt T/[4(N+1)]$, including those outside the interval.
+Every positive filtered eigenvalue is therefore at least
+$T/[16(N+1)^2]\geq T^3/400$. Normalization increases it because
+$Z_f\leq1$. Taking logarithms proves~\eqref{eq:selected-source-floor}.
+The mass, domination and root-contraction proofs hold for every
+$s\leq T$, so this selection preserves their conclusions.
+
+For the general round let $\omega=U(\tau_d\otimes\rho)U^*$ and
+$\sigma=\Tr_A\omega$. Then
+$D_{\rm nat}(\omega\Vert\tau_d\otimes\sigma)=(\ln2)a$.
+Apply the preceding root contraction on the joint space with threshold
+$\sqrt{s/d}$. The normalized canonical purification of
+$\omega_\nu=U(\tau_d\otimes\nu)U^*$ misses the system Bell subspace
+on $AA'$ with probability $e\leq\beta$. Consequently
+$S(AA')\leq h_2(e)+e\log_2(d^2-1)$.
+Strong subadditivity and purification duality imply
+\[
+ a_\nu\leq\log_2d-S(A)+S(AA').
+\]
+The system entropy-deficit term cannot be omitted (a pure-source SWAP
+would violate that assertion). Bell closeness gives
+$\|\omega_{\nu,A}-\tau_d\|_1\leq2\sqrt e$; hence
+\[
+ \log_2d-S(A)\leq\log_2[d\Tr(\omega_{\nu,A}^2)]
+ \leq4de/\ln2.
+\]
+This proves~\eqref{eq:general-filter-production}. Always
+$0\leq a_\nu\leq2\log_2d$: the lower bound because the Choi-input bath map is unital, the upper by the Araki--Lieb inequality.
+In particular, with $C_d=2+2\log_2d+5d$,
+$na_\nu\leq2C_d(1+na)\log_2(e(n+1))$.
+Finally restrict the input to $K'=\supp\nu$ and the output to the span
+of the $d^2$ system blocks of $U$ applied to $K'$. Its dimension is
+at most $d^2\rank\nu$. The restricted joint isometry extends to a
+unitary after separate input/output embeddings; entropy and channel
+are unchanged. These are static constructions, not free physical resets.
+\end{proof}
+
+\subsection{Profile structure, extraction and the horizon envelope}
+For the matrix form in Proposition~\ref{prop:Z-matrix}, factor the
+positive Gram as $Y_{gh}=B_g^*B_h$, where
+$B_g=Y^{1/2}(|g\rangle\otimes I)$. Its diagonal makes each $B_g$
+isometric. The two products of the row map
+$[\sqrt{\mu_g}B_g\sqrt\rho]_g$ give the output ensemble and $\omega$,
+so their nonzero spectra coincide. Its source marginal is $\rho$.
+Concavity and the entropy-of-mixture bound give $0\leq a\leq H(\mu)$.
+The infimum of affine nondecreasing costs is concave and nondecreasing.
+Orthogonal responses on a pure source give $Z(0)=0$ and
+$Z(t)\leq tH(\mu)\leq t\log r$. Concavity at zero gives
+$Z(ct)\leq cZ(t)$ for $c\geq1$ and
+$Z(s)+Z(t)\geq Z(s+t)$.
+
+Tensor all responses and the source to degree
+$t_r=\lceil\log_2(8(r-1))\rceil$. Exact untwisted triangles survive,
+the scalar overlaps are powered, and $\|G-I\|\leq1/8$.
+For every reference input the output difference is
+$T(G^{\mathsf T}-I)T^*$ with $\|T\|_2^2=1$, so its half trace norm
+is at most $\|G-I\|/2$. The bath output is
+$\sum_g\mu_g\rho_g^{\otimes t_r}$, whose marginals are $\sigma$.
+Subadditivity bounds production by $t_ra$ and entropy by $t_rS$.
+This proves $L^*(n)\leq t_rZ(n)$ with no compiler dependency.
+
+To prove Theorem~\ref{thm:Z-necessary}, retain the error in
+Theorem~\ref{thm:extraction}: simultaneous selection with $\lambda=2$
+gives one round with
+\[
+ S\leq Q,\quad u\leq\epsilon,\quad
+ \ell\leq\frac{2\epsilon}{n(1-\epsilon)},\quad
+ na\leq\frac{2[P+C+h_2(\epsilon)+\epsilon\log_2n]}{1-\epsilon}.
+\]
+Its passing-prefix flag belongs to the observer, not a postselection
+operation of the device. Theorem~\ref{thm:BF} gives, above a fixed
+threshold, an exact family with gap at most $1/4$ and
+\[
+ S'\leq2.08S+0.07,\qquad
+ a'\leq K_{d,r}[a+\sqrt\ell\log_2(e/\ell)].
+\]
+This estimate follows directly from its commuting source restriction
+and its positive absorber: their masses are $O_{d,r}(\sqrt\ell)$,
+and the conditional-entropy mixture cost is
+$O_{d,r}(\sqrt\ell\log(e/\ell))$, with no ambient dimension term.
+For $\ell=0$ use the exact frame directly. Insert the selected leakage,
+use $P\leq Q$, and absorb $\epsilon\log n$ into the square-root term.
+The pure orthogonal baseline handles finitely many smaller $n$.
+This proves the claimed any-exchange bound. For high precision put
+$w=n\epsilon\leq\log_2^{-2}(en)$. Then
+\[
+ \sqrt{n\epsilon}\log_2(en/\epsilon)
+ =\sqrt w\log_2(en^2/w)
+ \leq2+\frac2{e\ln2}<3.1.
+\]
+The last maximum follows by differentiating $\sqrt w\ln(1/w)$.
+
+More generally the \emph{same} selected exact family gives, for every
+$T\geq0$, with $B=1+Q+C$ and
+$b=\sqrt{\epsilon/n}\log_2(en/\epsilon)$,
+\begin{equation}\label{eq:all-horizon-necessity}
+ Z(T)\leq K B+KT(B/n+b).
+\end{equation}
+Thus a genuine all-family lower bound $Z(T)\geq cT^\beta$, $0<\beta<1$,
+implies $B\geq c'\min\{n^\beta,b^{-\beta/(1-\beta)}\}$:
+choose $T\asymp B^{1/\beta}$ so the left side exceeds $2KB$ and
+one of $B/n,b$ pays the difference. This conditional implication does
+not substitute the restricted Houghton theorem for an all-family bound.
+
+For Theorem~\ref{thm:envelope}, apply the same repair to a near-minimizer
+of $L^*(N)$ and evaluate its linear cost at $n\leq N$. The cost is
+at most $C[1+L^*(N)+nN^{-1/2}\log_2(eN)]$. Infimize over integer
+$N\geq\max(n,N_0)$. Compiler application and the pure baseline give
+the operational envelope. If $L^*(N)=N^{\beta+o(1)}$ with
+$0<\beta<1/2$, choose $N\asymp n^{1/(\beta+1/2)}$; for
+$\beta\geq1/2$ take $N\asymp n$. These give the exponents stated
+in the main text, not a matched bound below $1/2$.
+
+\subsection{Coherent restriction to an exact leakage kernel}
+
+The following certificate uses probability mass on a genuinely exact
+subspace. It does not infer such a subspace from a small mean defect.
+
+\begin{lemma}[Source projection without commutation]\label{lem:coherent-restriction}
+For a unitary round on $\C^d\otimes\C^M$, let $a(\rho)$ be its
+Choi-input bath entropy production. If $P$ is any bath projection,
+$\nu=\Tr\rho(I-P)\leq1/2$, $w=1-\nu$ and
+$\rho_P=P\rho P/w$, then
+\[
+ S(\rho_P)\leq S(\rho)/w,\qquad
+ \nrm{\rho-\rho_P}_1/2\leq\sqrt\nu,\qquad
+ \nrm{\sqrt\rho-\sqrt{\rho_P}}_F^2\leq4\nu.
+\]
+For $b=(\sqrt{(\ln2)a(\rho)}+2\sqrt\nu)^2\leq1/2$,
+\begin{equation}\label{eq:coherent-projection-gain}
+ a(\rho_P)\leq h_2(b)+b\log_2(d^2-1)+4db/\ln2.
+\end{equation}
+In particular, for $a(\rho),\nu\leq1/64$ the new production is
+$O_d((a(\rho)+\nu)\log_2(e/(a(\rho)+\nu)))$.
+Always $a(\rho_P)\leq2\log_2d$.
+\end{lemma}
+
+\begin{proof}
+Decompose $\rho=\sqrt\rho P\sqrt\rho+
+\sqrt\rho(I-P)\sqrt\rho$. The normalized first summand has the
+same nonzero spectrum as $\rho_P$. Entropy concavity proves the
+source-entropy bound. Projecting and normalizing a purification gives
+overlap $\sqrt w$, proving the trace-distance estimate by partial trace.
+On $\operatorname{ran}P$, put $A=P\sqrt\rho P$ and
+$B=\sqrt{P\rho P}$. Compression concavity gives $A\leq B$, so
+$\Tr AB\geq\Tr A^2$. Also
+\[
+ \Tr A^2=w-\Tr[P\sqrt\rho(I-P)\sqrt\rho P]\geq w-\nu.
+\]
+The subtracted term is at most $\Tr[(I-P)\rho]=\nu$.
+Consequently $\Tr\sqrt\rho\sqrt{\rho_P}\geq
+(1-2\nu)/\sqrt{1-\nu}\geq1-2\nu$, giving the root bound.
+
+For general source states $\rho,\sigma$ set
+$\eta=\nrm{\sqrt\rho-\sqrt\sigma}_F$. Write
+$\omega_\rho=U(\tau_d\otimes\rho)U^*$ and
+$T\rho=\Tr_A\omega_\rho$. The root-relative-entropy inequality
+proved above and
+$D_{\rm nat}(\omega_\rho\Vert\tau_d\otimes T\rho)=(\ln2)a(\rho)$
+give
+\[
+ \nrm{\sqrt{\omega_\sigma}-\sqrt{\tau_d\otimes T\rho}}_F
+ \leq\sqrt{(\ln2)a(\rho)}+\eta.
+\]
+Canonically purify both roots on $ABA'B'$. The comparison vector is
+$\ket{\Omega_d}_{AA'}\otimes\operatorname{vec}\sqrt{T\rho}$.
+The actual $AA'$ marginal therefore misses the Bell line by probability
+at most $b=(\sqrt{(\ln2)a(\rho)}+\eta)^2$.
+Bell pinching gives $S(AA')\leq h_2(b)+b\log_2(d^2-1)$ for
+$b\leq1/2$. The system marginal has half distance at most $\sqrt b$
+from $\tau_d$, whence
+$\log_2d-S(A)\leq\log_2[d\Tr\omega_{\sigma,A}^2]
+\leq4db/\ln2$. Strong subadditivity gives
+$S(A|B)\geq S(A|BB')=S(A')-S(AA')$, and the canonical
+purification makes $A'$ isospectral with $A$. Thus
+$a(\sigma)=\log_2d-S(A|B)\leq\log_2d-S(A)+S(AA')$.
+Take $\sigma=\rho_P$ and use $\eta\leq2\sqrt\nu$.
+For the stated small-parameter regime $b\leq8(a+\nu)\leq1/4$;
+$h_2(b)\leq b\log_2(e/b)$ proves the asymptotic bound.
+Araki--Lieb gives the uniform $2\log_2d$ fallback.
+\end{proof}
+
+The logarithm is necessary for a general projection. For qubits take
+$U=I\otimes\ket0\bra0+Z\otimes\ket1\bra1$ and source
+$\ket0\bra0$ of zero gain. Projection onto
+$\sqrt{1-\nu}\ket0+\sqrt\nu\ket1$ produces a pure source whose
+bath output is $\diag(1-\nu,\nu)$, with gain $h_2(\nu)$.
+
+\begin{proposition}[Exact-kernel concentration]\label{prop:kernel-concentration}
+Project a physical gadget round onto its canonical coefficient span,
+$U=\sum_g A_g\otimes X_g+R$, and set
+$\Lambda=\Tr_{\rm system}(R^*R)\succeq0$, so
+$\ell=\Tr\rho\Lambda/d$. Suppose $u\leq1/16$ and a bath projection
+$P$ satisfies $\Lambda P=0$ and $\nu=\Tr\rho(I-P)\leq1/64$.
+Then $\rho_P$ and $B_g=X_g|_{\operatorname{ran}P}$ are feasible
+for $Z$, with entropy and actual production as in
+Lemma~\ref{lem:coherent-restriction}. If $\nu\leq K/n$, then
+\begin{equation}\label{eq:kernel-profile-bound}
+ Z_\Phi(n)\leq C_{d,r,K}\log_2(en)(1+S+na)
+\end{equation}
+for sufficiently large $n$. If $\nu\leq K\log_2^q(en)/n$ with
+fixed $q\geq0$, replace the logarithm by $\log_2^{q+1}(en)$.
+\end{proposition}
+
+\begin{proof}
+Positivity and $\Lambda P=0$ give $R(I_d\otimes P)=0$.
+The restricted round is thus exactly $\sum_g A_g\otimes B_g$.
+Singleton anchors make each $B_g$ isometric, and triangle column
+orthogonality gives $B_1^*B_y=B_x^*B_z$. Source contractivity gives
+$u_P\leq u+\sqrt\nu\leq3/16$, so the anchor tests give gap
+$|\Tr\rho_P B_g^*B_h|\leq2u_P\leq3/8<1/2$.
+The ensemble output is exactly $T(\rho_P)$.
+For the cost bound, $S_P\leq2S$. If $a<1/n$, monotonicity of
+$x\log_2(e/x)$ bounds the small-parameter gain by
+$O_{d,K}(\log(en)/n)$. If $1/n\leq a<1/64$, its horizon cost is
+at most $C_d(na+K)\log_2(en)$. For larger $a$ use the uniform fallback.
+The same arithmetic with $K\log_2^q(en)$ proves the last statement.
+Every modification specifies a new offline round; no projection or
+postselection is performed during the service.
+\end{proof}
+
+Two concrete hypotheses imply the required mass estimate. If
+$P=\ker\Lambda$ and $\Lambda\geq\gamma(I-P)$, then
+$\nu\leq d\ell/\gamma$. An inverse-polylogarithmic positive defect
+gap therefore suffices at $\ell=O(1/n)$.
+For a permutation round let $P_{\rm good}$ project onto triangle-good
+points and let $\mathcal D$ be computational-basis pinching. If a
+coherent source obeys $\rho\geq c\mathcal D(\rho)$, positivity and
+Lemma~\ref{lem:perm-leak} give
+\[
+ \ell\geq\frac{c}{4d}\Tr\rho(I-P_{\rm good}),\qquad
+ \nu\leq4d\ell/c.
+\]
+Every good point lies in the exact leak kernel. Constant or
+inverse-polylogarithmic $c$ therefore suffices, including coherent
+entries between good and bad points. Composing with
+Theorem~\ref{thm:coherent} gives the stated rank-rate service,
+$C=0$, $P\leq Q$, with the squared-log compiler factor in addition
+to the displayed static logarithms.
+
+Neither hypothesis follows from a small mean leakage. Take the
+non-canonical anchored gadget with labels $1,a,b,c$ and the two
+multiplication triangles $ab=c$ and $ba=c$, realized on
+$\C^8=\C^4\otimes\C^2$ by $R_a=S_a\otimes e^{i\delta X}$ and
+$R_b=S_b\otimes e^{i\delta Z}$, where $S_a,S_b$ are commuting diagonal
+involutions on $\C^4$ and the lower-right blocks use the products
+$R_aR_b$ and $R_bR_a$, with $c$'s anchor slot carrying $R_aR_b$. Proposition~\ref{prop:kernel-concentration} is
+stated for general gadget rounds, so it applies. Direct projection of
+its two triangles gives
+\[
+ \Lambda=\tfrac38[R_a,R_b]^*[R_a,R_b]
+ =\tfrac32\sin^4\delta\,I_8,\qquad
+ \ell=\tfrac3{16}\sin^4\delta.
+\]
+For $0<\delta\leq1/16$ its exact kernel is empty, although its flat
+source has zero gain and entropy three. The target has a different
+exact four-dimensional factor. The universal comparison must permit
+that different round, rather than require restriction of every
+supplied round.
+
+\subsection{Source-weighted affine repair}
+For canonical projected physical responses $X_g$ let
+$Y=[X_g^*X_h]\succeq0$. Let $\mathcal P_{\rm aff}$ replace diagonal
+blocks by $I$ and average each off-diagonal class generated by
+$(1,y)\sim(x,z)$ and adjunction. Actual labels keep these classes
+separate from the diagonal. Define
+\[
+ \eta_\rho(U)=\|(I_r\otimes\sqrt\rho)
+ [\mathcal P_{\rm aff}(Y)-Y](I_r\otimes\sqrt\rho)\|_1.
+\]
+This is basis-independent under a common source change but refers to
+the canonical gadget coefficients. If $D=\diag(\sqrt{\mu_g})$,
+orthogonality of the projected and leaking parts gives
+$\Tr(D\otimes\sqrt\rho)Y(D\otimes\sqrt\rho)=1-\ell$.
+The weighted affine correction has $D$-weighted trace $\ell$, whence
+$\ell\leq\eta_\rho(U)$. The converse bound at order $\ell$ is false.
+
+The repair can control entropy directly, without filtering or a source
+rank bound. If $H=(I\otimes\sqrt\nu)E(I\otimes\sqrt\nu)$,
+$\|E\|\leq b$, $q=\Tr H_-$ and $\sigma=I_r/r\otimes\nu$, then
+$-H\leq br\sigma$. Sorted eigenvalue monotonicity gives
+$\lambda_j(H_-)\leq br\lambda_j(\sigma)$.
+This is not an operator inequality for $H_-$. Classical relative
+entropy of these normalized eigenvalue lists implies
+\[
+ qS(H_-/q)\leq-\sum_j\lambda_j(H_-)\log_2\lambda_j(\sigma)
+ \leq br[S(\nu)+\log_2r].
+\]
+Zero eigenvalues cause no exception; if $q=0$ omit this expression.
+For $Z_c=r\Tr_{\rm label}H_-$, $z=rq$, Araki--Lieb gives
+$zS(Z_c/z)\leq br^2[S(\nu)+\log_2r]+z\log_2r$.
+The mixture source $\theta=(\nu+Z_c)/(1+z)$ therefore obeys
+\begin{equation}\label{eq:entropy-stable-source}
+ S(\theta)\leq
+ \frac{(1+br^2)S(\nu)+br^2\log_2r+z\log_2r}{1+z}
+ +h_2\!\left(\frac z{1+z}\right)
+ \leq C_{b,r}(1+S(\nu)).
+\end{equation}
+The bound is independent of dimension and minimum eigenvalue.
+For isometric Grams, $\|E\|\leq2(r-1)$ by the block-row bound.
+For physical projected Grams, canonical coefficients have modulus
+$1$ or $1/\sqrt2$, so $\|X_g\|\leq\sqrt2$ and $\|E\|\leq4r$.
+
+Use the original source $\nu=\rho$ restricted to its support, and put
+$H=(I\otimes\sqrt\nu)(\mathcal P_{\rm aff}(Y)-Y)(I\otimes\sqrt\nu)$,
+$Z_c=r\Tr_{\rm label}H_-$, $z=\Tr Z_c\leq r\|H\|_1$.
+For every positive $P$ on $\mathbb C^r\otimes K$,
+$P\leq rI\otimes\Tr_{\rm label}P$; prove this on rank-one terms by
+Cauchy--Schwarz and then sum. Therefore $H+I\otimes Z_c\succeq0$.
+Set
+\[
+ J=(I\otimes\sqrt\nu)Y(I\otimes\sqrt\nu)+H+I\otimes Z_c,
+ \quad\theta=(\nu+Z_c)/(1+z),\quad
+ Y'=\frac{(I\otimes\theta^{-1/2})J(I\otimes\theta^{-1/2})}{1+z}.
+\]
+Then $Y'\succeq0$, $Y'_{gg}=I$ and all affine identities are exact.
+It realizes a frame on at most $rk$ output dimensions, $k=\dim K$,
+with $S(\theta)\leq C_r(1+S(\rho))$ by
+\eqref{eq:entropy-stable-source}. No eigenvalue lower bound is used.
+
+For $\omega_0=(D\otimes\sqrt\nu)Y(D\otimes\sqrt\nu)$ the repaired
+state is $(\omega_0+\Delta)/(1+z)$, where
+$\Delta=D(H+I\otimes Z_c)D\succeq0$, $\Tr\Delta=\ell+z$.
+It has source marginal $\theta$ and its conditional entropy equals
+the new production. With $p=(\ell+z)/(1+z)$ and
+$H_0=H({\rm label}|{\rm source})_{\omega_0/(1-\ell)}$, flagging this
+mixture gives
+\[
+ a'\leq H_0+2p\log_2r+h_2(p),\qquad
+ (1-\ell)H_0\leq a_\nu+h_2(\ell)
+       +\ell\log_2\max\{1,d^2-r\}.
+\]
+For the latter, purify the source and use a Bell input. The system
+output and its reference have conditional entropy $a_\nu$ given the
+source purifier. Pinching into the canonical Kraus span and its
+complement costs at most $h_2(\ell)$; the failed conditional entropy
+is at least $-\log_2(d^2-r)$. The successful block is the conjugate
+of $\omega_0$. If $r=d^2$ the complement is absent and $\ell=0$.
+For isometric old responses $\ell=0$, $H_0=a_\nu$, and the sharper
+bound $a'\leq a_\nu+p\log_2r+h_2(p)$ holds.
+In particular small $\eta=\|H\|_1$ gives
+$a'\leq a/(1-\ell)+C_{d,r}\eta\log_2(e/\eta)$.
+No logarithmic multiplier on $a$ is introduced, because the original
+source was not filtered.
+Define the physical relaxed profile
+\[
+ A_\Phi^*(n)=\inf\{S+na:u\leq1/16,
+        \ \eta_\rho(U)\leq[64(r+1)n]^{-1}\}.
+\]
+The preceding construction proves
+\begin{equation}\label{eq:affine-profile}
+ Z_\Phi(n)\leq C_{d,r}[1+A_\Phi^*(n)+\log_2(en)],\qquad
+ A_\Phi^*(n)\leq t_rZ_\Phi(n).
+\end{equation}
+For the first inequality repair directly and use
+\eqref{eq:entropy-stable-source}, $\ell\leq\eta=O_r(1/n)$ and
+$n\eta\log_2(e/\eta)=O_r(\log(en))$.
+The anchor test bounds the repaired gap by
+$1/8+2\sqrt{d\eta}+d\eta+\eta/2<1/2$
+for $n\geq4096d$; use the exact baseline for smaller $n$.
+For the reverse inequality use fixed tensor amplification of an
+exact family: its defect is zero and its distance is at most $1/16$.
+
+A concrete warning uses a cyclic three-label target on system dimension
+five. With flat bath $I_3/3$ and $X=\diag(1,\omega,\omega^2)$,
+take singleton entries $I,X,e^{i\alpha}X^2$ and triangle
+$\left[\begin{smallmatrix}I&X\\X&-X^2\end{smallmatrix}\right]/\sqrt2$.
+This is a physical zero-production round. Its canonical responses are
+$I,X,qX^2$, $q=(2e^{i\alpha}+1)/3$. Direct projection gives
+\[
+ \ell=\frac4{15}\sin^2(\alpha/2),\qquad
+ \eta_\rho(U)\geq|q-1|/2=\sqrt{5/3}\sqrt\ell.
+\]
+Thus raw $\eta=O(\ell)$ cannot supply~\eqref{eq:missing-comparison}.
+The target nevertheless has an exact three-dimensional factor.
+Also scalar projective phases can cancel: use
+$B_g\otimes\overline{B_g}$ and $\rho\otimes\overline\rho$.
+Exact scalar phases disappear, entropy doubles and production at most
+doubles. This extends the flat cancellation observation to biased
+rectangular responses; it does not cancel arbitrary noncentral errors.
+
+\subsection{Square-unitary ensemble dictionary}
+Define $T_\Phi(n)$ by minimizing
+$S(\theta)+n[\chi+f_r(\eta)]$ over finite square unitaries $V_g$, $V_1=I$,
+and sources $\theta$, subject to
+$|\Tr\theta V_g^*V_h|\leq1/2$ for $g\ne h$. Here
+\[
+ \chi=S(\sum_g\mu_gV_g\theta V_g^*)-S(\theta),\qquad
+ \eta=\|(I\otimes\sqrt\theta)
+ [\mathcal P_{\rm aff}([V_g^*V_h])-[V_g^*V_h]]
+ (I\otimes\sqrt\theta)\|_1.
+\]
+This is a static ensemble gain, not automatically the gain of a
+physical round built from an inexact tuple. Here
+$p=r\eta/(2+r\eta)$ and $f_r(\eta)=h_2(p)+p\log_2r$.
+Then
+\begin{equation}\label{eq:W-dictionary}
+ T_\Phi(n)\leq Z_\Phi(n)\leq K_r(1+T_\Phi(n)).
+\end{equation}
+The forward direction is exact unitary completion, not polar repair.
+Given an exact frame, set $E=B_1$ and complete $Ex\mapsto B_gx$
+to a unitary $V_g$ on $L$, choosing $V_1=I$. Put $\theta=E\rho E^*$.
+Then entropy is unchanged, $V_g\theta V_g^*=\rho_g$, and
+$E^*V_g^*V_hE=B_g^*B_h$. Consequently $\chi=a$ and $\eta=0$.
+Global multiplication outside the embedded source is not asserted.
+
+Even requiring faithful square sources gives the same infimum.
+Replace $\theta$ by $\theta_t=(1-t)\theta+tI_L/\dim L$, and add
+a cyclic diagonal $r$-dimensional block with distinct powers and flat
+source. Use source $(1-t)\theta_t\oplus tI_r/r$.
+Its gap is at most $(1-t)[(1-t)/2+t]=(1-t^2)/2$;
+entropy, gain and defect converge to $S,a,0$ as $t\downarrow0$ for
+each fixed horizon. The flag is charged. There is no invariant-source
+assumption or quantitative minimum eigenvalue promise.
+
+For the reverse direction repair directly. Since the old responses
+are isometric, $E_{gg}=H_{gg}=0$, $\Tr H=0$, and
+$q=\eta/2$, $z=r\eta/2$ exactly. Testing $H$ against two conjugate
+off-diagonal identity blocks of operator norm one gives
+$|\Tr H_{gh}|\leq\eta/2$. Thus the scalar gap obeys
+\[
+ c'\leq\frac{c+\eta/2}{1+r\eta/2}\leq\max\{c,1/r\}\leq1/2.
+\]
+No tensor restoration is needed. The corrected spectral state has
+old-component conditional entropy $\chi$ and correction weight
+$p=z/(1+z)$, so flagging gives $a'\leq\chi+f_r(\eta)$.
+Equation~\eqref{eq:entropy-stable-source} proves the reverse inequality
+with a constant independent of the horizon. As a corollary, the
+linear-defect convention $W(n)=\inf[S+n(\chi+\eta)]$ still obeys
+$W(n)\leq Z(n)\leq C_r\log_2(en)(1+W(n))$, by
+$nf_r(\eta)\leq C_r\log_2(en)(1+n\eta)$.
+Neither comparison supplies a probability-leakage-to-defect bound or
+consumes the service compiler.
+
+\subsection{Zero production can be rationalized without a leakage penalty}
+For any general round with $a=0$, diagonalize input and output sources
+with spectra $p_i,q_j$. The doubly stochastic array
+$T_{ji}=\|U_{ji}\|_2^2/d$ satisfies
+$D_2(T_{ji}p_i\Vert T_{ji}q_j)=a$. Therefore $T_{ji}>0$ implies
+$p_i=q_j$. Every positive spectral level has equal input and output
+multiplicity $k_\lambda$ and carries a square unitary block. Thus
+\[
+ \Psi=\sum_\lambda w_\lambda\Psi_\lambda,\qquad
+ S(\rho)=H(w)+\sum_\lambda w_\lambda\log_2k_\lambda,
+ \quad w_\lambda=k_\lambda\lambda,
+\]
+where each $\Psi_\lambda$ has a finite tracial factorization.
+Discard levels with $\log_2k_\lambda>(S+1)/\theta$; their mass is
+less than $\theta$. The normalized good mixture is dominated as a
+positive Choi operator by $J(\Psi)/(1-\theta)$.
+Reduce it to $d^4+1$ atoms and apply the filler-free copy rounding
+of Lemma~\ref{lem:support-copies} with loss less than $\gamma$.
+The resulting single finite tracial factorization $\Gamma$ satisfies
+\[
+ d_\diamond(\Gamma,\Psi)<\theta+\gamma,\quad
+ \log_2\dim B_\Gamma\leq\frac{S+1}{\theta}
+    +\log_2\frac{d^4+2}{\gamma},\quad
+ J(\Gamma)\leq\frac{J(\Psi)}{(1-\theta)(1-\gamma)}.
+\]
+Every positive Choi effect obeys the same multiplicative estimate,
+including a rare support-leakage event. There is no inverse-leakage
+rank penalty. This argument requires exact zero production; it proves
+neither positive-production flattening nor general leaky rounding.
+
+\subsection{A flat Choi spectrum is not an anchored profile theorem}
+\begin{proposition}\label{prop:flat-spectrum-boundary}
+There is a channel with flat nonzero Choi spectrum and bounded
+$L^*(n)$, but every flat-import service has linear memory at error
+at most $1/100$. Thus bounded-profile classification cannot be
+extended from anchored gadgets merely by assuming flat Choi spectrum.
+\end{proposition}
+\begin{proof}
+Let $X|j\rangle=|j+1\rangle$, $Z|j\rangle=e^{2\pi ij/8}|j\rangle$,
+$F|j\rangle=(-1)^j|j\rangle$ and $P_\pm=(I\pm F)/2$.
+Take the $48$ Weyl matrices $X^aZ^b$ with
+$a\in\{0,3,4,5,6,7\}$, $0\leq b<8$, and add
+$A=\sqrt2XP_+$, $B=\sqrt2X^2P_-$ to form a list $C_i$ of length fifty.
+Then $\Tr(C_i^*C_j)=8\delta_{ij}$ (the two new matrices occupy the
+excluded cyclic diagonals), $A^*A+B^*B=2I$, and
+$AA^*+BB^*=4P_-$. Thus
+$\Phi(R)=50^{-1}\sum_iC_iRC_i^*$ is a channel with
+$J(\Phi)=\Pi/50$, where $\Pi$ has rank fifty. Its complement on
+$\tau_8$ is flat of rank fifty, so it has the required flat probe.
+
+Let $\Psi$ average only the forty-eight Weyl terms and let
+$\Lambda(R)=(ARA^*+BRB^*)/2$. Then
+$\Phi=(24/25)\Psi+(1/25)\Lambda$. The two Choi supports are
+orthogonal, so $d_\diamond(\Psi,\Phi)=d_J(\Psi,\Phi)=1/25<1/16$.
+The controlled Weyl unitary on a flat forty-eight-dimensional bath
+realizes $\Psi$ with zero production and zero leakage relative to $\Pi$.
+Hence $L^*(n)\leq\log_2 48$ for every $n$.
+
+Nevertheless $\Phi(\tau_8)=(I-F/25)/8$ has odd-coordinate probability
+$13/25$. An observer sending fresh $\tau_8$ inputs forces every
+released marginal $\sigma_t$ to have odd probability at least $51/100$
+when experiment error is at most $1/100$. Parity pinching gives
+$S(\sigma_t)\leq h_2(p_t)+\log_2 4$, so its entropy deficit is
+at least $b=1-h_2(51/100)>0$. Unitarity and subadditivity give
+$S(\rho_t')-S(\rho_t)\geq\log_2 8-S(\sigma_t)\geq b$.
+Every flat replacement is entropy-deficit nonincreasing, since
+exporting $E$ lowers deficit by $\log\dim E-S(E|A)\geq0$ and
+appending a flat state changes it by zero. Summing yields
+$P\geq nb$, hence $Q\geq nb\geq n/(5000\ln2)$ at any exchange.
+This is outside the anchored scope: the target is nonunital, while
+every tracial-closure channel is unital. Its cheap supported competitor
+cannot be amplified into the target by gadget identities.
+\end{proof}
+
+\subsection{Hyperlinear dimension gives flat leaky rounds}\label{app:hyperlinear-upper}
+
+\begin{proof}[Proof of Remark~\ref{rem:hyperlinear-upper}]
+Write $d$ for the system dimension, $r$ for the label count and $m$
+for the number of triangle blocks, so $2m\leq d$. We use normalized
+Frobenius norm, $\|A\|_{2,k}^2=\Tr(A^*A)/k$;
+$\|\cdot\|_{2,d,K}$ uses normalization $dK$. Take a map
+$v:E\to U(k)$ with $v_1=I$, triangle defects at most $e$ in
+$\|\cdot\|_{2,k}$, and $\|v_g-v_h\|_{2,k}\geq1$ for distinct labels.
+Then $\Re\tau_k(v_g^*v_h)\leq1/2$. Put
+\[
+ w_g=v_g\oplus\overline{v_g}\oplus I_{2k},\qquad
+ B_g=w_g^{\otimes t},\qquad K=(4k)^t.
+\]
+This is the construction in the proof of~\cite[Lemma~2.6]{SlofstraVidick2018}.
+Every triangle defect of $w$ is at most $e$, and tensor telescoping
+bounds that of $B$ by $te$. Moreover
+$\tau_{4k}(w_g^*w_h)=(1+\Re\tau_k(v_g^*v_h))/2\in[0,3/4]$.
+Choose the fixed integer
+\[
+ t=\left\lceil\frac{\ln(32d(r-1))}{\ln(4/3)}\right\rceil.
+\]
+All off-diagonal moments of $B$ are then at most
+$z=(3/4)^t\leq[32d(r-1)]^{-1}$.
+
+Form the physical gadget unitary $U$ from the symbol unitaries $B_g$,
+with full bath state $\tau_K$. Compare it to
+$W=\sum_g A_g\otimes B_g$. These operators differ only in the
+lower-right triangle slots: each discrepancy is
+$-(B_xB_y-B_z)/\sqrt2$. Thus
+\[
+ \|U-W\|_{2,d,K}^2
+ =\frac1{2d}\sum_{xy=z}\|B_xB_y-B_z\|_{2,K}^2
+ \leq t^2e^2.
+\]
+The normalized vectorizations of both $U$ and $W$ have norm one:
+for $W$ this follows from disjoint Kraus supports and
+$\sum_g\|A_g\|_F^2=d$. The $W$ vector lies in the target Choi
+support. Hence the physical leakage is at most $t^2e^2$, and the
+half trace distance of its Choi state from the $W$ Gram state is
+at most $te$. The latter Gram state's half trace distance from
+$\cJ(\Phi)$ is at most
+$z\sum_{g\ne h}\sqrt{\mu_g\mu_h}/2\leq(r-1)z/2$.
+Since $U$ defines a channel, the usual Choi-to-diamond estimate gives
+\[
+ u\leq d\left(te+(r-1)z/2\right).
+\]
+For $e=c_\Phi/\sqrt n$ with $c_\Phi=1/(32dt)$, this is at most
+$3/64<1/16$, and leakage is at most
+$1/(1024d^2n)\leq2/(15n)$.
+
+For production, the system input $\tau_d$ and full bath $\tau_K$
+give a jointly maximally mixed state, invariant under $U$. The actual
+bath map therefore fixes $\tau_K$. Consequently $a=0$ and
+$S+na=\log_2K=t\log_2(4k)$, proving the bound. A missing finite
+approximation makes its right-hand side infinite, with the usual
+extended-value interpretation.
+
+For a fixed finite presentation of $P_\Phi$, choose representatives
+$q_x$ of the elements $x\in E$, with $q_1$ the empty word, and the finite list
+$T=\{q_xq_y^{-1}:x\ne y\}$. With $\operatorname{hlp}$ the hyperlinear profile
+of~\cite[Definition~2.3]{SlofstraVidick2018},
+\cite[Proposition~7.2(b)]{SlofstraVidick2018} gives
+$\eta(E;1,Ce)\leq\operatorname{hlp}(T;1,e)$ for a
+presentation-dependent $C$: each multiplication in $E$ has a fixed finite
+relator-area proof, with normalized norm error at most $Ce$.
+Substitution gives the same upper in terms of
+$\operatorname{hlp}(T;1,c_\Phi/(C\sqrt n))$.
+The defect here is a norm, not its square. No rounding into
+permutations, no source flattening and no reverse comparison is used.
+\end{proof}

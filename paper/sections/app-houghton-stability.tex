@@ -1,0 +1,283 @@
+\section{Stability near the symmetry that fixes the inert mode}
+\label{app:houghton-stability}
+
+We prove Theorem~\ref{thm:houghton-stability}. The round, clock torus,
+constant fields and exterior-algebra representation are exactly those
+of Appendix~\ref{app:houghton}; no change of geometry is made.
+Write $\Pi(g)=(\bigwedge g)^{\otimes k}$, $L=4M+4$ and
+$G_0=U(e_+^\perp)\cong U(L-1)$. All link permutations fix $e_+$,
+as do the phase rotations on $(e_x-e_y)/\sqrt2$. Thus every literal
+slot is a clock translation followed by a collective $G_0$ unitary.
+
+Put $\sigma=\Delta_c\rho$, $\eta=\mathcal E_0\sigma$ and
+$\delta=\frac12\|\sigma-\eta\|_1$. For clock-diagonal states,
+$\mathcal E_0$ commutes with each literal conjugation: Haar twirling
+is unchanged by the internal link on either side, and the same twirl
+is used at every clock. Clock pinching also commutes with these
+conjugations. The actual bath map is their weighted mixture.
+Applying Holevo data processing to the ensemble of translated sources
+therefore gives
+\begin{equation}\label{eq:inert-twirl-gain}
+ a(\eta)\leq a(\sigma)\leq a(\rho).
+\end{equation}
+This comparison does not assert that $\eta$ implements the full target
+channel. We transfer only its order-three anchor charge.
+
+\subsection{Entropy transferred from large irreducible sectors}
+
+The one-particle three-cycle $\gamma$ fixes the orthogonal complement
+of a complex two-plane in $e_+^\perp$ and has eigenvalues
+$e^{2\pi i/3},e^{-2\pi i/3}$ on that plane. It is consequently an
+element of the plane's $SU(2)$. In every representation, the projection
+$Q_\gamma$ onto its nontrivial eigenvalues is bounded above by the
+projection onto nontrivial $SU(2)$ summands.
+
+For an irreducible $G_0$ representation $\lambda$, let $p_\lambda$ be
+the flat-state mass of these nontrivial $SU(2)$ summands and
+$q_\lambda$ the flat-state mass of $Q_\gamma$. Planes are conjugate in
+$G_0$, so $p_\lambda$ is common to every plane and
+$q_\lambda\leq p_\lambda$. Restrict to
+$t=\lfloor(L-1)/2\rfloor=2M+1$ disjoint two-planes. Their commuting
+$SU(2)$ groups decompose the flat irrep into flat tensor-product
+irreducibles and multiplicities. A nontrivial spin factor has
+dimension at least two. The entropy decomposition, including its
+nonnegative mixing and multiplicity terms, gives
+\begin{equation}\label{eq:inert-irrep-dimension}
+ \log_2\dim\lambda\geq\sum_{j=1}^t\Pr(m_j>0)
+                  =t p_\lambda\geq t q_\lambda.
+\end{equation}
+This is the same disjoint-plane argument as in
+Appendix~\ref{app:houghton}, applied inside the smaller group.
+
+The anchor calculation~\eqref{eq:actual-houghton-charge} gives
+$\Tr\rho Q_\gamma\geq7/12$. It is unchanged by clock pinching.
+Since $Q_\gamma$ is a projection, trace distance implies
+$\Tr\eta Q_\gamma\geq7/12-\delta\geq1/2$ when $\delta\leq1/32$.
+The clock-dependent three-cycles are conjugate in $G_0$, so this is
+the average of the same charges $q_\lambda$ over the clock and
+irrep weights of $\eta$. Irreps with $q_\lambda\geq1/4$ carry total
+mass $w\geq1/3$, since the total charge is at most
+$w+(1-w)/4$. By~\eqref{eq:inert-irrep-dimension}, each such irrep has
+dimension at least $2^{M/2}$.
+
+We use a dimension-free entropy transfer rather than continuity in
+the ambient bath dimension.
+\begin{lemma}[A large flat subdensity survives trace proximity]
+\label{lem:flat-subdensity-transfer}
+Let $\zeta,\xi$ be states, $\frac12\|\zeta-\xi\|_1\leq e$, and
+$0\leq\xi_H\leq\xi$ with $\Tr\xi_H=w$ and
+$\xi_H\leq2^{-B}I$. For every $s>0$,
+\[
+ S(\zeta)\geq s\bigl(w-e-2^{s-B}\bigr).
+\]
+\end{lemma}
+\begin{proof}
+Let $P$ be the spectral projection of $\zeta$ for eigenvalues at
+least $2^{-s}$. Its rank is at most $2^s$. Hence
+$\Tr\xi_H P\leq2^{s-B}$ and
+$\Tr\zeta(I-P)\geq\Tr\xi(I-P)-e
+\geq w-2^{s-B}-e$. Every eigenvalue of $\zeta$ on $I-P$ contributes
+at least $s$ times its mass to the entropy. This also proves the
+inequality when the right side is negative.
+\end{proof}
+
+Write $\sigma=\bigoplus_cp_c\sigma_c$ and
+$\eta=\bigoplus_cp_c\eta_c$. Twirling preserves $p_c$.
+Schur decomposition of a normalized invariant block gives
+\[
+ \eta_c=\bigoplus_\lambda
+       \frac{I_{\dim\lambda}}{\dim\lambda}\otimes A_{c,\lambda},
+ \qquad A_{c,\lambda}\succeq0,\quad
+       \sum_\lambda\Tr A_{c,\lambda}=1.
+\]
+The high-charge subdensity is bounded above by $2^{-M/2}I$ even
+when multiplicities are entangled or singular. Apply the lemma with
+$B=M/2$, $s=M/4$ to each block, and average. The average high-charge
+mass is $w\geq1/3$ and the average block trace distance is $\delta$.
+Coherently copying the clock and applying Araki--Lieb, as in
+Appendix~\ref{app:houghton}, gives
+\begin{equation}\label{eq:inert-entropy-floor}
+ S(\rho)\geq\sum_cp_c S(\sigma_c)
+ \geq\frac M4\bigl(1/3-\delta-2^{-M/4}\bigr)
+ \geq\frac M{16}\qquad(M\geq48,\ \delta\leq1/32).
+\end{equation}
+No physical clock measurement, full-rank hypothesis or eigenvalue
+domination was used.
+
+\subsection{Capped flux at its natural scale}
+
+For an invariant internal state $\xi$, let $p_\xi$ be its common
+nontrivial $SU(2)$-plane mass. The following estimate applies in
+$G_0$ as well as in the full orbital group.
+\begin{lemma}[Capped invariant flux]\label{lem:capped-invariant-flux}
+Let $W$ have phases $\theta_j$ on disjoint one-particle modes in
+$e_+^\perp$, and suppose these can be paired with distinct unused
+modes in that space. If $|\theta_j|\leq\pi/4$ and
+$\sum_j\theta_j^2\leq h\leq1$, then a collectively $G_0$-invariant
+state satisfies
+\[
+ \Tr\xi\min\bigl(|\Pi(W)-I|^2,hI\bigr)
+       \geq\frac{p_\xi}{2048}\sum_j\theta_j^2.
+\]
+The minimum denotes spectral functional calculus.
+\end{lemma}
+\begin{proof}
+Let $C\in G_0$ swap the paired modes and set $H=WCW^*C^*$.
+Its paired rotations belong to commuting $SU(2)$ groups. Conditional
+on irreducible spins $m_j\geq0$, invariance makes their weights
+independent and uniform:
+\[
+ X_j=(m_j-2r_j)\theta_j,\quad 0\leq r_j\leq m_j,
+ \qquad v_j=\E X_j^2=m_j(m_j+2)\theta_j^2/3.
+\]
+They are symmetric, and their fourth moments are
+$m_j(m_j+2)(3m_j^2+6m_j-4)\theta_j^4/15\leq3v_j^2$.
+For $Z=\sum_jX_j$ and $v=\sum_jv_j$, independence gives
+$\E Z^4\leq3v^2$.
+
+If $0<v\leq1$, Paley--Zygmund gives
+$\Pr(Z^2\geq v/2)\geq1/12$, while
+$\Pr(|Z|>\pi)\leq3/\pi^4$. On the remaining event,
+$4\sin^2(Z/2)\geq2v/\pi^2$. Thus
+\[
+ \E\min(4\sin^2(Z/2),h)
+ \geq(1/12-3/\pi^4)(2/\pi^2)\min(v,h)
+ >\min(v,h)/256.
+\]
+If $v\geq1$, each character $\varphi_j=\E e^{iX_j}$ satisfies
+$|\varphi_j|\leq\exp[-\min(v_j,1)/64]$.
+Indeed when $(m_j+1)|\theta_j|\leq1$, $|X_j|\leq1$ and the cosine
+inequality gives $0\leq\varphi_j\leq e^{-2v_j/\pi^2}$.
+Otherwise the spin character formula gives
+\[
+ |\varphi_j|=
+ \left|\frac{\sin((m_j+1)\theta_j)}{(m_j+1)\theta_j}\right|
+ \left|\frac{\theta_j}{\sin\theta_j}\right|
+ \leq(101/120)(9/8)=909/960<e^{-1/64}.
+\]
+Here $|\sin z|/z\leq\sin1\leq101/120$ for $z\geq1$,
+and $|\theta/\sin\theta|<9/8$ for $|\theta|\leq\pi/4$;
+zero angles follow by continuity. Since
+$\sum_j\min(v_j,1)\geq1$, the variable
+$Y=4\sin^2(Z/2)\leq4$ has
+$\E Y\geq2(1-e^{-1/64})$. The inequality
+$\min(Y,h)\geq hY/4$ gives $\E\min(Y,h)>h/256$.
+The case $v=0$ is immediate. In all cases the lower is
+$\min(v,h)/256$. As
+$v\geq\sum_{m_j>0}\theta_j^2$ and this sum is at most $h$,
+averaging the spin sectors yields
+\[
+ \Tr\xi\min(|\Pi(H)-I|^2,hI)
+                  \geq p_\xi\sum_j\theta_j^2/256.
+\]
+
+On the finite algebra generated by $\Pi(W),\Pi(C)$,
+$\omega(A)=\Tr\xi A$ is tracial. For singular-value counting
+$N(A;s)=\omega(1_{(s,\infty)}(|A|))$, the intersection/min--max
+argument gives $N(A+B;s)\leq N(A;s/2)+N(B;s/2)$.
+One can first remove zero-weight blocks if $\omega$ is not faithful.
+Integration of this inequality gives
+\[
+ \omega\min(|A+B|^2,hI)
+ \leq4\bigl[\omega\min(|A|^2,hI)+
+             \omega\min(|B|^2,hI)\bigr].
+\]
+Use
+\[
+ \Pi(H)-I=
+ [\, (\Pi(W)-I)\Pi(C)-\Pi(C)(\Pi(W)-I)\,]
+                  \Pi(W)^*\Pi(C)^*.
+\]
+Tracial unitary invariance makes each summand's capped flux equal
+to that of $\Pi(W)-I$, giving a factor eight. Combining the two
+bounds proves the lemma, including arbitrary multiplicity states.
+\end{proof}
+
+In the actual geometry there are at most $M$ active modes. They lie
+in $e_+^\perp$ and are orthogonal because their label pairs are
+disjoint. Its dimension $4M+3$ leaves room for $M$ partners. With
+$m_M=1+(M-1)(M-2)/2$, their constant-field angles satisfy
+\[
+ |\theta_j|\leq\pi/m_M\leq\pi/4,\qquad
+ \sum_j\theta_j^2\leq M\pi^2/m_M^2\leq72/M^3=:h_M\leq1.
+\]
+The last estimate holds at $M=12$ and improves thereafter.
+On $B_0=\{0,\ldots,\lfloor M/4\rfloor\}^2$, all $M$ regions
+occur, with areas at most $M^2$, so
+$\sum_j\theta_j^2\geq\pi^2/M^3$; $B_0$ occupies at least
+$1/16$ of the clock torus.
+
+Write $\eta_0=(I/M^2)\otimes\bar\eta$ for the uniform-clock state
+with the same internal marginal as $\eta$. Its plane mass satisfies
+$p_{\bar\eta}\geq\Tr\eta Q_\gamma\geq1/2$. Set
+\[
+ X=|\Pi(W)-I|^2,\quad F_M=\min(X,h_MI),\quad
+ C_0=\pi^2/65536,
+\]
+where the clock-diagonal word $W=r_4$ uses the holonomy at each
+clock. The capped lemma gives
+$\Tr\eta_0F_M\geq C_0/M^3$.
+The operator-valued clock law~\eqref{eq:operator-clock-law}
+uses only invariance under the literal internal slots. It therefore
+applies to $\eta$ with $G_0$ in place of $U(L)$, and
+\eqref{eq:inert-twirl-gain} gives
+\[
+ \tfrac12\|\eta-\eta_0\|_1
+           \leq M\sqrt{104(\ln2)a(\rho)}.
+\]
+Since $0\leq F_M\leq h_MI$ and its clock pinching is unchanged,
+positivity and trace distance imply
+\begin{equation}\label{eq:trace-stable-flux}
+ \Tr\rho X\geq\Tr\rho F_M\geq
+ M^{-3}\left[C_0-72\delta-
+                 72M\sqrt{104(\ln2)a(\rho)}\right].
+\end{equation}
+Capping is important: the unbounded relative spectral contrast of
+$\rho$ does not multiply the error by the ambient bath dimension.
+
+\subsection{The cost bound and its limitation}
+
+Put $\delta_*=C_0/288$ and
+$A_0=\delta_*^2/(104\ln2)$. Assume $\delta\leq\delta_*$,
+which is smaller than $1/32$. If $a>A_0/M^2$,
+\eqref{eq:inert-entropy-floor} gives
+\[
+ S+na\geq M/16+nA_0/M^2
+ \geq\frac3{2^{2/3}}(A_0/16^2)^{1/3}n^{1/3}
+ >4.64\cdot10^{-6}n^{1/3}.
+\]
+Otherwise~\eqref{eq:trace-stable-flux} gives
+$\Tr\rho X\geq C_0/(2M^3)$. The weaker consequence
+$\ell\geq\Tr\rho X/(3\cdot104)$ of
+\eqref{eq:actual-houghton-leakage}, together with
+$\ell\leq2/(15n)$, implies
+\[
+ M^3\geq\frac{15C_0}{12\cdot104}n,\qquad
+ S+na\geq\frac1{16}
+       \left(\frac{15C_0}{12\cdot104}\right)^{1/3}n^{1/3}
+ >7.61\cdot10^{-4}n^{1/3}.
+\]
+Both branches prove the stated $4\cdot10^{-6}$ constant.
+
+The hypothesis is not density domination in disguise. Under the
+canonical exterior-algebra splitting
+$\Lambda(\C^L)\simeq\Lambda(\C e_+)\otimes\Lambda(e_+^\perp)$,
+the first factor is inert for every literal slot. It can be in a pure
+coherent state while the second carries an invariant charged source.
+Such states can satisfy the theorem's round tests, have zero
+eigenvalues, and fail full $U(L)$ invariance. For example, a flat
+state on $\Lambda(e_+^\perp)^{\otimes k}$ has the same holonomy
+characters as the flat full-orbital source; replacing its inert
+factor by a pure coherent state changes no channel or leakage test.
+
+More generally let $\tau$ have invariant clock-diagonal blocks and
+let $\rho=P\tau P/\Tr(P\tau)$, where $\Tr(P\tau)=1-r$.
+The purification proof of gentle filtering gives
+$\frac12\|\rho-\tau\|_1\leq\sqrt r$. Pinching and twirling are
+trace-distance contractions, so
+$\delta_{\rm orb}(\rho)\leq2\sqrt r$. Whenever the original
+round tests still hold, a vanishing filtering perturbation cannot
+beat the exponent in this geometry. The missing all-source step is
+to deduce a suitably uniform symmetry proximity from low actual
+production as $M$ grows. No such deduction, or comparison with all
+round geometries, is proved here.

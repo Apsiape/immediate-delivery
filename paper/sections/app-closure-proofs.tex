@@ -1,0 +1,257 @@
+\section{Proofs of the closure law}\label{app:closure-proofs}
+
+This appendix proves the finite-approximation upper and the local
+tracialization converse stated in Section~\ref{sec:closure}.
+All bath, workspace and exchange counts refer to the service
+contract of Section~\ref{sec:model}.
+
+\begin{proof}[Proof of Lemma~\ref{lem:mixture-flat}]
+Carath\'eodory's theorem reduces the mixture to $L\le d^4+1$ terms with weights $p_i$ and bath dimensions $m_i\le m$.
+Take $\lfloor Np_i/m_i\rfloor$ copies of the $i$th bath block and fill the remaining dimension by identity blocks; this is the block-diagonal
+construction in the proof of~\cite[Theorem~3.6]{HaagerupMusat2015}.
+The realized weights $q_i=m_i\lfloor Np_i/m_i\rfloor/N$ obey $q_i\le p_i$ and
+$1-\sum_iq_i\le Lm/N\le\gamma$. Both the removed mixture and the filler are channels, giving the stated half-diamond bound.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:generic-repair}]
+Choose Hilbert--Schmidt orthogonal minimal Kraus operators $K_i$, with
+$\Tr K_i^*K_j/d=\mu_i\delta_{ij}$ and $\mu_i>0$. The flat-probe identity is unchanged by this unitary Kraus change.
+The unital completely positive map
+\[
+ \mathcal A(Y)=\sum_{i,j}K_i^*K_j\otimes Y_{ij}
+\]
+has a fixed Hermiticity-preserving linear right inverse $\mathcal R$ on its range.
+Its amplified trace norm is bounded independently of $k$: writing
+$\mathcal R(H)=\sum_j\Tr(F_jH)R_j$ in fixed dual bases, trace duality bounds each amplified coefficient extraction by
+$\nrm{F_j}\nrm H_1$, and hence the sum by a fixed constant.
+
+Project the approximant unitary as $U=G+L$, $G=\sum_iK_i\otimes X_i$, with the system coefficients of $L$ orthogonal to the
+Kraus span. Its leakage is $\ell=\nrm L_F^2/(dk)\le\delta$.
+For $Y^0=[X_i^*X_j]\ge0$, let $H_0=I-G^*G$ and $E=(\mathcal R\otimes\id)(H_0)$.
+Here $H_0$ is in the amplified range, and
+\[
+ \frac{\nrm{H_0}_1}{k}\le d(2\sqrt\ell+\ell),\qquad
+ \frac{\nrm E_1}{k}=O_\Phi(\sqrt\ell).
+\]
+The first inequality follows from $U^*U=I$ and Hilbert--Schmidt Cauchy--Schwarz.
+Let $Z=r\Tr_{\C^r}E_-\ge0$. The positive pinching inequality gives
+$E_-\le I_r\otimes Z$, so
+\[
+ Y_1=Y^0+E+I_r\otimes Z\ge0,\quad
+ \mathcal A(Y_1)=I_d\otimes(I_k+Z).
+\]
+For $C=(I+Z)^{-1/2}$, the common congruence
+$Y=(I_r\otimes C)Y_1(I_r\otimes C)$ is positive and $\mathcal A(Y)=I$.
+Factoring $Y$ gives maps $B_i:\C^k\to\C^{rk}$ with $B_i^*B_j=Y_{ij}$, and
+$W=\sum_iK_i\otimes B_i$ is a genuine isometry, completed to a unitary on the enlarged bath.
+
+We must bound its entropy without paying $\sqrt\ell\log k$.
+Let $D_\mu=\diag(\sqrt{\mu_i})\otimes I_k$.
+The output spectrum is that of $\Omega=D_\mu YD_\mu/k$, whose bath-reference marginal is $I_k/k$.
+It splits into two positive components,
+\[
+ \Omega_{\rm old}=D_\mu(I\otimes C)Y^0(I\otimes C)D_\mu/k,\qquad
+ \Omega_{\rm corr}=D_\mu(I\otimes C)(E+I\otimes Z)(I\otimes C)D_\mu/k.
+\]
+The old component factors through the \emph{original square bath}, so its rank is at most $k$; the correction has rank at most $rk$.
+Also $\Tr_dH_0=\Tr_dL^*L$, by orthogonality. Thus, with $b=\Tr\Omega_{\rm corr}$,
+\[
+ 0\le b\le\ell+\Tr Z/k=O_\Phi(\sqrt\ell),\qquad
+ S(\Omega)\le h_2(b)+(1-b)\log k+b\log(rk).
+\]
+The repaired entropy production is therefore at most $h_2(b)+b\log r$.
+This argument would fail for a general rank-$k$ source in ambient dimension $M$: its old component could have rank $M$,
+leaving an extra $(1-b)\log(M/k)$.
+
+The scalar Gram $\bar G_{ij}=\Tr B_i^*B_j/k$ obeys
+$\nrm{\bar G-I}=O_\Phi(\sqrt\delta)$ and $\mathcal A(\bar G)=I_d$.
+Indeed the original scalar coefficients are bounded fixed linear extractions of the Choi state; the correction has trace norm
+$O_\Phi(k\sqrt\ell)$, and the common contraction changes scalar entries by the same order.
+The $X_i$ have fixed operator-norm bounds because they are fixed coefficient extractions of a unitary.
+
+Replicate the repaired source to the least positive multiple $K$ of $k$ with $K\ge\delta^{-1/2}$, without changing its normalized Gram or production. Thus $K\le k+\delta^{-1/2}$.
+Put $N=\max(1,\lceil K\nrm{\bar G-I}\rceil)$ and
+\[
+ C_0=I_r-\frac K N(\bar G-I_r)\ge0,\qquad \mathcal A(C_0)=I_d.
+\]
+If $C_0=[\langle c_i,c_j\rangle]$, the maps $c_i\otimes I_N$ give a correction isometry, with flat-source output entropy
+$\log N+S(\sum_i\mu_i\ket{c_i}\bra{c_i})\le\log N+\log r$.
+The orthogonal direct sum has source rank $k_1=K+N$, exact scalar Gram
+$(K\bar G+NC_0)/(K+N)=I_r$, and production
+\[
+ a_1\le(1-p)a'+p\log r,\qquad p=N/(K+N)=O_\Phi(\sqrt\delta).
+\]
+The mixing entropy cancels against $\log(K+N)$. Replication and the added dimension give the logarithmic size bound.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:generic-upper}]
+Lemma~\ref{lem:mixture-flat} turns a mixture approximant at Choi accuracy $\delta$ into a single finite tracial factorization at accuracy
+$2\delta$, with $\log k\le\log(D_{\rm mix,\Phi}(\delta)+1)+\log(1/\delta)+O_d(1)$.
+Lemma~\ref{lem:generic-repair} gives an exact dilation with source rank $k_1$ and production
+$a_1\le C_\Phi\sqrt\delta\log(e/\delta)$.
+
+The path compiler of Theorem~\ref{thm:pathreg} applies to this dilation without gadget identities.
+For clarity, the hypothesis check is as follows. The flat probe applied to $W^*W=I$ gives
+$\sum_iB_i^*B_i=rI$, so $\nrm{B_i}^2\le r$. The flat output bath state is at most $I/k_1$, since $WW^*$ is a projection.
+Its top-$k_1$ tail $w$ is at most $a_1\ln2$ by the proof of Lemma~\ref{lem:top}, which needs only that spectral ceiling,
+not individual isometries $B_i$. Divide the output into at most $r+1$ rank-$k_1$ pieces.
+Their matrices $M^{(b)}\ge0$ sum to $I_r$ and induce effects
+$V^*(I\otimes M^{(b)})V$, with norm at most $\Tr M^{(b)}$.
+Consequently
+\[
+ \beta=\sum_{b\ge2}w(b)\le a_1\ln2/\mu_{\min}.
+\]
+Concentration in Lemma~\ref{lem:concentration}(a) uses only $\nrm{B_i}^2\le r$.
+The path-type recursion uses positivity and $\sum_bM^{(b)}=I_r$.
+Inflow is bounded by $\sum_i C_i^{(b)*}C_i^{(b)}\le rI$, and export uses Lemma~\ref{lem:export}(a).
+These are exactly the invariants proved in Appendix~\ref{app:frames}; no group relation or disjoint Kraus support is consumed.
+
+Choose $\bar\beta=C_\Phi\sqrt\delta\log(e/\delta)\le1/4$ and
+$\theta=1/\log(1/\bar\beta)$. Then
+$u'\le O_r(\bar\beta)$ and
+$\log\kappa_\theta/\theta\le O_r(\bar\beta\log(1/\bar\beta))$ by the positive-piece H\"older bound in the proof of
+Theorem~\ref{thm:flat-zero}. Insert these in Theorem~\ref{thm:pathreg}.
+The target is exact before compilation: $\delta$ contributes to resources, not an $n\delta$ operational error.
+Every path register, port and workspace is part of $Q$; the fixed choices of twirls require no runtime random resource.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:closure-law}(a)]
+For fixed $\delta>0$ the profile is finite. Divide the preceding bound by $n$ and let $n\to\infty$:
+the profile and fixed logarithmic terms vanish, and $\log(n/\epsilon_n)/n\to0$.
+Then let $\delta\downarrow0$. Explicitly choose $\delta_j\downarrow0$ so that
+$C_\Phi\sqrt{\delta_j}\log^2(e/\delta_j)\le1/j$.
+For each $j$ choose increasing thresholds $N_j$ beyond which the remaining terms divided by $n$ are at most $1/j$,
+using the fixed finite value $D_{\rm mix,\Phi}(\delta_j)$ and the given error sequence.
+Use $\delta_j$ for $N_j\le n<N_{j+1}$. This slow diagonal choice gives $Q/n\le2/j\to0$ and $P/n\le Q/n\to0$.
+It asserts no uniform rate of approximation and no logarithmic purity bound.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:tracialization}]
+Let $p_i,q_j$ be the eigenvalues of $\rho,T(\rho)$ and
+$w_{ji}=d^{-1}\sum_{s,t}|\langle s,j|U|t,i\rangle|^2$ in their eigenbases.
+This is doubly stochastic and $q=wp$. The laws $P_{ji}=w_{ji}p_i$, $R_{ji}=w_{ji}q_j$ satisfy
+$D(P\|R)=S(q)-S(p)=a$. Pinsker gives
+$\sum_{ji}w_{ji}|p_i-q_j|\le\sqrt{2\ln2\,a}$.
+Zeros follow by restriction or continuity.
+
+Sort both spectra decreasingly, matching their eigenvectors by index. The optimal one-dimensional spectral matching gives
+$\sum_j|p_j-q_j|\le\sum_{ji}w_{ji}|p_i-q_j|$. Therefore
+$\sum_{ji}w_{ji}|p_i-p_j|\le2\sum_{ji}w_{ji}|p_i-q_j|$.
+For each $k$, compress $U$ from the top-$k$ input bath subspace to the top-$k$ output bath subspace, identified with $\C^k$.
+Its square compression $A=VH$ is a contraction; choose a unitary polar extension $V$.
+The unitaries $V(H\pm i\sqrt{I-H^2})$ average to the channel
+$X\mapsto AXA^*+BXB^*$, $B=V\sqrt{I-H^2}$, before the flat bath is traced out.
+The original flat-source channel is the compressed channel plus a positive outgoing term; the repaired channel is the same compressed
+channel plus a positive replacement term. Both terms have normalized Choi trace
+$e_k=k^{-1}\sum_{i\le k,j>k}w_{ji}$, so their Choi distance is at most $e_k$.
+Now use the layer-cake decomposition
+$\rho=\sum_k k(p_k-p_{k+1})P_k/k$, with $p_{M+1}=0$. Its weights sum to one, and the total repair error is at most
+\[
+ \sum_k(p_k-p_{k+1})\sum_{i\le k,j>k}w_{ji}
+ =\sum_{ji}w_{ji}(p_i-p_j)_+
+ =\frac12\sum_{ji}w_{ji}|p_i-p_j|.
+\]
+The last equality uses double stochasticity. The preceding transport bound completes the proof, with finitely many components that are finite tracial factorizations
+and bath caps at most $M$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:closure-law}(b)]
+Use an observer sending fresh Bell inputs and retaining every output and reference, without adaptation.
+Even if the memory is correlated with previous outputs, each round's unconditional channel is the round determined by its current memory
+marginal. Its Choi marginal is within $\epsilon$ of the target. Its production $a_t\ge0$ obeys
+$\sum_ta_t\le B:=P+C$: the deficit $Q-S(\rho_t)$ decreases by $a_t$ at a round, and a replacement raises it by at most the imported deficit.
+Lemma~\ref{lem:tracialization}, averaging the repaired channels, and Jensen give
+\[
+ \Delta\le\epsilon+\sqrt{2\ln2\,B/n}.
+\]
+It gives $B\ge n(\Delta-\epsilon)_+^2/(2\ln2)$; $P\le Q$ proves (b).
+The boundary ledger remains valid with correlations: exporting $E$ from $AE$ and importing an independent state $\beta$
+raises the memory deficit by $c+S(E|A)-\log\dim E\le c$, where $c$ is the imported deficit.
+
+An additional converse,~\cite[Corollary~3.3(b)]{DouglasMghirbiB}, remains useful when imported purity is large. Let $H(\Phi)$ be the largest entropy of a minimal complementary output over system inputs. Use a \emph{different} observer sending independent purifications of an entropy-maximizing input.
+The ideal retained entropy is $nH(\Phi)$; continuity on dimension at most $d^{2n}$ gives actual entropy at least
+$nH(\Phi)-2\epsilon n\log d-1$.
+Purifying the device's resources gives an upper bound $2(Q+J)-B$: the complementary system is the final memory, permanent exports
+and inaccessible resource purifiers. Both observers test the \emph{same fixed resource ledger}, so at $J\le nH(\Phi)/2$,
+$2Q\ge B-2\epsilon n\log d-1$. Combining the inequalities gives, at this entropy-rate exchange budget,
+\[
+ Q\ge n\left(\frac{(\Delta-\epsilon)_+^2}{4\ln2}-\epsilon\log d\right)-\frac12.
+\]
+
+This proof uses imports only between rounds, and the theorem is stated for that case.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:repeatable}]
+(a) Feed the maximally mixed state $\tau_d$ at every use. These inputs
+are uncorrelated, so the device repeats $\Phi$ on them. Use $j$ is then
+the round $(U,\xi_j)$ of Definition~\ref{def:round}. Its channel is
+$\Phi$, its bath map $T$ gives $\xi_{j+1}=T(\xi_j)$, and its entropy
+production is $a_j=S(\xi_{j+1})-S(\xi_j)\geq0$. The sum telescopes:
+\[
+ \sum_{j=1}^na_j=S(\xi_{n+1})-S(\xi_1)\leq\log M-S(\xi_1).
+\]
+Choose $j$ with $a_j\leq(\log M-S(\xi_1))/n$.
+Lemma~\ref{lem:tracialization} gives $\Psi\in\operatorname{conv}\mathcal F_M$
+with $d_J(\Phi,\Psi)\leq\sqrt{2\ln2\,a_j}$. This is the first
+inequality. The second follows from
+$\operatorname{conv}\mathcal F_M\subseteq\overline{\mathcal F}$
+(Lemma~\ref{lem:mixture-flat}). With Bell inputs in place of $\tau_d$
+the memory marginals are the same, and each reference and output pair
+is exactly in the state $\cJ(\Phi)$. No joint state of several outputs
+is used.
+
+(b) For each $n$, the proof of part~(a) gives a round $(U_n,\rho_n)$ on
+$\C^d\otimes\C^M$ with channel $\Phi$ and entropy production at most
+$(\log M)/n$. Unitaries and states on these fixed spaces form compact
+sets, and the channel and the production of a round depend continuously
+on it. A limit point $(U,\rho)$ is therefore a round with channel $\Phi$
+and production $0$. Let $\omega=U(\tau_d\otimes\rho)U^*$. Then
+$S(\omega)=\log d+S(\rho)$, the marginals of $\omega$ are
+$\Phi(\tau_d)$ and $T(\rho)$, and $S(T(\rho))=S(\rho)$. Subadditivity
+gives $S(\Phi(\tau_d))\geq\log d$. Hence $\Phi(\tau_d)=\tau_d$,
+subadditivity is an equality, and $\omega=\tau_d\otimes T(\rho)$, that
+is, $U(I\otimes\rho)U^*=I\otimes T(\rho)$. So $T(\rho)=W\rho W^*$ for a
+unitary $W$, and $U'=(I\otimes W^*)U$ has the same channel and commutes
+with $I\otimes\rho$. Write $\rho=\sum_k\lambda_kP_k$ with distinct
+eigenvalues $\lambda_k>0$ and $m_k=\rank P_k$. Then $U'$ restricts to a
+unitary $U_k$ on $\C^d\otimes P_k\C^M$. Identifying $P_k\C^M$ with
+$\C^{m_k}$,
+\[
+ \Phi(X)=\sum_k\lambda_k\Tr_{P_k\C^M}U_k(X\otimes P_k)U_k^*
+ =\sum_k\lambda_km_k\,(\id\otimes\tau_{m_k})\bigl[U_k(X\otimes I)U_k^*\bigr].
+\]
+The weights $p_k=\lambda_km_k$ sum to $1$, and
+$\sum_km_k=\rank\rho\leq M$.
+
+(c) Use the inputs of part~(a). Each use is a round with channel
+$\Theta$, so Lemma~\ref{lem:qutrit-rigidity} with $\delta=0$ gives
+$a_j\geq\log3$. The telescoping sum gives $n\log3\leq\log M-S(\xi_1)$.
+In the $n$-cell device each cell holds the pure environment of a
+three-dimensional Stinespring dilation of $\Theta$. Use $j$ acts on the
+input and the first cell and then shifts the cells cyclically, as in
+Proposition~\ref{prop:ceiling}. Each use $j\leq n$ meets a fresh pure
+cell, so the device repeats $\Theta$ for $n$ uses, with $M=3^n$ and
+$S(\xi_1)=0$. Letting $n\to\infty$ shows that no finite device repeats
+$\Theta$.
+
+(d) The $v_k$ are unit vectors, so the $w_k$ are Hermitian unitaries
+with $\tau_2(w_kw_l)=v_k\cdot v_l=B_{kl}$. Thus $U$ is unitary, $B\geq0$
+and $B_{kk}=1$, so $T_B$ is a unital channel. For every input $\rho$,
+\[
+ \Tr_{\C^6}U(\rho\otimes\tfrac I2)U^*=\sum_k\rho_{kk}w_k\tfrac I2w_k=\tfrac I2,
+ \qquad
+ \Tr_{\C^2}U(\rho\otimes\tfrac I2)U^*=\sum_{k,l}\rho_{kl}\tau_2(w_kw_l)\ket k\bra l=T_B(\rho).
+\]
+This is the catalytic dilation. Haagerup and Musat proved that $T_B$ is
+not random-unitary~\cite[Example~3.3]{HaagerupMusat2011}; here is a
+direct check. If $T_B=\sum_ip_i\Ad V_i$, then $T_B(\ket k\bra k)=\ket k\bra k$
+forces every $V_i$ to be diagonal. So $B=\sum_ip_iz_iz_i^*$ with
+unimodular vectors $z_i$, each in the range of $B$ because
+$p_iz_iz_i^*\leq B$. Then $z_{i,k}=v_k\cdot c$ for some $c=x+iy\in\C^3$,
+so $v_k^T(xx^T+yy^T-I)v_k=0$ for every $k$. A quadratic form vanishing at
+$v_1,\dots,v_5$ vanishes on the circle through them, since a nonzero
+trigonometric polynomial of degree at most two has at most four zeros;
+so it is a multiple of $-4x_1^2+x_2^2+x_3^2$, and vanishing at $v_0$
+makes it zero. Hence $xx^T+yy^T=I$, which is impossible since the left
+side has rank at most two.
+\end{proof}

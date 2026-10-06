@@ -1,0 +1,680 @@
+\section{Actual production and Houghton coercivity}
+\label{app:houghton-coercivity}
+
+\subsection{The root-energy dictionary}
+
+\begin{proposition}[Actual-production dictionary]\label{prop:actual-dirichlet}
+For the literal smoothed slots $T\rho=\sum_sw_sV_s\rho V_s^*$,
+with $m\leq174$, $V_0=I$ and $w_0\geq1/d$, put
+$\mathfrak D=\sum_sw_s\|V_s\sqrt\rho V_s^*-\sqrt\rho\|_F^2$.
+For every source, with $a=S(T\rho)-S(\rho)$,
+\[
+ \mathfrak D\leq(d+1)\ln2\,a,\qquad
+ a\leq h_2(t)+t\log_2(m-1),\quad
+ t=\min\{\mathfrak D,(m-1)/m\}.
+\]
+On the same feasible physical rounds, optimizing $S+n\mathfrak D$
+and $S+na$ gives equivalent costs up to $O(\log(en))$ and an
+additive constant. Error and leakage constraints are unchanged.
+\end{proposition}
+
+\begin{proof}[Proof of Proposition~\ref{prop:actual-dirichlet}]
+Put $\xi=\sqrt\rho$, $\xi_s=V_s\xi V_s^*$,
+$\bar\xi=\sum_sw_s\xi_s$, and $\sigma=T\rho$.
+The Holevo identity gives $a=\sum_sw_sD_2(\rho_s\Vert\sigma)$.
+For states $P,Q$,
+\[
+ D_{\rm nat}(P\Vert Q)\geq\|\sqrt P-\sqrt Q\|_F^2.
+\]
+Indeed spectral overlap probabilities reduce the left side to a
+classical relative entropy, and Jensen gives
+$D_{\rm nat}\geq-2\ln\Tr\sqrt P\sqrt Q
+\geq2-2\Tr\sqrt P\sqrt Q$; zero eigenvalues follow by limits.
+The variance identity and minimization over a common centre give
+\[
+ v:=\sum_sw_s\|\xi_s-\bar\xi\|_F^2
+     =1-\|\bar\xi\|_F^2\leq(\ln2)a.
+\]
+The identity slot implies $w_0\|\xi-\bar\xi\|_F^2\leq v$, hence
+$\mathfrak D=v+\|\bar\xi-\xi\|_F^2\leq(d+1)(\ln2)a$.
+
+For the converse, form the pure-state ensemble
+$\Omega=\sum_sw_s|\operatorname{vec}\xi_s\rangle
+\langle\operatorname{vec}\xi_s|$. Partial trace maps it to the
+ensemble $\rho_s$, so Holevo data processing gives $a\leq S(\Omega)$.
+Its rank is at most $m$ and
+$\Omega\geq|\operatorname{vec}\bar\xi\rangle
+\langle\operatorname{vec}\bar\xi|$, so
+$\lambda_{\max}(\Omega)\geq1-v\geq1-\mathfrak D$.
+Maximizing entropy with this eigenvalue constraint gives the stated
+binary-entropy bound. Zero weights can be omitted; $m=1$ is trivial.
+
+For completeness put $y=\log_2(en)$ and $C_0=(d+1)\ln2$.
+The first inequality gives
+$S+n\mathfrak D\leq\max(1,C_0)(S+na)$.
+The second, using $h_2(t)\leq t\log_2(e/t)$, gives
+$S+na\leq C_m y(1+S+n\mathfrak D)$ for a fixed $C_m$.
+If $\mathfrak D\leq1/n$, set $x=n\mathfrak D\leq1$ and use
+$x\log_2(en/x)\leq y+1/(e\ln2)$.
+If $1/n<\mathfrak D<(m-1)/m$, use
+$\log_2(e/\mathfrak D)\leq y$; above this threshold use
+$a\leq\log_2m\leq2(\log_2m)\mathfrak D$.
+Taking infima over the same feasible family proves the profile claim.
+\end{proof}
+
+\subsection{The exact leakage coefficient}
+
+Here and below $\Pi_k$ denotes the smoothed model's bath
+representation, $W=r_4$, and
+$X=(\Pi_k(W)-I)^*(\Pi_k(W)-I)$.
+Inspecting the canonical slots gives, for every source,
+\begin{equation}\label{eq:actual-houghton-leakage}
+ \ell=\frac{488}{225d}\Tr\rho X.
+\end{equation}
+The calculation is weighted least squares, not a defect inequality.
+The identity class has total squared coefficient $45/2$:
+one exceptional closing slot of weight $1/2$ versus weight $22$
+with the usual endpoint. The $\alpha$ class has total $25/2$:
+exceptional weight $2$ versus usual weight $21/2$.
+The other exceptional word $\sfa\sfb\sfa^{-1}=r_4\alpha\sfb$
+is alone in its target label class and contributes no residual.
+The flux phases act on coordinates numbered at least five, so they
+commute with $\alpha$. Thus the two variances multiply the same $X$:
+\[
+ \Lambda=\left(\frac{(1/2)22}{45/2}
+                  +\frac{2(21/2)}{25/2}\right)X
+          =\frac{488}{225}X .
+\]
+All other slot classes are consistent.
+Let $Q_\gamma$ be the projection onto the nontrivial eigenvalues
+of the order-three operator $\Pi_k(\gamma)$. The anchor gives
+$|\Tr\rho\Pi_k(\gamma)|\leq2u\leq1/8$, so
+\begin{equation}\label{eq:actual-houghton-charge}
+ \Tr\rho Q_\gamma\geq7/12,
+\end{equation}
+since $\operatorname{Re}\Tr\rho\Pi_k(\gamma)
+=1-\tfrac32\Tr\rho Q_\gamma$.
+
+\subsection{A representation-uniform gap at fixed clock size}
+
+\begin{theorem}[Fixed-clock coercivity]\label{thm:fixed-clock}
+For each fixed $M\geq48$ in the literal rational constant-field
+smoothed model there is $c_M>0$, independent of the flavour count $k$,
+such that every source with $u\leq1/16$ satisfies $a+\ell\geq c_M$.
+Consequently $\ell=O(1/n)$ forces $S+na=\Omega_M(n)$.
+\end{theorem}
+
+We give the compact-group argument for Theorem~\ref{thm:fixed-clock}.
+Its only geometric inputs are the actual unitary model of
+\cite[Section~6]{DouglasMghirbiA}, specialized to its rational
+constant fields. At fixed $M\geq48$, put $L=4M+4$.
+The one-particle generators lie in
+\[
+ G=U(L)^{M^2}\rtimes\mathbb Z_M^2
+       \ \subset U(\C^{M^2}\otimes\C^L).
+\]
+Their links are permutations times $e^{i\phi Q_{\rm pair}}$.
+The tree curl construction with fields $\pm\pi/|R|$ makes $\phi$
+a rational multiple of $\pi$, so all their entries are algebraic.
+The words $r_1,r_2,r_3,r_5$ are exact, $\gamma$ is a three-cycle,
+and $W=r_4$ has disjoint-plane phases. In particular
+\[
+ W^q=I,\quad q=2\,\operatorname{lcm}_R|R|,\qquad
+ \|W-I\|_{\rm op}\leq\pi/m_M<1/2,\quad
+ m_M=1+(M-1)(M-2)/2.
+\]
+For each $k$, the model on
+$\C^{M^2}\otimes\Lambda(\C^L)^{\otimes k}$
+is a continuous unitary representation of this same $G$.
+It is not the exterior power of the full one-particle clock space.
+
+Let $\Gamma=\langle\sfa,\sfb,\alpha\rangle$, $K=\overline\Gamma$,
+and let $\Gamma_N$ be the abstract normal closure of $W$ in $\Gamma$.
+Then $N=\overline{\Gamma_N}$ is a closed normal subgroup of $K$.
+We first prove that $N^0$ is semisimple.
+The torus $Z=Z(N^0)^0$ is characteristic and hence $K$-invariant.
+Every $K$-conjugate of $W$ acts on its Lie algebra with
+\[
+ \|\operatorname{Ad}(W)-I\|_{F\to F}
+       \leq2\|W-I\|_{\rm op}<1.
+\]
+This is an order-$q$ torus-lattice automorphism. A nonidentity
+finite-order integral automorphism cannot have every eigenvalue
+within distance strictly less than one from $1$: a nontrivial
+root of unity $\zeta$ brings all its Galois conjugates in the
+integer characteristic polynomial, while the nonzero integer
+$\prod_{\zeta'}(1-\zeta')$ would then have absolute value less than
+one. Thus every conjugate centralizes $Z$, and density shows that
+$N$ does too.
+
+The compact abelian Lie quotient $N/\overline{[N,N]}$ has exponent
+dividing $q$, since it is generated densely by these order-$q$
+conjugates; it is therefore finite. Put $D=[N^0,N^0]$, a closed
+semisimple subgroup. In $N/D$, the connected component is the
+image of $Z$, hence is central and has finite index.
+Schur's theorem gives a finite commutator subgroup
+\cite{Yadav2016}. Its abelianization is also finite, as a quotient
+of the preceding exponent-$q$ abelian group. Thus $N/D$ is finite,
+and its connected component is trivial. This proves $N^0=D$.
+
+Next $\gamma\in N$. The quotient $K/N$ satisfies the $H_3$
+presentation. Every finite-dimensional unitary representation
+of $H_3$ kills its subgroup $\operatorname{Alt}_{\rm fin}$:
+simplicity would otherwise give an injection, whereas this
+group contains elementary abelian $2$-groups of arbitrarily
+large rank and commuting involutions in $U(p)$ have rank at most
+$p$. Continuous finite-dimensional representations of a compact
+group separate its points. They therefore kill the image of
+$\gamma$ in $K/N$, proving the assertion.
+
+The dense subgroup $\Gamma_N\cap N^0$ consists of algebraic
+matrices; $N^0$ is open in $N$.
+If $N^0$ is nontrivial, Breuillard--Gelander's theorem supplies
+two elements of this subgroup generating a dense subgroup of
+$N^0$ \cite[Theorem~1.1]{BreuillardGelander2003}.
+Their adjoint matrices have algebraic entries in an algebraic
+Lie-algebra basis. Here is the basis justification, to exclude
+an implicit rationality assumption on a closed subgroup.
+A compact matrix group is real Zariski closed: polynomial
+approximation followed by averaging over the group separates
+any exterior point from the group by an invariant polynomial.
+At each bounded degree its vanishing polynomials are the kernel
+of evaluations on the dense algebraic subgroup. Finite-rank
+linear algebra selects finitely many algebraic evaluation rows,
+so this kernel has an algebraic coefficient basis.
+Noetherianity selects finitely many of these defining equations.
+Taking their tangent equations at the identity yields an
+algebraic basis of the Lie algebra; compact real algebraic groups
+are smooth. Conjugation by the selected algebraic matrices is
+algebraic in this basis.
+
+Apply He--de Saxce's theorem to a symmetric lazy probability
+measure on these generators and their inverses
+\cite[Theorem~1.4]{HeDeSaxce2021}. It has a spectral gap on
+$L^2_0(N^0)$. Peter--Weyl then gives the same gap in every
+continuous unitary representation after removing $N^0$-invariants.
+Add finitely many representatives in $\Gamma_N$ of $N/N^0$.
+The projection onto $N^0$-invariants commutes with $N$; on its
+range the finite quotient has a uniform gap.
+Combining the two gaps gives a finite set $F_M\subset\Gamma_N$
+and a representation-uniform constant. If $N^0$ is trivial,
+the finite-group gap gives the same conclusion directly.
+Every member of $F_M$ is a finite word in $\Gamma$-conjugates of
+$W$ and $W^{-1}$. All choices and constants depend on $M$,
+not on a representation or its dimension.
+
+On Hilbert--Schmidt matrices use
+$\zeta_k(x,y)A=\Pi_k(x)A\Pi_k(y)^*$.
+Left multiplication by a conjugate of $W$ is
+$(g,g)(W,e)(g^{-1},g^{-1})$ in this representation;
+there is an analogous right formula.
+Telescoping each fixed word bounds its squared displacement by
+its length times the sum of the squared elementary displacements.
+Diagonal $\sfa,\sfb,\alpha$ displacements are bounded by $d$ times
+the actual slot Dirichlet energy, since their singleton weights
+are at least $1/d$; inverse displacements have the same norm.
+The remaining elementary energies are left and right $W-I$.
+Apply the finite-set gap separately to the left and right
+representations of $N$. Their invariant projections $P_L,P_R$
+commute, and distance to $P_LP_R$ is at most the sum of the two
+squared distances. Since $\gamma\in N$, its left and right
+nontrivial spectral projections annihilate $P_LP_R$. We obtain
+\begin{equation}\label{eq:fixed-clock-operator}
+ \begin{aligned}
+ \frac{\|Q_{\gamma,k}A\|_F^2+\|AQ_{\gamma,k}\|_F^2}{2}
+ &\leq C_M\left[\sum_sw_s\|V_sAV_s^*-A\|_F^2\right.\\
+ &\quad\left.+
+ \frac{\|(\Pi_k(W)-I)A\|_F^2+\|A(\Pi_k(W)-I)\|_F^2}{2}
+ \right].
+ \end{aligned}
+\end{equation}
+Set $A=\sqrt\rho$. The two symmetrized terms become
+$\Tr\rho Q_\gamma$ and $\Tr\rho X$, respectively.
+Equations~\eqref{eq:actual-houghton-leakage}--\eqref{eq:actual-houghton-charge}
+and Proposition~\ref{prop:actual-dirichlet} give
+\[
+ 7/12\leq C_M\left[(d+1)(\ln2)a+
+                      \frac{225d}{488}\ell\right],
+\]
+proving the fixed-clock theorem. No invariance or entropy condition
+on $\rho$ has been introduced.
+
+\subsection{Entropy without source symmetry}
+
+\begin{theorem}[Entropy without source symmetry]\label{thm:houghton-entropy}
+In the literal rational constant-field smoothed model, every $M\geq48$,
+$k\geq1$ and arbitrary coherent source with $u\leq1/16$ satisfies,
+with a universal $c>0$,
+\[
+ S(\rho)+1\geq c\min\{M,a(\rho)^{-1/2}\},\qquad
+ S(\rho)+na(\rho)+1\geq c\min\{M,n^{1/3}\}\quad(n\geq1).
+\]
+At $a=0$ the first minimum is $M$.
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-entropy}]
+Write $\pi$ for the round's usual free-group representation and
+put $c_g=2(104\ln2)^{1/2}$. Lemma~\ref{lem:centrality} and
+word telescoping give
+$\chi(\pi(w))\leq |w|c_g\sqrt a$ and
+$\tfrac12\|\rho-\pi(w)\rho\pi(w)^*\|_1\leq\chi(\pi(w))$.
+The same Holevo argument after tracing to either clock coordinate
+bounds its cyclic root energy $E_i$ by $c_g^2a$.
+Cauchy--Schwarz gives $\max p_i\leq1/M+2\sqrt{E_i}$.
+Hence $G_R=\{0\leq i,j\leq M-R-1\}$ has
+$p(G_R^c)\leq2R/M+4Rc_g\sqrt a$.
+
+We first verify the exact structure on $G_R$, for $5\leq R<M/4$.
+At $c=(i_0,j_0)$, a forward horizontal prefix of length at most
+$R-1$ has edge starts at most $M-3$ and endpoints at most $M-2$.
+It meets neither the seam nor the preliminary exact horizontal move
+of~\cite[Section~6.2]{DouglasMghirbiA}. Its base links are
+$c_{2M+2-i-j_0}$. A horizontal edge is interior to a region only
+when both incident plaquettes belong to it. For $j_0=0$ none of
+these edges carries a rotation; for $j_0\geq1$ the bulk condition is
+$i+j_0\leq t+M-8$, and the $T$ condition is $i+j_0\leq M-3$.
+Thus a region eligible later was eligible earlier. Actual potentials
+may be sparse; only eligibility is monotone.
+Pulling each phase plane back through the base prefix gives its
+fixed starting pair $(x,x+M+i_0)$, where
+$x=t+M-1-i_0-j_0$ for $5\leq t\leq M+3$, and
+$x=M+3-i_0-j_0$ for $T$. These pairs are disjoint.
+
+In column-operator notation the prefix factors as $P_j=B_jR_j$,
+with $R_j$ a product of commuting rotations on these pairs.
+The usual representation takes adjoints of the right-action
+operators, so the one-particle holonomy $J_j=P_j^*\tau P_j$ of
+$\pi(\sfa^j\alpha\sfa^{-j})$ has normal
+$R_j^*(e_{j+1}-e_{j+2})/\sqrt2$.
+The far partners exceed $R+1$. Nonadjacent normals therefore have
+disjoint support; adjacent overlaps have modulus at most $1/2$.
+The exact conjugates of $r_2$ force that modulus to be $1/2$.
+Phase adjustment gives the standard $A_R$ root Gram matrix, proving
+an exact $S_{R+1}$ representation. Quantization preserves it for
+every flavour count.
+
+Partition this chain into $t_R=\lfloor(R+1)/3\rfloor$ commuting
+$S_3$ blocks. Their three-cycles are
+$\gamma_b=\sfa^{3b}\gamma\sfa^{-3b}$.
+The original anchor gives $\Tr\rho Q_\gamma\geq7/12$.
+Transport and restriction to $G_R$ leave each block weighted charge
+at least $7/12-2R/M-5Rc_g\sqrt a$.
+Six representatives for each block have word lengths at most
+$2R+5\leq3R$. Their canonical root pure-state ensemble has rank
+at most six and an eigenvalue at least $1-x$,
+$x=9R^2c_g^2a$. Partial trace bounds the mixed-state Holevo gain by
+$f_6(x)=h_2(x)+x\log_2 5$ for $x\leq5/6$.
+
+Clock pinching and Holevo data processing bound the weighted
+conditional gains on $G_R$ by $f_6(x)$. On these clocks only, each
+previous block twirl commutes with every conjugation in a later
+block, so it cannot increase that block's gain. The final state is
+flat on the irreducible factors of $S_3^{t_R}$, with arbitrary
+multiplicities. Only its two-dimensional standard factors have
+nontrivial three-cycle charge; those charge projections are central
+and preserved. Final conditional entropy is therefore at least the
+sum of charges. Coherent clock copying and Araki--Lieb give
+$S(\rho)\geq\sum_cp_cS(\rho_c)$, hence
+\[
+ S(\rho)\geq t_R\left[\frac7{12}-\frac{2R}{M}
+       -5Rc_g\sqrt a-f_6(9R^2c_g^2a)\right].
+\]
+No global commutation on the excluded clocks is required.
+
+Put $K=\min\{M,1/(c_g\sqrt a)\}$ and $R=\lfloor K/128\rfloor$.
+For $R\geq5$, the bracket exceeds $7/16$, since
+$7/12-7/128-f_6(9/16384)>0.5206$; also $t_R\geq R/4$.
+Thus $S>R/10$ and $S+1\geq K/1280$.
+For $R<5$, $K<640$ and $S+1\geq1$ suffices.
+This proves the first inequality with $c=1/(1280c_g)$.
+For the second, $a\geq n^{-2/3}$ gives $na\geq n^{1/3}$;
+otherwise the first inequality applies with $a^{-1/2}>n^{1/3}$.
+\end{proof}
+
+\subsection{A fixed local group and the fourth-power leakage bound}
+
+\begin{theorem}[Leakage without source symmetry]\label{thm:houghton-flux}
+For the literal rational constant-field smoothed round, all
+$M\geq48$, $k\geq1$ and arbitrary coherent sources with $u\leq1/16$
+satisfy, with constants $c_0,c>0$ independent of $M,k,\rho$,
+\[
+ M^2a+M^4\ell\geq c_0,\qquad
+ S+na+1\geq c\min\{n^{1/3},\ell^{-1/4}\}\quad(n\geq1).
+\]
+At zero leakage the second argument is infinite.
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-flux}]
+Put $d=104$, $c_g=2\sqrt{104\ln2}$ and
+$\sigma=\Delta_{\rm clock}\rho=\bigoplus_cp_c\rho_c$.
+Clock covariance and Holevo data processing give $a(\sigma)\leq a(\rho)$;
+pinching preserves $X$ and $Q_\gamma$.
+For an actual word $C$ the identity and generator weights give
+\[
+ \chi(C,\sigma):=\|C\sqrt\sigma C^*-\sqrt\sigma\|_F
+       \leq |C|c_g\sqrt a.
+\]
+Tracing to the clock bounds each cyclic root energy by $c_g^2a$.
+The torus Poincar\'e inequality and differences of squares imply
+$\operatorname{TV}(p,\mathrm{unif})\leq c_gM\sqrt a$.
+For $M\geq4096$ put $x=\lfloor M/4\rfloor$, $R=x+8$, and
+\[
+ G=\{(i,j):0\leq i\leq M-x-12,\quad
+               1\leq j\leq M-3,\quad i+j\geq M-x+16\}.
+\]
+Its size is $(M-x-11)(M+x-48)/2$, so its density is at least
+$15/32-40/M\geq0.45$. Restricting the original anchor charge gives
+\begin{equation}\label{eq:houghton-wedge-charge}
+ q_G:=\sum_{c\in G}p_c\Tr\rho_cQ_\gamma
+       \geq1/30-c_gM\sqrt a.
+\end{equation}
+Thus $M^2a\leq\varepsilon_0:=1/(120c_g)^2$ implies $q_G\geq1/40$.
+
+We need a stronger version of the preceding interior-chain geometry.
+At $c=(i,j)\in G$, horizontal prefixes of length at most $R-1$
+have edge starts at most $M-6$ and endpoints at most $M-5$.
+They meet neither the seam nor the preliminary exact $A$ move.
+The first reverse cycle has length $r_0\geq x+17=R+9$.
+In inverse traversal the tracked indices and cycle lengths increase
+together, so there is no wrap, even though later cycles can be
+shorter than $R+4$; the last cycle has length at least eleven.
+The row bound $j\leq M-3$ excludes the exceptional $T$-source row.
+As before, bulk and $T$ eligibility require both incident plaquettes,
+and are respectively $i+j\leq t+M-8$ and $i+j\leq M-3$.
+Pulled-back planes are disjoint fixed pairs $(s,s+M+i)$.
+A bulk pair can rotate at prefix step $q$ only for $q\leq s-7$,
+and a $T$ pair only for $q\leq s-6$. Its rotation is therefore
+stable before a reflection normal uses $e_s$.
+One common product $D_c$ of these commuting rotations gives
+orthonormal points $f_s=D_c^*e_s$ and reflection normals
+$(f_{q+1}-f_{q+2})/\sqrt2$, for $0\leq q<R$.
+Thus the chain is exactly $S_{R+1}$, with
+$f_1,f_2,f_3=e_1,e_2,e_3$.
+All the same pairs support the field $w_c$, so $D_c$ commutes with it.
+
+Choose $r\in\{0,\ldots,7\}$, set $s=x+r$ and
+$t=x+r-M+1+i+j$. Then $17\leq t\leq M-7$ and this bulk
+region is active, with pair $(s,s+M+i)$.
+Its untruncated triangle count gives
+\[
+ A_t=(M-1)^2-h(h+1)/2,\qquad h=M+3-t.
+\]
+Triangular residues modulo four repeat $0,1,3,2,2,3,1,0$ over
+eight consecutive values. Since $(M-1)^2$ is zero or one modulo
+four, one choice has $4\mid A_t$.
+Put $p=A_t/4\leq M^2/4$, relabel $f_s$ as point four, and take
+$f_5=D_c^*e_{s+M+i}$. On these five points $W_c^p$ is
+$g_4=\exp(\pm i\pi P_{f_4-f_5}/4)$, where $P$ projects onto
+the normalized difference. All other phases are outside the five
+points and commute with $S_4$ on the first four.
+The swap of low point $i_0\leq3$ with $s$ is the actual word
+\[
+ C_{i_0,s}=\sfa^{i_0-1}(\alpha\sfa)^{s-i_0-1}\alpha
+       (\sfa^{-1}\alpha)^{s-i_0-1}\sfa^{-(i_0-1)}.
+\]
+Adjacent products collapse to this word of length at most
+$4s\leq M+28\leq2M$. With $C_4=I$, there are only $24$
+nontrivial global choices. Hence conditional selection costs
+\begin{equation}\label{eq:houghton-word-congestion}
+ \sum_{c\in G}p_c\sum_{i=1}^3\chi(C_i^{r(c)},\rho_c)^2
+       \leq96c_g^2M^2a.
+\end{equation}
+
+Here is the fixed-group gap input. In the canonical five-point basis
+put $v_i=(e_i-e_5)/\sqrt2$, $g_i=e^{i\pi P_{v_i}/4}$,
+and take the twelve matrices $U_{ij}=g_ig_j^*$ and
+$g_iU_{ij}g_i^*$, $i<j$. They fix the all-ones vector and lie
+in $SU(H_0)$, $H_0=\{z:\sum z_i=0\}$, of dimension four.
+On $E_{ij}=\operatorname{span}(v_i,v_j)$ the nontrivial
+eigenvalues of $U_{ij}$ are $e^{\pm i\phi}$, with
+$2\cos\phi=(2+3\sqrt2)/4$. Its minimal polynomial is
+$z^2-z-7/8$, so it is not an algebraic integer.
+Thus $\phi/\pi$ is irrational and powers give a continuous
+$SU(2)$ circle on $E_{ij}$. Its $g_i$-conjugate is nonparallel:
+$[g_i,U_{ij}]=g_i[g_i,g_j^*]\neq0$; an antiparallel axis is
+impossible since $\operatorname{Ad}g_i$ has no eigenvalue $-1$.
+The two circles generate $SU(2)(E_{ij})$.
+The six real skew matrices $v_iv_j^T-v_jv_i^T$ span
+$\mathfrak{so}(4)$. The same plane algebras contain the nonzero
+imaginary symmetric traceless $i(P_{v_1}-P_{v_2})$.
+Orthogonal conjugation diagonalizes it to a nonzero multiple of
+$i\operatorname{diag}(1,-1,0,0)$; permutations and plane rotations
+span all nine imaginary symmetric traceless directions.
+Together these span $\mathfrak{su}(4)$, proving density.
+An algebraic orthonormal basis of $H_0$ makes all entries algebraic.
+Bourgain--Gamburd's theorem~\cite[Theorem~1]{BourgainGamburd2012}
+and Peter--Weyl give a fixed $\delta>0$ such that, in every
+continuous representation,
+\[
+ \|(I-P_{\rm inv})\xi\|^2
+       \leq\delta^{-1}\sum_h\|(h-I)\xi\|^2.
+\]
+We use the unnormalized symmetric gap. The negative-angle list is
+the complex conjugate and has the same gap.
+
+For the actual gates $G_i=C_iW_c^pC_i^*$ the common outside
+factor cancels in $G_iG_j^*$ and $G_i(G_iG_j^*)G_i^*$.
+Quantization gives continuous representations of this same $SU(4)$
+for every $k$, with arbitrary spectators.
+The original three-cycle $\gamma$ belongs to it, so $Q_\gamma$
+kills its invariant vectors. Apply the gap to left multiplication
+on Hilbert--Schmidt matrices, not to conjugation.
+For $\xi=\sqrt{\rho_c}$, $E=\|(W_c-I)\xi\|_F$ and
+$\chi_i=\|C_i\xi C_i^*-\xi\|_F$, moving $C_i^*$ across
+$\xi$ gives $\|(G_i-I)\xi\|_F\leq pE+2\chi_i$.
+Products telescope in left-action norm and inverses have the same
+energy. The two listed gates have respective bounds
+$2pE+2\chi_i+2\chi_j$ and $4pE+6\chi_i+2\chi_j$.
+Three-term Cauchy and summation give
+\[
+ \sum_h\|(h-I)\xi\|_F^2
+       \leq360p^2E^2+360\sum_{i=1}^3\chi_i^2.
+\]
+Since the selected power obeys $p(c)^2\leq M^4/16$ pointwise,
+\eqref{eq:houghton-word-congestion} yields
+\[
+ q_G\leq\delta^{-1}\left[(45/2)M^4\Tr\rho X
+                               +34560c_g^2M^2a\right].
+\]
+With $A=34560c_g^2$, $B=(45/2)(225d/488)$,
+\eqref{eq:houghton-wedge-charge} proves the bound at $M\geq4096$
+with $c_{\rm large}=\min\{\varepsilon_0,\delta/[40\max(A,B)]\}$.
+For $48\leq M<4096$, Theorem~\ref{thm:fixed-clock} gives
+$M^2a+M^4\ell\geq M^2c_M$. The minimum of these finitely
+many positive constants and $c_{\rm large}$ is $c_0>0$.
+No numerical gap constant is asserted.
+
+Finally put $t_0=\min\{n^{1/3},\ell^{-1/4}\}$ and
+$\beta=\min\{1,(c_0/2)^{1/4}\}$.
+If $M\geq\beta t_0$, Theorem~\ref{thm:houghton-entropy} gives
+$S+na+1\geq c_{\rm ent}\beta t_0$.
+Otherwise $M^4\ell<c_0/2$, so
+$na\geq c_0n/(2M^2)>[c_0/(2\beta^2)]n/t_0^2
+\geq[c_0/(2\beta^2)]t_0$, since $t_0^3\leq n$.
+This proves the second inequality. It gives the stated $n^{1/4}$
+floor at $\ell\leq K/n$, and a cube-root lower at
+$\ell\leq n^{-4/3}$, without asserting a matching zero-leakage upper.
+\end{proof}
+
+\subsection{Zero production and the actual stationary algebra}
+\label{app:houghton-stationary}
+
+Let $\mathcal E_M$ be Haar averaging over the closed group generated
+by the \emph{actual} slot unitaries on the counted bath. Its range is
+their commutant. It commutes with clock pinching $\Delta_c$, since
+each slot has a fixed clock translation and a blockwise internal action.
+This averaging is an analytical conditional expectation.
+
+\begin{corollary}[Stationary sources at arbitrary flavour count]
+\label{cor:houghton-stationary}
+There are constants $b,\delta_*,c>0$, independent of $M\geq48$ and
+$k\geq1$, with the following properties. Put $h=M^{-3}$,
+$F=\min(X,hI)$ and $q_\eta=\Tr\eta Q_\gamma$.
+Every actual stationary state $\eta=\mathcal E_M\eta$ obeys
+\begin{equation}\label{eq:stationary-capped-charge}
+ \Tr\eta F/h\geq b(q_\eta-11/20).
+\end{equation}
+If a physical source has $u\leq1/16$ and actual $a=0$, then
+\[
+ \ell\geq cM^{-3},\qquad S(\rho)+1\geq cM,
+ \qquad S(\rho)+1\geq c\ell^{-1/3}.
+\]
+More generally, $u\leq1/16$ and
+\[
+ \tfrac12\|\Delta_c\rho-\mathcal E_M(\Delta_c\rho)\|_1
+       \leq\delta_*
+\]
+imply $\ell\geq cM^{-3}$. If also $\ell\leq K/n$ for fixed
+$K>0$, then $S(\rho)+na(\rho)+1\geq c_Kn^{1/3}$.
+Entropy and production always refer to the original source.
+\end{corollary}
+
+\begin{proof}
+The Holevo identity and the identity slot show that $a=0$ holds
+exactly when every positive-weight slot fixes $\rho$ by conjugation.
+Thus $\rho$ commutes with every actual word. Clock pinching retains
+stationarity, $X$ and $Q_\gamma$. The two clock translations force
+each pinched clock mass to be $1/M^2$. For any stationary $\eta$,
+write $\Delta_c\eta=M^{-2}\bigoplus_c\eta_c$.
+
+For $M\geq4096$, use the exact stabilized logical-point geometry
+above, restricted to the smaller wedge of
+Appendix~\ref{app:houghton-moderate}. Put $x=\lfloor M/4\rfloor$,
+$z=\lfloor M/256\rfloor$ and
+\[
+ G=\{0\leq i\leq M-x-12,\ 1\leq j\leq M-3,
+                      \ i+j\geq M-x+16+2z\}.
+\]
+Its density is at least $0.45$. Choose even
+$b_0\in[x-z,x-z+1]$, $J=\lfloor(z-1)/8\rfloor$ and
+$b_j=b_0+8j$, $0\leq j<J$. Then $M/8192\leq J\leq M/2048$.
+In each eight-index interval choose $s_j$ so that the actual region
+$t=s_j-M+1+i+j$ has $4\mid A_t$.
+The triangular residues used above guarantee this choice.
+These active regions have $M^2/3\leq A_t\leq M^2$.
+Their pairs $(f_{s_j},D_c^*e_{s_j+M+i})$ are disjoint from one
+another and from the common anchor modes $f_1,f_2,f_3$.
+The usual-representation angles have absolute value $\pi/A_t$;
+taking adjoints reverses the written right-action sign.
+
+The rational power $A_t/4$ and the three low-to-selected swaps
+give the fixed local $SU(4)$ of the preceding proof on the sum-zero
+space $H_j$ of those five modes. Outside phases cancel in its
+generators. Stationarity gives exact commutation with these groups;
+no word-length or congestion estimate is needed.
+They generate $SU(H)$ on the sum-zero space of all $3+2J$ modes,
+of dimension $2J+2$. To verify this, choose a unit vector $e$ in the
+common two-dimensional anchor sum-zero plane. Each local Lie algebra
+contains both off-diagonal skew-Hermitian generators between $e$ and
+every vector in $H_j\cap e^\perp$. The spaces $H_j$ span $H$:
+the two common anchor differences and the two independent differences
+from each selected pair to an anchor give a spanning set.
+Thus these local perpendicular spaces span $H\cap e^\perp$.
+Linearity and commutators give every off-diagonal direction and every
+traceless diagonal direction of $\mathfrak{su}(H)$.
+
+On $H$, the field has $J$ orthogonal active difference modes $v_j$
+with angles $\theta_j$, and fixes a complementary $(J+2)$-space.
+Pair the $v_j$ with $J$ orthogonal fixed modes. The resulting product
+$SU(2)$ groups lie in $SU(H)$. An invariant conditional state has
+the same nontrivial spin mass $p_c$ on every such plane, by conjugacy.
+The anchor three-cycle lies in an anchor $SU(2)$, so
+$q_c\leq p_c$. Arbitrary flavour and multiplicity correlations are
+allowed in its flat product-spin decomposition.
+
+Apply the capped spin estimate of Appendix~\ref{app:houghton-stability}
+to the commutator of the full field with the product of the paired
+quarter turns $v_j\mapsto w_j$, $w_j\mapsto-v_j$. Each quarter turn lies
+in $SU(2)\subset SU(H)$, unlike a swap, whose determinant on $H$ is
+$-1$, and it produces the same commutator. Outside phases cancel. Its
+transfer to $F$ is valid because the stationary conditional state
+commutes with both the full field and the quarter turns, making the
+corresponding functional tracial.
+Here $\sum_j\theta_j^2\leq9\pi^2/(2048M^3)<h$ and
+$|\theta_j|\leq\pi/4$. Consequently
+\[
+ \Tr\eta_c F\geq\frac{p_c}{2048}\sum_j\theta_j^2
+      \geq\frac{q_cJ\pi^2}{2048M^4}.
+\]
+Uniform clock mass and positivity allow discarding clocks outside $G$.
+Their lost charge is at most $11/20$, giving
+\eqref{eq:stationary-capped-charge} with
+$b_{\rm large}=\pi^2/(2048\cdot8192)$.
+For $48\leq M<4096$, $X\leq4I$ gives $F\geq hX/4$.
+Equation~\eqref{eq:fixed-clock-operator} at stationarity gives
+$q_\eta\leq C_M\Tr\eta X$. Choose
+\[
+ b=\min\left\{b_{\rm large},\min_{48\leq M<4096}(4C_M)^{-1}\right\}>0.
+\]
+This is an existence constant; the finite-clock gaps are not evaluated.
+
+Put $\beta=b/80$ and $\delta_* =\min\{1/48,\beta/2\}$.
+For $\sigma=\Delta_c\rho$ and $\eta=\mathcal E_M\sigma$,
+the stated trace distance transfers only the anchor charge:
+$q_\eta\geq7/12-1/48=9/16$.
+Hence $\Tr\eta F\geq\beta h$ and, since $0\leq F\leq hI$,
+\[
+ \Tr\rho X=\Tr\sigma X\geq\Tr\sigma F
+       \geq(\beta-\delta_*)h\geq\beta h/2.
+\]
+Equation~\eqref{eq:actual-houghton-leakage} proves the leakage lower.
+At $a=0$ the entropy theorem gives $S+1\geq c_{\rm ent}M$;
+combining with $\ell\geq cM^{-3}$ gives its third inequality.
+For $\ell\leq K/n$, the leakage bound forces
+$M\geq(cn/K)^{1/3}$, and
+Theorem~\ref{thm:houghton-entropy} gives the final cost bound.
+No entropy of $\sigma$ or $\eta$ is substituted for $S(\rho)$.
+\end{proof}
+
+The condition concerns the actual stationary algebra, which need not
+coincide with the collective symmetry algebra. Small entropy production
+does not automatically supply its required trace proximity uniformly
+as $M$ grows. The corollary is about this literal family and does not
+give an unrestricted-source or all-realization lower bound.
+
+\subsection{The unresolved sharp quantitative estimate}
+
+Write $\mathcal D=\sum_sw_s(\operatorname{Ad}V_s-I)^*
+(\operatorname{Ad}V_s-I)$,
+$\mathcal X=(L_X+R_X)/2$ and
+$\mathcal Q=(L_{Q_\gamma}+R_{Q_\gamma})/2$ on Hilbert--Schmidt space.
+The concrete sufficient estimate
+\begin{equation}\label{eq:open-killed-laplacian}
+ M^2\mathcal D+M^3\,\operatorname{polylog}(M)\mathcal X
+       \ \geq\ \kappa\mathcal Q
+\end{equation}
+uniformly in $k$, with $\kappa>0$ independent of $M$, is open.
+Theorem~\ref{thm:houghton-entropy} supplies the entropy half for all
+coherent sources in this literal geometry at growing $M$.
+Theorem~\ref{thm:houghton-flux} gives a weaker physical-source
+coercivity with $M^4\ell$, not this sharper operator inequality.
+Its fixed rational power $p=O(M^2)$ explains the extra factor of $M$.
+Theorem~\ref{thm:houghton-moderate} removes that factor for physical
+sources with $k\leq c_f\sqrt M$, using many small-angle blocks.
+It does not prove the displayed operator inequality uniformly in $k$.
+Unrestricted flavour growth, all-round scope and optimized universal
+comparison remain unproved.
+
+There is a useful exact reduction for testing the operator estimate.
+For $c_D,c_X\geq0$, positivity of
+$\mathcal H=c_D\mathcal D+c_X\mathcal X-\lambda\mathcal Q$
+on all complex Hilbert--Schmidt matrices is equivalent to positivity
+on positive matrices. Indeed $\mathcal H$ commutes with adjoint,
+so a negative witness splits into a negative Hermitian witness.
+For Hermitian $A$, replacing $A$ by $|A|$ keeps $A^2$ and hence
+both potential energies. It lowers the Dirichlet energy because
+\[
+ \||A|-|B|\|_F\leq\|A-B\|_F\quad(A=A^*,\ B=B^*).
+\]
+To check this inequality, expand in eigenbases: each spectral
+overlap term has $|a||b|\geq ab$. Apply it with
+$B=V_sAV_s^*$. Thus a negative positive witness exists.
+
+The operator commutes with clock pinching and with each flavour's
+degree pinching. A positive ground witness survives pinching
+(its trace is nonzero) and stays in the ground eigenspace.
+A nonzero degree-tuple block is therefore a clock-diagonal
+positive witness. This is a spectral-test reduction, not an
+entropy-preserving source twirl: pinching can increase source
+entropy, and the operator witness need not satisfy all the
+channel's coarse-correctness constraints.

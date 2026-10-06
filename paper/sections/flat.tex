@@ -1,0 +1,238 @@
+%======================================================================
+\section{Specialized flat-source constructions}\label{sec:flat}
+%======================================================================
+
+The main coherent compiler includes exact flat-source rounds. This appendix retains specialized path and spatial constructions,
+and the flat leakage repair. The device of~\cite[Theorem~12.2]{DouglasMghirbiC} cannot by itself reach Shannon cost: it
+re-randomizes the whole active memory in every round, and the memory then fills the space that the rank room allows
+(Theorem~\ref{thm:global-haar}). The devices below re-randomize only inside blocks, and they keep a classical record of which block a
+Kraus history has reached. Three tools make them work: concentration that does not pay for the number of blocks, a bound on the law of
+paths through the blocks that holds for adaptive observers, and a rounding that makes a leaky flat round exact on the same
+bath.
+
+\subsection{Frames and blocks}
+
+We use the frames of~\cite[Appendix~A]{DouglasMghirbiB}. A \emph{frame} is a linear map $F:\C^N\to H\otimes\C^S$, where
+$H=\bigoplus_pH_p$ is the memory, split into \emph{blocks} $H_p$ of dimension $D_p$ with projections $P_p$, and $\C^S$ is an exterior that holds
+purifiers, exported qubits and the purifiers of imported ones. In a device the columns of $F$ are the vectors attached to the Kraus
+histories. Put $F_p=(P_p\otimes I)F$, $R_p=F_pF_p^*$,
+\[
+\alpha_p(F)=\nrm{\Tr_{H_p}R_p},\qquad g(F)=\nrm{F^*F} .
+\]
+The number $\alpha_p$ is the largest weight that the exterior marginal of block $p$ gives to one exterior vector; Haar unitaries inside a block
+concentrate well when $\alpha_p/D_p$ is small.
+
+\begin{lemma}[Blockwise concentration]\label{lem:concentration}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Let $A_p$ be Hermitian on $H_p$ (possibly $0$), $V=\bigoplus_pV_p$ with independent Haar unitaries $V_p\in U(D_p)$, and
+\[
+Z=\sum_p\Bigl[F_p^*\bigl((V_p^*A_pV_p)\otimes I\bigr)F_p-\tau_{D_p}(A_p)F_p^*F_p\Bigr].
+\]
+With $\kappa=\max_p\alpha_p(F)\nrm{A_p}^2/D_p$ and $g_0=\nrm{\sum_{p:A_p\ne0}F_p^*F_p}$, for every $s>0$,
+$\Pr\{\nrm Z\ge s\}\le2N\exp[-s^2/(4g_0\kappa)]$.
+\item Let all blocks have the same dimension $D$, let $A=[A_{pp'}]$ be Hermitian on $H$, $X=V^*AV$, and
+$Z=F^*\bigl((X-\sum_p\tau_D(A_{pp})P_p)\otimes I\bigr)F$. With $\alpha_*=\max_p\alpha_p(F)$, $g=g(F)$ and
+$\Delta=\max_p\#\{p':A_{pp'}\ne0\}$,
+\[
+\Pr\{\nrm Z\ge s\}\le2N\exp\Bigl[-\frac{s^2D}{2g(1+\Delta^2)\nrm A^2\alpha_*}\Bigr].
+\]
+\end{enumerate}
+The frame, the blocks and the operators may depend on anything chosen before $V$.
+\end{lemma}
+
+The number of blocks enters nowhere: only the ratios $\alpha_p/D_p$, through a maximum, and the Gram norm, once. For one block, (a)
+is~\cite[Lemma~A.1]{DouglasMghirbiB}; the proof uses the semigroup method of Huang and Tropp~\cite{HuangTropp2021} on the product group
+$U(D_1)\times\dots\times U(D_m)$.
+
+\begin{lemma}[Blockwise export and inflow]\label{lem:export}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Let every block be $H_p=\widetilde H_p\otimes\C^e$ with a common port $\C^e$, $N$ blocks in all. Apply independent Haar unitaries
+$V'_p$ on the blocks, export the ports and import a maximally mixed $\C^e$ purified in the exterior. Every block Gram $F_p^*F_p$ is unchanged,
+and with probability at least $\frac12$, for every block $p$ and every $\eta>0$,
+\[
+\alpha_p(F')\le\frac{\alpha_p}{e^2}+4\sqrt{\frac{\alpha_pg_p\ln(8Se^2N)}{D_p}}\le(1+\eta)\frac{\alpha_p}{e^2}+\frac{4e^2g_p\ln(8Se^2N)}{\eta D_p},
+\qquad g_p=\nrm{F_p^*F_p}.
+\]
+\item Let a round map $\bigoplus_pH_p$ into $\bigoplus_QH'_Q$ through $W=\sum_iA_i\otimes B_i$, after a block-diagonal unitary, and put
+$\Gamma_Q=\sum_iB_i^*P'_QB_i$. If every $\Gamma_Q$ is block diagonal for the old blocks, then $\alpha_Q(F')\le\sum_p\nrm{P_p\Gamma_QP_p}\,\alpha_p(F)$.
+\end{enumerate}
+\end{lemma}
+
+For one block, (a) is~\cite[Lemma~A.4]{DouglasMghirbiB}; the union over blocks costs only the logarithm of their number.
+
+\subsection{Paths and their law}
+
+Let $(B_i)$, $B_i:K\to\C^{k'}$ with $K=\C^k$, be an exact rectangular dilation of $\Phi$. Fix isometries $J_1,\dots,J_c:K\to\C^{k''}\supseteq\C^{k'}$
+with orthogonal ranges whose sum contains $\C^{k'}$; after restricting the codomain to the span of the ranges of the $B_i$, of
+dimension at most $rk$, $c\le r+1$ suffices. Put $C^{(b)}_i=J_b^*B_i$. The \emph{piece matrices}
+$M^{(b)}\in M_r$ have entries $\langle i|M^{(b)}|j\rangle=\tau_k(C^{(b)*}_iC^{(b)}_j)$; they are positive and $\sum_bM^{(b)}=I_r$. Put
+\[
+w(b)=\Bigl\lVert\sum_{i,j}\langle i|M^{(b)}|j\rangle A_i^*A_j\Bigr\rVert\le\Tr M^{(b)},\qquad u'=\log\sum_bw(b),
+\]
+$\kappa_\theta=\sup\{\sum_bq_bw(b)^{-\theta}\}$ over probability vectors $q$ with $q_b\le w(b)$ ($0<\theta\le1$), and $W(p)=\prod_sw(p_s)$ for
+\emph{paths} $p\in[c]^t$. The \emph{type} of a path is its vector of letter counts.
+
+\begin{lemma}[The adaptive path law]\label{lem:pathlaw}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item If $X_b$ are Hermitian with $\nrm{X_b}\le\beta$ and $M^{(b)}\ge0$ with $\sum_bM^{(b)}\le I$, then $\nrm{\sum_bX_b\otimes M^{(b)}}\le\beta$.
+\item Let an observer of the ideal experiment, adaptive and with quantum memory, end with the vector $X$, the $n$ environments of the
+Stinespring dilations holding the Kraus labels. Then $\Pr(p)=\langle X|I\otimes M^{(p_1)}\otimes\cdots\otimes M^{(p_n)}|X\rangle$ is a probability
+law on paths with $\Pr(b_1,\dots,b_s)\le w(b_s)\Pr(b_1,\dots,b_{s-1})$, and $\Pr\{W(p)<2^{-\lambda}\}\le\kappa_\theta^n2^{-\theta\lambda}$. The set
+$P_t(\lambda)=\{p\in[c]^t:W(p)\ge2^{-\lambda}\}$ is closed under prefixes, is a union of types, and has at most $2^{\lambda+tu'}$ elements.
+\end{enumerate}
+\end{lemma}
+
+The law in (b) is not the product law of a fixed label sequence: an observer that superposes labels can make the conditional probability of
+the letter $b$ equal to $w(b)$, which can exceed $\max_i\langle i|M^{(b)}|i\rangle$ when $M^{(b)}$ is not diagonal. This is why the device below
+counts paths by $W$.
+
+\begin{theorem}[Path-register streaming]\label{thm:pathreg}
+In this setting, for $n\ge2$, $0<\epsilon<1$ and $0<\theta\le1$ there is a causal service of $\Phi$ for $n$ rounds with error at most $\epsilon$,
+$C=0$, $J=\lfloor\frac{n-1}2\log r\rfloor$ and
+\[
+Q\le\log k+n\Bigl(u'+\frac{\log\kappa_\theta}\theta\Bigr)+\frac{\log(32n/\epsilon^2)}\theta+\log c+4+O_r\bigl(\log(n/\epsilon)+\log(2+\log k)\bigr).
+\]
+\end{theorem}
+
+The device keeps the memory $\bigoplus_{p\in P_t}K\otimes\C^m$, with the path $p$ stored as its rank in $P_t=P_t(\lambda)$,
+$\lambda=(n\log\kappa_\theta+\log(32n/\epsilon^2))/\theta$. In each round it applies independent Haar unitaries inside the blocks, applies
+$W\otimes I_m$, which appends the piece $b$ to the path, applies a fixed permutation of register values that keeps the paths in $P_t$, applies
+Haar unitaries inside the new blocks, and exports on the schedule of~\cite[Theorem~12.2]{DouglasMghirbiC}. Paths that leave $P_t$ are discarded,
+and they can come back to good register values through the unitary completion of the permutation; this costs $(1+\sqrt n)\sqrt\omega$ in the
+error, where $\omega\le\epsilon^2/(16n)$ is the discarded weight.
+
+To apply the theorem to a round, the blocks are cut from the spectrum of its memory map.
+
+\begin{lemma}[Top eigenspace]\label{lem:top}
+Let $B_g:\C^k\to\C^{k'}$ be isometries, $\mu$ a probability vector, $\bar\tau=\sum_g\mu_gB_gB_g^*/k$ and $a=S(\bar\tau)-\log k$. If $w$ is the
+mass of $\bar\tau$ outside its top-$k$ eigenspace, then $w\le a\ln2$.
+\end{lemma}
+
+\begin{theorem}[Flat rounds with zero leakage]\label{thm:flat-zero}
+Let $\Phi$ be a gadget channel.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Let $(U,\rho)$ be an exact flat round with bath rank $k$ and entropy production $a$. For $n\ge2$ and $0<\epsilon<1$ there is a rank-rate
+service with error at most $\epsilon$, $C=0$ and, when $a\le1/(4d\ln2)$,
+\begin{align*}
+Q\le{}&\log k+1.443\,d\ln2\,n\,a+2.89\sqrt r\,n\,\bar\beta\log(1/\bar\beta)\\
+&+2\log\tfrac n\epsilon\log\tfrac{32n}{\epsilon^2}+O_r\bigl(\log\tfrac n\epsilon+\log(2+\log k)\bigr),
+\end{align*}
+with $\bar\beta=\max(d\,a\ln2,\epsilon^2/n^2)$. For every $a$, $Q\le K_{d,r}\log^2(n/\epsilon)(1+S+n\,a)$.
+\item Theorem~\ref{thm:pathreg} holds for every isometry $W=\sum_iA_i\otimes B_i$ (for a channel with a flat probe, with no condition on the
+traces) whose flat Gram $G$ has $\gamma=\nrm{G-I}$ with $n\gamma\le\frac12$, with the same memory and error at most $\epsilon+\frac n2\gamma$.
+\item Let $(U,\rho)$ be a flat round with zero leakage, bath rank $k$ and entropy production $a$, whose gadget family has flat Gram
+off-diagonals at most $c\le\frac12$; distance $u\le\frac14$ suffices, since then $c\le2u$. With $t=\lceil\log(4rn/\epsilon)/\log(1/c)\rceil$ there is a
+rank-rate service with error at most $2\epsilon$, $C=0$ and $Q\le K_{d,r}\log^3(n/\epsilon)(1+S+n\,a)$. When $d\,t\,a\ln2\le\frac14$ its
+memory also satisfies
+\[
+Q\le t\log k+C_{d,r}\,n\,t\,a\log\frac e{ta}+O_{d,r}\bigl(\log^2(n/\epsilon)+\log(2+t\log k)\bigr).
+\]
+\end{enumerate}
+\end{theorem}
+
+So flat rounds with zero leakage stream. The factor $\log(1/a)$ that the path count adds to the entropy production is absorbed by the
+polylogarithmic allowance.
+
+\subsection{Leakage}
+
+Leakage is an error, and a device must not carry it. The simplest situation is a round that is exact on most of its bath.
+
+\begin{lemma}[Restriction to an exact region]\label{lem:restrict}
+Let $(U,\rho)$ be a flat round with $\rho=P_K/k$, distance $u$ and entropy production $a$, let $K_0\subseteq K$ have dimension $(1-\nu)k$ with
+$0<\nu\le\frac12$, and $\rho_0=P_{K_0}/((1-\nu)k)$. Then $S(\rho_0)=S+\log(1-\nu)$, the round $(U,\rho_0)$ has distance at most $(u+\nu)/(1-\nu)$
+and entropy production
+\[
+a_0\le\frac{a+\nu\log(1/\nu)}{1-\nu}+\log\frac1{1-\nu},
+\]
+and its leakage is $0$ if $U(\xi\otimes\kappa)=\sum_iA_i\xi\otimes X_i\kappa$ for $\kappa\in K_0$ (an \emph{exact region}).
+\end{lemma}
+
+\begin{theorem}[Exact regions and flat permutation rounds]\label{thm:exact-region}
+Let $\Phi$ be a gadget channel.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item A flat round with distance $u\le\frac1{16}$ and an exact region of codimension $\nu k$, $\nu\le\frac18$, gives a rank-rate service with
+error at most $2\epsilon$, $C=0$ and $Q\le K_{d,r}\log^3(n/\epsilon)\bigl(1+S+n\,a+n\nu\log(e/\nu)\bigr)$.
+\item In a flat permutation round the triangle-good points span an exact region with $\nu\le4d\ell$. Hence for $n\ge32dC_0$ every flat
+permutation round with distance at most $\frac1{16}$ and leakage $\ell\le C_0/n$ gives a rank-rate service with error at most $2\epsilon$ and
+$Q\le K_{d,r}\log^3(n/\epsilon)\bigl(1+S+n\,a+4dC_0\log(en/(4dC_0))\bigr)$.
+\end{enumerate}
+\end{theorem}
+
+Part (b) covers the leakage scale of the lower half, $\frac{32}{15}\epsilon/n$, with no rescaling. Leakage of order $1/n$ per round would add up
+to a constant error if a device simply used a leaky round; a sequential-measurement bound~\cite[Theorem~1]{Gao2015} shows that the experiment
+projected onto an exact region in every round stays within $\sqrt{\sum_t\epsilon_t}$ of the actual experiment, which tolerates only leakage of order
+$\epsilon^2/n$. Restricting the bath once, as above, is better. Without an exact region the round has to be rounded.
+
+\begin{theorem}[First-order rounding on the same bath]\label{thm:F}
+Let $\Phi$ be a gadget channel, and let $(U,\rho)$ with $\rho=P_K/k$ be a flat round with distance $u$, leakage $\ell\le\frac12$ and entropy
+production $a$. There are isometries $X'_g:K\to\C^r\otimes K$ forming a gadget family, whose flat round has the same bath entropy $S'=S$,
+leakage $0$, flat Gram off-diagonals at most $2u+C_1\sqrt\ell$, and
+\[
+a'\le a+\ell S+\ell/\ln2+2\bar m\log d+h_2(2\bar m)+\bar m\log(r/\bar m),\qquad \bar m=\ell+(3d^3r+9dr^5)\sqrt\ell\le\tfrac14 .
+\]
+In particular $a'\le a+\ell S+C_2\sqrt\ell\log(e/\ell)$ when $C_m\sqrt\ell\le\frac14$, where
+\begin{gather*}
+C_1=2d^{3/2}+d+3d^3r+18dr^2+9d^3r^5,\qquad C_m=1+3d^3r+9dr^5,\\
+C_2=1+C_m(1.39\log d+0.70\log r+2.2).
+\end{gather*}
+The same holds for the twisted gadget $\Phi_\omega$ of Section~\ref{sec:twisted}.
+\end{theorem}
+
+The family is built from the Hilbert--Schmidt projection of the round onto the Kraus operators: shrink it by $(I+P)^{-1/2}$, where $P$
+collects the excess of the diagonal blocks, project the off-diagonal blocks onto the identities, absorb the negative part of the correction
+into the diagonal, and renormalize. No $\log k$ multiplies the terms of order $\sqrt\ell$; the bath entropy enters only through $\ell S$.
+
+\begin{corollary}[The flat upper half up to an additive $\sqrt n$]\label{cor:F}
+For a gadget channel, $n\ge n_F:=\lceil\frac{32}{15}C_1^2\rceil$ and $0<\epsilon<1$, every flat round with distance at most $\frac1{16}$ and leakage
+at most $\frac2{15n}$ gives a rank-rate service with error at most $2\epsilon$, $C=0$ and
+\[
+Q\le K\log^3(n/\epsilon)\bigl(1+S+n\,a'\bigr),\qquad n\,a'\le n\,a+\tfrac2{15}S+0.37\,C_2\sqrt n\log(20n);
+\]
+so $Q\le K'\log^4(n/\epsilon)(1+S+n\,a+\sqrt n)$. At leakage at most $(\log n)^m/n^2$ the additive term is $O((\log n)^{m/2+1})$.
+\end{corollary}
+
+So flat rounds stream up to an additive $\sqrt n\log^4(n/\epsilon)$, and the law holds for every gadget channel whose two-scale profile is attained by
+flat rounds and is at least $\sqrt n/\mathrm{polylog}(n)$. The additive term is the price of a rounding at first order in $\sqrt\ell$. The next
+subsection shows that a rounding that keeps the bath cannot do better.
+
+\subsection{Optimality: the twisted torus}\label{sec:twisted}
+
+Let $\Phi_\omega$ be the gadget of the relator $\sfa\sfb\sfa^{-1}\sfb^{-1}$ of $\Z^2$ evaluated in the twisted regular representation,
+$\lambda(\sfb)\lambda(\sfa)=\omega\lambda(\sfa)\lambda(\sfb)$ with $\omega=e^{2\pi i\theta}$ and $\theta$ irrational. Each word $w$ evaluates to
+$\omega^{f(w)}$ times the section $\hat\lambda(u,v)=\lambda(\sfa)^u\lambda(\sfb)^v$ at its label, for an integer $f(w)$; put $F=\max|f(w)|$ over the slot
+words. So the slots of the gadget carry phases, the channel has $d=17$ and $r=6$ labels, and it has a flat probe. A family $(B_g)$ is a twisted gadget family if
+$B_1^*B_{[y]}=\zeta_tB_{[x]}^*B_{[z]}$ on every triangle $t$, with the phases $\zeta_t$ of the twisted regular representation, which gives one
+exactly. Lemmas~\ref{lem:dilation} and~\ref{lem:zero-leak} hold with these phases.
+
+\begin{lemma}[Exact flat rounds are trace-norm models]\label{lem:L1}
+Let $(U,\rho=P_K/k)$ be a flat round of a gadget channel, or of $\Phi_\omega$, with leakage $0$ and entropy production $a$, with gadget family
+$B_g$. There are unitaries $V_g$ on $\C^k$ with $V_1=I$ and, on every triangle, in the normalized trace norm,
+\[
+\nrm{V_1^*V_{[y]}-\zeta_tV_{[x]}^*V_{[z]}}_1\le6d\ln2\cdot a,
+\]
+and $|\tau(V_g^*V_h)|\le|\tau(B_g^*B_h)|+3d\,a\ln2$ for $g\ne h$.
+\end{lemma}
+
+So exactness puts the relation defect at second order: a round with entropy production $a$ gives unitaries whose relations fail by $O(a)$ in
+trace norm, not by $O(\sqrt a)$.
+
+\begin{theorem}[The twisted obstruction]\label{thm:twisted}
+Let $\theta$ be irrational, and let $\|x\|$ denote the distance from $x$ to the nearest integer.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Every zero-leakage round of $\Phi_\omega$ with a flat bath of rank $k$ has
+\[
+a\ \ge\ \frac{2\|k\theta\|}{9d\ln2\cdot k},
+\]
+whatever its distance. For $\theta=(\sqrt5-1)/2$ this gives $a\ge2/(27d\ln2\cdot k^2)\ge0.0062/k^2$.
+\item Let $\theta=(\sqrt5-1)/2$. For Fibonacci numbers $N=F_m$, the clock-and-shift model on $\C^N$ with commutator $e^{2\pi iF_{m-1}/N}$ is a flat round
+of $\Phi_\omega$ with $a=0$, $S=\log N$, leakage $\ell<4\pi^2F^2/N^4$ and distance at most $2\pi F\sqrt d/N^2$. A rounding that replaces these rounds by zero-leakage flat rounds with $S'\le\lambda S+C_0$ and $a'\le a+C_1\ell^\gamma(\log1/\ell)^m$, for constants
+$C_0,C_1,m$, must have $\lambda\ge2\gamma$.
+\item Theorem~\ref{thm:F} turns the rounds of (b) into zero-leakage flat rounds with $S'=\log N$ and $a'=O((\log N)/N^2)$; so (a) is sharp up to the
+logarithm.
+\end{enumerate}
+\end{theorem}
+
+At a fixed bath ($\lambda=1$) the loss must therefore be at least of order $\sqrt\ell$, which Theorem~\ref{thm:F} attains, and a loss of order
+$\ell$ needs at least twice the bath entropy. Rounding at first order on the same bath is optimal. The upper half of the law at the full
+leakage scale needs a rounding that balances the two costs instead (the flat subcase in Section~\ref{sec:open}). The proofs of this section are in
+Appendices~\ref{app:frames} and~\ref{app:flat}.

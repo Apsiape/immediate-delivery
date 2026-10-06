@@ -1,0 +1,266 @@
+\subsection{Re-folding devices and collars}
+
+\begin{proof}[Proof of Lemma~\ref{lem:refold}]
+(a) After the class-uniform permutation the branch is uniform on its class: on both points $c\pm D$ of its pair and on all $m_{t-1}$ slots. The round moves the point by the
+label's translation and the device shifts it by a fixed integer, so the new distance is $X=|D+\sigma\delta_t|$ with $\sigma$ uniform, and the slot is still uniform. The
+source pair at distance $X$ has rank $j=X-\frac12$; its $2m_{t-1}$ units have ranks $2jm_{t-1}+2k+s$ (slot $k$, point $s\in\{0,1\}$), and target pair $i$ holds the ranks
+$[2m_ti,2m_t(i+1))$. A unit of slot $k$ goes below target pair $j$ if and only if $2k+s<2j(m_t-m_{t-1})$, that is, if and only if $k<j(m_t-m_{t-1})$, for both points. So
+if $j\gamma_t\le1$ a fraction exactly $j\gamma_t$ of the slots goes to pair $j-1$ and the rest to pair $j$, since pair $j$ ends at $2m_t(j+1)\ge2jm_{t-1}+2m_{t-1}$; and if
+$j\gamma_t>1$ all units go below pair $j$.
+
+(b) Put $\lambda=\sqrt{\gamma L/2}/\delta_{\max}\le1/(2\delta_{\max}^2)\le\frac12$ and $D_1=\delta_{\max}+\frac12+2\lambda\delta_{\max}^2/\gamma$. For $D\ge D_1$, $X=D+\sigma\delta$ and
+$q:=\min(1,(X-\frac12)\gamma_t)\ge\min(1,(D-\delta_{\max}-\frac12)\gamma)\ge2\lambda\delta_{\max}^2$, and in both cases of (a) $\E[e^{\lambda D'}\mid X]\le e^{\lambda X}(1-q(1-e^{-\lambda}))$. With
+$1-e^{-\lambda}\ge\lambda/2$ and $\cosh(\lambda\delta)\le e^{\lambda^2\delta^2/2}$, $\E[e^{\lambda D'}\mid D]\le e^{\lambda D}\exp(\lambda^2\delta_{\max}^2/2-q\lambda/2)\le e^{\lambda D}e^{-\lambda^2\delta_{\max}^2/2}
+\le(1-\theta)e^{\lambda D}$ with $\theta=\lambda^2\delta_{\max}^2/4$, as $\lambda^2\delta_{\max}^2/2\le1$. For $D<D_1$, $D'\le X<D_1+\delta_{\max}$, so $e^{\lambda D'}\le K:=e^{\lambda(D_1+\delta_{\max})}$.
+Hence $V_t=\E e^{\lambda D_t}$ satisfies $V_{t+1}\le(1-\theta)V_t+K$ and $V_t\le e^{\lambda R_0}+K/\theta$. By Markov's inequality and a union over $t\le n$,
+$\Pr(\exists t:D_t\ge y)\le n(e^{\lambda R_0}+K/\theta)e^{-\lambda y}$. At $y=R_0+2\delta_{\max}+\frac12+2L/\lambda$: $L/\lambda=\delta_{\max}\sqrt{2L/\gamma}=2\lambda\delta_{\max}^2/\gamma$, so
+$y-D_1-\delta_{\max}=R_0+L/\lambda$, and the bound is at most $ne^{-2L}+n(8/(\gamma L))e^{-L}\le ne^{-L}(1+8/(\gamma L))\le\eta$, because $ne^{-L}=\eta/(1+8/\gamma)$ and
+$L\ge1$. Finally $2L/\lambda=2\delta_{\max}\sqrt{2L/\gamma}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:fibred}]
+\emph{The device.} The memory holds the points of $\Omega_W$, $k$ slot registers, one per coordinate, with $m^{(i)}_t$ slots in use at time $t$, $m_0\ge\max(n,1/\gamma)$ and
+$m_t=\lceil(1+\gamma)m_{t-1}\rceil$, an ancilla $\C^{m'}$ with a port, and a garbage flag. The windows $\Omega_t$ are the units (a point of $\pi^{-1}(W_x)$ and slots) at time
+$t$, and $\Omega_0$ is one pair in each coordinate ($R_0=\frac12$) times the fibre times the slots. The classes are the products of the coordinate pairs $\{c_i\pm D_i\}$, the
+fibre and the slots. Round $t$ applies an independent uniformly random permutation of each class, fixed once and for all before any observer; Haar unitaries on the point
+blocks $\{\text{unit}\}\otimes\C^{m'}$; the round, the gadget unitary of the regular action on $\Omega_W$ completed to a unitary of the memory; the shift by $-r_0$ and, in each
+coordinate, the re-folding injection of Lemma~\ref{lem:refold} by distance, with a fixed bijection between the fibres over the old and the new coordinates; sends units
+without a target to garbage; and applies Haar unitaries on the new point blocks and exports. Every operation other than the round acts on the memory alone, and on the window
+the round is the gadget unitary of the regular action tensored with the identity on slots and ancillas.
+
+\emph{Exactness and the class chain.} Every point of the window is triangle-good and collision-free, since the action is the regular action of a group in which the
+relations hold and the labels are distinct; so the round is a free permutation round on the window. By the fibre hypothesis a uniform point of the fibre over $v$ is mapped
+to a uniform point of the fibre over $v-\pi(g)$; the class permutation makes the signs and slots of the coordinates independent and uniform; so the class-uniformized chain
+is the product of $k$ independent chains of Lemma~\ref{lem:refold}(a), with steps $\pi_i(g_t)-r_{0,i}$. Lemma~\ref{lem:refold}(b) with $\eta/k$ per coordinate gives
+$\max_y\kappa_{\rm class}(y)\le\eta$; a coordinate with $\delta_i=0$ never moves out.
+
+\emph{Discarded weight and error.} Put $z=\min(\epsilon^2/(64n),1/(4n^3))$ and choose $|\Omega_0|$, through $m_0$, with $|\Omega_0|\ge n(n\ln r+\ln2)/(2z^2)$, so that
+$\log m_0=O(\log(n/\epsilon))$. By Lemma~\ref{lem:classperm} there are class permutations, fixed from then on, with $\max_y\kappa_\beta(y)\le\eta+z$. Theorem~\ref{thm:pointblock}
+with $\zeta=z$, its Haar choices made after the permutations, gives for every observer $\omega_{\rm ideal}\le\eta+z\le\epsilon^2/(32n)$ and $\omega\le\eta+2z\le3/(4n^3)$. So the
+error is at most $(1+\sqrt n)\sqrt{\epsilon^2/(32n)+\epsilon^2/(16n)}\le0.53\epsilon$ for $n\ge2$, and the memory mass outside the window at the start of every round is at most
+$n\omega\le3/(4n^2)$.
+
+\emph{Memory.} $Q\le\log|\Omega_W|+\sum_i\log m^{(i)}_n+\log m'+O(1)$, with $\log m^{(i)}_n\le\log m_0+n\log(1+\gamma+1/m_0)\le\log m_0+n\log(1+\gamma)+1/\ln2$ since $m_0\ge n$,
+$\log m_0=O(\log(n/\epsilon))$, and $\log m'=O_r(\log(n/\epsilon)+\log\log|\Omega_W|)$ by Theorem~\ref{thm:pointblock}.
+
+For $\Z^k$ the fibres are trivial and the slot words move each coordinate by a bounded amount, so $|\Omega_W|\le\prod_i(2x_i+O(1))$; with $\gamma=1/n$ the condition
+$\gamma L\le1/(2\delta_{\max}^2)$ holds for $n\ge n_0$, $x_i=O(\delta_i\sqrt{nL})$, and $Q=O_{k,r}(\log(n/\epsilon))$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:collar}]
+(a) $x\in L_j\subseteq F_j$ gives $f(g)x\in F_{j+1}$, and $x\notin F_{j-1}$ with $f(g)^{-1}F_{j-2}\subseteq F_{j-1}$ gives $f(g)x\notin F_{j-2}$. The points of $F_j$ sent outside $F_j$
+all lie in $L_j$, since $f(g)F_{j-1}\subseteq F_j$, and there are $|f(g)F_j\setminus F_j|=\Phi_g(j)$ of them. For the down moves, $F_{j-1}\cap f(g)L_j=F_{j-1}\setminus f(g)F_{j-1}$: a
+point $y$ of $F_{j-1}$ outside $f(g)F_{j-1}$ has $f(g)^{-1}y\in F_j\setminus F_{j-1}=L_j$, and conversely; and $|F_{j-1}\setminus f(g)F_{j-1}|=|f(g)F_{j-1}\setminus F_{j-1}|=\Phi_g(j-1)$
+since $|f(g)F_{j-1}|=|F_{j-1}|$. So $s_jp_+(j)=\Phi_g(j)=s_{j+1}p_-(j+1)$.
+
+(b) \emph{Re-fold.} Ranks are kept and capacities grow ($V_jm_t\ge V_jm_{t-1}$), so no unit moves outward. A unit of shell $X\ge1$ with slot $k$ and index $\mathrm{idx}<s_X$ goes
+to a shell at most $X-1$ if and only if $ks_X+\mathrm{idx}<V_{X-1}(m_t-m_{t-1})$; the fraction of slots doing so is at least
+$\min(1,V_{X-1}\gamma_t/s_X)-1/m_{t-1}\ge\Gamma':=\min(1,\gamma|F_0|/(2s))-1/m_0$, since $V_{X-1}\ge|F_0|$, $s_X\le2s$, $\gamma_t\ge\gamma$ and $m_{t-1}\ge m_0$. Slots are uniform
+and independent of the point, so, given the past, the unit drops by at least one shell with probability at least $\Gamma'$. Reaching the garbage needs shell $K+1$ after a
+round, hence shell $K$ before it.
+
+\emph{Drift.} Let $\lambda:=\min(1,\Gamma'/2-\zeta)$. For $D\ge2$ the move $X-D\in\{-1,0,1\}$ has mean $(\Phi_g(D)-\Phi_g(D-1))/s_D\le\zeta$ by (a), so
+$\E e^{\lambda(X-D)}\le\exp(\lambda\zeta+\lambda^2/2)$ (Hoeffding's lemma), and $\E[e^{\lambda D'}\mid X]\le e^{\lambda X}(1-\Gamma'(1-e^{-\lambda}))\le e^{\lambda X}\exp(-\Gamma'(\lambda-\lambda^2/2))$.
+Since $\lambda\le1$ and $\lambda\le\Gamma'/2-\zeta$, $\Gamma'(1-\lambda/2)\ge\Gamma'/2\ge\zeta+\lambda$, so the exponent $\lambda\zeta+\lambda^2/2-\Gamma'\lambda(1-\lambda/2)$ is at most
+$-\lambda^2/2$ and $\E[e^{\lambda D'}\mid\text{past}]\le(1-\lambda^2/4)e^{\lambda D}$. For $D\le1$, $e^{\lambda D'}\le e^{2\lambda}$.
+
+\emph{Kill.} With $U_t:=\E[e^{\lambda D_t}\mathbf 1\{\tau\ge t\}]$, $\tau$ the first visit to shell $K$: $U_t\le(1-\lambda^2/4)U_{t-1}+e^{2\lambda}$, so $U_t\le1+4e^{2\lambda}/\lambda^2\le1+30/\lambda^2$, and
+$\Pr(\tau\le n)\le\sum_{t\le n}\Pr(\tau\ge t,D_t\ge K)\le n(1+30/\lambda^2)e^{-\lambda K}$.
+
+\emph{Scales.} $|F_K\setminus F_0|=\sum_{1\le j\le K}s_j\ge Ks$, so $|F_0|\ge Ks$. With $\gamma$ as stated, $\gamma|F_0|/(2s)=2\zeta+4L_c/K+1/m_0\le6L_c/K+\frac14\le1$, so
+$\Gamma'=2\zeta+4L_c/K$ and $\lambda=2L_c/K\le\frac14$. The kill is at most $n(1+30K^2/(4L_c^2))e^{-2L_c}\le n(1+8K^2)e^{-2L_c}=\eta e^{-L_c}\le\eta$, since $L_c\ge1$. And
+$n\gamma\le(2n/K)(2L_c/K+4L_c/K+1/m_0)\le12nL_c/K^2+2/K$, as $m_0\ge n$, so the slot register costs $\log m_0+n\gamma/\ln2+O(1)\le\log m_0+17.4nL_c/K^2+O(1)$. The rest is the proof of
+Theorem~\ref{thm:fibred}, with the core $F_0$ times the initial slots as $\Omega_0$ and $\eta=\min(\epsilon^2/(64n),1/(4n^3))$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:collar-condition}]
+Put $v:=2^{2S+4}$ and take the collar of (a), of depth $K$. If $K\ge8L_c$, with $L_c$ at this depth, Proposition~\ref{prop:collar}(b) applies, since $\zeta\le1/K\le L_c/K$, and gives
+$\log\max_t|\Omega_t|\le\kappa(2S+5)(\log(2S+6))^\kappa+17.4nL_c\kappa(\log(2S+6))^\kappa\Lambda(2^{2S+4})+O_r(\log(n/\epsilon)+\log\log|F_{K+1}|)$, and
+Theorem~\ref{thm:FK}(ii) gives $n\Lambda(2^{2S+4})\le8C_\mu\,n\,a$. Otherwise let $K_0\ge16$ be the least integer with $K_0\ge8\ln(n(1+8K_0^2)/\eta)$, and take the collar of (b)
+for this $K_0$, of depth $K'\ge K_0$. The function $K\mapsto K-8\ln(n(1+8K^2)/\eta)$ increases for $K\ge16$, so $K'\ge8L_c(K')$ and Proposition~\ref{prop:collar}(b) applies: its size
+term is at most $\kappa K_0^\kappa=\mathrm{polylog}(n/\epsilon)$, and its $\gamma$-term is $17.4nL_c/K'^2\le17.4nL_c/K^2\le17.4nL_c\kappa(\log(2S+6))^\kappa\Lambda(2^{2S+4})$, since
+$K'\ge K_0>K$, which is bounded as before. In both cases $L_c=O(\log(n/\epsilon)+\log K')$ and $\log K'\le\log|F_{K'+1}|$, so all factors are polylogarithmic in $n/\epsilon$ and
+$2+S$; (B1) and (B3) hold by the construction of Proposition~\ref{prop:collar}(b). For the regular action of a group of exponential growth, step 2 of the proof of
+Proposition~\ref{prop:growth} gives $\Lambda(v)\ge c/(\log v)^2$; at $K\asymp\log v/\log\log v$ a collar of size $e^{O(K\log K)}$ has $\log|F_{K+1}|=O(\log v)$ and
+$K^{-2}\le C(\log\log v)^2\Lambda(v)$, which is (a), and (b) is immediate.
+\end{proof}
+
+\paragraph{Houghton groups.} For $q\ge3$, $H_q$ acts on $X_q=\{1,\dots,q\}\times\{1,2,\dots\}$ by permutations that are eventually translations on each ray; $t(g)\in\Z^q$, with
+$\sum_it_i(g)=0$, is the eventual translation of $g$ on the rays, a homomorphism with kernel the finitary symmetric group $\FSym(X_q)$. The generators $g_j$ ($2\le j\le q$)
+have $t(g_j)=e_j-e_1$: $g_j$ moves ray $1$ one step towards the origin, sends $(1,1)$ to $(j,1)$, and moves ray $j$ one step outwards. Put
+$s(\vec m)=g_2^{m_2}\circ\cdots\circ g_q^{m_q}$ for $\vec m\in\Z^{q-1}$; every element is uniquely $\sigma\circ s(\vec m)$ with $\sigma\in\FSym(X_q)$, since $x\circ s(\vec m)^{-1}$ has zero
+translation for the $\vec m$ read off $t(x)$. The \emph{defect radius} of $g$ is $\varrho(g)=\min\{R\ge1:g(i,k)=(i,k+t_i(g))$ for all $i$ and all $k\ge R\}$.
+
+\begin{lemma}[Cocycles of Houghton groups]\label{lem:houghton-cocycle}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item $\varrho(g\circ h)\le\max(\varrho(h),\varrho(g)+\nrm{t(h)}_\infty)$ and $\varrho(g^{-1})\le\varrho(g)+\nrm{t(g)}_\infty$, and $t(c)=0$ implies $c\in\Sym(X_{<\varrho(c)})$, where
+$X_{<R}=\{(i,k):k<R\}$ has $q(R-1)$ points.
+\item Let $w$ be an element with $\nrm{t(w)}_\infty\le\ell$ and $\varrho(w^{-1})\le\varrho_0$, and let $\pi(w)$ be the $\Z^{q-1}$-part of $t(w)$. For $x=\sigma\circ s(\vec m)$ with
+$|m_j-\frac12|\le x_0$ for all $j$, $x\circ w^{-1}=(\sigma\circ c)\circ s(\vec m-\pi(w))$ with $c\in\Sym(X_{<R_\star})$, $R_\star:=\varrho_0+\ell+4+7(q-1)(x_0+1+\ell)$, and $c$ depends
+only on $\vec m$ and $w$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) For $k\ge\max(\varrho(h),\varrho(g)+\nrm{t(h)}_\infty)$, $h(i,k)=(i,k+t_i(h))$ with $k+t_i(h)\ge\varrho(g)$, so $g(h(i,k))=(i,k+t_i(h)+t_i(g))$. For
+$k\ge\varrho(g)+\nrm{t(g)}_\infty$ put $k':=k-t_i(g)\ge\varrho(g)$: then $g(i,k')=(i,k)$, so $g^{-1}(i,k)=(i,k-t_i(g))$. If $t(c)=0$, $c$ fixes every $(i,k)$ with $k\ge\varrho(c)$, hence
+permutes the finite complement $X_{<\varrho(c)}$.
+
+(b) $x\circ w^{-1}=\sigma\circ s(\vec m)\circ w^{-1}=\sigma\circ c\circ s(\vec m')$ with $\vec m':=\vec m-\pi(w)$ and $c:=s(\vec m)\circ w^{-1}\circ s(\vec m')^{-1}$, which has zero translation and
+depends only on $\vec m$ and $w$. Since $\varrho(g_j^{\pm1})=2$ and each factor changes each coordinate of $t$ by at most one, (a) gives $\varrho(s(\vec m))\le2+|\vec m|_1$ and
+$\varrho(s(\vec m)^{-1})\le2+2|\vec m|_1$. With $h_1:=s(\vec m')^{-1}$ and $h_2:=w^{-1}\circ h_1$: $\varrho(h_1)\le2+2|\vec m'|_1$, $\nrm{t(h_1)}_\infty\le|\vec m'|_1$,
+$\varrho(h_2)\le\max(\varrho(h_1),\varrho_0+|\vec m'|_1)$, $\nrm{t(h_2)}_\infty\le\ell+|\vec m'|_1$, and $\varrho(c)=\varrho(s(\vec m)\circ h_2)\le\max(\varrho(h_2),2+|\vec m|_1+\ell+|\vec m'|_1)$. In
+the box, $|\vec m|_1\le(q-1)(x_0+1)$ and $|\vec m'|_1\le(q-1)(x_0+1+\ell)$, so $\varrho(c)\le R_\star$ and $c\in\Sym(X_{<R_\star})$ by (a).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-groups}]
+Use the right regular action $f(g)x=x\circ g^{-1}$, a homomorphism, with every point triangle-good and collision-free. Let $\ell$ bound $\nrm{t(w)}_\infty$ and $\varrho_0$ bound
+$\varrho(w^{-1})$ over the slot words. Given the window half-width $x_0$, put $\Omega_B:=\{\sigma\circ s(\vec m):\sigma\in\Sym(X_{<R_\star}),\ \vec m\in B_{\rm out}\}$ with $B_{\rm out}$ the box
+of half-width $x_0+\ell$ around $\frac12\cdot\mathbf 1$, and $\pi(\sigma\circ s(\vec m)):=\vec m$. The fibres have the common size $(q(R_\star-1))!$, and by
+Lemma~\ref{lem:houghton-cocycle}(b) every slot word maps the fibre over $\vec m$, for $\vec m$ in the box $B$ of half-width $x_0$, bijectively onto the fibre over $\vec m-\pi(w)$,
+by $\sigma\mapsto\sigma\circ c$. So Theorem~\ref{thm:fibred} applies with $k=q-1$, $r_0=0$ and $\delta_i\le\ell$, at the window half-width
+$x_0=1+2\ell+2\ell\sqrt{2L/\gamma}$, that is $\gamma=8\ell^2L/(x_0-1-2\ell)^2$; its condition $\gamma L\le1/(2\ell^2)$ holds as soon as $x_0\ge1+2\ell+4\ell^2L$. Its memory is
+$\log((q(R_\star-1))!)+(q-1)O(\log x_0)+(q-1)n\log(1+\gamma)+O(\log(n/\epsilon))=O(q^2x_0\log(qx_0)+qn\ell^2L/x_0^2)+O(\log(n/\epsilon))$. Take
+$x_0=\max\bigl((n\ell^2L/(q\log n))^{1/3},\,1+2\ell+4\ell^2L\bigr)$: the memory is $O(q^{5/3}(\ell^2L)^{1/3}n^{1/3}(\log n)^{2/3}+q^2\ell^2L\log(q\ell L))+O(\log(n/\epsilon))$.
+
+$H_q$ is elementary amenable, being an extension of $\FSym(X_q)$ by $\Z^{q-1}$, and so is the subgroup generated by the labels. By Chou's
+theorem~\cite[Theorem~3.2]{Chou1980} that subgroup has polynomial or exponential growth. In the first case it is virtually nilpotent, hence residually finite, and its finite
+quotients give a finite-dimensional representation of $P_\Phi$ that separates the labels, so Corollary~\ref{cor:map} applies. In the second case
+Proposition~\ref{prop:growth}, on the regular action, gives $S+n\,a\ge c_qn^{1/3}-C_q$ for every bath; since $L=O(\log(n/\epsilon))$, both terms of the memory are at most
+$K\log^2(n/\epsilon)(1+S+n\,a)$ for $n\ge n_0$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ball}]
+(a) With point classes no permutation is needed, and the branch of a label sequence at time $t$ is a point $f(w)x_0$ with $|w|\le t$, inside $\Omega_t$; so the ideal killed
+chain is never killed, and Theorem~\ref{thm:pointblock} gives error at most $(1+\sqrt n)\sqrt{\epsilon^2/(16n)}\le0.43\epsilon$ and memory
+$\log|\Omega_n|+O_r(\log(n/\epsilon))$. The ball of radius $n$ in the labels and their inverses has at most $(2r+1)^n$ points.
+
+(b) Let $A$ be finite and $r_A:=12(\lfloor\log\log|A|\rfloor+2)$, so that $|A|<2^{2^{\lfloor r_A/12\rfloor-1}}$. By~\cite[Proposition~7.3]{DouglasMghirbiC}, some generator
+$s\in\{p,q,t,c,a\}$ of $\Gamma$ has $|As\setminus A|>|A|/r_A$; the generators are labels of the lamp channel, and for the right regular action $f(s)A=As^{-1}$ with
+$|As^{-1}\setminus A|=|A\setminus As|=|As\setminus A|$. So the label boundary $|\partial A|=\sum_{s\in S_G}|f(s)A\setminus A|$ exceeds $|A|/\Psi(|A|)$ with
+$\Psi(v):=12(\log\log v+2)\ge r_A$. The co-area and Cauchy--Schwarz steps of the proof of Proposition~\ref{prop:growth}, with $|\partial A_t|\ge|A_t|/\Psi(v)$ for the level sets of
+$\varphi^2$, give $\mathcal E_{S_G}(\varphi)\ge\nrm\varphi^2/(|S_G|\Psi(v)^2)$ and $\Lambda(v)\ge1/(4r\Psi(v)^2)$. By Theorem~\ref{thm:FK}(ii), $a\ge c/(\log(2S+4))^2$ for every bath on
+the regular action, so $S+n\,a\ge c'n/(\log n)^2$: if $S\ge n/(\log n)^2$ this is immediate, and otherwise $\log(2S+4)=O(\log n)$. So the window of (a), of at most $n\log(2r+1)$
+bits, is at most $(\log(n/\epsilon))^3(1+S+n\,a)$ for $n\ge n_0$.
+\end{proof}
+
+\subsection{Leaky biased rounds}
+
+\begin{proof}[Proof of Theorem~\ref{thm:perm-leaky}]
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item By Lemma~\ref{lem:perm-leak}, $\nu_1:=p(\mathrm{bad})\le4d\ell\le4dC_0/n\le\frac1{16}$.
+\item At a triangle-good $\omega$, $U_f(\xi\otimes\ket\omega)=\sum_gA_g\xi\otimes\ket{f(g)\omega}$. Lemma~\ref{lem:restrict-biased} on the good points, a diagonal projection that commutes
+with $p$, gives a bath $p_1$ with leakage $0$, distance at most $(\frac1{16}+\frac1{16})/\frac{15}{16}=\frac2{15}$, $S_1\le S/(1-\nu_1)$ and $a_1\le(a+h_2(\nu_1))/(1-\nu_1)$.
+\item By Lemma~\ref{lem:perm-leak}, $p_1\{\omega:f(g)\omega=f(h)\omega\}\le2\cdot\frac2{15}=\frac4{15}$ for $g\ne h$.
+\item Lemma~\ref{lem:tensor} applied to the round of step 2: on tuples of good points $U_{f^{\times t}}$ has Kraus form with the product model, the bath is $p_1^{\otimes t}$, $S=tS_1$,
+$a\le ta_1$, and two labels collide at a tuple if and only if they collide in every coordinate, so the collision mass is at most $(r^2/2)(4/15)^t\le1/n^2$ for
+$t=\lceil\log_{15/4}(r^2n^2/2)\rceil$.
+\item Lemma~\ref{lem:restrict-biased} again removes the colliding tuples, a diagonal projection with $\nu_2\le1/n^2$. The result is a free exact permutation round, whose
+weighted Gram is the identity, so its distance is $0$ (Lemma~\ref{lem:zero-leak}); $S'\le tS_1/(1-\nu_2)$ and $a'\le(ta_1+h_2(\nu_2))/(1-\nu_2)$. Then
+$n\,a'\le(1+O(\nu_1))\,t\,n\,a+t\,n\,h_2(4dC_0/n)(1+O(n^{-2}))+O(1)$, and $n\,h_2(4dC_0/n)\le4dC_0\log(en/(4dC_0))=O(dC_0\log n)$.
+\end{enumerate}
+Theorem~\ref{thm:pointblock} and Lemma~\ref{lem:classperm} need freeness and exactness only at the points that the windows contain, so for the output the windows of the balance
+condition must lie inside the good, collision-free tuples, an exit into a bad or colliding tuple counting as a kill.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:conditional}]
+Let $\Phi_d$ be maximally entangled on the input and a reference $R_{\rm in}$, and $\Omega:=(U\otimes I)(\ket{\Phi_d}\otimes\ket{\psi_\sigma})$, a pure state of the output, $\C^M$,
+$R_{\rm in}$ and $R$. Its $\C^M$-marginal is $T(\sigma)$ and its $R$-marginal has the spectrum of $\sigma$. As $\Omega$ is pure, $S(CR)=S(\C^M)=S(T(\sigma))$, so
+$H(C|R)=S(CR)-S(R)=a(\sigma)$. If the round is exact on $K$, then $W=\sum_gA_g\otimes B_g$ there and $\Tr(A_h^*A_g)=d\mu_g\delta_{gh}$, so
+$T(\sigma)=\sum_g\mu_gB_g\sigma B_g^*=\widetilde X\widetilde X^*$ with $\widetilde X:=\sum_g\sqrt{\mu_g}B_g\sqrt\sigma\bra g:\C^r\otimes K\to\C^M$. Then
+$\widetilde X^*\widetilde X=\sum_{g,h}\sqrt{\mu_g\mu_h}\ket g\bra h\otimes\sqrt\sigma B_g^*B_h\sqrt\sigma$ has the nonzero spectrum of $T(\sigma)$ and $K$-marginal
+$\sum_g\mu_g\sqrt\sigma B_g^*B_g\sqrt\sigma=\sigma$, so its conditional entropy given $K$ is $a(\sigma)$.
+\end{proof}
+
+We also use the leaky form of this identity. For a state $\sigma$ on $K$ with leakage $\ell_\sigma=\Tr(\sigma\Lambda)/d$ put
+$\omega^0:=\sum_{g,h}\sqrt{\mu_g\mu_h}\ket g\bra h\otimes\sqrt\sigma X_g^*X_h\sqrt\sigma$, of trace $1-\ell_\sigma$. Then
+\begin{equation}\label{eq:leaky-conditional}
+(1-\ell_\sigma)\,H(L|R)_{\omega^0/(1-\ell_\sigma)}\ \le\ a(\sigma)+h_2(\ell_\sigma)+\ell_\sigma\log(d^2-r).
+\end{equation}
+Indeed, write $\ket{\psi_\sigma}=(\sqrt\sigma\otimes I)\ket\Gamma$ with $\ket\Gamma=\sum_\kappa\ket{\kappa\kappa}$, and $W=G+L$. The part of $\Omega$ coming from $G$ is
+$\sum_gd^{-1/2}\vert A_g\rangle\!\rangle\otimes(X_g\sqrt\sigma\otimes I)\ket\Gamma$, and the part coming from $L$ lies in the range of $\Pi^\perp\otimes I$, $\Pi:=\Pi_\Phi\otimes I_R$, by
+Hilbert--Schmidt orthogonality. Let $\sigma_{CR}$ be the $CR$-marginal of $\Omega$. Since $\Tr_M[(A\otimes I)\ket\Gamma\bra\Gamma(B\otimes I)^*]=(B^*A)^T$, the block $(g,h)$ of
+$\Pi\sigma_{CR}\Pi$ in the orthonormal basis $\vert A_g\rangle\!\rangle/\sqrt{d\mu_g}$ is the entrywise conjugate of the block $(g,h)$ of $\omega^0$; conjugation preserves spectra and
+commutes with partial traces, and $\Tr(\Pi\sigma_{CR}\Pi)=1-\ell_\sigma$, so $H(C|R)_{\Pi\sigma_{CR}\Pi/(1-\ell_\sigma)}=H(L|R)_{\omega^0/(1-\ell_\sigma)}=:H_0$. The pinched state
+$\tilde\sigma:=\Pi\sigma_{CR}\Pi+\Pi^\perp\sigma_{CR}\Pi^\perp$ has the $R$-marginal of $\sigma_{CR}$. With $A:=\Pi\sqrt{\sigma_{CR}}$, $\Pi\sigma_{CR}\Pi=AA^*$ has the nonzero spectrum of
+$\sqrt{\sigma_{CR}}\Pi\sqrt{\sigma_{CR}}$, and $\sigma_{CR}=\sqrt{\sigma_{CR}}\Pi\sqrt{\sigma_{CR}}+\sqrt{\sigma_{CR}}\Pi^\perp\sqrt{\sigma_{CR}}$, so concavity gives the inequality of Groenewold
+and Lindblad~\cite{Lindblad1972}, $S(\sigma_{CR})\ge(1-\ell_\sigma)S(\Pi\sigma_{CR}\Pi/(1-\ell_\sigma))+\ell_\sigma S(\Pi^\perp\sigma_{CR}\Pi^\perp/\ell_\sigma)$, while $S(\tilde\sigma)$ is $h_2(\ell_\sigma)$
+plus the same average; so $H(C|R)_{\tilde\sigma}\le a(\sigma)+h_2(\ell_\sigma)$. Finally $\tilde\sigma$ is block diagonal for $\Pi\oplus\Pi^\perp$ on $C$, so with the flag $F$ of the
+block, $H(C|R)_{\tilde\sigma}=H(F|R)+H(C|FR)\ge(1-\ell_\sigma)H_0-\ell_\sigma\log(d^2-r)$, since the $\Pi^\perp$ block lives on a space of dimension $d^2-r$.
+
+\begin{proof}[Proof of Lemma~\ref{lem:domination}]
+From $W^*W=I$, $H:=G^*G-I=-(G^*L+L^*G+L^*L)$. From $(\sqrt tG\pm L/\sqrt t)^*(\sqrt tG\pm L/\sqrt t)\ge0$, $\mp(G^*L+L^*G)\le tG^*G+L^*L/t$. Hence $H\le tG^*G+L^*L/t$ and
+$-H\le tG^*G+(1+1/t)L^*L$. The first gives $(1-t)G^*G\le I+L^*L/t$, so $tG^*G\le(tI+L^*L)/(1-t)$, and inserting it,
+$\pm H\le[tI+(1+1/t-t)L^*L]/(1-t)\le\bar B:=(tI+(1+1/t)L^*L)/(1-t)$. For $\ket p\in\C^d$ write $Y_{pq}=(\bra p\otimes I)Y(\ket q\otimes I)$. Then
+$\bar B_{pp}=(tI+(1+1/t)(L^*L)_{pp})/(1-t)\le\beta_t$, because $(L^*L)_{pp}\ge0$ and $\sum_p(L^*L)_{pp}=\Lambda$. By (F1), $G(\ket{z_g}\otimes\kappa)=\ket{z_g}\otimes X_g\kappa$, so
+$H_{z_gz_g}=X_g^*X_g-I$, and $-\beta_t\le H_{z_gz_g}\le\beta_t$. Compress $\bar B+H\ge0$ and $\bar B-H\ge0$ to two slots $p,q$, conjugate the second by $\diag(I,-I)$ and add:
+$\left(\begin{smallmatrix}\bar B_{pp}&H_{pq}\\H_{qp}&\bar B_{qq}\end{smallmatrix}\right)\ge0$. For the two columns $p,q$ of a triangle block, $(G^*G)_{pq}=\frac12R_t$ and $I_{pq}=0$; raising
+the diagonal blocks to $\beta_t$ keeps positivity, and multiplying by $2$ gives the claim.
+\end{proof}
+
+Conjugating the last matrix by $\diag(I,e^{i\phi})$ or by $\diag(I,-I)$, or swapping its blocks, and scaling, shows
+$\left(\begin{smallmatrix}2|c|\beta_t&cD\\\bar cD^*&2|c|\beta_t\end{smallmatrix}\right)\ge0$ for every triangle defect or adjoint $D$ and $c\in\C$. Hence, if $E$ is Hermitian on
+$\C^r\otimes K$ with zero diagonal blocks and $E_{pq}=\sum_ec_{pq,e}D_e$ with every $D_e$ a triangle defect or its adjoint up to a phase, then
+$\pm E+I_r\otimes2\bar c\beta_t\ge0$ with $\bar c:=\max_p\sum_{q\ne p}\sum_e|c_{pq,e}|$: embed one such $2\times2$ block matrix at the positions $(p,q)$ and $(q,p)$ for every $p<q$ and every
+term, sum, and add $\bigoplus_p(2\bar c-\sum_{q\ne p}\sum_e2|c_{pq,e}|)\beta_t\ge0$. For the correction $E$ that projects the off-diagonal blocks of $Y^0=[X_g^*X_h]$ onto the
+identities (the average over each class of linked label pairs, as in the proof of Theorem~\ref{thm:F}), each block difference telescopes along at most $r(r-1)-1$ edges,
+so $\bar c\le(r-1)(r(r-1)-1)\le(r-1)(r^2-1)$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:BF}]
+\emph{Facts.} For every state $\sigma$ on $K$, $\ell_\sigma=\Tr(\sigma\Lambda)/d$, as in (f1) of the proof of Theorem~\ref{thm:F}. Applying $\Tr_d$ to $W^*W=I$, the cross terms vanish
+and $\Tr_d(G^*G)=\sum_gd\mu_gX_g^*X_g$, so $\sum_g\mu_gX_g^*X_g=I-\Lambda/d$ and $\sum_g\mu_g\Tr(\sigma X_g^*X_g)=1-\ell_\sigma$. For $g\ne h$ and any state $\sigma$ on $K$ with distance
+$u_\sigma$,
+\begin{equation}\label{eq:anchor}
+|\Tr(\sigma X_g^*X_h)|\le2u_\sigma+2\sqrt{\Tr\sigma\Lambda}+\Tr\sigma\Lambda :
+\end{equation}
+the anchor block of $W$ is $W_{z_gz_g}=X_g+\lambda_g$ with $\lambda_g=\sum_\alpha(E_\alpha)_{z_gz_g}L_\alpha$ and $\lambda_g^*\lambda_g\le\Lambda$ by Cauchy--Schwarz;
+$|\Tr(\sigma W_{z_hz_h}^*W_{z_gz_g})|\le2u_\sigma$ by (F1) and (F2); $\nrm{W_{z_gz_g}\sqrt\sigma}_F\le1$ since $W_{zz}^*W_{zz}\le(W^*W)_{zz}=I$; $\nrm{\lambda_g\sqrt\sigma}_F^2\le\Tr\sigma\Lambda$;
+expand $X=W_{zz}-\lambda$ and use Cauchy--Schwarz.
+
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Commuting restriction.} Write $\rho=\sum_i\rho_i\ket{e_i}\bra{e_i}$ ($\rho_i>0$) and $\lambda_i:=\bra{e_i}\Lambda\ket{e_i}$, so $\sum_i\rho_i\lambda_i=d\ell=s^2$. Put $\theta:=s/c_r$,
+$J:=\{i:\lambda_i\le\theta\}$, $P_0:=\sum_{i\in J}\ket{e_i}\bra{e_i}$ and $K_0:=\operatorname{ran}P_0$. Markov's inequality gives $\nu:=\sum_{i\notin J}\rho_i\le s^2/\theta=c_rs\le\frac1{46}$. $P_0$ commutes
+with $\rho$, so Lemma~\ref{lem:restrict-biased} gives $\rho_0:=P_0\rho P_0/(1-\nu)$ with $S_0\le S/(1-\nu)$, $a_0\le(a+h_2(\nu))/(1-\nu)$, $u_0\le(u+\nu)/(1-\nu)$ and $\ell_0\le\ell/(1-\nu)$.
+On $K_0$, $W_0=G_0+L_0$ with the $X_g$ restricted and $\Lambda_0=P_0\Lambda P_0$. In the basis $\{e_i\}_{i\in J}$, $\rho_0\log(1/\rho_0)$ is diagonal with nonnegative entries, so
+$J_0:=\Tr(\Lambda_0\rho_0\log(1/\rho_0))=\sum_{i\in J}\lambda_i\rho_{0,i}\log(1/\rho_{0,i})\le\theta S_0$. From now on everything is on $K_0$, where $\rho_0$ is invertible; $\xi:=\sqrt{\rho_0}$.
+\item \emph{Domination.} $Y^0:=[X_g^*X_h]_{g,h}\ge0$ on $\C^r\otimes K_0$, and $\beta:=(sI+(1+1/s)\Lambda_0)/(1-s)$; Lemma~\ref{lem:domination} applies to $W_0$ with $t=s$.
+\item \emph{Projection.} Let $E$ be the class-average correction, so that the off-diagonal blocks of $Y^0+E$ satisfy every identity, and $Z_E:=2(r-1)(r^2-1)\beta\ge2\bar c\beta$. Then
+$\pm E+I_r\otimes Z_E\ge0$.
+\item \emph{Fill.} $Z_D:=\beta$, $Z:=Z_D+Z_E=c_r\beta$, $F:=\bigoplus_g(I+Z_D-X_g^*X_g)\ge0$ by Lemma~\ref{lem:domination}, and $Y_1:=Y^0+F+(E+I_r\otimes Z_E)\ge0$. Then $(Y_1)_{gg}=I+Z$
+for every $g$ and $(Y_1)_{gh}=Y^0_{gh}+E_{gh}$ for $g\ne h$, and every identity holds: the off-diagonal ones by step 3, the diagonal ones because all diagonal blocks are equal.
+\item \emph{Absorber in the bath.} $z:=\Tr(\rho_0Z)$ and $\rho':=(\rho_0+\xi Z\xi)/(1+z)$, a state on $K_0$ with $\rho'\ge\rho_0/(1+z)$. Put
+$Y:=(1+z)^{-1}(I\otimes\rho'^{-1/2}\xi)Y_1(I\otimes\xi\rho'^{-1/2})$. Then $Y\ge0$, $Y_{gg}=\rho'^{-1/2}(\rho_0+\xi Z\xi)\rho'^{-1/2}/(1+z)=I$, and every identity survives the common
+congruence. $X'_g:=Y^{1/2}(\ket g\otimes I):K_0\to\C^r\otimes K_0$ are isometries with $X'^*_gX'_h=Y_{gh}$. With the embedding $\iota:=X'_1$, the bath $X'_1\rho'X'^*_1$ and the family
+$X'_gX'^*_1$ on $\operatorname{ran}X'_1$, Lemma~\ref{lem:dilation}(c) extends $\sum_gA_g\otimes X'_gX'^*_1$ to a unitary. The new round has channel
+$\sum_{g,h}\Tr(\rho'X'^*_hX'_g)A_g(\cdot)A_h^*$, hence leakage $0$, bath entropy $S':=S(\rho')$, and bath map with the spectrum of $\sum_g\mu_gX'_g\rho'X'^*_g$.
+\item \emph{Entropy production.} $(I\otimes\sqrt{\rho'})Y(I\otimes\sqrt{\rho'})=Y_1^\xi/(1+z)$ with $Y_1^\xi:=(I\otimes\xi)Y_1(I\otimes\xi)$. By Lemma~\ref{lem:conditional}, $a'=H(L|R)_{\omega'}$ with
+$\omega':=DY_1^\xi D/(1+z)$, $D:=\diag(\sqrt{\mu_g})\otimes I$. Let $\omega^0:=D(I\otimes\xi)Y^0(I\otimes\xi)D$, of trace $1-\ell_0$, $\hat\omega^0:=\omega^0/(1-\ell_0)$, and
+$\Delta:=D(I\otimes\xi)(F+E+I\otimes Z_E)(I\otimes\xi)D\ge0$. As $E$ has zero diagonal blocks, $\Tr\Delta=\sum_g\mu_g\Tr(\rho_0(I+Z_D-X_g^*X_g))+\Tr(\rho_0Z_E)=\ell_0+z$. Hence
+\[
+\omega'=(1-p)\hat\omega^0+p\,\tau,\qquad p:=(\ell_0+z)/(1+z),\quad\tau:=\Delta/(\ell_0+z):
+\]
+a mixture with a positive correction. The mixture bound ($H(L|R)\le H(LX|R)\le h_2(p)+(1-p)H(L|R)_{\hat\omega^0}+p\,H(L|R)_\tau$ for an adjoined index $X$) and $H(L|R)_\tau\le\log r$ give
+$a'\le(1-p)H_0+p\log r+h_2(p)\le H_0+2p\log r+h_2(p)$ with $H_0:=H(L|R)_{\hat\omega^0}\ge-\log r$. By~\eqref{eq:leaky-conditional} for $(U,\rho_0)$,
+$(1-\ell_0)H_0\le a_0+h_2(\ell_0)+\ell_0\log(d^2-r)$; with step 1 this is item 3.
+\item \emph{Bath entropy.} $\log$ is operator monotone and $\rho'\ge\rho_0/(1+z)$, so $S(\rho')\le-\Tr\rho'\log\rho_0+\log(1+z)=(S_0+\Tr(\xi Z\xi\log(1/\rho_0)))/(1+z)+\log(1+z)$. Since $\xi$
+commutes with $\log\rho_0$, $\Tr(\xi Z\xi\log(1/\rho_0))=\Tr(Z\rho_0\log(1/\rho_0))=\frac{c_r}{1-s}(sS_0+(1+1/s)J_0)\le\frac{(c_rs+s+1)S_0}{1-s}$ by step 1, as $\theta=s/c_r$. So
+$S'\le S_0(1+(1+(c_r+1)s)/(1-s))+z/\ln2$.
+\item \emph{Gram.} For $g\ne h$, $\Tr(\rho'X'^*_gX'_h)=\Tr((Y_1^\xi)_{gh})/(1+z)=[\Tr(\rho_0X_g^*X_h)+\Tr(\xi E_{gh}\xi)]/(1+z)$. Compressing $\pm E+I\otimes Z_E\ge0$ to the blocks $g,h$ and
+conjugating by $\xi$ gives $\left(\begin{smallmatrix}\xi Z_E\xi&\pm\xi E_{gh}\xi\\\pm\xi E_{hg}\xi&\xi Z_E\xi\end{smallmatrix}\right)\ge0$; a matrix
+$\left(\begin{smallmatrix}A&X\\X^*&A\end{smallmatrix}\right)\ge0$ has $X=A^{1/2}CA^{1/2}$ with $\nrm C\le1$, so $\nrm{\xi E_{gh}\xi}_1\le\Tr(\rho_0Z_E)$. With~\eqref{eq:anchor} for $\rho_0$,
+$|\Tr(\rho'X'^*_gX'_h)|\le2u_0+2\sqrt{d\ell_0}+d\ell_0+\Tr(\rho_0Z_E)$.
+\item \emph{Constants.} $c_r\ge7$, so $s\le1/322$ and $\nu\le c_rs\le\frac1{46}$; $d\ell_0\le s^2/(1-\nu)$. Then $z=c_r(s+(1+1/s)d\ell_0)/(1-s)\le c_rs(1+(1+s)/(1-\nu))/(1-s)\le2.05c_rs$,
+$\Tr(\rho_0Z_E)=(c_r-1)z/c_r\le2.05(c_r-1)s$ and $p\le\ell_0+z\le2.2c_rs$. For the Gram, $2(u+\nu)/(1-\nu)\le2u(1+1.05c_rs)+2.05c_rs$ and $2\sqrt{d\ell_0}+d\ell_0\le2.1s$, so the bound is
+at most $2u(1+1.05c_rs)+4.2c_rs$, which at $u\le\frac1{16}$ and $c_rs\le\frac1{46}$ is at most $0.128+0.092<\frac14$. For the bath, $(1+(c_r+1)s)/(1-s)\le1+1.3c_rs$ and
+$S_0\le S(1+1.03c_rs)$, so $S'\le(2+1.3c_rs)(1+1.03c_rs)S+2.05c_rs/\ln2\le(2+3.4c_rs)S+3.1c_rs$. At the scale of the law, $s=\sqrt{d\ell}\le\sqrt{dc_1/n}\le1/(46c_r)$ when
+$n\ge2116c_r^2dc_1$, and then $c_rs\le\frac1{46}$ gives $S'\le2.074S+0.068\le2.08S+0.07$. In item 3, $1/((1-\nu)(1-\ell_0))\le1+1.1c_rs$, $h_2$ is increasing on $[0,\frac12]$,
+$n\cdot2p\log r\le4.4c_r\sqrt{dc_1n}\log r$, $n\,h_2(\ell_0)/(1-\ell_0)\le1.1c_1\log(en/c_1)$ and $n\ell_0\log(d^2-r)/(1-\ell_0)\le2.2c_1\log d$; and $n\,h_2(x)\le nx\log(e/x)=O(\sqrt n\log n)$
+for $x=O(n^{-1/2})$. This gives $n\,a'\le(1+O(n^{-1/2}))\,n\,a+O_{d,r,c_1}(\sqrt n\log n)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:BF}]
+The lower inequality, with these constants, is Theorem~\ref{thm:lower-constants}. For the upper one take a round with $u\le\frac1{16}$, $\ell\le\frac2{15n}$ and $S+n\,a\le\Ls(n)+1$. Theorem~\ref{thm:BF} with $c_1=\frac2{15}$
+gives a zero-leakage round with weighted Gram off-diagonals at most $\frac14$, $S'\le2.08S+0.07$ and $n\,a'\le(1+O(n^{-1/2}))\,n\,a+O(\sqrt n\log n)$, so
+$S'+n\,a'\le2.1(S+n\,a)+O(\sqrt n\log n)$ for large $n$. Apply Theorem~\ref{thm:coherent}, which gives the displayed squared-log upper with flat imports and charged initial purity.
+\end{proof}

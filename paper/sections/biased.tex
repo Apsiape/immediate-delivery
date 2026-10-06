@@ -1,0 +1,358 @@
+%======================================================================
+\section{Conserved bias and spatial constructions}\label{sec:biased}
+%======================================================================
+
+A round whose bath is not flat is \emph{biased}. Flattening a biased bath is not free: gluing the level sets of the bath into a flat bath
+pays the square root of the entropy production, because level sets are $\ell^1$ objects while entropy production is an $\ell^2$ quantity
+(Theorem~\ref{thm:FK}). Nor can a device simply re-randomize a biased memory, since that flattens it and fills the rank-grown space
+(Theorem~\ref{thm:global-haar}). Theorem~\ref{thm:coherent} supplies general exact-support streaming. This appendix gives specialized
+conserved-bias and spatial constructions, followed by the biased leakage repair used in the main profile bounds.
+Throughout, $(B_g)$ denotes the gadget family of a zero-leakage round on $K=\supp\rho$ (Lemma~\ref{lem:zero-leak}), and
+$G_{gh}=\Tr(\rho B_g^*B_h)$ its weighted Gram.
+
+\subsection{Tensor powers and conserved bias}
+
+\begin{lemma}[Tensor powers]\label{lem:tensor}
+For a zero-leakage round $(U,\rho)$ of a gadget channel and $t\ge1$, the family $(B_g^{\otimes t})$ extends to a round with bath $\rho^{\otimes t}$,
+leakage $0$, weighted Gram $(G_{gh}^t)$, distance at most $\frac12(r-1)\max_{g\ne h}|G_{gh}|^t$, bath entropy $tS$ and entropy production at most
+$t\,a$. In particular, if $|G_{gh}|\le c<1$ for $g\ne h$ and $t=\lceil\log(4rn/\epsilon)/\log(1/c)\rceil$, every off-diagonal is at most $\epsilon/(4rn)$.
+\end{lemma}
+
+So a weighted Gram bounded away from one costs only a factor $O(\log(n/\epsilon))$, for any bath. The first class that streams is the one in
+which the bias is a conserved quantity of the round.
+
+\begin{theorem}[Conserved bias]\label{thm:conserved}
+Let $(U,\rho)$ be a zero-leakage round of a canonical gadget with a
+finitely supported level law $(w_s)$, such that $K=\bigoplus_sE_s$, $e_s=\dim E_s$, $\rho=\bigoplus_s(w_s/e_s)I_{E_s}$, there are
+mutually orthogonal subspaces $E'_s$ with $B_gE_s\subseteq E'_s$ for all $g$ and $s$, and the weighted Gram has off-diagonals at most $\frac18$
+(distance $u\le\frac1{16}$ suffices). The per-level Grams may be arbitrary. Then $a=\sum_sw_sa_s$ exactly, with $a_s\ge0$ the entropy
+production of level $s$ at flat input, and for $n\ge2$ and $0<\epsilon<1$ there is a rank-rate service with error at most $2\epsilon$, $C=0$ and
+$Q\le K_{d,r}\log^3(n/\epsilon)(1+S+n\,a)$, with $t=\lceil\log(4rn/\epsilon)/2\rceil$. When $1.07\,ta\le1$ its memory also satisfies
+\[
+Q\le t(32S+5.1)+C_{d,r}\,n\,(1.07\,ta)\log\frac e{1.07\,ta}+O_{d,r}\bigl(\log^2(n/\epsilon)+\log(2+tS)\bigr).
+\] Without any device: such a round gives a zero-leakage flat round with flat Gram off-diagonals at most
+$\frac14$, $S'\le32S+5.1$ and $a'\le1.07\,a$.
+\end{theorem}
+
+The device truncates the levels at surprisal $32S$, which costs no binary entropy because $a$ is a conserved average, flattens the level index
+into a flat bath with multiplicities proportional to $w_s/e_s$, and streams by Theorem~\ref{thm:flat-zero}(c). So conserved bias never beats
+flat rounds by more than constants. Leaky rounds of this kind stream too, up to the additive term of Corollary~\ref{cor:F}; the tool is a
+restriction that commutes with the bath.
+
+\begin{lemma}[Restriction for biased baths]\label{lem:restrict-biased}
+Let $(U,\rho)$ be any round and $P_0$ a projection commuting with $\rho$, with $\nu=\Tr((I-P_0)\rho)<1$ and $\rho=(1-\nu)\rho_0\oplus\nu\rho_\perp$.
+Then $S(\rho_0)\le S(\rho)/(1-\nu)$, the round $(U,\rho_0)$ has distance at most $(u+\nu)/(1-\nu)$, leakage at most $\ell/(1-\nu)$ and
+\[
+a(\rho_0)\le\frac{a+h_2(\nu)}{1-\nu},
+\]
+and its leakage is $0$ if $U$ has the form $\sum_iA_i\otimes X_i$ on $\C^d\otimes\operatorname{ran}P_0$.
+\end{lemma}
+
+\begin{corollary}[Leaky conserved bias]\label{cor:conserved-leaky}
+Let $(U,\rho)$ be a round of a canonical gadget with a finitely
+supported level law $(w_s)$ and $K=\bigoplus_sE_s$, $\rho=\bigoplus_s(w_s/e_s)I_{E_s}$, and, with $W=U(I\otimes\iota_K)$ for the inclusion
+$\iota_K$ of $K$, $W(\C^d\otimes E_s)\subseteq\C^d\otimes E'_s$ with the
+$E'_s$ mutually orthogonal, distance $u\le\frac1{16}$ and leakage $\ell\le c_1/n$. For $n\ge n_{CB}(d,r,c_1)$ and $0<\epsilon<1$ there is a rank-rate service
+with error at most $2\epsilon$, $C=0$ and $Q\le K'\log^4(n/\epsilon)(1+S+n\,a+\sqrt n)$.
+\end{corollary}
+
+\subsection{Rounds that are vacuous for the law}
+
+A zero-leakage round of a channel whose labels a finite-dimensional representation separates needs no device: the channel has logarithmic
+memory (Corollary~\ref{cor:map}). The following lemma shows that a zero-leakage round can only be ``finite-dimensional'' in that sense.
+
+\begin{lemma}[Compressions of finite-dimensional representations]\label{lem:vacuous}
+Let $(U,\rho)$ be a zero-leakage round of a gadget channel with distance $u<\frac12$. If $B_g^*B_h=J^*\pi(g)^*\pi(h)J$ for a unitary representation
+$\pi$ of $P_\Phi$ on a finite-dimensional space and an isometry $J$, then $\pi$ separates the labels, and $\Qs(n,\epsilon)=O_\Phi(\log(n/\epsilon))$. This
+applies to every \emph{square} round ($B_gK\subseteq K$ for every label), abelian or not.
+\end{lemma}
+
+So for a channel that needs more than logarithmic memory, every zero-leakage round at distance below $\frac12$ is non-square, and its Gram
+operators are not jointly a compression of a finite-dimensional representation.
+
+\subsection{Permutation rounds and the balance condition}
+
+A family is \emph{block-monomial} if $K=\bigoplus_{\omega\in\Omega_0}K_\omega$, there are mutually orthogonal subspaces $K'_\eta$ ($\eta\in\Omega\supseteq\Omega_0$)
+with $K'_\omega=K_\omega$ for $\omega\in\Omega_0$, and each $B_g$ maps $K_\omega$ isometrically onto $K'_{f(g)\omega}$ for maps $f(g)$ with $f(1)=\id$; it is
+\emph{free} if $f(g)\omega\ne f(h)\omega$ for $g\ne h$ and $\omega\in\Omega_0$. A bath is block diagonal if $\rho=\bigoplus_\omega\rho_\omega$, with base law
+$p(\omega)=\Tr\rho_\omega$.
+
+\begin{lemma}[Free block-monomial rounds]\label{lem:block-monomial}
+In a free block-monomial zero-leakage round with a block-diagonal bath, the base family $\lambda_g\ket\omega=\ket{f(g)\omega}$ is a gadget family, and
+with the bath $p$ it defines an exact round (Lemma~\ref{lem:dilation}(c)) with $S_{\rm base}=H(p)\le S(\rho)$ and $a_{\rm base}\le a$. Here each $f(g)$ is an
+injection $\Omega_0\to\Omega$; the base round is a free exact permutation round when these injections extend to permutations of $\Omega$
+that are triangle-good on the support of $p$.
+\end{lemma}
+
+So it suffices to stream free exact permutation rounds. The devices for them keep a set of points, twirl a few slots attached to each
+point, and move the points around inside fixed windows.
+
+\begin{theorem}[Point-block devices]\label{thm:pointblock}
+Let a free permutation round of a gadget channel be given on $\Omega$, with windows $\Omega_0\subseteq\dots\subseteq\Omega_n\subseteq\Omega$ fixed in advance
+on which it is triangle-good and collision-free. Consider the device whose memory is $\C^{\Omega}\otimes\C^m$ with point blocks
+$\ket\omega\otimes\C^m$, which starts in $p_0\otimes I/m$ for a law $p_0$ on $\Omega_0$ and in round $t$ applies a fixed permutation $\beta_t$ of the points of
+$\Omega_{t-1}$, independent Haar unitaries on the point blocks, the round, an optional fixed partial injection of points, sends the points outside
+$\Omega_t$ to a garbage register by a fixed unitary completion, applies Haar unitaries on the new point blocks and exports on the schedule
+of~\cite[Theorem~12.2]{DouglasMghirbiC}. Let $\kappa(y)$ be the probability that the \emph{ideal killed chain} of the label sequence $y$ (start from
+$p_0$, permute by $\beta_t$, move by $f(y_t)$ and the injection, kill outside $\Omega_t$) is killed, and $\omega_{\rm ideal}=\sum_y\Pr(y)\kappa(y)$ for the
+observer's ideal law of label sequences. For $n\ge2$, $0<\epsilon<1$ and $0<\zeta\le\epsilon^2/(64n)$ there is $m$ with
+$\log m=O_r(\log(n/\zeta)+\log\log|\Omega|)$ such that for every observer the discarded weight is at most $\omega_{\rm ideal}+\zeta$, the error is at most
+$(1+\sqrt n)\sqrt{\omega_{\rm ideal}+\epsilon^2/(16n)}$, and at the start of every round the memory has mass at most $n(\omega_{\rm ideal}+\zeta)$ outside the
+window. The memory is $\log\max_t|\Omega_t|+\log m+O(1)$ qubits at the rank rate.
+\end{theorem}
+
+The quantum side of the device is thus unconditional; what remains is the containment of a classical chain. Discarded branches can come back to
+the window through the unitary completion, which is why the error is $(1+\sqrt n)$ times the square root of the discarded weight and not the
+weight itself. Random permutations inside classes of points make the chain mix.
+
+\begin{lemma}[Random class permutations]\label{lem:classperm}
+Fix windows and partitions of each $\Omega_{t-1}$ into \emph{classes} in advance, and let $\beta_t$ be independent uniformly random permutations of
+each class; a fixed partial injection of points after each round is allowed. Let $\kappa_{\rm class}(y)$ be the kill probability of the
+\emph{class-uniformized chain} of $y$ (start uniform on $\Omega_0$, resample uniformly inside the current class before each step, move, kill
+outside $\Omega_t$), and $\kappa_\beta(y)$ the fraction of $\Omega_0$ whose trajectory under the $\beta$'s is killed. For every $y$ and $z>0$,
+\[
+\Pr_\beta\{\kappa_\beta(y)\ge\kappa_{\rm class}(y)+z\}\le\exp(-2z^2|\Omega_0|/n),
+\]
+so with probability at least $\frac12$, $\max_y\kappa_\beta(y)\le\max_y\kappa_{\rm class}(y)+\sqrt{n(n\ln r+\ln2)/(2|\Omega_0|)}$.
+\end{lemma}
+
+\begin{definition}[The balance condition]\label{def:balance}
+A free exact permutation round with bath $p$, of entropy $S$ and entropy production $a$, satisfies the \emph{balance condition} at $(n,\epsilon)$ with
+exponent $\kappa$ if there are windows $\Omega_0\subseteq\dots\subseteq\Omega_n$ on which the round is triangle-good and collision-free and partitions of each
+$\Omega_{t-1}$ into classes, all fixed in advance, such that
+\begin{enumerate}[label=(B\arabic*),itemsep=1pt]
+\item $|\Omega_0|\ge512n^3(n\ln r+\ln2)/\epsilon^4$;
+\item $\log\max_t|\Omega_t|\le(\log(n/\epsilon))^\kappa(1+S+n\,a)$;
+\item for every label sequence the class-uniformized chain is killed with probability at most $\epsilon^2/(32n)$.
+\end{enumerate}
+\end{definition}
+
+The windows and classes may contain slots: a point of $\Omega\times[m_t]$ is a point of $\Omega$ together with a slot that the labels do not move.
+
+\begin{corollary}[Balance streams]\label{cor:balance}
+A free exact permutation round that satisfies the balance condition at $(n,\epsilon)$ has a rank-rate service with error at most $0.61\epsilon$ and
+$Q\le(\log(n/\epsilon))^\kappa(1+S+n\,a)+O_r(\log(n/\epsilon)+\log\log|\Omega_W|)$, where $\Omega_W$ is the union of the windows of the balance
+condition and their images under the slot words. The same holds for a free block-monomial round whose base round, with each $f(g)$
+extended to a permutation of $\Omega$ that is triangle-good on the windows, satisfies the balance condition.
+\end{corollary}
+
+The given bath enters only through the budget (B2): on the windows every round is the gadget unitary of the round, which is exact for every memory
+state there, so the device may start the chain wherever it likes. It must, because the chain cannot start from the given bath.
+
+\begin{proposition}[The start belongs to the device]\label{prop:start}
+For the gadget of $\Z$ with labels $1,\sfa,\sfa^{-1}$, and every $n\ge2$, there is a bath $p$ on a cycle $\Z_{N'}$, $N'\ge2^n+3$, all of whose points are
+triangle-good and collision-free, with $S+n\,a=O(\log n)$, such that a class-uniformized chain started from $p$ is killed at its first step with
+probability at least $\epsilon^2/(32n)$ unless $\log|\Omega_0|\ge n-1$.
+\end{proposition}
+
+\subsection{The Faber--Krahn form}
+
+For a permutation round the cost $S+n\,a$ of a bath has a geometric meaning. For $\varphi:\Omega\to\R$ put
+$\mathcal E(\varphi)=\sum_g\sum_x(\varphi(f(g)x)-\varphi(x))^2$, and let
+\[
+\Lambda(v)=\inf\Bigl\{\frac{\mathcal E(\varphi)}{\nrm\varphi^2}:\ \varphi\ge0,\ \varphi\ne0,\ |\supp\varphi|\le v\Bigr\}
+\]
+be the $\ell^2$-isoperimetric profile of the Schreier graph, the Faber--Krahn function of Grigor'yan~\cite{Grigoryan1994}; $\Lambda_{\rm good}$ is the same
+infimum over $\varphi$ supported on triangle-good, collision-free points. Put $C_\mu=2\ln2\sum_{g\ne1}(1/\mu_g+1/\mu_1)\le4(r-1)d\ln2$.
+
+\begin{theorem}[The entropic Faber--Krahn bound]\label{thm:FK}
+For every permutation round and every bath $p$ supported on triangle-good points:
+\begin{enumerate}[label=(\roman*),itemsep=1pt]
+\item $\mathcal E(\sqrt p)\le C_\mu\,a$;
+\item $a\ge\Lambda(2^{2S+4})/(8C_\mu)$, and $a\ge\Lambda_{\rm good}(2^{2S+4})/(8C_\mu)$ when $p$ also lives on collision-free points;
+\item conversely, every $\varphi\ge0$ on the good points with $\nrm\varphi=1$ and $|\supp\varphi|\le v$ gives the bath $p=\varphi^2$ of an exact round with
+$S\le\log v$ and $a\le(16r/\ln2)\,\mathcal E(\varphi)$.
+\end{enumerate}
+Hence, writing $L^{\rm perm}(n)$ for the least $S+n\,a$ over zero-leakage permutation rounds on $(\Omega,f)$ whose baths live on triangle-good,
+collision-free points,
+\[
+\min_S\Bigl[S+\frac{n\,\Lambda_{\rm good}(2^{2S+4})}{8C_\mu}\Bigr]\ \le\ L^{\rm perm}(n)\ \le\ \min_v\Bigl[\log v+\frac{16r}{\ln2}\,n\,\Lambda_{\rm good}(v)\Bigr].
+\]
+\end{theorem}
+
+The two-scale cost of permutation rounds is therefore the Faber--Krahn profile of the Schreier graph, up to constants and the change $v\mapsto16v^2$ of
+the argument (compare~\cite[Proposition~3.14]{Cornulier2013}, which relates sofic and isoperimetric profiles); the balance condition asks for a device whose windows cost $\mathrm{polylog}\cdot\min_v[\log v+n\Lambda(v)]$. The flat bath of a level
+set pays the $\ell^1$ (Cheeger) profile instead, which is the square root of the $\ell^2$ one in the worst case. On groups of exponential growth the
+Faber--Krahn profile is large.
+
+\begin{proposition}[Exponential growth costs $n^{1/3}$]\label{prop:growth}
+Let the labels generate a group whose balls in $\cL\cup\cL^{-1}$ satisfy $|B(\varrho)|\ge\omega_0^\varrho$ for some $\omega_0>1$, and put
+$\phi(v)=\min\{\varrho:|B(\varrho)|\ge v\}$. Consider a permutation round in which, for some choice of geodesic words $w_x$, of length $|x|$, for the elements $x$ of
+$B(\varrho_*)$, $\varrho_*=\phi(2^{2S+5})$, the points $f(w_x)y$ are distinct for every $y\in\supp p$, and $p$ is supported on triangle-good points (both hold for the regular action). Then
+\[
+a\ge\frac1{128\,r\,C_\mu\,\phi(2^{2S+5})^2}\qquad\text{and}\qquad S+n\,a\ge\frac3{2^{2/3}}\Bigl(\frac c{\alpha^2}\Bigr)^{1/3}n^{1/3}-\frac{\beta_0}\alpha,
+\]
+with $c=1/(128rC_\mu)$, $\alpha=2/\log\omega_0$ and $\beta_0=5/\log\omega_0+1$.
+\end{proposition}
+
+The first step of the proof is the isoperimetric inequality of Coulhon and Saloff-Coste~\cite[Th\'eor\`eme~1]{CoulhonSaloffCoste1993}, for the
+Schreier graph near the bath; a co-area argument then passes from $\ell^1$ to $\ell^2$.
+
+\subsection{Devices that satisfy the balance condition}
+
+\paragraph{Re-folding.} The basic device sorts its units by distance from a centre and refills the inner positions first, while the number of
+slots per point grows slowly. Points $c+(\Z+\frac12)$ around a half-integer centre $c$ carry $m_t$ slots at time $t$, with
+$m_t=\lceil(1+\gamma)m_{t-1}\rceil$, so that $\gamma_t:=m_t/m_{t-1}-1\ge\gamma$; the classes are the pairs $\{c\pm D\}$ times the slots. After the round
+the device shifts by a fixed integer and \emph{re-folds by distance}: the units are ranked by distance from $c$, the two points of a pair
+interleaved, and the unit of rank $N$ goes to the pair $\lfloor N/(2m_t)\rfloor$; units beyond the window are discarded.
+
+\begin{lemma}[The re-folding chain]\label{lem:refold}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Under independent class-uniform permutations, the distance $D_t$ of the branch of a fixed label sequence with integer steps $\delta_t$ is the
+Markov chain $X=|D+\sigma\delta_t|$ with a uniform sign $\sigma$, followed by $D'=X-B$ with $B\sim\mathrm{Bernoulli}((X-\frac12)\gamma_t)$ if
+$(X-\frac12)\gamma_t\le1$, and $D'\le X-1$ otherwise.
+\item Let $|\delta_t|\le\delta_{\max}$ ($\delta_{\max}\ge1$), $D_0\le R_0$, $0<\eta<1$, $L=\ln(n(1+8/\gamma)/\eta)$ and $\gamma L\le1/(2\delta_{\max}^2)$. Then
+\[
+\Pr\bigl(\exists t\le n:\ D_t\ge R_0+2\delta_{\max}\sqrt{2L/\gamma}+2\delta_{\max}+\tfrac12\bigr)\le\eta .
+\]
+\end{enumerate}
+\end{lemma}
+
+The spread is set by the capacity growth $\gamma$, not by the shape of the bath: the chain has stationary distance about $|\delta|/\sqrt{2\gamma}$, and
+no automorphism of the group is used.
+
+\begin{theorem}[Fibred translation devices]\label{thm:fibred}
+Let a gadget channel have its relations in a group $G$ in which its labels are distinct, acting on itself by the regular action. Let
+$\Omega_B\subseteq G$ carry a coordinate map $\pi:\Omega_B\to\Z^k$ whose fibres have a common size $\Phi_f$, let the slot words have integer
+translations $\pi(w)$, and let $B\subset\Z^k$ be a box such that for every $v\in B$ and every slot word $w$ the action of $w$ maps the fibre over $v$
+bijectively onto the fibre over $v-\pi(w)$, which lies in $\Omega_B$. Let $r_0\in\Z^k$, $\delta_i=\max_g|\pi_i(g)-r_{0,i}|$, $\delta_{\max}=\max_i\delta_i\ge1$,
+and let the window $W_x=\prod_i[c_i-x_i,c_i+x_i]\subseteq B$ have half-integer centres and $x_i=1+2\delta_i+2\delta_i\sqrt{2L/\gamma}$, where $n\ge2$,
+$0<\epsilon\le\frac1{16}$, $0<\gamma<1$, $0<\eta\le\min(\epsilon^2/(64n),1/(4n^3))$, $L=\ln(kn(1+8/\gamma)/\eta)$ and $\gamma L\le1/(2\delta_{\max}^2)$. Let
+$\Omega_W$ be $\pi^{-1}(W_x)$ together with its images under the slot words. Then the channel has a rank-rate service with $C=0$ and error at most
+$\epsilon$ in which every round acts on the window as the gadget unitary of the regular action, the memory has mass at most $3/(4n^2)$ outside the
+window at the start of every round, for every observer, and
+\[
+Q\le\log|\Omega_W|+nk\log(1+\gamma)+O_{r,k}\bigl(\log(n/\epsilon)+\log\log|\Omega_W|\bigr).
+\]
+For $\Z^k$ (trivial fibres, $\gamma=1/n$) this is $O_{k,r}(\log(n/\epsilon))$.
+\end{theorem}
+
+\paragraph{Collars.} The same mechanism works on any Schreier graph that has nested sets with balanced shells. Let
+$F_0\subset F_1\subset\dots\subset F_{K+1}\subseteq\Omega$ satisfy $f(g)F_j\subseteq F_{j+1}$ and $f(g)^{-1}F_j\subseteq F_{j+1}$ for every label and $j\le K$; put
+$L_j=F_j\setminus F_{j-1}$ (the \emph{shells}, $L_0=F_0$), $s_j=|L_j|$, $V_j=|F_j|$ and the cut fluxes $\Phi_g(j)=|f(g)F_j\setminus F_j|$. This is a
+\emph{collar} of depth $K$.
+
+\begin{proposition}[Collar devices]\label{prop:collar}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item For $x$ uniform on $L_j$ ($j\ge1$), $f(g)x\in L_{j-1}\cup L_j\cup L_{j+1}$, and $s_jp_+(j)=\Phi_g(j)$, $s_jp_-(j)=\Phi_g(j-1)$: for every label the
+shell index is a birth--death chain, reversible for the shell sizes, with drift $(\Phi_g(j)-\Phi_g(j-1))/s_j$.
+\item Use the classes $\{F_0,L_1,\dots,L_K\}$ times the slots, random class permutations, point-block twirls, the round, and the \emph{volume
+re-fold} (units ranked shell by shell and slot by slot inside a shell, ranks kept, units of rank at least $V_Km_t$ discarded). Suppose
+$s_j\in[s,2s]$ for $1\le j\le K$, $(\Phi_g(j)-\Phi_g(j-1))_+\le\zeta s$, $|F_K\setminus F_0|\le|F_0|$, $\zeta\le L_c/K$, $K\ge8L_c$ and $m_0\ge\max(n,4)$,
+where $L_c=\ln(n(1+8K^2)/\eta)$. Then $\gamma=2s(2\zeta+4L_c/K+1/m_0)/|F_0|$ gives kill probability at most $\eta$ for every label sequence
+of the class-uniformized chain started in the core. With $\eta=\min(\epsilon^2/(64n),1/(4n^3))$, random class permutations and
+Theorem~\ref{thm:pointblock}, this is a rank-rate service with error at most $\epsilon$ and memory
+\[
+Q\le\log|F_{K+1}|+17.4\,n\,L_c/K^2+O_r\bigl(\log(n/\epsilon)+\log\log|F_{K+1}|\bigr).
+\]
+\end{enumerate}
+\end{proposition}
+
+The drift of each label is the discrete derivative of its boundary flux, so balanced shells make every label diffusive. For the regular action
+of $\Z_m\wr\Z$, with labels that move the position by at most one and toggle only at the current position, the sets of configurations with lamps in
+$[-2K,2K]$ and position in $[-K-j,K+j]$ form a collar with constant shells and fluxes, and the cost is
+$\min_K[(4K+1)\log m+17.4nL_c/K^2]=O(n^{1/3}(\log m)^{2/3}L_c^{1/3})$.
+
+\begin{theorem}[The collar condition]\label{thm:collar-condition}
+Say that $(\Omega,f)$ satisfies the \emph{collar condition} with constant $\kappa$ if there are collars inside the good, collision-free points with
+shell sizes $s_j\in[s,2s]$, flux increments $(\Phi_g(j)-\Phi_g(j-1))_+\le\zeta s$, $|F_K\setminus F_0|\le|F_0|$ and $\zeta\le1/K$ such that (a) for every $v\ge2$ there is one of depth $K$ with
+$\log|F_{K+1}|\le\kappa(1+\log v)(\log(2+\log v))^\kappa$ and $K^{-2}\le\kappa(\log(2+\log v))^\kappa\Lambda(v)$, and (b) for every $K_0$ there is one of
+depth at least $K_0$ with $\log|F_{K+1}|\le\kappa K_0^\kappa$. Then, with the devices of Proposition~\ref{prop:collar}(b) run at $m_0\ge\max(n,4)$, every bath on $(\Omega,f)$ satisfies the balance
+condition with windows of size
+\[
+\log\max_t|\Omega_t|\le\bigl(\log(n/\epsilon)+\log(2+S)\bigr)^{\kappa'}(1+S+n\,a),\qquad \kappa'=\kappa'(\kappa),\ n\ge n_0 .
+\]
+For the regular action of a group of exponential growth, collars of size $e^{O(K\log K)}$ at every depth $K$ suffice.
+\end{theorem}
+
+\begin{theorem}[Houghton groups]\label{thm:houghton-groups}
+Let $q\ge3$ and let a gadget channel have its relations in Houghton's group $H_q$ and its labels distinct there, given by slot words of length at
+most $\ell$ whose translation parts are also bounded by $\ell$. The implied constants below depend on $q$, on $d$ and $r$, on a bound $\varrho_0$ for the defect
+radii $\varrho(w^{-1})$ of the inverse slot words, defined in the proof, and on the growth rate of the label subgroup. There is a rank-rate service with error at most $\epsilon$ in which every round acts on a window of the regular action of $H_q$, with
+memory mass at most $3/(4n^2)$ outside it, and
+\[
+Q=O\bigl(q^{5/3}(\ell^2L)^{1/3}n^{1/3}(\log n)^{2/3}+q^2\ell^2L\log(q\ell L)\bigr)+O(\log(n/\epsilon)),\qquad L=O(\log(n/\epsilon)).
+\]
+If the labels generate a subgroup of exponential growth, every bath on the regular action has $S+n\,a\ge c_qn^{1/3}-C_q$, so
+$Q\le K\log^2(n/\epsilon)(1+S+n\,a)$ for $n\ge n_0$: the regular-action rounds of the channel stream. Otherwise the channel has
+$\Qs(n,\epsilon)=O(\log(n/\epsilon))$ by Corollary~\ref{cor:map}.
+\end{theorem}
+
+The window comes from a coarse fibration of $H_q$ by its translation part, whose cocycles stay in a finite symmetric group whose support grows
+linearly with the window (Lemma~\ref{lem:houghton-cocycle}); this is the mechanism of the corrected extension
+bound~\cite[Proposition~7.1]{DouglasMghirbiA}. The comparison with the bath is Proposition~\ref{prop:growth}. The dichotomy in the
+statement is Chou's theorem: a finitely generated elementary amenable group has polynomial or exponential growth~\cite[Theorem~3.2]{Chou1980},
+and in the first case it is virtually nilpotent, hence residually finite.
+
+\begin{proposition}[The ball device, and the configuration-lamp group of~\cite{DouglasMghirbiC}]\label{prop:ball}
+On a regular action, the device that starts at a point $x_0$, uses the word balls $\Omega_t=\{f(w)x_0:|w|\le t\}$ as windows and point classes, and
+never re-folds, never kills a branch; Theorem~\ref{thm:pointblock} gives error at most $0.53\epsilon$ and $Q\le n\log(2r+1)+O_r(\log(n/\epsilon))$. For
+the configuration-lamp group $\Gamma$ of~\cite{DouglasMghirbiC}, every bath on the regular action has $S+n\,a\ge c'n/(\log n)^2$, so the ball device streams every
+regular-action round of the configuration-lamp channel.
+\end{proposition}
+
+The cheap rounds of the configuration-lamp channel are not regular-action rounds: its sofic models give $\Ls(n)\le n^{1/2+o(1)}$, and the law holds for it by
+Corollary~\ref{cor:lamp} with no device of this section. The configuration-lamp group also shows that the regular action can be far from the cheapest one,
+$n/(\log n)^2$ against $n^{1/2+o(1)}$.
+
+\subsection{Leaky biased rounds}
+
+\begin{theorem}[Leaky permutation rounds]\label{thm:perm-leaky}
+Let a permutation round have any diagonal bath $p$, distance $u\le\frac1{16}$, leakage $\ell\le C_0/n$ and $n\ge64dC_0$. There is a free exact
+permutation round, on the product model $f^{\times t}$ with $t=\lceil\log_{15/4}(r^2n^2/2)\rceil$ and a bath on triangle-good, collision-free
+tuples, with distance $0$,
+\[
+S'\le\frac{tS}{(1-\nu_1)(1-\nu_2)},\qquad n\,a'\le(1+O(\nu_1))\,t\,n\,a+O(t\,d\,C_0\log n)+O(1),
+\]
+where $\nu_1\le4d\ell\le\frac1{16}$ and $\nu_2\le1/n^2$. So $S'+n\,a'\le O(\log(rn))(1+S+n\,a+dC_0\log n)$, and the round streams if the output
+satisfies the balance condition with windows inside the good, collision-free tuples.
+\end{theorem}
+
+For general biased rounds we need a rounding that works for every bath. Write $W=U(I\otimes\iota_K)=G+L$ for the restriction of the round to its
+support, with $G=\sum_gA_g\otimes X_g$ the Hilbert--Schmidt projection onto the Kraus operators and $L$ the rest, and call $\Lambda=\Tr_d(L^*L)$ on $K$ the
+\emph{leak operator}; then $\ell=\Tr(\rho\Lambda)/d$.
+
+\begin{lemma}[Entropy production is a conditional entropy]\label{lem:conditional}
+For every round and every state $\sigma$ on $K$, $a(\sigma)=H(C|R)$ for the state of $C$, the output together with the reference of a maximally
+entangled input, and $R$, a purifying reference of $\sigma$. If the round is exact on $K$ with gadget family $B_g$, then $a(\sigma)=H(L|R)$ for the
+state $\sum_{g,h}\sqrt{\mu_g\mu_h}\ket g\bra h\otimes\sqrt\sigma B_g^*B_h\sqrt\sigma$ on $\C^r\otimes K$, whose $K$-marginal is $\sigma$.
+\end{lemma}
+
+\begin{lemma}[Operator domination of the defects]\label{lem:domination}
+If $W=G+L$ is an isometry and $0<t<1$, then $\pm(G^*G-I)\le(tI+(1+1/t)L^*L)/(1-t)$. For a gadget round, with $\beta_t=(tI+(1+1/t)\Lambda)/(1-t)$ on $K$,
+every diagonal defect satisfies $-\beta_t\le X_g^*X_g-I\le\beta_t$, and every triangle defect $R_t=X_1^*X_{[y]}-X_{[x]}^*X_{[z]}$ satisfies
+$\left(\begin{smallmatrix}2\beta_t&R_t\\R_t^*&2\beta_t\end{smallmatrix}\right)\ge0$.
+\end{lemma}
+
+Every defect of a leaky round is thus dominated in operator order by one operator built from the leak. The rounding puts the correction that this
+domination requires into the bath rather than into the family.
+
+\begin{theorem}[Biased first-order rounding]\label{thm:BF}
+Let $\Phi$ be a gadget channel and $(U,\rho)$ a round with any finite bath, distance $u$, leakage $\ell$, entropy production $a$ and bath entropy $S$,
+with $s:=\sqrt{d\ell}\le1/(46c_r)$, where $c_r=1+2(r-1)(r^2-1)$. There is a zero-leakage round of $\Phi$ with
+\begin{enumerate}[label=(\arabic*),itemsep=1pt]
+\item weighted Gram off-diagonals at most $2u(1+1.05c_rs)+4.2c_rs$, which is at most $\frac14$ when $u\le\frac1{16}$;
+\item bath entropy $S'\le(2+3.4c_rs)S+3.1c_rs$;
+\item entropy production $a'\le\dfrac{a+h_2(\nu)}{(1-\nu)(1-\ell_0)}+\dfrac{h_2(\ell_0)+\ell_0\log(d^2-r)}{1-\ell_0}+2p\log r+h_2(p)$, with $\nu\le c_rs$,
+$\ell_0\le\ell/(1-\nu)$ and $p\le2.2c_rs$.
+\end{enumerate}
+At the scale of the law: if $\ell\le c_1/n$ and $n\ge n_{BF}:=\lceil2116c_r^2dc_1\rceil$, then $S'\le2.08S+0.07$ and
+$n\,a'\le(1+O(n^{-1/2}))\,n\,a+O_{d,r,c_1}(\sqrt n\log n)$.
+\end{theorem}
+
+The construction restricts the bath to the eigenvectors of $\rho$ on which the leak is small (a restriction that commutes with $\rho$), dominates
+every defect by $\beta_s$, projects the off-diagonal blocks onto the identities, fills the diagonal, and absorbs the correction into the bath,
+$\rho'=(\rho_0+\sqrt{\rho_0}Z\sqrt{\rho_0})/(1+z)$. The new label--bath state of Lemma~\ref{lem:conditional} is a mixture of the old Kraus part and a
+positive correction of weight $p$, so the entropy production moves linearly in $\sqrt\ell$, and the bath entropy at most doubles. No bath dimension,
+spread or truncation enters.
+
+\begin{corollary}[The upper half up to an additive $\sqrt n\log n$]\label{cor:BF}
+For a canonical untwisted anchored gadget, for $n\ge\max(n_0,n_{BF})$ (with
+$c_1=\frac2{15}$) and $0<\epsilon\le\frac1{16}$,
+\[
+\frac{\Ls(n)-13.6-0.14\log n}{7.4}\le\Qs(n,\epsilon)\le C_{d,r}\log_2^2\!\left(\frac{128(n+1)}\epsilon\right)\bigl(1+\Ls(n)+\sqrt n\log n\bigr).
+\]
+\end{corollary}
+
+The upper has $C=0$, $P\le Q$ and the stated rank-rate exchange. Thus the two-scale law holds for every such gadget with $\Ls(n)\ge\sqrt n/\mathrm{polylog}(n)$,
+whatever its optimal rounds look like. The proofs of this section are in Appendix~\ref{app:biased}.

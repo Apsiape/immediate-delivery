@@ -1,0 +1,164 @@
+%======================================================================
+\section{Extracting a one-round memory lower bound}\label{sec:lower}
+%======================================================================
+
+\subsection{Two scales in one round}
+
+The lower half rests on a single observation about the proof of sequential extraction~\cite[Theorem~5.2]{DouglasMghirbiB}: it bounds the
+leakage and the entropy production of the extracted round separately, and the two bounds live at different scales. Leakage is a
+probability of failing a support test, so the error budget $\epsilon$ controls its sum over the rounds; entropy production is an increase of
+memory entropy, so the purity budget controls its sum.
+
+\begin{theorem}[Two-scale extraction]\label{thm:extraction}
+Let a causal service of $\Phi$ for $n$ rounds have memory $Q$, error $\epsilon<\frac12$ and purity $P+C\le B$, and put
+$B'=B+h_2(\epsilon)+\epsilon\log n$. For every $\lambda>1$ some round $t$ gives a round $(U_t,\rho_t)$ of $\Phi$, where $U_t$ is the unitary of
+round $t$ on the input and the $Q$ memory qubits and $\rho_t$ is a memory state, with bath dimension $2^Q$ and
+\[
+\ddia(\Psi_t,\Phi)\le\epsilon,\qquad \ell_t\le\frac{\lambda\,\epsilon}{n(1-\epsilon)},\qquad a_t\le\frac{\lambda}{\lambda-1}\cdot\frac{B'}{n(1-\epsilon)} .
+\]
+\end{theorem}
+
+The state $\rho_t$ is the memory state conditioned on an observer passing the support tests of rounds $1,\dots,t-1$. The joint budget
+$\ell_t+a_t\le(B+\epsilon+h_2(\epsilon)+\epsilon\log n)/(n(1-\epsilon))$ of~\cite[Theorem~5.2]{DouglasMghirbiB} follows from the two budgets
+established in its proof; the split is what is new. At the rank rate the purity is paid for with memory.
+
+\begin{proposition}[Purity budget~{\cite[Proposition~13.1]{DouglasMghirbiC}}]\label{prop:purity}
+If $\Phi$ has a flat probe of rank $r$, every causal service of $\Phi$ for $n$ rounds with error $\epsilon\le\frac1{16}$ and exchange
+$J\le\frac n2\log r$ has $P+C<3Q+6$.
+\end{proposition}
+
+\begin{theorem}[The memory lower bound]\label{thm:lower}
+Let $\Phi$ have a flat probe of rank $r$. A rank-rate service
+with $n\geq1$ rounds and error $\epsilon\leq1/16$ has a static
+round of bath dimension $2^Q$, distance at most $\epsilon$,
+leakage at most $32\epsilon/(15n)$, and
+$n a\leq C Q+C'\log_2(en)$, for universal constants.
+Consequently, for universal $c,C''>0$,
+\[
+ Q\geq c L_\Phi(n,\epsilon)-C''\log_2(en)
+ \geq c L^*_\Phi(n)-C''\log_2(en).
+\]
+At arbitrary exchange, Theorem~\ref{thm:extraction} retains the
+separate leakage and supplied-purity budgets. The detailed
+inequalities are in Theorem~\ref{thm:lower-constants}.
+\end{theorem}
+
+The profile does not depend on $\epsilon$: one function $\Ls$ bounds the memory at every error up to $\frac1{16}$. Under the single budget
+of~\cite[Theorem~5.2]{DouglasMghirbiB} the leakage would be read at the purity scale $(Q+\log n)/n$; for Houghton's channel that caps the method at
+$n^{1/4}$, while the two-scale profile can reach $n^{1/3}$ (Remark~\ref{rem:quarter} and Proposition~\ref{prop:ceiling-houghton}).
+
+\begin{remark}[The extracted round is a round to be streamed]\label{rem:same-class}
+The round of Theorem~\ref{thm:lower} has an arbitrary bath state on $Q$ qubits, distance at most $\frac1{16}$, leakage at most $\frac2{15n}$,
+$S\le Q$ and $n\,a=O(Q+\log(en))$. It belongs to the class of rounds over which $\Ls(n)$ is defined, at the same scales. So an upper
+bound $\Qs(n,\epsilon)\le K(\log(n/\epsilon))^\kappa(1+\Ls(n))$ follows if all these rounds stream in the following sense; no rescaling of $\epsilon$ is needed
+to match the two halves.
+\end{remark}
+
+\begin{definition}[Streaming]\label{def:streaming}
+A class $\mathcal C$ of rounds of $\Phi$ \emph{streams} if there are $K,\kappa,n_0$ such that for all $n\ge n_0$ and $0<\epsilon\le\frac1{16}$,
+every round of $\mathcal C$ with distance at most $\frac1{16}$ and leakage at most $\frac2{15n}$ gives a rank-rate service of $\Phi$ for $n$ rounds
+with error at most $\epsilon$ and memory
+\[
+Q\le K\bigl(\log(n/\epsilon)\bigr)^\kappa\bigl(1+S+n\,a\bigr).
+\]
+It streams \emph{up to an additive term} $E(n)$ if the same holds with $S+n\,a+E(n)$ in place of $S+n\,a$.
+\end{definition}
+
+If the class of all rounds streams, then $\Qs(n,\epsilon)\le K(\log(n/\epsilon))^\kappa(1+\Ls(n)+1)$, which together with
+Theorem~\ref{thm:lower} is the two-scale law. Conversely, if the law holds then every class streams, since the service need not come from the
+round. Rounds with $a\ge(\log(n/\epsilon))^{-\kappa}$ always stream with $K\geq\lceil\log r\rceil$: for them the linear
+ceiling of Proposition~\ref{prop:ceiling} gives $n\lceil\log r\rceil\le\lceil\log r\rceil(\log(n/\epsilon))^\kappa\,n\,a$.
+
+\subsection{The rank form}
+
+The upper half of~\cite[Theorem~12.2]{DouglasMghirbiC} streams exact rectangular dilations at the cost $\log k+n\log(k'/k)$, which is the
+cost of the round they give (Lemma~\ref{lem:dilation}(c)) with the entropy production replaced by the room. Its device reads only the flat
+Gram of the family, so it tolerates label traces that are merely bounded away from one.
+
+\begin{theorem}[Robust streaming]\label{thm:robust}
+Let $\Phi$ have a flat probe of rank $r$.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Let $W=\sum_iA_i\otimes B_i:\C^d\otimes\C^k\to\C^d\otimes\C^{k'}$ be an isometry, with no condition on the traces, and put
+$G_{ij}=\tau_k(B_i^*B_j)$. For $n\ge2$, $0<\epsilon<1$ and $n\nrm{G-I}\le1$ there is a causal service of $\Phi$ for $n$ rounds with $C=0$,
+$J=\lfloor\frac{n-1}2\log r\rfloor$, $P\le n\log(k'/k)+2$,
+\[
+Q\le\log k+n\log(k'/k)+O_r\bigl(\log(n/\epsilon)+\log(2+\log k)\bigr),\qquad\text{error}\le e^2\epsilon+\tfrac n2\nrm{G-I}.
+\]
+\item For a gadget channel, if $(B_g)$ is a gadget family then so is $(B_g^{\otimes t})$, with room $t\log(k'/k)$, dimension $k^t$ and flat Gram
+entries $\tau_k(B_g^*B_h)^t$.
+\item For a gadget channel, let $(B_g)$ be a gadget family with room $\delta$ and flat Gram off-diagonals at most $c<1$, and put
+$t=\lceil\log(2rn/\epsilon)/\log(1/c)\rceil$. Then, for $n\ge2$, there is a rank-rate service with error at most $(e^2+1)\epsilon$, $C=0$,
+$P\le nt\delta+2$ and $Q\le t\log k+nt\delta+O_r(\log(n/\epsilon)+\log(2+t\log k))$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}[The rank-form sandwich]\label{cor:sandwich}
+If $\Phi$ has a flat probe, then for $n\ge2$ and $0<\epsilon\le\frac1{16}$,
+\[
+c L_\Phi(n,\epsilon)-C\log_2(en)\ \le\ \Qs(n,\epsilon)\ \le\ U_\Phi(n)+K_r\bigl(\log(n/\epsilon)+\log(2+U_\Phi(n))\bigr),
+\]
+and $L_\Phi(n,\epsilon)\le U_\Phi(n)$.
+\end{corollary}
+
+The gap between the two sides is a gap between Shannon and rank entropy, and between a biased and a flat bath. When the labels are separated
+in finite dimension it closes trivially.
+
+\begin{corollary}[Labels separated in finite dimension]\label{cor:map}
+Let $\Phi$ be a gadget channel. If some finite-dimensional unitary representation of $P_\Phi$ separates the labels, then
+$\Qs(n,\epsilon)=O_\Phi(\log(n/\epsilon))$.
+\end{corollary}
+
+This covers every gadget channel whose labels are distinct in $\Z^k$, in a residually finite group or in a maximally almost periodic group in
+which the relations hold. Houghton's channel is not of this kind: every finite-dimensional unitary representation of $H_3$ is trivial on the
+finitary alternating group, by Jordan's theorem on finite subgroups of $U(D)$~\cite{Jordan1878}, so it identifies a label that is a
+three-cycle with the label $1$ (Remark~\ref{rem:houghton-map}).
+
+\subsection{The configuration-lamp class}
+
+The concrete group in~\cite[Section~3]{DouglasMghirbiC} is the
+permutational wreath product
+\[
+ \Gamma=S_3\wr_V\mathrm{A}=\Bigl(\bigoplus_{v\in V}S_3\Bigr)\rtimes\mathrm{A},\qquad
+ \mathrm{A}=V\rtimes(\mathrm{GL}_{\rm fin}(Y)H_3),\qquad
+ V=\mathbb F_2^{(Y)},\quad Y=\{1,2,3\}\times\mathbb N .
+\]
+Here $\mathrm{GL}_{\rm fin}(Y)$ consists of the linear maps of $V$ acting
+as the identity off finitely many coordinates, and $H_3$ permutes the
+coordinates through its action on $Y$. The affine group $\mathrm{A}$
+acts on $V$ by translations and these linear maps. A lamp $S_3$ sits at
+each point of $V$, a finite binary \emph{configuration}, and
+$\mathrm{A}$ permutes the lamps. The group $\Gamma$ is finitely
+presented, generated by five elements, and elementary
+amenable~\cite[Theorem~A]{DouglasMghirbiC}. This is the
+configuration-lamp group and channel throughout this paper. It differs from the usual
+binary lamplighter $C_2\wr\mathbb Z$, whose finite quotients
+separate finite label sets (reduce the shift and lamp locations
+modulo a sufficiently large integer). A canonical gadget from
+that usual lamplighter lies in the logarithmic upper branch.
+
+For the channels of~\cite{DouglasMghirbiC} the two sides already meet. Let $\Phi$ be a gadget channel that satisfies the
+hypotheses of~\cite[Theorem~10.1]{DouglasMghirbiC}; its generators include the transpositions $\sfa,\sfb$ of one lamp $S_3$.
+Suppose that for every $k\geq1$ there are $2^k$ transport words $u_1,\dots,u_{2^k}$ of length at most $L_k$ whose
+\emph{pairwise areas} are at most $A_k$: each commutator $[u_ixu_i^{-1},u_{i'}yu_{i'}^{-1}]$ with $i\ne i'$ and
+$x,y\in\{\sfa,\sfb\}$ is a product of at most $A_k$ conjugates of relators and their inverses. Suppose that
+$A_k+L_k+1\le Kk^\kappa$, as in~\cite[Corollary~10.2(a)]{DouglasMghirbiC}, and that the chunk $E$ of labels in $\Gamma$
+used by these transport words has sofic profile $\log\sigma_E(s)\le C_Es(\log s)^\lambda$.
+
+\begin{corollary}[The configuration-lamp class]\label{cor:lamp}
+For such a channel there are $c,C,K,n_0$ with, for $n\ge n_0$ and $0<\epsilon\le\frac1{16}$,
+\[
+\Ls(n)\ \ge\ \frac{c\sqrt n}{(\log n)^\kappa},\qquad U_\Phi(n)\le C\sqrt n(\log n)^\lambda,\qquad
+\Qs(n,\epsilon)\le K\bigl(\log(n/\epsilon)\bigr)^{\kappa+\lambda+1}\bigl(1+\Ls(n)\bigr).
+\]
+So the two-scale law holds. For the configuration-lamp channel of~\cite[Section~11]{DouglasMghirbiC}, $\Ls(n)$, $\Qs(n,\epsilon)$ and $U_\Phi(n)$ are all
+$n^{1/2+o(1)}$; for $\Qs$ this is~\cite[Theorem~11.1(b) and Corollary~12.3]{DouglasMghirbiC} at $\epsilon=\frac1{16}$, and for smaller fixed
+$\epsilon$ the upper bound comes from~\cite[Theorem~12.2]{DouglasMghirbiC}, as in the proof of Corollary~12.3 there.
+\end{corollary}
+
+The exponent $\frac12$ of~\cite[Theorem~11.1(b)]{DouglasMghirbiC} is therefore not a feature of the method: it is the two-scale profile of the
+channel, which balances a bath of entropy $S$ against entropy production of order $1/S$. Theorems~\ref{thm:extraction}--\ref{thm:lower},
+Theorem~\ref{thm:robust} and Corollaries~\ref{cor:sandwich}--\ref{cor:lamp} are proved in Appendix~\ref{app:lower}.
+
+This square-root memory statement allows initial purity up to the memory. With a purity budget $B$,
+$\log n\le B\le c_0n$, the same channel needs memory of order $n/B$ up to logarithmic factors, matched by exact
+services~\cite[Theorem~11.1(a)]{DouglasMghirbiC}; at logarithmic purity this is nearly linear.

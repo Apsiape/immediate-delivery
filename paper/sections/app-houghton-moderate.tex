@@ -1,0 +1,243 @@
+\section{Sharp Houghton cost with moderate flavour growth}
+\label{app:houghton-moderate}
+
+The proof keeps the original source and actual entropy production.
+An analytical average is used only to test a bounded observable;
+its entropy is never substituted for the original source entropy.
+
+\begin{theorem}[Sharp cost with moderate flavour growth]
+\label{thm:houghton-moderate}
+There are universal constants $c_f,c_0,c>0$ such that, in the literal
+rational constant-field round, every $M\geq48$,
+$1\leq k\leq c_f\sqrt M$ and arbitrary coherent source with
+$u\leq1/16$ satisfy
+\[
+ M^2a+M^3\ell\geq c_0,\qquad
+ S+na+1\geq c\min\{n^{1/3},\ell^{-1/3}\}\quad(n\geq1).
+\]
+At zero leakage the second argument is infinite. For fixed $K>0$,
+$\ell\leq K/n$ therefore forces $S+na+1\geq c_Kn^{1/3}$.
+A different exact concentrated corner frame has cost at most
+$C_K(1+S+na)$ at the fixed coarse-error allowance of that construction.
+\end{theorem}
+
+\subsection{Disjoint logical blocks and sweep words}
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-moderate}]
+Put $c_g=2\sqrt{104\ln2}$ and
+$\sigma=\Delta_{\rm clock}\rho=\bigoplus_cp_c\rho_c$.
+The actual-weight dictionary of Appendix~\ref{app:houghton-coercivity}
+gives, with $X=(W-I)^*(W-I)$ and $W=\Pi_k(r_4)$,
+\[
+ \ell=\kappa_\ell\Tr\rho X,\quad \kappa_\ell=488/(225d),\quad
+ \Tr\sigma Q_\gamma\geq7/12,\quad
+ \chi(C,\sigma)\leq |C|c_g\sqrt a.
+\]
+Pinching preserves $X,Q_\gamma$ and decreases production. Its clock
+law satisfies $\operatorname{TV}(p,\mathrm{unif})\leq c_gM\sqrt a$.
+
+For $M\geq4096$ let $x=\lfloor M/4\rfloor$, $R=x+8$,
+$z=\lfloor M/256\rfloor$, and retain
+\[
+ G=\{(i,j):0\leq i\leq M-x-12,\quad1\leq j\leq M-3,
+                 \quad i+j\geq M-x+16+2z\}.
+\]
+Direct counting gives
+$|G|=(M-x-11)[(M+x-48)/2-2z]$ and density at least
+$15/32-40/M-1/128\geq0.45$.
+This is a subset of the wedge in the proof of
+Theorem~\ref{thm:houghton-flux}. The exact stable logical points there
+are $f_s=D_c^*e_s$, with adjacent swaps given by
+$\pi(\sfa^q\alpha\sfa^{-q})$, $0\leq q<R$.
+The same disjoint pairs support the field, which commutes with $D_c$.
+
+Choose even $b_0\in[x-z,x-z+1]$, set
+$J=\lfloor(z-1)/8\rfloor$ and $b_j=b_0+8j$.
+Block $j$ uses $f_{b_j},f_{b_j+2},f_{b_j+4},f_{b_j+6}$
+and their four partners $D_c^*e_{s+M+i}$.
+All eight-mode blocks are disjoint, and
+\[
+ M/8192\leq J\leq M/2048,\qquad b_{J-1}+7\leq x.
+\]
+For a selected point $s$, the active bulk region is
+$t=s-M+1+i+j$, with $z+17\leq t\leq M-16$.
+Its area and signed angle are
+\[
+ A_t=(M-1)^2-h(h+1)/2,\quad h=M+3-t,
+ \qquad\theta_t=-(-1)^{t-5}\pi/A_t.
+\]
+The minus sign comes from the adjoint defining the usual representation;
+the right-action field in the companion has the opposite sign.
+The four angles in a block have the same sign,
+$M^2/3\leq A_t\leq M^2$, and
+$|\theta_t-\theta_{t'}|\leq54\pi/M^3$ within that block:
+adjacent areas differ by at most $M$, and $|t-t'|\leq6$.
+
+Let $G_j=S_4$ permute the four selected points, and put
+$G_{\rm prod}=\prod_jG_j$. A local element is a permutation of
+eight points, hence has at most $28$ adjacent swaps. Each swap in
+the first eight logical points has literal length at most $15$;
+a local representative $w_j$ therefore has length at most $420$.
+Shifting to successive blocks cancels the intervening powers:
+\[
+ \sfa^{b_0-1}w_0\sfa^8w_1\cdots
+       \sfa^8w_{J-1}\sfa^{-b_{J-1}+1}.
+\]
+Every product-group element has a clock-preserving representative
+of length at most ${2R+420J}\leq M$. No group identity on excluded
+clocks is required.
+The three-cycle $\Gamma_j$ on the first three selected points is
+conjugate to $\gamma$ by $C_j=\sfa^{b_j-1}w$, where one fixed
+eight-point permutation sends $1,2,3$ to $1,3,5$.
+Its length is at most $M$.
+
+Put $e=c_gM\sqrt a$ and $A=\sqrt{\sigma_G}$, without normalizing
+the restriction to $G$. Transporting charge and restricting clocks give
+$\Tr\sigma_GQ_{\Gamma_j}\geq1/30-2e$.
+Average the conjugations of $A$ by $G_{\rm prod}$ on $G$, obtaining
+$B\geq0$. Short-word centrality implies
+\[
+ \|A-B\|_F\leq e,\qquad \|A^2-B^2\|_1\leq2e.
+\]
+Write $\eta=B^2$. Let $P_j$ be the complement of the
+$A_4$-invariant subspace in block $j$. It commutes with $S_4$,
+and $Q_{\Gamma_j}\leq P_j$. Consequently, if $e\leq1/480$,
+\begin{equation}\label{eq:moderate-block-charge}
+ \frac1J\sum_j\Tr\eta P_j\geq1/30-4e\geq1/40.
+\end{equation}
+
+\subsection{A six-mode infinitesimal gap}
+
+In one block the equal-angle reference is $e^{i\theta H}$, with
+$H=\frac12\left(\begin{smallmatrix}I_4&-I_4\\-I_4&I_4\end{smallmatrix}\right)$.
+Split each four-point space into its all-ones line and standard
+three-dimensional real $S_4$ space. On the standard six modes,
+the conjugated Hamiltonians are $I_6/2+K_g$, where
+\[
+ K_g=-\frac12
+       \begin{pmatrix}0&R_g\\R_g^T&0\end{pmatrix}.
+\]
+Here $R_g$ is the real standard representation.
+The two remaining modes and $I_6/2$ give a common commuting
+unitary factor in every exterior quantization.
+Conjugation by $\diag(I_3,iI_3)$ identifies $iK_g$ with real
+skew cross-space generators of $SO(6)$.
+Matrix-coefficient orthogonality gives
+$\E_g(R_g)_{ab}(R_g)_{cd}=\delta_{ac}\delta_{bd}/3$
+and $\E_gR_g=0$. If $X_{ab}$ is the Hermitian generator of a
+unit-speed cross-space coordinate rotation, then
+\[
+ X_{ab}=-6\E_g(R_g)_{ab}K_g,\qquad
+ \|d\pi(X_{ab})\xi\|^2
+       \leq12\E_g\|d\pi(K_g)\xi\|^2.
+\]
+Every $SO(6)$ matrix is a product of at most $15$ coordinate
+Givens rotations with angles at most $\pi$.
+A within-space rotation is a cross-space rotation conjugated
+by a cross-space $\pi/2$ rotation. Thus at most $45$ cross-space
+flows, of total absolute angle at most $45\pi$, suffice.
+The spectral theorem and product telescoping bound every group
+displacement squared by
+$12(45\pi)^2\E_g\|d\pi(K_g)\xi\|^2$.
+Haar averaging gives, in every continuous finite-dimensional unitary representation,
+\begin{equation}\label{eq:moderate-lie-gap}
+ \E_g d\pi(K_g)^2\geq\delta(I-P_{\rm inv}),
+ \qquad\delta=\frac2{12(45\pi)^2}.
+\end{equation}
+In $k$ exterior flavours the generators have mean zero and norm at most
+$h=3k/2$: each one-particle $K_g$ has three eigenvalues $1/2$
+and three $-1/2$, exterior eigenvalues are subset sums, and flavour
+generators add.
+
+\subsection{Contraction and the actual unequal fields}
+
+For Hermitian $H_g$ of mean zero and norm at most $h$, put
+$T(t)=\E_ge^{itH_g}$ and $A_2=\E_gH_g^2$.
+The scalar spectral bounds
+$|e^{iy}-1-iy|\leq y^2/2$ and
+$2(1-\cos y)\geq y^2-y^4/12$ imply
+\[
+ \|(T-I)\xi\|^2\leq(t^4h^2/4)\langle\xi,A_2\xi\rangle,
+\]
+and
+$2\operatorname{Re}\langle\xi,(I-T)\xi\rangle
+\geq t^2(1-t^2h^2/12)\langle\xi,A_2\xi\rangle$.
+Subtracting proves the operator inequality
+\begin{equation}\label{eq:moderate-contraction}
+ I-T^*T\geq t^2(1-t^2h^2/3)A_2.
+\end{equation}
+Thus $|t|h\leq1$ and~\eqref{eq:moderate-lie-gap} give norm
+at most $1-\delta t^2/3$ on the $SO(6)$-noninvariant sector.
+Even permutations of the four selected points embed in this $SO(6)$,
+so its invariant vectors are $A_4$-invariant.
+The same norm bound holds on $P_j$, including the common commuting factor.
+No normality of the average is assumed.
+
+Take $p=\lfloor M^{3/2}\rfloor$ and
+$c_f=\delta\pi/5184$. A reference angle satisfies
+\[
+ \frac\pi{2\sqrt M}\leq|p\theta|\leq\frac{3\pi}{\sqrt M}.
+\]
+For $k\leq c_f\sqrt M$, $|p\theta|h\leq1$, and the reference
+average has norm at most $1-\delta\pi^2/(12M)$ on $P_j$.
+The four disjoint number operators have norm at most $k$;
+the actual-field perturbation is therefore bounded by
+\[
+ 216\pi pk/M^3\leq216\pi c_f/M=\delta\pi^2/(24M).
+\]
+The actual block average
+$B_j=\E_{g\in G_j}\Pi_k(gW_j^pg^{-1})$
+commutes with $S_4$, hence with $P_j$, and obeys
+\begin{equation}\label{eq:moderate-block-norm}
+ \|B_j|_{P_j}\|\leq1-b/M,\qquad b=\delta\pi^2/24.
+\end{equation}
+Its norm on the complement is at most one.
+
+\subsection{Global correlations and the cost bound}
+
+The blocks have disjoint one-particle modes. Their exterior
+quantizations commute, as do all outside phases with the block groups.
+The full average is
+$K=\E_{g\in G_{\rm prod}}gW^pg^{-1}=W_{\rm out}^p\prod_jB_j$.
+It commutes with the $P_j$ and has norm at most $(1-b/M)^N$
+on a sector with $N$ charged blocks.
+Since $\eta$ commutes with the product group,
+$\Tr\eta W^p=\Tr\eta K$.
+Sector decomposition and~\eqref{eq:moderate-block-charge} give
+\[
+ \Tr\eta(I-\operatorname{Re}W^p)
+ \geq\frac b{2M}\sum_j\Tr\eta P_j
+ \geq\frac b{655360}=:\kappa.
+\]
+We used $N\leq J\leq M$, $b\leq1$ and
+$1-(1-b/M)^N\geq bN/(2M)$.
+This norm estimate permits arbitrary interblock correlations.
+
+The positive observable $F_p=I-\operatorname{Re}W^p$ has norm at
+most two. Root transfer costs at most $4e$.
+If $e\leq e_0=\min\{1/480,\kappa/8\}$, it follows that
+$\Tr\rho F_p\geq\kappa/2$.
+For integer $p$, $F_p\leq p^2X/2$; since $p^2\leq M^3$,
+$M^3\ell\geq\kappa_\ell\kappa$.
+Otherwise $M^2a>e_0^2/c_g^2$.
+Thus $c_0=\min\{e_0^2/c_g^2,\kappa_\ell\kappa\}>0$ suffices.
+Because $c_f<1/64$, the conditions $k\geq1$ and
+$k\leq c_f\sqrt M$ already imply $M>4096$; the smaller-clock
+range has no admissible flavour count.
+
+Finally put $t_0=\min\{n^{1/3},\ell^{-1/3}\}$ and
+$\beta=\min\{1,(c_0/2)^{1/3}\}$.
+If $M\geq\beta t_0$, Theorem~\ref{thm:houghton-entropy} gives
+$S+na+1\geq c_{\rm ent}\beta t_0$.
+Otherwise $M^3\ell<c_0/2$ and
+\[
+ na\geq c_0n/(2M^2)>
+             [c_0/(2\beta^2)]n/t_0^2
+             \geq[c_0/(2\beta^2)]t_0,
+\]
+since $t_0^3\leq n$.
+The different exact corner frames used in
+Appendix~\ref{app:houghton} have cost $O(n^{1/3})$ and fixed
+coarse correctness. This proves the stated static replacement
+comparison, without any proximity requirement on the original source.
+\end{proof}

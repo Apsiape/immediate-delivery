@@ -1,0 +1,210 @@
+%======================================================================
+\section{Proofs for Section~\ref{sec:biased}}\label{app:biased}
+%======================================================================
+
+\subsection{Tensor powers and conserved bias}
+
+\begin{proof}[Proof of Lemma~\ref{lem:tensor}]
+By Theorem~\ref{thm:robust}(b), $(B_g^{\otimes t})$ is a gadget family, so $W_t=\sum_gA_g\otimes B_g^{\otimes t}$ is an isometry and extends to a unitary
+(Lemma~\ref{lem:dilation}(c)). Its channel with bath $\rho^{\otimes t}$ is $X\mapsto\sum_{g,h}\Tr(\rho^{\otimes t}(B_h^*B_g)^{\otimes t})A_gXA_h^*=\sum_{g,h}G_{hg}^tA_gXA_h^*$, whose Choi
+state lies in the Kraus span: leakage $0$. Its distance is at most $\frac12\nrm{G^{\circ t}-I}$, as in the comparison step of the proof of
+Theorem~\ref{thm:robust}(a), and $\nrm{G^{\circ t}-I}\le(r-1)\max_{g\ne h}|G_{gh}|^t$ since the diagonal is $1$. $S(\rho^{\otimes t})=tS$. Since the $A_g$ have disjoint
+supports, $T_t(\rho^{\otimes t})=\sum_g\mu_g(B_g\rho B_g^*)^{\otimes t}$, every one-factor marginal of which is $T(\rho)$; subadditivity gives $S(T_t(\rho^{\otimes t}))\le tS(T(\rho))$, so
+$a_t\le t\,a$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:conserved}]
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Levels are sub-rounds.} For $\kappa\in E_{s'}$, $s'\ne s$, and $v\in E'_s$, $\langle\kappa,B_g^*v\rangle=\langle B_g\kappa,v\rangle=0$, so every $B_g^*$ maps $E'_s$ into $E_s$.
+Hence $B_1^*B_{[y]}$ and $B_{[x]}^*B_{[z]}$ are block diagonal over $\{E_s\}$, and each $B^{(s)}_g:=B_g|_{E_s}:E_s\to E'_s$ is a gadget family. The weighted Gram is
+$G=\sum_sw_sM^{(s)}$ with $M^{(s)}_{gh}=\tau_{E_s}(B^{(s)*}_gB^{(s)}_h)$, $|M^{(s)}_{gh}|\le1$.
+\item \emph{The key identity.} $T(\rho)=\bigoplus_sw_sT_s(I/e_s)$ on the orthogonal $E'_s$, with $T_s(I/e_s)=\sum_g\mu_gB^{(s)}_gB^{(s)*}_g/e_s$. So
+$S(T(\rho))=H(w)+\sum_sw_sS(T_s(I/e_s))$ and $S(\rho)=H(w)+\sum_sw_s\log e_s$, hence $a=\sum_sw_sa_s$ with $a_s=S(T_s(I/e_s))-\log e_s\ge0$, since $T_s(I/e_s)$ has
+eigenvalues at most $1/e_s$.
+\item \emph{Truncation.} The surprisals $\log(e_s/w_s)$ are nonnegative with $w$-mean $S$. Keep $\Sigma'=\{s:\log(e_s/w_s)\le S/\delta\}$ with $\delta=\frac1{32}$; Markov's
+inequality gives $w(\Sigma\setminus\Sigma')\le\delta$. Because $a$ is a conserved average, dropping levels costs no binary entropy.
+\item \emph{Flattening.} Put $\eta=\frac1{32}$, $\nu:=\max_{\Sigma'}(e_s/w_s)/\eta$, $m_s:=\lceil\nu w_s/e_s\rceil$ ($s\in\Sigma'$), $\widetilde K:=\bigoplus_{\Sigma'}E_s\otimes\C^{m_s}$,
+$N:=\dim\widetilde K$ and $\widetilde B_g:=\bigoplus_{\Sigma'}B^{(s)}_g\otimes I_{m_s}$ into $\bigoplus_{\Sigma'}E'_s\otimes\C^{m_s}$; a direct sum with orthogonal codomains, it is a gadget
+family. On $\Sigma'$, $\nu w_s/e_s\ge1/\eta$, so $\nu w_s\le e_sm_s\le(1+\eta)\nu w_s$ and $\nu w(\Sigma')\le N\le(1+\eta)\nu w(\Sigma')$; the weights $\hat w_s:=e_sm_s/N$ lie in
+$[w_s/((1+\eta)w(\Sigma')),(1+\eta)w_s/w(\Sigma')]$.
+\item \emph{Gram.} $\tau_N(\widetilde B_g^*\widetilde B_h)=\sum_{\Sigma'}\hat w_sM^{(s)}_{gh}$, which differs from $G_{gh}$ by at most
+$\sum_{\Sigma'}|\hat w_s-w_s|+w(\Sigma\setminus\Sigma')\le(\eta+\delta)/(1-\delta)+\delta<0.096$. Its off-diagonals are below $\frac18+0.096<\frac14$, and its diagonal is $1$.
+\item \emph{Costs.} $\log N\le\log(1+\eta)+\log\nu\le0.045+S/\delta+\log(1/\eta)=32S+5.045$. The flat bath on $\widetilde K$ has
+$\widetilde T(I/N)=\bigoplus_{\Sigma'}\hat w_sT_s(I/e_s)\otimes I/m_s$ and $\log N=H(\hat w)+\sum\hat w_s\log(e_sm_s)$, so its entropy production is
+$a'=\sum_{\Sigma'}\hat w_sa_s\le\frac{1+\eta}{1-\delta}\sum_sw_sa_s=\frac{33}{31}a<1.07\,a$.
+\item \emph{Streaming.} Apply Theorem~\ref{thm:flat-zero}(c) with $c=\frac14$, so $t=\lceil\log(4rn/\epsilon)/2\rceil$, and $\log k=\log N$. Its memory term
+$C\,n\,(ta')\log(e/(ta'))$ increases in $a'$ while $ta'\le1$, so $a'\le1.07a$ may be inserted. If $d\,t\,a'\ln2>\frac14$, Theorem~\ref{thm:flat-zero}(c)
+gives only its polylogarithmic form, and we use instead the exact service of Proposition~\ref{prop:ceiling}, with $Q=n\lceil\log r\rceil$, error $0$ and
+$J=C=0$. There $x:=1.07\,ta\ge ta'>x_0:=1/(4d\ln2)$, and $x\log(e/x)$ increases on $(0,1]$, so the middle term of the display is at least
+$C_{d,r}\,n\,x_0\log(e/x_0)\ge n\lceil\log r\rceil$ once $C_{d,r}\ge\lceil\log r\rceil/(x_0\log(e/x_0))$. Since $t\le3\log(n/\epsilon)+\log(8r)$, also
+$n\,a\ge n\,x_0/(1.07\,t)$, so $n\lceil\log r\rceil\le K_{d,r}\log^3(n/\epsilon)(1+S+n\,a)$ for $K_{d,r}$ large enough. The statement without a device is steps 3--6 alone.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:restrict-biased}]
+Since $P_0$ commutes with $\rho$, $S(\rho)=h_2(\nu)+(1-\nu)S(\rho_0)+\nu S(\rho_\perp)\ge(1-\nu)S(\rho_0)$. The channel, $T$ and the leakage are linear in the bath:
+$\Psi_{\rho_0}-\Phi=[(\Psi_\rho-\Phi)-\nu(\Psi_{\rho_\perp}-\Phi)]/(1-\nu)$ with $\ddia(\Psi_{\rho_\perp},\Phi)\le1$, and $\ell(\rho)\ge(1-\nu)\ell(\rho_0)$. $T$ is unital, so
+$S(T(\rho_\perp))\ge S(\rho_\perp)$, and concavity gives $S(T(\rho))\ge(1-\nu)S(T(\rho_0))+\nu S(\rho_\perp)$. Subtracting $S(\rho)$ gives $(1-\nu)a(\rho_0)\le a+h_2(\nu)$. If $U$
+has Kraus form on $\C^d\otimes\operatorname{ran}P_0$, then $\Psi_{\rho_0}(X)=\sum_{i,j}\Tr(\rho_0X_j^*X_i)A_iXA_j^*$, whose Choi state lies in the Kraus span.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:conserved-leaky}]
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Levels are sub-rounds.} $W_s:=W|_{\C^d\otimes E_s}$ is an isometry into $\C^d\otimes E'_s$ and $\rho$ is block diagonal, so $T(\rho)=\bigoplus_sw_sT_s$ on the orthogonal
+$E'_s$ with $T_s:=T(I_{E_s}/e_s)$. Hence $a=\sum_sw_sa_s$ with $a_s:=S(T_s)-\log e_s\ge0$, as in the proof of Theorem~\ref{thm:conserved}. Leakage is linear in the bath:
+$\ell=\sum_sw_s\ell_s$.
+\item \emph{Dropping levels.} The surprisals $\log(e_s/w_s)\ge0$ have $w$-mean $S$, so $\Sigma_1:=\{s:\log(e_s/w_s)\le32S\}$ has $w(\Sigma_1^c)\le\frac1{32}$. With
+$\theta_0:=1/(16C_m^2)$, $\Sigma_2:=\{s\in\Sigma_1:\ell_s\le\theta_0\}$ has $w(\Sigma_1\setminus\Sigma_2)\le\ell/\theta_0\le16C_m^2c_1/n$. Restrict to $\bigoplus_{\Sigma_2}E_s$, a
+projection commuting with $\rho$, with $\nu:=1-w(\Sigma_2)\le\frac1{32}+16C_m^2c_1/n$ and weights $w'_s:=w_s/(1-\nu)$. By step 1 and $a_s\ge0$,
+$a_0=\sum_{\Sigma_2}w'_sa_s\le a/(1-\nu)$ with no binary entropy; $\ell_0\le\ell/(1-\nu)$, $u_0\le(u+\nu)/(1-\nu)$ and $S_0\le S/(1-\nu)$ by Lemma~\ref{lem:restrict-biased}.
+\item \emph{First-order rounding per level.} For $s\in\Sigma_2$, $(U,I_{E_s}/e_s)$ is a flat round with $\ell_s\le\theta_0\le\frac12$ and $C_m\sqrt{\ell_s}\le\frac14$. Theorem~\ref{thm:F}
+gives isometries $X'^{(s)}_g:E_s\to\C^r\otimes E_s$ with the exact identities and $a'_s\le a_s+\ell_s\log e_s+C_2\sqrt{\ell_s}\log(e/\ell_s)$; its Gram steps (the shrink, the
+projection and the renormalization) move each flat Gram entry by at most $C'_1\sqrt{\ell_s}$, where $C'_1:=3d^3r+18dr^2+9d^3r^5$.
+\item \emph{Direct sum.} $X'_g:=\bigoplus_{\Sigma_2}X'^{(s)}_g$ has mutually orthogonal codomains $\C^r\otimes E_s$, so $X'^*_gX'_h=\bigoplus_sX'^{(s)*}_gX'^{(s)}_h$ and the identities hold;
+with bath $\rho_0$ the new round again has conserved bias with flat levels, and step 1 gives $a'=\sum_sw'_sa'_s$. The function $x\mapsto\sqrt x\log(e/x)$ is concave on
+$(0,1]$, so by Jensen's inequality and $\log e_s\le\log(e_s/w_s)\le32S$ on $\Sigma_1$, $a'\le a/(1-\nu)+32\ell_0S+C_2\sqrt{\ell_0}\log(e/\ell_0)$. For the Gram,
+$\sum_sw'_s\tau_s(X^{(s)*}_gX^{(s)}_h)=\Tr(\rho_0X_g^*X_h)$, which the anchor bound~\eqref{eq:anchor} bounds by $2u_0+2\sqrt{d\ell_0}+d\ell_0$; the rounding adds at most $C'_1\sum_sw'_s\sqrt{\ell_s}\le C'_1\sqrt{\ell_0}$. For $n\ge n_{CB}$ the weighted Gram off-diagonals are
+at most $\frac6{31}+O(n^{-1/2})\le0.2$.
+\item \emph{Streaming.} The tensor square (Lemma~\ref{lem:tensor}) has conserved bias, with flat levels $E_s\otimes E_{s'}$ whose images lie in the mutually orthogonal
+$(\C^r\otimes E_s)\otimes(\C^r\otimes E_{s'})$, weighted Gram off-diagonals at most $0.04<\frac18$, bath entropy $2S_0$ and entropy production at most $2a'$. Theorem~\ref{thm:conserved}
+gives error at most $2\epsilon$ and $Q\le K\log^3(n/\epsilon)(1+2S_0+2n\,a')$. Finally $\ell_0\le1.04c_1/n$ for $n\ge n_{CB}$, so $32n\ell_0S\le34c_1S$, and $\sqrt x\log(e/x)$
+increases on $(0,1/e)$, so $nC_2\sqrt{\ell_0}\log(e/\ell_0)\le C_2\sqrt{1.04c_1n}\log(en/c_1)$. Hence $Q\le K'\log^4(n/\epsilon)(1+S+n\,a+\sqrt n)$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\subsection{Rounds that are vacuous}
+
+\begin{proof}[Proof of Lemma~\ref{lem:vacuous}]
+$G_{gh}=\Tr(\rho B_g^*B_h)=\Tr(\rho J^*\pi(g)^*\pi(h)J)$. If $\pi(g)=\pi(h)$ for labels $g\ne h$, then $G_{gh}=\Tr(\rho J^*J)=1$, while $|G_{gh}|\le2u<1$ by
+Lemma~\ref{lem:zero-leak}. So $\pi$ separates the labels, and Corollary~\ref{cor:map} applies. If $B_gK\subseteq K$ for every label, each $B_g$ is an isometry of the
+finite-dimensional $K$ into itself, hence unitary; replacing every $B_g$ by $B_1^*B_g$, as in Lemma~\ref{lem:dilation}(a), leaves every $B_g^*B_h$
+unchanged and makes $B_1=I_K$; the identity $B_1^*B_{[y]}=B_{[x]}^*B_{[z]}$ reads $B_{[z]}=B_{[x]}B_{[y]}$, and these are the defining relations
+of $P_\Phi$. So $g\mapsto B_g$ extends to a unitary representation $\pi$ of $P_\Phi$ on $K$, and $B_g^*B_h=\pi(g)^*\pi(h)$ with $J=I$.
+\end{proof}
+
+\subsection{Permutation rounds and devices}
+
+\begin{proof}[Proof of Lemma~\ref{lem:block-monomial}]
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Injectivity.} $B_g$ is an isometry, so it maps the orthogonal $K_\omega$ to orthogonal subspaces; hence $f(g)$ is injective on $\Omega_0$.
+\item \emph{Identities.} For $\omega\in\Omega_0$, $B_1^*B_{[y]}$ restricted to $K_\omega$ is a unitary onto $K_{f([y])\omega}$ if $f([y])\omega\in\Omega_0$ and $0$ otherwise, $B_1^*$ being the
+projection onto $K$. $B_{[x]}^*$ kills the complement of $\operatorname{ran}B_{[x]}=\bigoplus_{\omega'\in\Omega_0}K'_{f([x])\omega'}$, so $B_{[x]}^*B_{[z]}$ restricted to $K_\omega$ is a
+unitary onto $K_{\omega''}$ if $f([z])\omega=f([x])\omega''$ for some $\omega''\in\Omega_0$, and $0$ otherwise. The two operators are equal, so they vanish together, and when
+they are nonzero their targets coincide: $f([y])\omega=\omega''$. This is $\lambda_1^*\lambda_{[y]}\ket\omega=\lambda_{[x]}^*\lambda_{[z]}\ket\omega$, and by step 1 the
+$\lambda_g$ are isometries, so the base family is a gadget family.
+\item \emph{Gram.} For $g\ne h$, $B_hK_\omega=K'_{f(h)\omega}\perp K'_{f(g)\omega}=B_gK_\omega$ by freeness, so $P_{K_\omega}B_g^*B_hP_{K_\omega}=0$, $\Tr(\rho B_g^*B_h)=0$ for every block-diagonal
+$\rho$, and likewise $\Tr(\diag(p)\lambda_g^*\lambda_h)=0$; by Lemma~\ref{lem:zero-leak} the distance is $0$.
+\item \emph{Entropy.} $S(\rho)=H(p)+\sum_\omega p(\omega)S(\hat\rho_\omega)\ge H(p)$, with $\hat\rho_\omega=\rho_\omega/p(\omega)$.
+\item \emph{Entropy production.} $T(\rho)$ is block diagonal over the $K'_\eta$; the block $\eta$ has mass $T_{\rm base}p(\eta)=\sum_g\mu_gp(f(g)^{-1}\eta)$ and normalized state
+$\sum_g[\mu_gp(f(g)^{-1}\eta)/T_{\rm base}p(\eta)]\,u_g\hat\rho_{f(g)^{-1}\eta}u_g^*$ with $u_g$ unitary, there being at most one $\omega$ for each $g$ by step 1. Concavity gives
+$S(T(\rho))\ge H(T_{\rm base}p)+\sum_\eta\sum_g\mu_gp(f(g)^{-1}\eta)S(\hat\rho_{f(g)^{-1}\eta})=H(T_{\rm base}p)+\sum_\omega p(\omega)S(\hat\rho_\omega)$. Subtracting $S(\rho)$ gives
+$a\ge H(T_{\rm base}p)-H(p)=a_{\rm base}$.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:pointblock}]
+Absorb the fixed permutations $\beta_t$ and injections into the frames. Let $F^{\rm tr}_t$ be the frame of the evolution projected onto the windows after round $t$, with
+columns indexed by label histories $y\in[r]^t$, $G_{t,Q}=F^{{\rm tr}*}_{t,Q}F^{\rm tr}_{t,Q}$ for the points $Q$ of $\Omega_t$, and $\Gamma_{t,Q}=\sum_y\Pr_y(\text{alive at }t\text{ at }Q)\ket y\bra y$
+for the ideal killed chain. For weights $c\in[0,1]^{\Omega_t}$ put $e_t(c)=\nrm{\sum_Qc_Q(G_{t,Q}-\Gamma_{t,Q})}$. The blocks are the points, of dimension $D=m$.
+
+(1) \emph{Concentration, inflow, export.} Every Gram quantity used below has the form $F^*((V^*AV-\E V^*AV)\otimes I)F$ with
+$A=\sum_Qc_Q(\lambda_g^*P'_Q\lambda_h\otimes I_m)$, $c\in[0,1]^{\Omega_t}$ and $\nrm A\le1$. $A$ maps each point to at most one point, so its Hermitian and anti-Hermitian
+parts couple each block to at most two blocks, and Lemma~\ref{lem:concentration}(b) applies with $\Delta\le2$. Lemma~\ref{lem:export}(b) gives the inflow factor $r$
+exactly, and with Lemma~\ref{lem:export}(a) the unrolling of the proof of Theorem~\ref{thm:pathreg} gives $\alpha_*\le A/D$ with $A=4e(1+8E_p^2n^2L')$ and
+$L'=\ln(8SE_p^2|\Omega|)$; initially $\alpha_x(F_0)=p_0(x)/m\le1/D$. The variance proxy of Lemma~\ref{lem:concentration}(b) is $O(n^2L'/D^2)$, and a union over the
+events below costs $O(n\log r+\log n)$ in the exponent; so each event holds at level $s$ for $m=\mathrm{poly}(n/s)\cdot\mathrm{polylog}|\Omega|$.
+
+(2) \emph{Means.} For $g\ne h$, $\lambda_g^*P'_Q\lambda_h$ has zero diagonal, since there are no collisions, so the mean Gram is diagonal in the labels. For $g=h$,
+$\E[V_x^*(P_x\lambda_g^*P'_Q\lambda_gP_x)V_x]=f^{(g)}_{x\to Q}P_x$ with $f^{(g)}_{x\to Q}=\mathbf 1[f(g)x=Q]$.
+
+(3) \emph{Set-resolved Gram.} By (2), $\sum_Qc'_QG_{t,Q}=\sum_g[\sum_x(T_gc')_xG_{t-1,x}]\otimes\ket g\bra g+\mathrm{Dev}(c')$ with $(T_gc')_x=\sum_Qc'_Qf^{(g)}_{x\to Q}\in[0,1]$,
+and the ideal $\Gamma$ satisfies the same recursion without $\mathrm{Dev}$. Block diagonality in $g$ gives $e_t(c')\le\max_ge_{t-1}(T_gc')+\nrm{\mathrm{Dev}(c')}$, and $e_0=0$. The
+weight vectors needed are the images under $T_{g_{s+1}}\cdots T_{g_t}$ of the indicators of the exit sets and of all points: at most $2n(n+1)r^n$ vectors, all fixed before the
+twirls they enter. On the events of (1) at level $s$, $e_t\le ts$ for all of them.
+
+(4) \emph{Error.} Let $x_t$ be the physical vector, $g_t$ the vector of the projected evolution embedded in the physical memory, $\mathcal U_t$ the physical round and
+$d_t=\mathcal U_tg_{t-1}-g_t$, the part of the projected vector sent to garbage at round $t$. Then $x_t-g_t=\mathcal U_t(x_{t-1}-g_{t-1})+d_t$ and $x_0=g_0$, so
+$\nrm{x_t-g_t}\le\sum_{s\le t}\nrm{d_s}$. Since $g_t$ lies in the window, the memory's mass outside the window at time $t$ is at most $(\sum_{s\le t}\nrm{d_s})^2\le n\omega$ with
+$\omega:=\sum_t\nrm{d_t}^2$. Next, $\nrm{d_t}^2=\langle X|I\otimes\mathrm{Exit}_t|X\rangle$ with $\mathrm{Exit}_t$ the Gram of the exit set at $t$, so by (3)
+$\nrm{d_t}^2\le\sum_y\Pr(y)\kappa_t(y)+ts$ and $\omega\le\omega_{\rm ideal}+n^2s$. The full Gram after a round is $G^{\rm tr}_{t-1}\otimes I+\mathrm{Dev}_t$ with $\nrm{\mathrm{Dev}_t}\le s'$
+by (1), and truncation removes $\mathrm{Exit}_t$, so $G^{\rm tr}_n=I-\sum_t(\mathrm{Exit}_t-\mathrm{Dev}_t)\otimes I\le(1+ns')I$. With $F^{\rm tr}_n=T(G^{\rm tr}_n)^{1/2}$, $T$ an isometry, and
+$(\sqrt u-1)^2\le|1-u|$ for $u\ge0$, $\nrm{g_n-(I\otimes T)X}^2\le\langle X|I\otimes|I-G^{\rm tr}_n||X\rangle\le\omega+3ns'$, since $|I-G|=(I-G)+2(G-I)_+\le(I-G)+2ns'I$. By (F4)
+the error is at most $\sqrt{n\omega}+\sqrt{\omega+3ns'}$. With $s=s'=\zeta/n^2$, $\omega\le\omega_{\rm ideal}+\zeta$, and since $\zeta\le\epsilon^2/(64n)$ the error is at most
+$(1+\sqrt n)\sqrt{\omega_{\rm ideal}+\epsilon^2/(16n)}$. The memory is $\log\max_t|\Omega_t|+\log m+O(1)$ at the rank rate, with the export schedule
+of~\cite[Theorem~12.2]{DouglasMghirbiC}.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:classperm}]
+$f(g_t)\beta_t$ followed by the injection is injective, so the alive points form a set; given the past, $\beta_t$ sends the $a_C$ alive points of a class $C$ to a uniformly
+random $a_C$-subset of $C$, independently over classes. One point under independent class-uniform permutations follows the class-uniformized chain, so
+$\E\kappa_\beta(y)=\kappa_{\rm class}(y)$. Let $h_t(x)$ be the class-uniformized kill probability from a point $x$ after step $t$, a function of the class of $x$, and
+$M_t=\mathrm{killed}_t/|\Omega_0|+\sum_{x\text{ alive at }t}h_t(x)/|\Omega_0|$. Then $(M_t)$ is the Doob martingale of $\kappa_\beta(y)$, with $M_0=\kappa_{\rm class}(y)$ and
+$M_n=\kappa_\beta(y)$. Its increment at step $t$ is $\sum_C$ (a sum over an $a_C$-sample without replacement of values in $[0,1]$, minus its mean)$/|\Omega_0|$. By Hoeffding's
+comparison of sampling with and without replacement~\cite[Theorem~4]{Hoeffding1963} each class sum is sub-Gaussian with variance proxy $a_C/4$, and independence over
+classes gives a proxy at most $(\sum_Ca_C)/(4|\Omega_0|^2)\le1/(4|\Omega_0|)$ per step; the Azuma--Hoeffding inequality~\cite{Azuma1967} gives the tail, and a union over
+the $r^n$ label sequences gives the second claim.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:balance}]
+Use the windows and classes of the balance condition, with a start uniform on $\Omega_0$. By (B1) and Lemma~\ref{lem:classperm}, some fixed choice of class permutations has
+$\max_y\kappa_\beta(y)\le\max_y\kappa_{\rm class}(y)+\epsilon^2/(32n)\le\epsilon^2/(16n)$ by (B3). With these permutations fixed, Theorem~\ref{thm:pointblock} with $\zeta=\epsilon^2/(64n)$
+and $p_0$ uniform on $\Omega_0$ has $\omega_{\rm ideal}\le\epsilon^2/(16n)$, hence error at most $(1+\sqrt n)\sqrt{\epsilon^2/(8n)}\le0.61\epsilon$ for $n\ge2$, and memory
+$\log\max_t|\Omega_t|+O_r(\log(n/\epsilon)+\log\log|\Omega_W|)$, which (B2) bounds. Here $\Omega$ may be replaced by $\Omega_W$: the ideal chain is
+killed outside the windows and one round moves a window point by a slot word, so the device only touches $\Omega_W$, and the injections are completed
+to permutations of $\Omega_W$ by a fixed unitary completion, as in Theorem~\ref{thm:fibred}. On the windows every round is the gadget unitary of the round, which is exact for every
+memory state there. For a free block-monomial round, Lemma~\ref{lem:block-monomial} gives a free exact permutation round of the same channel, its base round, with
+$S_{\rm base}\le S$ and $a_{\rm base}\le a$; streaming the base round streams the given one.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:start}]
+Let $N=2^n$, let $b_w$ be the law $\propto\sin^2$ on an interval of $w=\lceil\sqrt n\rceil$ points, $u$ the uniform law on $[0,N)$, and $p=(1-\frac1n)b_w+\frac1nu$ on $\Z_{N'}$.
+Every point of the cycle is triangle-good and collision-free, so the round has distance and leakage $0$ for every bath. The entropy of a mixture is at most the average
+entropy plus the mixing entropy and at least the average entropy, so $a(p)\le h_2(\frac1n)+(1-\frac1n)a(b_w)+\frac1na(u)$ and $S(p)\le h_2(\frac1n)+\log w+1$, using $H(u)=n$.
+Theorem~\ref{thm:FK}(iii) with $\varphi=\sqrt{b_w}$ gives $a(b_w)\le(16r/\ln2)\mathcal E(\sqrt{b_w})=O(1/w^2)$, and $a(u)\le\log(1+2/N)$. So $S+n\,a\le\log w+O(1)+n\,h_2(\frac1n)=O(\log n)$.
+A chain started from $p$ is killed at its first step with probability $p(\Omega_0^c)\ge\frac1n(1-|\Omega_0\cap[0,N)|/N)$, which exceeds $\frac1{2n}\ge\epsilon^2/(32n)$ unless
+$|\Omega_0|\ge N/2$.
+\end{proof}
+
+\subsection{The Faber--Krahn form}
+
+\begin{proof}[Proof of Theorem~\ref{thm:FK}]
+Write $P_g:=f(g)_*p$, so that $P_1=p$, $H(P_g)=S$ and $\mathcal Tp=\sum_g\mu_gP_g=:Q$.
+
+(i) The Holevo identity gives $a=H(Q)-\sum_g\mu_gH(P_g)=\sum_g\mu_gD(P_g\|Q)$, so $D(P_g\|Q)\le a/\mu_g$. For laws $P,Q$,
+$D(P\|Q)\ge-2\log\sum\sqrt{PQ}\ge2(1-\sum\sqrt{PQ})/\ln2=\nrm{\sqrt P-\sqrt Q}^2/\ln2$, by monotonicity of the R\'enyi divergences in their order and $-\log y\ge(1-y)/\ln2$. So
+$\nrm{\sqrt{P_g}-\sqrt p}^2\le2\nrm{\sqrt{P_g}-\sqrt Q}^2+2\nrm{\sqrt p-\sqrt Q}^2\le2\ln2\cdot a(1/\mu_g+1/\mu_1)$. Reindexing by the bijection $f(g)$,
+$\nrm{\sqrt{P_g}-\sqrt p}^2=\sum_x(\sqrt{p(f(g)x)}-\sqrt{p(x)})^2$, the $g$-term of $\mathcal E(\sqrt p)$; sum over $g\ne1$.
+
+(ii) For $s>0$ put $\varphi_s:=(\sqrt p-s)_+$. As $t\mapsto(t-s)_+$ is $1$-Lipschitz, $\mathcal E(\varphi_s)\le\mathcal E(\sqrt p)$; $\supp\varphi_s=\{p>s^2\}$ has fewer than $1/s^2$ points;
+and on $\{p\ge4s^2\}$, $\sqrt p-s\ge\sqrt p/2$, so $\nrm{\varphi_s}^2\ge\frac14p(\{p\ge4s^2\})$. Markov's inequality for the surprisal $-\log p(X)\ge0$, of mean $S$, gives
+$p(\{p<4s^2\})\le S/\log(1/(4s^2))$. At $4s^2=2^{-2S-2}$ this is at most $S/(2S+2)<\frac12$, so $\nrm{\varphi_s}^2\ge\frac18$ and $|\supp\varphi_s|<2^{2S+4}$. Hence
+$\mathcal E(\sqrt p)\ge\mathcal E(\varphi_s)\ge\Lambda(2^{2S+4})/8$, and (i) gives the claim. $\varphi_s$ is supported in $\supp p$, which gives the form with $\Lambda_{\rm good}$.
+
+(iii) $S\le\log|\supp p|\le\log v$. $D(P\|Q)\le\log(1+\chi^2(P\|Q))\le\chi^2(P\|Q)/\ln2$. With $P:=P_g$ and $P_h:=f(h)_*p$: $(P-Q)^2=(\sum_h\mu_h(P-P_h))^2\le\sum_h\mu_h(P-P_h)^2$,
+$(P-P_h)^2\le2(\sqrt P-\sqrt{P_h})^2(P+P_h)$, and $Q\ge\mu_gP$, $Q\ge\mu_hP_h$, so $\chi^2(P\|Q)\le\sum_h2(\mu_h/\mu_g+1)\nrm{\sqrt P-\sqrt{P_h}}^2$. Since
+$\sqrt{f(g)_*\varphi^2}=f(g)_*\varphi$ for $\varphi\ge0$, $\nrm{\sqrt P-\sqrt{P_h}}^2\le2\nrm{f(g)_*\varphi-\varphi}^2+2\nrm{\varphi-f(h)_*\varphi}^2\le4\mathcal E(\varphi)$, so
+$\chi^2(P_g\|Q)\le8\mathcal E(\varphi)(1/\mu_g+r)$ and $a=\sum_g\mu_gD(P_g\|Q)\le(8\mathcal E(\varphi)/\ln2)(r+r)$. The round is exact because $p$ lives on good, collision-free points.
+
+The left inequality of the dictionary is (ii) for baths on the good points; the right one is (iii) at a minimizer of $\mathcal E(\varphi)/\nrm\varphi^2$ with $|\supp\varphi|\le v$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:growth}]
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Isoperimetry.} Let $A\subseteq\supp p$ be finite with $|A|<2^{2S+4}$, and $\varrho:=\phi(2|A|)\le\varrho_*$. For $x\in A$ the points $f(w_g)x$, $g\in B(\varrho)$, are
+distinct, and $|B(\varrho)|\ge2|A|$, so at least $|B(\varrho)|/2$ of them lie outside $A$; hence $\sum_{g\in B(\varrho)}|f(w_g)A\setminus A|\ge|A||B(\varrho)|/2$. Since
+$|f(uv)A\setminus A|\le|f(v)A\setminus A|+|f(u)A\setminus A|$, a word of length at most $\varrho$ has $|f(w)A\setminus A|\le\varrho|\partial A|$ with
+$|\partial A|:=\sum_{s\in S_G}|f(s)A\setminus A|$, $S_G:=\cL\cup\cL^{-1}$. So $|\partial A|\ge|A|/(2\phi(2|A|))$. This is the argument
+of~\cite[Th\'eor\`eme~1]{CoulhonSaloffCoste1993}, for the Schreier graph near the bath.
+\item \emph{From $\ell^1$ to $\ell^2$.} For $\varphi\ge0$ supported in $\supp p$ with $|\supp\varphi|\le v<2^{2S+4}$, put $F:=\varphi^2$. Each level set $A_t:=\{F>t\}$ satisfies step 1,
+and $\sum_x|\mathbf 1_A(f(s)x)-\mathbf 1_A(x)|=2|f(s)^{-1}A\setminus A|$, so the co-area formula gives
+$\sum_{s\in S_G}\sum_x|F(f(s)x)-F(x)|=2\int_0^\infty|\partial A_t|\,dt\ge\int_0^\infty|A_t|\,dt/\phi(2v)=\nrm\varphi^2/\phi(2v)$, as $\phi$ is nondecreasing. By Cauchy--Schwarz the left
+side is at most $\sqrt{\mathcal E_{S_G}(\varphi)}\cdot2\sqrt{|S_G|}\nrm\varphi$. So $\mathcal E_{S_G}(\varphi)\ge\nrm\varphi^2/(4|S_G|\phi(2v)^2)$, and with $|S_G|\le2r$ and
+$\mathcal E=\mathcal E_\cL\ge\mathcal E_{S_G}/2$ (the term of an inverse label equals that of the label after reindexing), $\Lambda_{\supp p}(v)\ge1/(16r\phi(2v)^2)$.
+\item By Theorem~\ref{thm:FK}(ii), through $\varphi_s$, which is supported in $\supp p$,
+\[
+a\ge\Lambda_{\supp p}(2^{2S+4})/(8C_\mu)\ge1/(128rC_\mu\phi(2^{2S+5})^2).
+\]
+\item By submultiplicativity and Fekete's lemma $|B(\varrho)|\ge\omega_0^\varrho$, so $\phi(v)\le\log v/\log\omega_0+1$ and $\phi(2^{2S+5})\le\alpha S+\beta_0$. With
+$u:=\alpha S+\beta_0\ge\beta_0$, $S+n\,a\ge(u-\beta_0)/\alpha+nc/u^2$, whose minimum over $u>0$, at $u^3=2nc\alpha$, is $\frac3{2^{2/3}}(c/\alpha^2)^{1/3}n^{1/3}-\beta_0/\alpha$.\qedhere
+\end{enumerate}
+\end{proof}

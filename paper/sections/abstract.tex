@@ -1,0 +1,35 @@
+\begin{abstract}
+How much memory does a device need to apply one quantum channel $n$
+times, if each output must leave before the next input arrives? We count
+the qubits the device keeps, the qubits it exchanges for fresh ones, and
+the purity it is given. Error is measured on the whole experiment,
+against an adaptive observer.
+
+Immediate release has a price. For the qutrit Werner--Holevo channel,
+vanishing error requires $\log_2 3$ bits of purity per use, a known rate;
+we add a bound at finite error. If all outputs may
+leave together, $O(\log n)$ bits suffice in total at polynomially small
+error, refining a known zero rate. At error $n^{-2}$ the change comes
+when outputs wait in batches of about $\log n$.
+
+Purity separates cheap from expensive repeated use along one set of
+channels, the closure of those that a finite, maximally mixed bath
+implements exactly: outside it, linear purity is known to be needed
+at small error, hence linear memory when fresh qubits are maximally
+mixed. We prove a converse for memory, keeping maximally mixed fresh
+qubits and the optimal exchange rate from here on. A channel in the
+closure with a flat probe (an input that leaves the minimal environment
+maximally mixed) can be served with sublinear memory at any error that
+is not exponentially small. For channels built from finitely many group
+relations, memory at fixed error is at most logarithmic, divergent but
+sublinear, or linear, and some are linear exactly when some finitely
+presented group is not hyperlinear.
+
+At high precision, the memory of $n$ uses of such a channel equals, up
+to squared logarithms, the cost of the best single use that never leaves
+the channel's support. That cost is the bath entropy plus
+$n$ times the entropy one use adds to the bath. For Houghton's group,
+devices acting through the group need and attain memory
+$n^{1/3}$ up to logarithmic factors. Whether the single-use law holds
+at fixed error is open.
+\end{abstract}

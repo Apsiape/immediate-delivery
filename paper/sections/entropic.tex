@@ -1,0 +1,159 @@
+\section{The exact entropic profile and the quantitative memory law}\label{sec:entropic}
+
+An exact support certificate specifies what a round does on its source, without requiring a flat source or
+global multiplication of rectangular responses. That is enough for a chronological compiler. It is also the
+right static object to extract from high-precision services.
+
+\begin{definition}[Exact-support entropy profile]\label{def:exact-profile}
+For a canonical untwisted anchored gadget, take finite spaces $K,L$, a state $\rho$ on $K$, and isometries
+$B_g:K\to L$ satisfying
+\[
+ B_1^*B_{[y]}=B_{[x]}^*B_{[z]},\qquad
+ \max_{g\ne h}|\Tr(\rho B_g^*B_h)|\le1/2,
+\]
+the first identity for every triangle $(x,y,z)$ of the table, as in Lemma~\ref{lem:dilation}(a).
+Put $\sigma=\sum_g\mu_g B_g\rho B_g^*$ and $a=S(\sigma)-S(\rho)$. Define, for $t\ge0$,
+\[
+ Z_\Phi(t)=\inf\{S(\rho)+t a\}
+\]
+over these families. One may restrict $K$ to $\supp\rho$ and $L$ to $\spn_g B_gK$, so $\dim L\le r\dim K$.
+\end{definition}
+
+The family extends to a physical unitary round, and $a$ is its actual Choi-input production.
+It is nonnegative because the isometric output ensemble has the source spectrum. Exact support does not mean
+exact target error: the coarse trace gap is amplified when designing a service.
+
+\begin{proposition}[Finite-matrix form and profile structure]\label{prop:Z-matrix}
+For source dimension $k$, an equivalent optimization uses a positive block matrix $Y=[Y_{gh}]$ and a state $\rho$,
+with $Y_{gg}=I$, $Y_{1[y]}=Y_{[x][z]}$ for every triangle $(x,y,z)$, and $|\Tr\rho Y_{gh}|\le1/2$ for $g\ne h$.
+Writing $D=\diag(\sqrt{\mu_g})$, the state
+\[
+ \omega=(D\otimes\sqrt\rho)Y(D\otimes\sqrt\rho)
+\]
+has source marginal $\rho$ and $a=S(\omega)-S(\rho)$. The function $Z_\Phi$ is nondecreasing, concave and subadditive,
+$Z_\Phi(0)=0$, $Z_\Phi(t)\le t\log r$, and $Z_\Phi(ct)\le cZ_\Phi(t)$ for $c\ge1$.
+Moreover, for $t_r=\lceil\log_2(8(r-1))\rceil$,
+\[
+ L^*_\Phi(n)\le t_r Z_\Phi(n).
+\]
+\end{proposition}
+
+The spectrum identity follows from the two products of the row operator
+$[\sqrt{\mu_g}B_g\sqrt\rho]_g$. Nonnegativity is a property of this ensemble; quantum conditional entropy is
+not positive in general. Infima of the affine costs $S+t a$ give concavity. Fixed tensor amplification preserves
+the untwisted identities and powers the scalar trace overlaps. Its output is the \emph{mixture of powered outputs},
+not the tensor power of their mixture. Appendix~\ref{app:static} proves these assertions.
+
+\begin{theorem}[Coherent exact-support compiler]\label{thm:coherent}
+Every family in Definition~\ref{def:exact-profile} gives, for $n\ge1$ and $0<\epsilon\le1$, a fixed public service
+of the canonical target with complete adaptive error at most $\epsilon$ and
+\[
+ Q\le C_{d,r}\log_2^2\!\left(\frac{128(n+1)}\epsilon\right)(1+S+n a),\quad
+ J\le\lfloor(n-1)\log r/2\rfloor,\quad C=0,\quad P\le Q.
+\]
+The constant is independent of source dimension, spectrum and response geometry.
+\end{theorem}
+
+The construction replaces the biased source by maximally mixed registers. Each eigenvalue of the source, and
+of the output state, is coded as a block whose dimension is proportional to it, inside sectors of geometrically
+increasing dimension; this is the standard embedding of nonuniform states into flat ones from thermodynamic
+resource theory~\cite{HorodeckiOppenheim2013}. The sector index then acts as an energy, and one use changes it by the logarithm of the
+ratio of an output eigenvalue to a source eigenvalue. Tensor amplification bounds the moment generating function
+of these changes as a matrix over pairs of labels, which covers coherent sources. Excess dimension is exported and
+replaced by maximally mixed qubits. One induction over the rounds bounds both the chance of leaving the allowed
+range of sectors and the error of the whole adaptive experiment. The device never measures the source or
+postselects. Appendix~\ref{app:graded} gives the construction and its resource count.
+
+\begin{theorem}[Any-exchange necessity and high precision]\label{thm:Z-necessary}
+Every between-round $n$-round service of the canonical gadget, at any exchange, with error $0<\epsilon\le1/16$ satisfies
+\[
+ Z_\Phi(n)\le K_{d,r}\left[1+Q+C+\sqrt{n\epsilon}\log_2(en/\epsilon)\right].
+\]
+If $\epsilon\le1/[n\log_2^2(en)]$, this reduces to $1+Z_\Phi(n)\le K'_{d,r}(1+Q+C)$.
+There is no exchange restriction. With flat imports, Theorem~\ref{thm:coherent} gives the matching rank-rate
+upper up to the displayed squared logarithm.
+\end{theorem}
+
+Extraction chooses a round with leakage $O(\epsilon/n)$ and production paid by $(P+C)/n$.
+Biased first-order repair makes support exact at additional cost
+$O(\sqrt{n\epsilon}\log(en/\epsilon))$.
+Keeping the experiment error is essential: setting it to $1/16$ first loses the high-precision conclusion.
+Its proof is independent of the compiler (Appendix~\ref{app:static}).
+
+\begin{theorem}[Memory from one-use entropy]\label{thm:main}
+Fix a canonical untwisted anchored gadget on $M_d$ with Choi rank
+$r\geq2$. Write $y=\log_2(128(n+1)/\epsilon)$, where
+$0<\epsilon\leq1/16$. Constants depend only on $d,r$.
+\begin{enumerate}[label=(\alph*),itemsep=2pt]
+\item Every service with exchange $J\leq n\log_2r/2$ has
+$Q\geq c_{d,r}L^*_\Phi(n)-C_{d,r}\log_2(en)$.
+\item A service exists with maximally mixed imports, initial purity
+$P\leq Q$, exchange $J\leq\lfloor(n-1)\log_2r/2\rfloor$ and
+$Q\leq C_{d,r}y^2(1+Z_\Phi(n))$.
+\item At precision $\epsilon\leq1/[n\log_2^2(en)]$,
+\[
+ c_{d,r}(1+Z_\Phi(n))\leq1+\Qf(n,\epsilon)
+       \leq C_{d,r}y^2(1+Z_\Phi(n)),
+\]
+where $\Qf$ minimizes memory under the flat-import contract in (b).
+\end{enumerate}
+\end{theorem}
+
+The converse uses Theorem~\ref{thm:lower}; the construction and high-precision
+comparison use Theorems~\ref{thm:coherent} and~\ref{thm:Z-necessary}.
+At fixed error the explicit converse correction grows with $n$, which
+is why part (c) states its precision hypothesis.
+
+\begin{theorem}[Horizon envelope]\label{thm:envelope}
+For a fixed threshold $N_0(d,r)$, put
+\[
+ E_\Phi(n)=\inf_{N\ge\max(n,N_0)}
+ \left[L^*_\Phi(N)+\frac n{\sqrt N}\log_2(eN)\right],
+\]
+where $N$ is integer. Then $Z_\Phi(n)\le C_{d,r}(1+E_\Phi(n))$ and
+\[
+ \Qf(n,\epsilon)\le C_{d,r}\min\left\{n,\ y^2(1+E_\Phi(n))\right\},
+ \qquad y=\log_2(128(n+1)/\epsilon).
+\]
+No regularity of $L^*_\Phi$ is assumed.
+\end{theorem}
+
+Choose a round at the design horizon $N$, repair its leakage at that scale, and serve $n\le N$ rounds.
+At polynomial inverse error, $L^*_\Phi(N)=N^{\beta+o(1)}$ gives the generic upper exponent
+$\beta/(\beta+1/2)$ for $0<\beta<1/2$ and $\beta$ for $\beta\ge1/2$.
+The lower exponent is $\beta$. Polylogarithmic profiles give polylogarithmic services and subpolynomial
+profiles give subpolynomial services, but the envelope does not close the interval below $1/2$.
+
+\paragraph{The missing theorem.}
+A universal all-accuracy rank-rate upper bound on $\Qf$ through $L^*_\Phi(n)$, with flat imports, is equivalent, up to finite
+logarithmic powers, to
+\begin{equation}\label{eq:missing-comparison}
+ Z_\Phi(n)\le K_\Phi\log_2^p(en)(1+L^*_\Phi(n))
+\end{equation}
+for some finite $p$. Sufficiency is Theorem~\ref{thm:coherent}; necessity applies
+Theorem~\ref{thm:Z-necessary} at $\epsilon_n=1/[16n\log_2^2(en)]$.
+This is a comparison of optimized static costs. It permits choosing an exact family wholly different from
+the original leaky round. Requiring a close repair of every round is stronger and can fail.
+
+\paragraph{Other descriptions of the same cost.}
+Appendix~\ref{app:static} gives two equivalent descriptions of $Z_\Phi$. First, a family whose
+source-weighted trace defect is at most $c_r/n$ can be repaired to an exact one, at a cost bounded by a constant multiple of its
+own cost plus $\log(en)$ (equation~\eqref{eq:affine-profile}), without filtering the source. Second, an optimization over ensembles of square unitaries,
+penalized by entropy, matches $Z_\Phi$ within constants. Neither proves~\eqref{eq:missing-comparison}:
+the ensemble's entropy gain need not be that of a physical round, and ordinary leakage controls the trace
+defect only at the square-root scale.
+
+\paragraph{A sufficient probability certificate.}
+There is one useful setting in which support probability can be used
+directly. Let $\Lambda$ be the positive bath leakage operator, normalized
+so that $\ell=\Tr(\rho\Lambda)/d$. If the round has distance $u\le1/16$
+and the source has mass $1-O(1/n)$ on $\ker\Lambda$, then for all
+sufficiently large $n$, even without commutation between the source and
+that kernel projection,
+\[
+ Z_\Phi(n)\leq C_{d,r}\log_2(en)(1+S+na).
+\]
+Appendix~\ref{app:static} proves the dimension-free source projection
+estimate and its coherent permutation corollary. Small mean leakage
+alone does not imply this hypothesis: the quartic example there has
+an empty exact kernel and nevertheless a cheap, different exact finite tracial factorization.

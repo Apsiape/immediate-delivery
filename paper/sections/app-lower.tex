@@ -1,0 +1,216 @@
+%======================================================================
+\section{Proofs for Sections~\ref{sec:model} and~\ref{sec:lower}}\label{app:lower}
+%======================================================================
+
+Two facts are used throughout the appendices.
+
+\begin{itemize}[leftmargin=2.8em]
+\item[(F1)] \emph{Anchors.} For a gadget channel the anchor $z_g$ of a label $g$ is a diagonal slot with coefficient $1$ whose row and column contain
+no other slot. Hence $A_h\ket{z_g}=\delta_{gh}\ket{z_g}$ and $\bra{z_g}A_h=\delta_{gh}\bra{z_g}$.
+\item[(F2)] \emph{Reading an entry.} If $\ddia(\Psi,\Phi)\le u$, then $|\bra e\Psi(\ket e\bra f)\ket f-\bra e\Phi(\ket e\bra f)\ket f|\le2u$ for orthonormal $e,f$.
+Indeed, feed $(\ket{ee}+\ket{ff})/\sqrt2$ with a reference; the difference $\Delta$ of the two outputs is Hermitian and traceless with $\nrm\Delta_1\le2u$,
+so every entry has modulus at most $\nrm\Delta\le\frac12\nrm\Delta_1\le u$, and the entry at $(ee,ff)$ is half the difference above.
+\end{itemize}
+
+\subsection{Proofs for Section~\ref{sec:model}}
+
+\begin{proof}[Proof of Lemma~\ref{lem:perm-leak}]
+Write $U_f=\sum_ac_aE_a\otimes P_{\pi_a}$, where $P_\pi$ is the permutation matrix of $\pi$, $\pi_a=f([w_a])$ for every slot except the lower right
+slot of a triangle $(x,y,z)$, where $\pi_a=f([x])f([y])$. Since $\rho=\diag(p)$, the channel is $\Psi_p=\sum_\omega p(\omega)\Phi_\omega$ with
+\[
+\Phi_\omega(X)=\sum_{a,b}c_a\bar c_b\,\mathbf 1[\pi_a\omega=\pi_b\omega]\,E_aXE_b^*,
+\]
+whose Kraus operators are $K_q=\sum_{a:\pi_a\omega=q}c_aE_a$, $q\in\Omega$. So $\cJ(\Phi_\omega)=\frac1d\sum_q\vert K_q\rangle\!\rangle\langle\!\langle K_q\vert$ and
+$\ell(\Phi_\omega)=\frac1d\sum_q\nrm{P_\perp K_q}_F^2$, with $P_\perp$ the Hilbert--Schmidt projection off $\spn\{A_g\}$. The $A_g$ have disjoint supports.
+Let $S_g$ be the set of slots of label $g$, $\Sigma_g=\nrm{A_g}_F^2$, and $s_g=\sum_{a\in S_g,\pi_a\omega=q}|c_a|^2$ the squared norm of the part of
+$K_q$ on $S_g$; that part loses exactly $s_g^2/\Sigma_g$ to its projection onto $A_g$, so $\nrm{P_\perp K_q}_F^2=\sum_gs_g(\Sigma_g-s_g)/\Sigma_g$.
+
+At a triangle-good $\omega$ every slot of label $g$ sends $\omega$ to $f(g)\omega$: for the lower right slot of $(x,y,z)$,
+$f([x])f([y])\omega=f([z])\omega$ and its label is $[z]$. So all of $S_g$ lies in one $K_q$, $s_g\in\{0,\Sigma_g\}$, and $\ell(\Phi_\omega)=0$, whatever the
+collisions. If a triangle $(x,y,z)$ fails at $\omega$, its lower right slot (label $[z]$, $|c|^2=\frac12$) and the anchor of $[z]$ ($|c|^2=1$) send $\omega$
+to different points, so some $K_q$ has $\frac12\le s\le\Sigma-\frac12$ for $g=[z]$, and $s(\Sigma-s)/\Sigma=1/(1/s+1/(\Sigma-s))\ge\min(s,\Sigma-s)/2\ge\frac14$.
+So $\ell(\Phi_\omega)\ge1/(4d)$. Leakage is linear in the Choi state, so $\ell=\sum_\omega p(\omega)\ell(\Phi_\omega)\ge p(\mathrm{bad})/(4d)$.
+
+For the collisions, by (F1) the only slot in the column $z_g$ is the anchor of $g$, so
+$\bra{z_g}\Psi_p(\ket{z_g}\bra{z_h})\ket{z_h}=p(\{\omega:f(g)\omega=f(h)\omega\})$, while for $\Phi$ the entry is $\tau(\lambda(h)^*\lambda(g))=0$. By (F2) the
+mass is at most $2u$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:monotone}]
+Enlarging $u$ or $\ell_0$ enlarges the set of rounds over which the infimum is taken. For $\epsilon\le\frac1{16}$, $\epsilon\le\frac1{16}$ and
+$\frac{32}{15}\epsilon/n\le\frac2{15n}$, so $L_\Phi(n,\epsilon)\ge\Ls(n)$. For $K\ge c/c_1$ we have $c/(Kn)\le c_1/n$, so every round admissible in
+$L_\Phi(Kn;u,c/(Kn))$ is admissible in $L_\Phi(n;u,c_1/n)$, and $S+n\,a\le S+Kn\,a$ since $K\ge1$ and $a\ge0$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ceiling}]
+Hold $n$ registers of $\lceil\log r\rceil$ qubits, all in $\ket0$. In round $t$ apply a unitary that extends the Stinespring isometry
+$\xi\mapsto\sum_iA_i\xi\otimes\ket i$ from the input and $\ket0$ of register $t$ to the input and register $t$, release the output, and keep the register.
+Register $t$ is a fresh environment that is never touched again, so the service implements $\Phi^{\otimes n}$ exactly for every observer, with $J=0$ and
+$Q=n\lceil\log r\rceil$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:dilation}]
+(a) The gadget unitary is block diagonal: $1\times1$ blocks at the empty word and at the symbols, and one $2\times2$ block
+$\frac1{\sqrt2}\left(\begin{smallmatrix}I&\lambda(y)\\\lambda(x)&-\lambda(x)\lambda(y)\end{smallmatrix}\right)$ for each triangle. Since
+$A_g=\sum_{[w_a]=g}c_aE_a$, the operator $W$ has the same pattern with each slot entry replaced by $c_aB_{[w_a]}$. Distinct blocks occupy disjoint rows and
+columns of $\C^d$, so $W^*W=I$ if and only if each block of $W$ has orthonormal block columns. A $1\times1$ block is $B_g$ for the label $g$ of its
+position, and every label occurs there because every label has an anchor; so the $1\times1$ blocks are isometric if and only if every $B_g$ is. The block
+of a triangle is $\frac1{\sqrt2}\left(\begin{smallmatrix}B_1&B_{[y]}\\B_{[x]}&-B_{[z]}\end{smallmatrix}\right)$, since $[x][y]=[z]$. Its column Gram matrix has
+diagonal blocks $\frac12(B_1^*B_1+B_{[x]}^*B_{[x]})$ and $\frac12(B_{[y]}^*B_{[y]}+B_{[z]}^*B_{[z]})$, which are $I$ when the $B_g$ are isometries, and
+off-diagonal block $\frac12(B_1^*B_{[y]}-B_{[x]}^*B_{[z]})$. Then $\sum_gB_g^*B_g=rI$. Replacing $B_g$ by $VB_g$ replaces $W$ by $(I\otimes V)W$.
+
+(b) Let $\rho_*$ be the input marginal of the flat probe. The output-and-reference state and the environment state of the pure state
+$(V_\Phi\otimes I)\psi_*$, $V_\Phi=\sum_iA_i\otimes\ket i$, have the same nonzero spectrum, and the environment state is the matrix $[\Tr(A_i\rho_*A_j^*)]$. The
+output is flat of rank $r$, so this matrix is $I/r$: $\Tr(\rho_*A_j^*A_i)=\delta_{ij}/r$. Applying $\Tr(\rho_*\,\cdot\,)\otimes\id$ to
+$W^*W=\sum_{i,j}A_i^*A_j\otimes B_i^*B_j=I$ gives $\frac1r\sum_iB_i^*B_i=I$.
+
+(c) Let $\iota$ embed $\C^k$ in $\C^{k'}$. The orthogonal complements of the ranges of $I_d\otimes\iota$ and of $W$ have the same dimension $d(k'-k)$, so $W$
+extends to a unitary $U$ on $\C^d\otimes\C^{k'}$ with $U(I\otimes\iota)=W$. With $\rho=\iota\iota^*/k$,
+$\Psi(X)=\Tr_{k'}W(X\otimes I_k/k)W^*=\sum_{i,j}A_iXA_j^*\Tr(B_j^*B_i)/k=\Phi(X)$, so the distance and the leakage are $0$. The state $T(\rho)$ lives on
+$\C^{k'}$, so $a=S(T(\rho))-\log k\le\log(k'/k)$, and $S(\rho)=\log k$. Hence every dilation is admissible in $L_\Phi(n;0,0)$ with cost at most
+$\log k+n\log(k'/k)$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:zero-leak}]
+Write $U=\sum_{o,o'}\ket o\bra{o'}\otimes A_{oo'}$ with $A_{oo'}\in M_M$, and $\xi=\sqrt\rho$. Let $\mathcal H$ be $M_M$ with the Hilbert--Schmidt inner product.
+The Choi state $\cJ(\Psi)$ is the marginal on $\C^d\otimes\C^d$ of the unit vector $v=d^{-1/2}\sum_{o,o'}\ket{o\,o'}\otimes A_{oo'}\xi$ in
+$\C^d\otimes\C^d\otimes\mathcal H$~\cite[proof of Lemma~C.1]{DouglasMghirbiC}, and $\ell=\nrm{((I-\Pi_\Phi)\otimes I)v}^2$. The range of $\Pi_\Phi$ is
+$\spn\{\vert A_i\rangle\!\rangle\}$, so $\ell=0$ means $v=\sum_i\vert A_i\rangle\!\rangle\otimes Y_i$ for some $Y_i\in\mathcal H$, that is,
+$d^{-1/2}A_{oo'}\xi=\sum_i(A_i)_{oo'}Y_i$ for all $o,o'$. By linear independence of the $A_i$ there are coefficients $\beta^i_{oo'}$ with
+$Y_i=d^{-1/2}\sum_{o,o'}\beta^i_{oo'}A_{oo'}\xi=d^{-1/2}X_i\xi$, where $X_i=\sum\beta^i_{oo'}A_{oo'}$. Hence $A_{oo'}\xi=\sum_i(A_i)_{oo'}X_i\xi$, and since $\xi$
+maps onto $K$, $A_{oo'}|_K=\sum_i(A_i)_{oo'}X_i|_K$. Then $U(\ket{o'}\otimes\kappa)=\sum_o\ket o\otimes A_{oo'}\kappa=\sum_iA_i\ket{o'}\otimes X_i\kappa$ for
+$\kappa\in K$, so $U$ restricted to $\C^d\otimes K$ is $W=\sum_iA_i\otimes X_i|_K$, an isometry, and $\Psi(X)=\sum_{i,j}A_iXA_j^*\Tr(X_i\rho X_j^*)$. With a
+flat probe, Lemma~\ref{lem:dilation}(b) applied to $W$ gives $\sum_iX_i^*X_i=rI$ on $K$. For a gadget channel Lemma~\ref{lem:dilation}(a) applies to $W$.
+By (F1), $\bra{z_g}\Psi(\ket{z_g}\bra{z_h})\ket{z_h}=\Tr(\rho X_h^*X_g)$, while $\Phi$ gives $0$ for $g\ne h$, so (F2) gives $|\Tr(\rho X_h^*X_g)|\le2u$.
+\end{proof}
+
+\subsection{The lower half}
+
+\begin{proof}[Proof of Theorem~\ref{thm:extraction}]
+Fix the \emph{test observer}: in every round $t$ it inputs half of a fresh maximally entangled pair on the input and a reference $R_t$, measures
+$\{\Pi_\Phi,I-\Pi_\Phi\}$ on the output and $R_t$, keeps the outcome bit and discards the output and $R_t$. Let $p_t$ be the probability that the tests of
+rounds $1,\dots,t-1$ pass, $q_t$ the probability that test $t$ fails given that, and $F$ the first failure ($F=\infty$ if there is none).
+
+\emph{First budget.} $p_{t+1}=p_t(1-q_t)$, so $\sum_{t=1}^np_tq_t=1-p_{n+1}=\Pr(F\le n)=:f$. The ideal experiment never fails, since $\cJ(\Phi)$ is
+supported on $\Pi_\Phi$, and the outcome record is part of the observer's final state, so $f\le\epsilon$. Hence $p_t\ge1-\epsilon$ for $t\le n+1$,
+$\sum_tp_t\ge n(1-\epsilon)$ and $\sum_tp_tq_t\le\epsilon$.
+
+\emph{The rounds.} Let $\rho_t$ be the memory state given that tests $1,\dots,t-1$ passed. Earlier pairs are discarded, so $\rho_t$ does not depend on the
+input of round $t$. Round $t$ applies a unitary $U_t$ on the input and the $Q$ memory qubits (imports happen between rounds), so $(U_t,\rho_t)$ is a round
+with bath dimension $2^Q$; let $\Psi_t$ be its channel. With a maximally entangled input the failure probability of the test is
+$\Tr[(I-\Pi_\Phi)\cJ(\Psi_t)]$, so the leakage of $\Psi_t$ is $\ell_t=q_t$.
+
+\emph{Second budget.} Let $\mathsf L$ be the average, over the branches of the test record, of the entropy of the memory, a branch being frozen when its
+test fails. Initially $\mathsf L=S(\beta_0)=Q-P$, and always $\mathsf L\le Q$. In round $t$ the passing branch, of weight $p_t$, has memory $\rho_t$ and input
+marginal $\tau_d$, so after the round its memory is $T_t(\rho_t)$, of entropy $S(\rho_t)+a_t$. The test acts on other systems, so it splits
+$T_t(\rho_t)=(1-q_t)\sigma_{\rm pass}+q_t\sigma_{\rm fail}$, and $S(T_t(\rho_t))\le(1-q_t)S(\sigma_{\rm pass})+q_tS(\sigma_{\rm fail})+h_2(q_t)$. An export of $j$
+qubits lowers the entropy by at most $j$ (subadditivity), and an import of $j$ qubits in a fixed independent state of entropy $j-c$ raises it by $j-c$. Summing,
+\[
+Q\ \ge\ \mathsf L_{\rm final}\ \ge\ Q-P-C+\sum_tp_ta_t-\sum_tp_th_2(q_t).
+\]
+By the chain rule for the stopping time, $\sum_tp_th_2(q_t)=H(F)\le h_2(f)+f\log n\le h_2(\epsilon)+\epsilon\log n$, since $F$ takes the value $\infty$ with
+probability $1-f$ and $h_2(x)+x\log n$ increases on $[0,\frac12]$. So $\sum_tp_ta_t\le B'$.
+
+\emph{Markov.} Put $w_t=p_t/\sum_sp_s$ and $\varsigma=1/(n(1-\epsilon))$, so that $\sum_tw_tq_t\le\epsilon\varsigma$ and $\sum_tw_ta_t\le B'\varsigma$. Let
+$A_1=\{t:q_t>\lambda\epsilon\varsigma\}$ and $A_2=\{t:a_t>\frac\lambda{\lambda-1}B'\varsigma\}$. If $w(A_1)>0$, then
+$\epsilon\varsigma\ge\sum_{A_1}w_tq_t>\lambda\epsilon\varsigma\,w(A_1)$, so $w(A_1)<1/\lambda$; likewise $w(A_2)<(\lambda-1)/\lambda$, and the sets have
+weight $0$ if $\epsilon=0$ or $B'=0$. Since the weights sum to $1$, some round $t$ with $w_t>0$ lies in neither set:
+$\ell_t\le\lambda\epsilon/(n(1-\epsilon))$ and $a_t\le\frac\lambda{\lambda-1}B'/(n(1-\epsilon))$.
+
+\emph{Distance.} Let the observer perform the tests in rounds $1,\dots,t-1$ and then feed an arbitrary input with a reference in round $t$. Its state after
+round $t$ is $p_t\cdot(\mathrm{pass},\sigma)\oplus(1-p_t)\cdot(\mathrm{fail},\cdot)$ in the service and $(\mathrm{pass},\omega)$ in the ideal experiment, where
+$\sigma=(\Psi_t\otimes\id)(\text{input})$ and $\omega=(\Phi\otimes\id)(\text{input})$. By data processing $\frac12\nrm{p_t\sigma-\omega}_1+\frac12(1-p_t)\le\epsilon$,
+and $\frac12\nrm{\sigma-\omega}_1\le\frac12\nrm{p_t\sigma-\omega}_1+\frac12(1-p_t)\le\epsilon$. Taking the supremum over inputs, $\ddia(\Psi_t,\Phi)\le\epsilon$.
+\end{proof}
+
+\begin{theorem}[Explicit extraction constants]\label{thm:lower-constants}
+Let $\Phi$ have a flat probe of rank $r$. Every causal service of $\Phi$ for $n\ge1$ rounds with error $\epsilon\le\frac1{16}$ at the rank rate has
+a round with bath dimension $2^Q$, distance at most $\epsilon$, leakage at most $\frac{32}{15}\epsilon/n$ and
+$n\,a\le6.4\,Q+13.52+0.134\log n$. Consequently
+\[
+Q\ \ge\ \frac{L_\Phi(n,\epsilon)-13.6-0.14\log n}{7.4}\ \ge\ \frac{\Ls(n)-13.6-0.14\log n}{7.4}.
+\]
+At any exchange, a service with purity $P+C\le B$ and error $\epsilon\le\frac1{16}$ has
+$Q\ge\inf\{S(\rho):\ \ddia\le\epsilon,\ \ell\le\frac{32}{15}\epsilon/n,\ a\le\frac{32}{15}(B+0.34+\epsilon\log n)/n\}$.
+\end{theorem}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}]
+Proposition~\ref{prop:purity} gives $P+C<3Q+6=:B$. Apply Theorem~\ref{thm:extraction} with $\lambda=2$. Since $\epsilon\le\frac1{16}$,
+$1/(1-\epsilon)\le\frac{16}{15}$, so the round has distance at most $\epsilon$, leakage at most $\frac{32}{15}\epsilon/n$ and
+$n\,a\le\frac{32}{15}(3Q+6+h_2(\epsilon)+\epsilon\log n)$. As $h_2$ increases on $[0,\frac12]$, $h_2(\epsilon)\le h_2(\frac1{16})<0.3373$, and
+$\epsilon\log n\le(\log n)/16$, so $n\,a\le6.4\,Q+13.52+0.134\log n$. The bath has $Q$ qubits, so $S(\rho_t)\le Q$. Hence
+$L_\Phi(n,\epsilon)\le S(\rho_t)+n\,a\le7.4\,Q+13.52+0.134\log n$, which is the first inequality, and Lemma~\ref{lem:monotone} gives the second. At any
+exchange, apply Theorem~\ref{thm:extraction} with $\lambda=2$ and the given $B$, and use $h_2(\epsilon)\le0.34$.
+\end{proof}
+
+\subsection{The rank form}
+
+\begin{proof}[Proof of Theorem~\ref{thm:robust}]
+(a) The proof of~\cite[Theorem~12.2]{DouglasMghirbiC} builds frames $F_t:\C^{r^t}\to\C^{D_t}\otimes\C^S$, one column per Kraus history, chooses the unitary
+before each round by the concentration lemma~\cite[Lemma~A.1]{DouglasMghirbiB} and the unitary after it by the export lemma~\cite[Lemma~A.4]{DouglasMghirbiB},
+and keeps $\nrm{F_t^*F_t-I}\le t\epsilon/n$ and $\alpha(F_t)\le A_*/D_0$. The identity $\Tr(B_i^*B_j)=k\delta_{ij}$ enters that proof in one place, the Haar mean
+of the Gram blocks; the identity $\sum_iB_i^*B_i=rI$ enters the step on exterior marginals, and it holds here by Lemma~\ref{lem:dilation}(b); and the
+identity matrix enters the final error step. We change these steps only.
+
+\emph{Gram step.} The Haar mean of the block $(i,j)$ of the new Gram matrix, $F^*((V^*(B_i^*B_j\otimes I)V)\otimes I)F$, is $\tau_k(B_i^*B_j)F^*F=G_{ij}F^*F$.
+Replace the induction hypothesis by $e_t:=\nrm{F_t^*F_t-G^{\otimes t}}\le e\,t\epsilon/n$, the histories ordered as tensor products. Then
+$g(F_t)\le\nrm G^t+e\,t\epsilon/n\le e(1+\epsilon)<2e$, because $\nrm G^t\le(1+\nrm{G-I})^n\le e$. In the concentration step $g<2e$ replaces $g\le2$, which
+multiplies the required $D_0^2$ by at most $e$. As in~\cite{DouglasMghirbiC} every block then deviates from its mean by at most $\epsilon/(rn)$, so the new
+Gram matrix is within $\epsilon/n$ of $(F^*F)\otimes G$, and $\nrm{(F^*F)\otimes G-G^{\otimes t}}\le\nrm G\,e_{t-1}$. Hence $e_t\le\nrm Ge_{t-1}+\epsilon/n$ and
+$e_t\le\sum_{s<t}\nrm G^s\epsilon/n\le e\,t\epsilon/n$. Exports and imports preserve the Gram matrix.
+
+\emph{Error step.} Put $\Gamma=G^{\otimes n}$. For $n\ge2$, $\nrm{G-I}\le\frac12$, and $(1-x)^n\ge e^{-2nx}$ for $x\le\frac12$, so $\Gamma\ge e^{-2}I$. For
+positive $X,Y$ and $Z=X^{1/2}-Y^{1/2}$ one has $X^{1/2}Z+ZY^{1/2}=X-Y$; evaluating at a unit eigenvector of the Hermitian $Z$ gives
+$\nrm Z\le\nrm{X-Y}/(\lambda_{\min}(X^{1/2})+\lambda_{\min}(Y^{1/2}))$. So $\nrm{(F_n^*F_n)^{1/2}-\Gamma^{1/2}}\le e\epsilon/e^{-1}=e^2\epsilon$. With the polar
+decomposition $F_n=T(F_n^*F_n)^{1/2}$, $T$ an isometry, the purified final vector $\sum_y\psi_y\otimes F_n\ket y$ of the service is within $e^2\epsilon$ of
+$(I\otimes T)\sum_y\psi_y\otimes\Gamma^{1/2}\ket y$, since $\sum_y\psi_y\otimes\ket y$ is a unit vector.
+
+\emph{Comparison.} Let $e_i=G^{1/2}\ket i$, so that $\langle e_j,e_i\rangle=G_{ji}$. Applying $\id\otimes\tau_k$ to $W^*W=I$ gives $\sum_{i,j}G_{ij}A_i^*A_j=I$, so
+$V_G:\xi\mapsto\sum_iA_i\xi\otimes e_i$ is an isometry and $\Tr_EV_GXV_G^*=\sum_{i,j}G_{ji}A_iXA_j^*=:\Phi_W(X)$. The observer's vectors $\psi_y$ depend only on
+the Kraus histories, so $\sum_y\psi_y\otimes\Gamma^{1/2}\ket y$ is the purified final state of the ideal experiment with $\Phi_W$ in every round, and $T$ acts on
+systems the observer never holds. A hybrid over the $n$ rounds changes the final state by at most $n\,\ddia(\Phi_W,\Phi)$. Finally
+$\Phi_W-\Phi=\Tr_E[(I\otimes H)V_I(\cdot)V_I^*]$ with $V_I=\sum_iA_i\otimes\ket i$ and $\bra jH\ket i=G_{ji}-\delta_{ij}$, and $|\Tr[(Z\otimes H)Y]|\le\nrm Z\nrm H\Tr Y$
+for $Y\ge0$, so $\ddia(\Phi_W,\Phi)\le\frac12\nrm{G-I}$. The error is at most $e^2\epsilon+\frac n2\nrm{G-I}$, and the memory and purity are those
+of~\cite[Theorem~12.2]{DouglasMghirbiC}.
+
+(b) $(B_1^{\otimes t})^*B_{[y]}^{\otimes t}=(B_1^*B_{[y]})^{\otimes t}=(B_{[x]}^*B_{[z]})^{\otimes t}$, tensor powers of isometries are isometries, and
+$\tau_{k^t}((B_g^{\otimes t})^*B_h^{\otimes t})=\tau_k(B_g^*B_h)^t$.
+
+(c) With $t$ as stated, $c^t\le\epsilon/(2rn)$. The flat Gram $G^{(t)}$ of $(B_g^{\otimes t})$ has unit diagonal and off-diagonal entries of modulus at most $c^t$,
+so $\nrm{G^{(t)}-I}\le(r-1)c^t<\epsilon/(2n)$; then $n\nrm{G^{(t)}-I}\le1$ and $\frac n2\nrm{G^{(t)}-I}<\epsilon/4$. Apply (a), which uses the flat probe of every
+gadget channel, to $(B_g^{\otimes t})$ with dimensions $k^t$ and $k'^t$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:sandwich}]
+The lower bound is Theorem~\ref{thm:lower}. If $U_\Phi(n)<\infty$ the infimum defining it is attained, since $\log k\le U_\Phi(n)+1$ leaves finitely many pairs
+$(k,k')$. Theorem~\ref{thm:robust}(a) with $G=I$, which is~\cite[Theorem~12.2]{DouglasMghirbiC}, applied to a minimizing dilation gives a service with error
+$\epsilon$, $J=\lfloor\frac{n-1}2\log r\rfloor\le\frac n2\log r$ and $Q\le\log k+n\log(k'/k)+O_r(\log(n/\epsilon)+\log(2+\log k))$. By
+Lemma~\ref{lem:dilation}(c) and Lemma~\ref{lem:monotone}, $L_\Phi(n,\epsilon)\le L_\Phi(n;0,0)\le U_\Phi(n)$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:map}]
+Let $\pi$ be a finite-dimensional unitary representation of $P_\Phi$ that separates the labels, and $\pi'=\pi\oplus1$, of dimension $D$. The family
+$B_g=\pi'(g)$ is square and unitary, and $B_1^*B_{[y]}=\pi'([y])=\pi'([x])^*\pi'([z])$ on every triangle, because $[x][y]=[z]$ in $P_\Phi$ and $\pi'(1)=I$; so it
+is a gadget family with room $0$. For labels $g\ne h$, $\pi'(g)^*\pi'(h)=\pi(g^{-1}h)\oplus1$ with $\pi(g^{-1}h)\ne I$. A unitary $V\ne I$ on $\C^{D-1}$ has
+$|\Tr V+1|<D$: if $V$ is not scalar then $|\Tr V|<D-1$, and if $V=\lambda I$ with $\lambda\ne1$ then $|\lambda(D-1)+1|<D$. So
+$z:=\max_{g\ne h}|\tau_D(B_g^*B_h)|<1$. Theorem~\ref{thm:robust}(c) with $c=z$, $\delta=0$ and $\epsilon/(e^2+1)$ in place of $\epsilon$ gives a rank-rate service
+with error at most $\epsilon$ and $Q\le t\log D+O_r(\log(n/\epsilon)+\log(2+t\log D))$, $t=\lceil\log(2(e^2+1)rn/\epsilon)/\log(1/z)\rceil$. So
+$\Qs(n,\epsilon)=O_\Phi(\log(n/\epsilon))$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:lamp}]
+\emph{Lower.} Let $(U,\rho)$ have distance at most $\frac1{16}$, and put $\nu=\ell+a$. By~\cite[Corollary~10.2(a)]{DouglasMghirbiC}, applied to the round, which
+has distance at most $\frac18$, there are $C_R,y_0$ with $S(\rho)\ge y/(32(\log y)^{2\kappa})$ for every $y\ge y_0$ with $C_R\nu y\le1$. For $\nu\le v\le v_0:=1/(C_Ry_0)$
+take $y=1/(C_Rv)$: $S\ge f(v):=c\,v^{-1}(\log1/v)^{-2\kappa}$, and $f$ decreases on $(0,v_0]$ if $v_0$ is small. Now let the round also have leakage at most
+$\frac2{15n}$. If $a\le\frac2{15n}$, then $\nu\le\frac4{15n}\le v_0$ and $S\ge f(\frac4{15n})\ge c\,n/(\log n)^{2\kappa}$ for large $n$. If $a>\frac2{15n}$ and $2a\le v_0$,
+then $\nu\le2a$ and $S\ge f(2a)\ge(c/(2a))(\log(15n/4))^{-2\kappa}$, since $2a>\frac4{15n}$; by the arithmetic--geometric mean inequality
+$S+n\,a\ge\sqrt{2cn}\,(\log(15n/4))^{-\kappa}$. If $2a>v_0$, then $n\,a\ge nv_0/2$. In every case $S+n\,a\ge c'\sqrt n/(\log n)^\kappa$ for $n\ge n_0$.
+
+\emph{Upper.} In the proof of~\cite[Corollary~12.3]{DouglasMghirbiC}, a $(1-s^{-1})$-expansive $s^{-1}$-morphism~\cite[Definition~3.4]{Cornulier2013} of the chunk of labels, of degree
+$\sigma_E(s)$ with $s\ge2K_G$, gives on its good points an exact rectangular dilation: distinct labels never collide at good points, so the label traces are
+exactly $0$, with room $\log(k'/k)\le2K_G/(s\ln2)$ and $\log k\le\log\sigma_E(s)\le C_Es(\log s)^\lambda$. With $s=\max(2K_G,\lceil\sqrt n\rceil)$ this gives
+$U_\Phi(n)\le C\sqrt n(\log n)^\lambda$. Corollary~\ref{cor:sandwich} then gives
+$\Qs(n,\epsilon)\le U_\Phi(n)+K_r(\log(n/\epsilon)+\log(2+U_\Phi(n)))\le K(\log(n/\epsilon))^{\kappa+\lambda+1}(1+\Ls(n))$ by the lower bound. For the configuration-lamp channel
+$\lambda=1$~\cite[Theorem~3.3(b)]{DouglasMghirbiC} and $\kappa=6+\log107$~\cite[Section~11]{DouglasMghirbiC}, so $\Ls(n)$, $U_\Phi(n)$ and, by
+Theorem~\ref{thm:lower}, $\Qs(n,\epsilon)$ are all $n^{1/2+o(1)}$.
+\end{proof}

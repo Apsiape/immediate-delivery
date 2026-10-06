@@ -1,0 +1,154 @@
+\section{Source conditions in the Houghton smoothed family}
+\label{app:houghton-sources}
+
+The main text's cube-root service theorem concerns genuine group
+devices. This appendix records the separate static results for
+sources in the fixed smoothed geometry. Their full proofs are in
+Appendices~\ref{app:houghton}, \ref{app:houghton-stability},
+\ref{app:houghton-coercivity} and \ref{app:houghton-moderate}.
+
+\subsection{The smoothed geometry with symmetric sources}
+
+Genuine actions are not the only class for which the static exponent
+can be fixed. Consider the existing constant-field smoothed corner
+models of~\cite[Section~4.2]{DouglasMghirbiB}, with an $M\times M$
+clock and $k$ exterior-algebra flavours on $L=4M+4$ one-particle modes.
+Write $\Pi(W)=(\bigwedge W)^{\otimes k}$ for the collective action of
+$U(L)$ on all flavours. This symmetry is a source hypothesis, not a
+twirl that may be imposed without cost.
+
+\begin{theorem}[Collectively invariant smoothed sources]\label{thm:collective-sources}
+Let $M\geq12$, $k\geq1$. Suppose every normalized clock-diagonal source
+block $\rho_c$ commutes with $\Pi(W)$ for every $W\in U(L)$.
+Flavours and multiplicity spaces may be arbitrarily entangled;
+off-diagonal clock blocks are arbitrary. Finite direct sums of these
+models with arbitrary coherence between flags are also allowed.
+For the resulting round, $u\leq1/16$ and $\ell\leq2/(15n)$ imply
+\[
+ S(\rho)+na(\rho)\geq c_Hn^{1/3}.
+\]
+A different zero-leakage exact-support round has target error at most
+$1/16$ and cost at most $C_Hn^{1/3}$. The optimized leaky cost in this
+class is $\Theta(n^{1/3})$, and concentrated replacement costs at most
+a constant factor.
+\end{theorem}
+
+The number-sector sources give a useful concrete subclass. Write
+$\tau_j=I_{\Lambda^j(\C^L)}/\binom Lj$.
+
+\begin{corollary}[Sector-isotropic smoothed sources]\label{thm:number-sectors}
+Let $M\geq12$, $k\geq1$ and let a source's clock pinching have the form
+\[
+ \Delta_c\rho=\sum_{c,\mathbf j}p(c,\mathbf j)\ket c\bra c
+       \otimes\bigotimes_{l=1}^k\tau_{j_l}.
+\]
+The law $p$ may correlate clocks and all flavour degrees; off-diagonal
+clock blocks and finite model-flag coherence are arbitrary.
+These sources satisfy Theorem~\ref{thm:collective-sources}.
+\end{corollary}
+
+This is a static class comparison, not a lower bound on arbitrary
+services. Entropy and production are measured before pinching.
+Arbitrary noninvariant internal states, including diagonal ones, and
+different round geometries remain unexcluded. The arbitrary-field
+flux theorem for the fully flat fixed-region model already appears
+in~\cite[Section~6.2]{DouglasMghirbiA}; this theorem concerns the source
+extension of its constant-field geometry. Appendix~\ref{app:houghton}
+gives both the concrete sector proof and the symmetry extension.
+
+Full orbital invariance can be weakened, and the exponent is stable
+under a small trace-distance perturbation without any lower bound on
+source eigenvalues. Every one-particle link in this geometry fixes
+$e_+=(1,\ldots,1)/\sqrt L$. Let $G_0=U(e_+^\perp)$, acting trivially
+on $e_+$, and let $\mathcal E_0$ twirl each clock-diagonal block over
+its collective action. Put
+\[
+ \delta_{\rm orb}(\rho)=\tfrac12
+       \|\Delta_c\rho-\mathcal E_0(\Delta_c\rho)\|_1.
+\]
+Clock coherence is not constrained by this definition.
+
+\begin{theorem}[Trace-stable symmetric-source exponent]\label{thm:houghton-stability}
+In the same constant-field model, let $M\geq48$ and $k\geq1$.
+For every source, possibly singular, the conditions
+\[
+ u\leq1/16,\quad \ell\leq2/(15n),\quad
+ \delta_{\rm orb}(\rho)\leq\frac{\pi^2}{65536\cdot288}
+\]
+imply $S(\rho)+na(\rho)\geq4\cdot10^{-6}n^{1/3}$.
+\end{theorem}
+
+Appendix~\ref{app:houghton-stability} proves the entropy transfer and
+the capped flux estimate needed here. The smaller group leaves an
+inert mode in which pure-state coherence is allowed, so the class is
+genuinely larger than full $U(L)$ invariance. The bound concerns this
+fixed geometry, not arbitrary rounds. In particular low production
+has not been shown to imply the required proximity uniformly as $M$
+grows.
+
+\subsection{Literal constant-field sources without imposed symmetry}
+
+For the literal rational constant-field round, source entropy and
+leakage can also be bounded without imposing orbital symmetry.
+Every source below may be singular, coherent across clocks and
+entangled across flavours. Entropy production is always the actual
+gain $a=S(T\rho)-S(\rho)$ of the physical round, with
+$T\rho=\sum_sw_sV_s\rho V_s^*$.
+Proposition~\ref{prop:actual-dirichlet} compares this gain with the
+Frobenius root energy of the actual slots.
+
+The entropy estimate is uniform in flavour count:
+\[
+ S+1\geq c\min\{M,a^{-1/2}\},\qquad
+ S+na+1\geq c\min\{M,n^{1/3}\}.
+\]
+It follows from exact chains of interior adjacent transpositions
+(Theorem~\ref{thm:houghton-entropy}). The estimate saturates at the
+clock size; a leakage lower bound must also force that size to grow.
+The available conclusions are summarized in Table~\ref{tab:houghton-scope}.
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Source or flavour condition & Bound in the literal family\\
+\midrule
+Arbitrary $k\geq1$ & $M^2a+M^4\ell\geq c_0$;
+cost at least $c_Kn^{1/4}$ (Theorem~\ref{thm:houghton-flux})\\
+$k\leq c_f\sqrt M$ & $M^2a+M^3\ell\geq c_0$;
+cost at least $c_Kn^{1/3}$ (Theorem~\ref{thm:houghton-moderate})\\
+Actual $a=0$, arbitrary $k$ & $\ell\geq cM^{-3}$,
+$S+1\geq cM$ (Corollary~\ref{cor:houghton-stationary})\\
+Fixed trace neighbourhood of the actual stationary algebra,
+arbitrary $k$ & $\ell\geq cM^{-3}$;
+cost at least $c_Kn^{1/3}$ (Corollary~\ref{cor:houghton-stationary})\\
+\bottomrule
+\end{tabularx}
+\caption{All rows assume $M\geq48$ and $u\leq1/16$.
+The displayed horizon costs mean $S+na+1$ at $\ell\leq K/n$,
+with fixed $K>0$. Constants are independent of $M,k$ within each row.
+The moderate-flavour row is asymptotic with an extremely small $c_f$;
+the stationary tolerance is also small.}
+\label{tab:houghton-scope}
+\end{table}
+
+The all-flavour bound uses a rational power $O(M^2)$ to expose a
+fixed local $SU(4)$ group. With moderately many flavours, many
+disjoint blocks and a small-angle contraction reduce that power to
+$O(M^{3/2})$. Fixed and polylogarithmically growing $k$ meet the
+moderate-flavour condition eventually, including the usual $k=2$
+approximation family. At zero actual production, exact invariance
+under round words allows the overlapping local groups to generate
+a larger symmetry, with no bandwidth restriction. A bounded capped
+flux then survives a fixed trace perturbation. Small gain alone has
+not been shown to imply the required trace proximity.
+
+The complete statements and proofs are in
+Appendices~\ref{app:houghton-coercivity} and~\ref{app:houghton-moderate}.
+At each fixed rational clock the cost is in fact $\Omega_M(n)$
+(Theorem~\ref{thm:fixed-clock}); that argument alone gives no uniform
+rate in $M$. For unrestricted flavours the growing-clock cost remains
+between powers $1/4$ and $1/3$, up to logarithms. Optimized real fields,
+alternative realizations and positive-production mixtures over clock
+sizes are outside these conclusions. They are static source bounds,
+not operational memory lower bounds over every device.

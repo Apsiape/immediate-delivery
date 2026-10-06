@@ -1,0 +1,495 @@
+%======================================================================
+\section{Proofs for Section~\ref{sec:houghton}}\label{app:houghton}
+%======================================================================
+
+We use the rules of~\cite[Appendix~C.1]{DouglasMghirbiC}, numbered as there, for unitaries $u,v$ and $\nrm W\le1$: (W2) $\chi(uv)\le\chi(u)+\chi(v)$ and $\chi(u^*)=\chi(u)$; (W4)
+$|E(uWu^*)-E(W)|\le2\chi(u)$. Work in the Hilbert--Schmidt space of operators on the Hilbert space $\mathcal H$, where left multiplication acts on the system and right
+multiplication on the reference; $\rho$ has finite rank, so $\xi=\sqrt\rho$ is Hilbert--Schmidt and purifies $\rho$, the reference has entropy
+$S(\rho)$, and (W2), (W4) and every step below hold verbatim.
+
+\begin{proof}[Proof of Lemma~\ref{lem:sector}]
+Write $c_i=\sum_{k\in\Z/3}\omega_3^kP_i^k$ with $\omega_3=e^{2\pi i/3}$, and $Q_{\mathbf a}=P_{i-1}^{a_{i-1}}\cdots P_0^{a_0}$. The $c_k$ with $k<i$ commute, so $\sum_{\mathbf a}Q_{\mathbf a}^*Q_{\mathbf a}=I$,
+and $c_i,x_i$ commute with $Q_{\mathbf a}$. Measure $c_0,\dots,c_{N-1}$ one after another on the system, with outcomes $A_i$:
+$\Pr(A_{<i}=\mathbf a,A_i=k)=\nrm{P_i^kQ_{\mathbf a}\xi}_F^2=:p(\mathbf a,k)$.
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item The reference is untouched, so $S(\rho)\ge I(A_1\cdots A_N:\mathrm{Ref})=\sum_iI(A_i:\mathrm{Ref}\mid A_{<i})$.
+\item By $\nrm{(c-I)Y}_F^2=3\sum_{k\ne0}\nrm{P^kY}_F^2$ and $[c_i,Q_{\mathbf a}]=0$, $\Pr(A_i\ne0)=\frac13\sum_{\mathbf a}\nrm{Q_{\mathbf a}(c_i-I)\xi}_F^2=\Delta_i^2/3$, an equality.
+\item $x_iP_i^{-k}x_i=P_i^k$, $x_i$ commutes with $Q_{\mathbf a}$, and right multiplication by $x_i$ is unitary, so $\sqrt{p(\mathbf a,-k)}=\nrm{P_i^kQ_{\mathbf a}x_i\xi}_F$ and
+$\sqrt{p(\mathbf a,k)}=\nrm{P_i^kQ_{\mathbf a}\xi x_i}_F$; hence $\sum_{\mathbf a,k}(\sqrt{p(\mathbf a,k)}-\sqrt{p(\mathbf a,-k)})^2\le\sum_{\mathbf a}\nrm{Q_{\mathbf a}[x_i,\xi]}_F^2=\eta_i^2$, and the terms
+$k=1$ and $k=2$ are equal. The inequality $H(r_0,r_1,r_2)\ge s-(\sqrt{r_1}-\sqrt{r_2})^2/\ln2$, $s=r_1+r_2$, of~\cite[equation~(16)]{DouglasMghirbiC} is homogeneous, so it applies to
+the unnormalized weights given each $\mathbf a$, and $H(A_i\mid A_{<i})\ge\Delta_i^2/3-\eta_i^2/(2\ln2)$.
+\item Let the reference measure $c_i$ from the right, with outcome $B_i$. Left and right multiplications commute, and by $\nrm{[c,Y]}_F^2=3\sum_{k\ne l}\nrm{P^kYP^l}_F^2$ and
+$[c_i,Q_{\mathbf a}\xi]=Q_{\mathbf a}[c_i,\xi]$, $\Pr(A_i\ne B_i)=\theta_i^2/3$, an equality.
+\item By data processing and Fano's inequality for three values, with the concavity of $h_2$ over $\mathbf a$,
+$I(A_i:\mathrm{Ref}\mid A_{<i})\ge I(A_i:B_i\mid A_{<i})\ge H(A_i\mid A_{<i})-h_2(\theta_i^2/3)-\theta_i^2/3$.
+\end{enumerate}
+Summing over $i$ proves the bound. On the flat state of a tensor product of standard representations, $\Delta_i^2=3$ and $\theta_i=\eta_i=0$, so the bound is $N=S$.
+\end{proof}
+
+\begin{proof}[Proof of Lemma~\ref{lem:centrality}]
+$U$ agrees with $U_\pi$ on $\C^d\otimes K$ and distinct slots occupy distinct matrix positions, so $T(\rho)=\sum_a(|c_a|^2/d)\rho_a$ with $\rho_a=\pi(w_a)\rho\pi(w_a)^*$, the weights
+summing to $1$. Every $\rho_a$ has the spectrum of $\rho$, so $a=S(\bar\rho)-\sum_a(|c_a|^2/d)S(\rho_a)=\sum_a(|c_a|^2/d)D(\rho_a\|\bar\rho)$ with $\bar\rho=T(\rho)$ (Holevo's identity). The
+anchor slot of a symbol $w$, and that of the empty word, have coefficient $1$ and hence weight $1/d$, so $D(\rho_w\|\bar\rho)\le d\,a$ and $D(\rho\|\bar\rho)\le d\,a$. For states,
+$\nrm{\sqrt\sigma-\sqrt\tau}_F^2=2-2\Tr\sqrt\sigma\sqrt\tau\le-2\ln\Tr(\sqrt\sigma\sqrt\tau)\le D(\sigma\|\tau)$ in nats, since the Petz--R\'enyi divergences increase with the order. So
+$\nrm{\sqrt{\rho_w}-\sqrt{\bar\rho}}_F$ and $\nrm{\sqrt\rho-\sqrt{\bar\rho}}_F$ are at most $\sqrt{d\,a\ln2}$, and since $\pi(w)\xi\pi(w)^*=\sqrt{\rho_w}$ and right multiplication by a unitary preserves
+the norm, $\chi(\pi(w))=\nrm{\sqrt{\rho_w}-\sqrt\rho}_F\le2\sqrt{d\,a\ln2}$.
+\end{proof}
+
+\begin{theorem}[Explicit genuine-round constants]\label{thm:genuine-constants}
+Let $(U,\rho)$ be a representation round of $\Phi_H$ with distance at most $\frac18$ and entropy production $a$, with any leakage, and let $N_{\rm ex}$ be
+the largest $N$ for which $(c_i,x_i)_{i<N}$ satisfy the hypotheses of Lemma~\ref{lem:sector}. Then
+\[
+S(\rho)\ge0.375\min\Bigl(N_{\rm ex},\ \frac1{60\delta_{\rm cent}}-\frac23\Bigr),\qquad \delta_{\rm cent}=\max\bigl(\chi(\pi(\sfa)),\chi(\pi(\alpha))\bigr)\le16.981\sqrt a .
+\]
+For a genuine round $N_{\rm ex}=\infty$, so
+\[
+S(\rho)\ge\frac{a^{-1/2}}{2717}-\frac14\qquad\text{and}\qquad S+n\,a\ge0.0097\,n^{1/3}-\frac14\quad\text{for every }n\ge1 .
+\]
+\end{theorem}
+
+\begin{proof}[Proof of Theorems~\ref{thm:genuine} and~\ref{thm:genuine-constants}]
+\emph{Displacement.} $\gamma$ is a symbol, a prefix of $(\alpha\sfa\alpha\sfa^{-1})^3$, with an anchor $z_\gamma$, and the empty word has an anchor $0$. By (F1),
+$\bra{z_\gamma}\Psi(\ket{z_\gamma}\bra0)\ket0=\Tr(\rho\pi(\gamma))$, while for $\Phi_H$ it is $\tau(\lambda(\gamma))=0$, since $\gamma\ne1$ in $H_3$. By (F2), $|\Tr\rho\pi(\gamma)|\le2u\le\frac14$, so
+$E(\pi(\gamma))^2=2-2\mathrm{Re}\Tr(\rho\pi(\gamma))\ge\frac32$.
+
+\emph{Transport.} $c_i=\pi(\sfa)^{3i}\pi(\gamma)\pi(\sfa)^{-3i}$, so by (W4) and (W2), $\Delta_i\ge\sqrt{1.5}-2\chi(\pi(\sfa)^{3i})\ge\sqrt{1.5}-6i\delta_{\rm cent}$. The words of $c_i$ and $x_i$ have lengths
+$6i+4$ and $6i+1$ in $\sfa^{\pm1}$ and $\alpha$, so by (W2) $\theta_i\le(6i+4)\delta_{\rm cent}$ and $\eta_i\le(6i+1)\delta_{\rm cent}$.
+
+\emph{Copies.} Let $N=\min(N_{\rm ex},\lfloor(0.1/\delta_{\rm cent}+2)/6\rfloor)$. For $i<N$, $\theta_i,\eta_i\le(6N-2)\delta_{\rm cent}\le0.1$ and $6i\delta_{\rm cent}\le0.1$. Lemma~\ref{lem:sector},
+which holds on any Hilbert space for states of finite rank, applies directly with these $\Delta_i,\theta_i,\eta_i$. Each term is at least $(\sqrt{1.5}-0.1)^2/3-0.01/(2\ln2)-h_2(\frac1{300})-\frac1{300}=0.37891>0.375$, so
+$S(\rho)\ge0.375N\ge0.375\min(N_{\rm ex},1/(60\delta_{\rm cent})-\frac23)$.
+
+\emph{Centrality.} $\sfa$ and $\alpha$ are symbols, so Lemma~\ref{lem:centrality} gives $\delta_{\rm cent}\le2\sqrt{104\ln2}\,\sqrt a=16.981\sqrt a$.
+
+\emph{Genuine rounds.} In $H_3$, $\sfa^{3i}\gamma\sfa^{-3i}$ is a three-cycle and $\sfa^{3i}\alpha\sfa^{-3i}$ a transposition on a triple of consecutive points of the line through the
+first two rays, shifted by $3i$, with $\alpha\gamma\alpha=\gamma^{-1}$~\cite[Section~4]{DouglasMghirbiB}; triples for different $i$ are disjoint. So the relations of
+Lemma~\ref{lem:sector} hold in every representation of $H_3$, $N_{\rm ex}=\infty$, and $S\ge0.375(a^{-1/2}/(60\cdot16.981)-\frac23)\ge a^{-1/2}/2717-\frac14$. Finally
+$\min_{x>0}(Ax^{-1/2}+nx)=(2^{1/3}+2^{-2/3})A^{2/3}n^{1/3}$, which is at least $0.0097\,n^{1/3}$ for $A=1/2717$.
+\end{proof}
+
+\begin{theorem}[Explicit genuine-service constants]\label{thm:genuine-services-constants}
+For $n\ge n_0$, every genuine service of $\Phi_H$ with error
+$\epsilon\le1/16$ and $J\le n\log26/2$ has $Q\ge n^{1/3}/385$
+if its discard is zero, and $Q\ge n^{1/3}/420$ if its discard is
+at most $1/n^2$. Consequently the lower constant in
+Theorem~\ref{thm:houghton-genuine} may be taken as $1/420$.
+The nongenuine-round threshold in Theorem~\ref{thm:houghton-reduction}(c)
+may be taken as $S+na<0.0097n^{1/3}-1/4$.
+\end{theorem}
+
+\begin{proof}[Proof of Theorems~\ref{thm:genuine-services} and~\ref{thm:genuine-services-constants}]
+If $U$ is genuine on $V$ and $\rho$ is supported in $V$, the round $(U,\rho)$ has the channel of the representation round $(U_\pi,J\rho J^*)$, since the partial trace over the memory
+ignores the isometry $R$; $T_U(\rho)=RT_\pi(J\rho J^*)R^*$ has the spectrum of $T_\pi(J\rho J^*)$, and $S(J\rho J^*)=S(\rho)$. So Theorem~\ref{thm:genuine-constants} applies to $(U,\rho)$.
+
+\emph{Discard $0$.} By Theorem~\ref{thm:lower-constants} some round $t$ of the service has distance at most $\frac1{16}$, $S(\rho_t)\le Q$ and $n\,a_t\le6.4Q+13.52+0.134\log n$, and the
+conditioned memory state $\rho_t$ is supported in $V_t$, since conditioning only shrinks supports. Theorem~\ref{thm:genuine-constants} gives $Q+\frac14\ge a_t^{-1/2}/2717$. If
+$Q\ge14+0.14\log n$, then $n\,a_t\le7.4Q$, so $(Q+\frac14)Q^{1/2}\ge n^{1/2}/(2717\sqrt{7.4})\ge n^{1/2}/7392$, and with $Q+\frac14\le(1+\frac1{56})Q$, $Q\ge n^{1/3}/384$. If
+$Q<14+0.14\log n$, then $a_t=O(\log n/n)$ and Theorem~\ref{thm:genuine-constants} gives $Q+\frac14\ge c(n/\log n)^{1/2}$, which is impossible for $n\ge n_0$.
+
+\emph{Discard at most $1/n^2$.} Let $t$ be the round of Theorem~\ref{thm:lower-constants} and $\rho=\rho_t$. The test observer's memory state at the start of round $t$, conditioned on
+passing, an event of probability at least $1-\epsilon$, puts mass $\delta'\le\delta$ outside $V:=V_t$. Let $P$ project onto $V$ and $\hat\rho=P\rho P/\Tr(P\rho)$. If $\psi$ purifies $\rho$, then
+$(P\otimes I)\psi/\sqrt{1-\delta'}$ purifies $\hat\rho$ and has overlap $\sqrt{1-\delta'}$ with $\psi$, so $\nrm{\rho-\hat\rho}_1\le2\sqrt{\delta'}\le2\sqrt\delta$, by the pure-state trace-distance formula and contraction under partial trace. The round $(U,\hat\rho)$ is genuine, and:
+its distance is at most $\epsilon+\frac12\nrm{\rho-\hat\rho}_1\le\frac1{16}+\frac1n\le\frac18$ for $n\ge16$, since the channel is linear in the bath; $T$ is a channel on the $Q$-qubit memory,
+so $\frac12\nrm{T(\rho)-T(\hat\rho)}_1\le\sqrt\delta\le\frac12$, and Audenaert's sharp form of Fannes' inequality~\cite[Theorem~1]{Audenaert2007} gives
+$|S(T(\rho))-S(T(\hat\rho))|\le\sqrt\delta\,Q+h_2(\sqrt\delta)$, and likewise for $S(\rho)-S(\hat\rho)$, so $a(\hat\rho)\le a(\rho)+2\sqrt\delta\,Q+2h_2(\sqrt\delta)$; and $S(\hat\rho)\le Q$. With
+$\delta\le1/n^2$ and $n\,h_2(1/n)\le\log n+\log e$, $n\,a(\hat\rho)\le8.4Q+16.41+2.134\log n$. If $Q\ge16.41+2.134\log n$ then $n\,a(\hat\rho)\le9.4Q$, and
+Theorem~\ref{thm:genuine-constants} gives $(Q+\frac14)Q^{1/2}\ge n^{1/2}/(2717\sqrt{9.4})\ge n^{1/2}/8331$, so $Q\ge n^{1/3}/415.2\ge n^{1/3}/420$. Otherwise $a(\hat\rho)=O(\log n/n)$ and
+Theorem~\ref{thm:genuine-constants} gives a contradiction for $n\ge n_0$.
+\end{proof}
+
+With discard of order $\epsilon^2/n$ the term $2\sqrt\delta\,Q$ is of order $\epsilon Q/\sqrt n$, which dominates the budget $Q/n$, and the same argument gives only $Q\gtrsim n^{1/6}$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-genuine}]
+The lower bound is Theorem~\ref{thm:genuine-services}. For the upper bound take the service of Theorem~\ref{thm:houghton-groups} with $q=3$; for $n\ge n_0(\epsilon)$ its memory
+is $O(n^{1/3}(\log n)^{2/3}(\log(n/\epsilon))^{1/3})$. Its round unitary is $U_t=R''W_cR'$, where $R'$ (class permutation and twirls) and $R''$ (re-fold with its completion, twirls)
+act on the memory alone and $W_c$ is the round. $R'$ maps the window subspace $V$ (window units, slots and ancilla) onto itself, and on $\C^d\otimes V$ the round is the gadget unitary
+of the right regular representation $\pi$ of $H_3$, tensored with the identity on slots and ancilla. So $U_t$ is genuine on $V$, with $J$ the identification of $V$ with a
+subspace of $\ell^2(H_3)\otimes\text{slots}\otimes\text{ancilla}$ composed with $R'$, and $R=R''$ on the images of window points under slot words, which lie in $\Omega_W$. By
+Theorem~\ref{thm:fibred}, for every observer the memory has mass at most $3/(4n^2)\le(1-\epsilon)/n^2$ outside $V$ at the start of every round. So the service is genuine with
+discard at most $1/n^2$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:growth-route}]
+The labels of $\Phi_H$ generate $H_3$, which is elementary amenable. It is not residually finite, since every finite-dimensional representation kills its three-cycles
+(Remark~\ref{rem:houghton-map}), so it is not virtually nilpotent, and by Chou's theorem~\cite[Theorem~3.2]{Chou1980} it has exponential growth. The regular action is free, so the
+words $w_x$ of Proposition~\ref{prop:growth} give distinct points, and the proposition applies to every finitely supported bath.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:genuine-vacuous}]
+By Theorem~\ref{thm:genuine-constants}, a genuine round at distance at most $\frac18$ has $1+S+n\,a\ge0.0097\,n^{1/3}+\frac34$. For $n\ge n_1$ the service of
+Theorem~\ref{thm:houghton-groups} with $q=3$ has memory $O(n^{1/3}(\log n)^{2/3}L^{1/3}+L\log L)+O(\log(n/\epsilon))$ with $L=O(\log(n/\epsilon))$, which is at most
+$K\log^2(n/\epsilon)\,n^{1/3}$, hence at most $K'\log^2(n/\epsilon)(1+S+n\,a)$. For $2\le n<n_1$, Proposition~\ref{prop:ceiling} gives $\Qs(n,\epsilon)\le n_1\lceil\log26\rceil$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ceiling-houghton}]
+By~\cite[Proposition~4.14]{DouglasMghirbiB}, for every $u_0>0$ there is $C(u_0)$ with $\log D^{\rm ent}_{\Phi_H}(u_0,v)\le C(u_0)v^{-1/3}$ for $0<v\le1$, where $D^{\rm ent}$ is the least bath
+dimension of a round with distance at most $u_0$ and $\ell+a\le v$; the rounds of its proof have flat baths, so $a=0$ and $\ell\le v$, and $S$ is at most the logarithm of the bath
+dimension. With $u_0=\epsilon$ and $v=\frac{32}{15}\epsilon/n$ they are admissible in $L_{\Phi_H}(n,\epsilon)$, so $L_{\Phi_H}(n,\epsilon)\le C(\epsilon)(15n/(32\epsilon))^{1/3}$, and with
+$u_0=\frac1{16}$, $v=\frac2{15n}$ the same gives $\Ls_{\Phi_H}(n)\le C\,n^{1/3}$.
+\end{proof}
+
+\paragraph{The single budget (Remark~\ref{rem:quarter}).} At the rank rate, \cite[Theorem~5.2]{DouglasMghirbiB} with Proposition~\ref{prop:purity} reads a round with
+$\ell+a\le t_n\le\frac{16}{15}(3Q+8+\log n)/n$. A lower bound $\Qs\ge Q_0$ by this method requires that the least bath entropy of a round with distance $\epsilon/(1-\epsilon)$ and
+$\ell+a\le t_n(Q)$ exceed $Q$ for all $Q<Q_0$. By the proof of Proposition~\ref{prop:ceiling-houghton} that bath entropy is at most $C\,t_n(Q)^{-1/3}$, so the requirement fails as
+soon as $C(\frac{16}{15}(3Q+8+\log n)/n)^{-1/3}\le Q$, which holds for $Q\ge C'n^{1/4}$.
+
+\begin{proof}[Proof of Theorem~\ref{thm:houghton-reduction}]
+(a) Let $\Ls_{\Phi_H}(n)\ge n^{1/3}/p(n)$. As in the proof of Proposition~\ref{prop:genuine-vacuous}, $\Qs_{\Phi_H}(n,\epsilon)\le K\log^2(n/\epsilon)\,n^{1/3}$ for all $n\ge2$ (for small $n$
+by Proposition~\ref{prop:ceiling}), so $\Qs_{\Phi_H}(n,\epsilon)\le Kp(n)\log^2(n/\epsilon)(1+\Ls_{\Phi_H}(n))$, the upper half of the law; the lower half is Theorem~\ref{thm:lower-constants},
+and it gives $\Qs_{\Phi_H}(n,\epsilon)\ge(n^{1/3}/p(n)-13.6-0.14\log n)/7.4$. So $\Qs_{\Phi_H}(n,\epsilon)=n^{1/3}\cdot\mathrm{polylog}(n/\epsilon)$.
+
+(b) If the law holds, $\Ls_{\Phi_H}(n)\ge\Qs_{\Phi_H}(n,\epsilon)/(K(\log(n/\epsilon))^\kappa)-1$, and under Conjecture~\ref{conj:houghton} the right side is $n^{1/3-o(1)}$.
+
+(c) This is Theorem~\ref{thm:genuine-constants}.
+\end{proof}
+
+\subsection{Constant-field geometry and sector-isotropic sources}
+
+We give a direct proof of Corollary~\ref{thm:number-sectors}. The geometric input is
+the existing construction of~\cite[Section~6.2]{DouglasMghirbiA}:
+$\gamma$ is exactly a three-cycle at every clock; the $r_4$ holonomy
+is a product of disjoint rank-one phase rotations with angles
+$F_R=s_R\pi/|R|$. There are $M$ regions, each of area between
+$m_M=1+(M-1)(M-2)/2$ and $M^2$. These are model identities,
+not conclusions for an arbitrary round.
+
+\paragraph{Sector characters force entropy.}
+Initially suppose the source is clock diagonal. Set
+$v_j=j(L-j)/[L(L-1)]$ and $V_{\mathbf j}=\sum_l v_{j_l}$.
+The normalized three-cycle character in degree $j$ is
+\[
+ \chi_j=1-3v_j.
+\]
+Indeed its eigenvalues are $1$ repeated $L-2$ times and
+$\omega,\omega^2$; the generating polynomial is
+$(1+t)^{L-2}(1-t+t^2)=(1+t)^L-3t(1+t)^{L-2}$.
+These characters are nonnegative for $L=4M+4$. Conditional sector
+flatness removes conjugations of the cycle and gives
+$\chi_\gamma=\E_p\prod_l(1-3v_{j_l})$.
+The identity and $\gamma$ singleton anchors imply
+$0\leq\chi_\gamma\leq2u\leq1/8$.
+In the rest of the lower proof it suffices to assume
+$\chi_\gamma\leq1/4$. The product is at least $1-3V$, so
+$\E V\geq1/4$; on $V<1/12$ it is greater than $3/4$,
+giving $\Pr(V\geq1/12)\geq2/3$.
+For $m=\min(j,L-j)$, $\binom Lj\geq2^m$ and $Lv_j\leq m$.
+The first inequality follows termwise from
+$(L-i)/(m-i)\geq2$ for $0\leq i<m$.
+Consequently, with $D_{\mathbf j}=\prod_l\binom L{j_l}$,
+\begin{equation}\label{eq:sector-entropy-floor}
+ S=H(p)+\E\log_2D_{\mathbf j}\geq L\E V\geq L/4=M+1.
+\end{equation}
+Source entropy, rather than logarithmic source rank, pays this bound.
+
+\paragraph{Clock bias costs actual production.}
+Every literal slot translates the clock and applies a degree-preserving
+one-particle unitary. It preserves each $\bigotimes_l\tau_{j_l}$.
+The actual Choi bath map is therefore classical clock convolution,
+$Kp=\sum_s w_sp_s$, leaving degrees fixed. Identity and both
+coordinate steps have weights at least $1/d$ from their singleton
+slots, with $d=104$. Thus
+\[
+ a=H(Kp)-H(p)=\sum_s w_sD_2(p_s\Vert Kp).
+\]
+The unchanged average $\log D_{\mathbf j}$ cancels exactly.
+Root relative entropy and the triangle inequality bound each coordinate
+root displacement by $4d(\ln2)a$. The $M$-torus Fourier Poincar\'e
+constant is $4\sin^2(\pi/M)\geq16/M^2$. Applied separately to
+each degree block and then summed, it gives
+\[
+ \sum_{c,\mathbf j}(\sqrt{p(c,\mathbf j)}
+       -\operatorname{mean}_c\sqrt{p(c,\mathbf j)})^2
+       \leq(d\ln2)M^2a/2.
+\]
+Put $w(\mathbf j)=\sum_cp(c,\mathbf j)$ and
+$q(c,\mathbf j)=w(\mathbf j)/M^2$.
+In a nonzero degree block let
+$x=M\operatorname{mean}_c\sqrt p/\sqrt w\in[0,1]$.
+Its variance is $w(1-x^2)$, whereas its squared root distance
+from the uniform clock law is $2w(1-x)\leq2w(1-x^2)$.
+Cauchy--Schwarz therefore proves
+\begin{equation}\label{eq:joint-clock-degree}
+ \operatorname{TV}(p,q)\leq
+ \nrm{\sqrt p-\sqrt q}_F\leq M\sqrt{d(\ln2)a}.
+\end{equation}
+This argument retains all clock--degree and flavour correlations.
+
+\paragraph{A protected region forces leakage.}
+Let $B_0=\{0,\ldots,\lfloor M/4\rfloor\}^2$.
+It has at least $M^2/16$ clocks and is contained in all $M$ regions.
+To check containment, the $M-1$ bulk regions indexed by
+$5\leq t\leq M+3$ have source $(M-1,M-1)$, the column
+$(M-1,j)$ for $1\leq j\leq M-2$, and bulk points
+$0\leq i\leq M-3$, $0\leq j\leq M-2$, $i+j\leq t+M-8$.
+Their areas are $(M-1)^2-h(h+1)/2$, $h=M+3-t$.
+The last region contains $i,j\geq0$, $i+j\leq M-3$, as well as
+$(0,M-2)$. The inequality $2\lfloor M/4\rfloor\leq M-3$
+proves the claim. At a clock in $B_0$,
+$\sum_RF_R^2\geq\pi^2/M^3$.
+There are at most $M<L/4$ nonzero phase modes and
+$\sum_R|F_R|\leq M\pi/m_M\leq\pi$.
+
+For a uniformly sampled degree-$j$ subset of the $L$ modes set
+$X=\sum_RF_RI_R$. Sampling without replacement gives
+\[
+ \operatorname{Var}X=v_j\left[\sum_RF_R^2-
+             (\sum_RF_R)^2/L\right]\geq\tfrac34v_j\sum_RF_R^2.
+\]
+For independent copies, $|X-X'|\leq\pi$ and
+$1-|\E e^{iX}|^2=\E[1-\cos(X-X')]
+\geq4\operatorname{Var}X/\pi^2$.
+Hence $|\E e^{iX}|\leq
+\exp[-3v_j\sum_RF_R^2/(2\pi^2)]$.
+Multiplication across conditionally flat flavours shows that on
+$B_0\cap\{V\geq1/12\}$ the sector relator squared defect obeys
+\[
+ e_{c,\mathbf j}^2\geq2(1-e^{-1/(8M^3)})\geq1/(8M^3).
+\]
+No bound on the total phase across flavours is needed.
+
+Project the physical round onto the canonical coefficients and
+let $\Lambda$ be its bath leakage operator as in
+Proposition~\ref{prop:kernel-concentration}. Its identity singleton
+and closing $r_4$ triangle have the same target label and squared
+weights $1,1/2$. A common projected endpoint $z$ must therefore pay
+\[
+ \inf_z\{\|\psi-z\|^2+\tfrac12\|\pi(r_4)\psi-z\|^2\}
+       =\tfrac13\|(\pi(r_4)-I)\psi\|^2.
+\]
+Every other slot contributes nonnegative error, so
+$\Lambda\geq(\pi(r_4)-I)^*(\pi(r_4)-I)/3$.
+Leakage on the protected event is at least $1/(24dM^3)$.
+Its $q$-mass is at least $(1/16)(2/3)=1/24$.
+Set $A=1/(2304d\ln2)$, $B=1/(1152d)$.
+Equation~\eqref{eq:joint-clock-degree} gives
+\begin{equation}\label{eq:sector-flux-dichotomy}
+ a\leq A/M^2\quad\Longrightarrow\quad\ell\geq B/M^3,
+\end{equation}
+because its total-variation error is at most $1/48$.
+At leakage $\ell\leq c/n$, either $M\geq(Bn/c)^{1/3}$ or
+$S+na\geq M+nA/M^2\geq3A^{1/3}n^{1/3}/2^{2/3}$.
+This proves the diagonal-source lower with constant
+$\min\{(B/c)^{1/3},3A^{1/3}/2^{2/3}\}$.
+
+\paragraph{Coherent clocks and flags.}
+Clock pinching commutes with the physical bath map: each slot has
+one fixed clock translation. Data processing of
+$D_2(\rho\Vert\Delta_c\rho)=S(\Delta_c\rho)-S(\rho)$ gives
+$a(\Delta_c\rho)\leq a(\rho)$.
+Every literal slot assigned a target label has that label's clock
+translation. Its projected coefficient and residual have the same
+translation; each residual square preserves the clock. Thus $\Lambda$
+is clock block diagonal, and pinching preserves leakage.
+The $\gamma$ character has zero translation and is preserved as well.
+To retain the entropy floor directly, coherently copy the clock to an
+analytical register. Its marginals have entropies
+$S(\Delta_c\rho)$ and $H(p_c)$, so Araki--Lieb gives
+$S(\rho)\geq\sum_cp_cS(\rho_c)$, where $\rho_c$ is the normalized
+clock-diagonal block. Each $\rho_c$ is an orthogonal degree-sector
+mixture, hence
+\[
+ S(\rho)\geq\sum_{c,\mathbf j}p(c,\mathbf j)\log_2D_{\mathbf j}
+        \geq L\E V\geq L/4=M+1.
+\]
+There is no clock-entropy subtraction or free pinching assumption.
+If $a(\rho)\leq A/M^2$, the pinched source satisfies
+\eqref{eq:sector-flux-dichotomy}; otherwise optimize $M+nA/M^2$.
+This proves the coherent-source lower with the same constant as the
+clock-diagonal case.
+
+For a finite block-diagonal round with coherent flag source, let
+$b_i=\Tr P_i\rho$ and $\rho_i=P_i\rho P_i/b_i$.
+Channel and leakage depend only on diagonal flag blocks.
+All $\chi_i\geq0$, and the overall anchor test gives
+$\sum_ib_i\chi_i\leq1/8$. Components with $\chi_i\leq1/4$
+have mass at least $1/2$; those with $\ell_i\leq8/(15n)$ have
+mass at least $3/4$ by Markov. Their intersection has mass at least
+$1/4$. Flag pinching commutes with the bath map, so data processing
+gives $a(\rho)\geq\sum_ib_i a(\rho_i)$.
+Coherently copying the flag is an analytical isometry. Its marginals
+have entropies $H(b)+\sum_ib_iS(\rho_i)$ and $H(b)$;
+Araki--Lieb gives $S(\rho)\geq\sum_ib_iS(\rho_i)$.
+Apply the coherent clock bound to the good intersection. These
+comparisons charge the original source; no physical pinching,
+purifier or flag supply is introduced.
+
+\paragraph{Replacement and upper bound.}
+The triangle-good corner families of~\cite[Proposition~4.10]{DouglasMghirbiB} have
+source entropy $O(m)$, room $O(m^{-2})$ and scalar gap at most $1/2$.
+Their actual gain is bounded by that room. Fixed untwisted tensor
+amplification gives target error at most $1/16$, zero leakage and
+cost $O(m+nm^{-2})$. Choose $m\asymp n^{1/3}$; small $n$ use the
+pure exact baseline. The source lies entirely in the new round's
+exact leak kernel. This different round need not stay close to the
+smoothed source or belong to its geometry.
+Finally the fully flat smoothed models themselves, with fixed flavour
+count selected for coarse error $1/16$, have $a=0$, leakage
+$O(M^{-3})$ and entropy $O(M)$
+\cite[Proposition~4.14]{DouglasMghirbiB}.
+Taking $M\asymp n^{1/3}$ proves the class's matching static upper.
+Neither lower is an all-family operational memory statement.
+
+\subsection{Collective orbital invariance}
+
+We prove Theorem~\ref{thm:collective-sources}, retaining precisely the
+geometry above but dropping product-sector flatness. For an invariant
+internal state $\eta$, let $Q$ project onto the nontrivial part of the
+restriction to $SU(2)$ acting on a two-dimensional one-particle plane,
+and put $p_\eta=\Tr\eta Q$. All planes are conjugate in $U(L)$,
+so this number does not depend on the plane.
+
+\paragraph{Entropy without flattening multiplicities.}
+The three-cycle is a product of two $SU(2)$ quarter turns on planes
+$(1,2)$ and $(2,3)$: each sends its first basis vector to the second
+and the second to minus the first. The product sends $e_1$ to $e_2$,
+$e_2$ to $e_3$ and $e_3$ to $e_1$.
+For either turn, $(\Pi(A)-I)^*(\Pi(A)-I)\leq4Q$.
+The Hilbert--Schmidt triangle inequality and invariance give
+\[
+ 2(1-\Re\Tr\eta\Pi(\gamma))
+ =\nrm{(\Pi(\gamma)-I)\sqrt\eta}_F^2\leq16p_\eta.
+\]
+Choose $t=\lfloor L/2\rfloor$ disjoint planes. The restriction to
+their commuting $SU(2)$ groups decomposes into tensor products of
+irreducibles, with arbitrary multiplicity spaces. Schur's lemma
+makes an invariant state flat only on the irreducible factors:
+\[
+ \eta=\bigoplus_{\mathbf m}w_{\mathbf m}
+ \left[\bigotimes_{i=1}^t\frac{I_{m_i+1}}{m_i+1}
+                  \otimes\sigma_{\mathbf m}\right].
+\]
+Here the multiplicity states $\sigma_{\mathbf m}$ need not be flat
+or separable. Every nontrivial factor costs at least one bit, hence
+$S(\eta)\geq\sum_i\Pr(m_i>0)=tp_\eta$.
+For completeness, the finite-dimensional unitary $SU(2)$ irreducibles
+have weights $m,m-2,\ldots,-m$ and dimension $m+1$.
+With Lie algebra generators $E,F,H$, a maximal-weight vector obeys
+$EF^jv=j(m-j+1)F^{j-1}v$. Positivity of the unitary norm and termination
+force an integer $m\geq0$ and a chain $j=0,\ldots,m$; invariant
+orthogonal complements complete the decomposition.
+
+Set $\bar\eta=\sum_cq_c\rho_c$ and
+$\chi=\Tr\bar\eta\Pi(\gamma)$. The clock blocks of $\gamma$ are
+conjugate three-cycles, so invariance makes this their common trace
+test. It is real, and the anchors give $|\chi|\leq2u\leq1/8$.
+The direct conditional-entropy argument above gives
+\[
+ S(\rho)\geq\sum_cq_cS(\rho_c)
+       \geq t p_{\bar\eta}.
+\]
+Even the weaker $\chi\leq1/4$ therefore implies
+$p_{\bar\eta}\geq3/32$ and $S(\rho)\geq bM$, $b=3/16$.
+
+\paragraph{An operator-valued clock law.}
+Put $\bar\rho=\Delta_c\rho=\bigoplus_cR_c$,
+$R_c=q_c\rho_c$. Invariance makes every internal literal unitary
+act trivially on these blocks; the bath map is clock convolution
+$K\bar\rho=\sum_sw_s\bar\rho_s$.
+The translated states have the same spectrum, so the Holevo identity gives
+\[
+ \bar a=S(K\bar\rho)-S(\bar\rho)
+          =\sum_sw_sD_2(\bar\rho_s\Vert K\bar\rho).
+\]
+The inequality $\nrm{\sqrt X-\sqrt Y}_F^2\leq D_{\rm nat}(X\Vert Y)$
+follows by diagonalizing both states: their overlap-weighted eigenvalue
+arrays give exactly the quantum relative entropy and affinity,
+and Jensen gives $D_{\rm nat}\geq-2\ln\Tr\sqrt X\sqrt Y$
+$\geq2(1-\Tr\sqrt X\sqrt Y)$.
+Identity and coordinate weights at least $1/d$ bound each root
+shift energy by $4d(\ln2)\bar a$.
+Apply the torus Poincar\'e inequality to the Hilbert-space field
+$X_c=\sqrt{R_c}$, not to simultaneously diagonalized densities.
+With $A_0=M^{-1}\sum_cX_c$,
+\[
+ V=\sum_c\nrm{X_c-M^{-2}\sum_bX_b}_F^2
+   =1-\Tr A_0^2\leq\tfrac12(d\ln2)M^2\bar a.
+\]
+Operator Jensen gives $A_0^2\leq\sum_cR_c=\bar\eta$;
+square-root monotonicity gives $A_0\leq\sqrt{\bar\eta}$.
+Thus $\Tr A_0\sqrt{\bar\eta}\geq\Tr A_0^2$, without commutation.
+For $q=(I/M^2)\otimes\bar\eta$ the root distance is at most $2V$.
+The square-root trace-distance inequality yields
+\begin{equation}\label{eq:operator-clock-law}
+ \tfrac12\nrm{\bar\rho-q}_1\leq M\sqrt{d(\ln2)\bar a}
+                         \leq M\sqrt{d(\ln2)a}.
+\end{equation}
+The final inequality, and preservation of leakage and $\chi$,
+follow from clock-pinching covariance and data processing exactly
+as above. No internal twirl or commuting-density assumption is used.
+
+\paragraph{A spin-uniform flux estimate.}
+For a nontrivial $SU(2)$ irrep, $m\geq1$, and $|\theta|\leq\pi/4$,
+its normalized character satisfies
+\begin{equation}\label{eq:uniform-spin-character}
+ \left|\frac{\sin((m+1)\theta)}{(m+1)\sin\theta}\right|
+          \leq e^{-\theta^2/32}.
+\end{equation}
+To verify this uniformly, set $N=m+1$. If $N|\theta|\leq1$,
+the character is the mean of $e^{iX}$ for weights
+$X=(N-1-2j)\theta$. Its variance is
+$(N^2-1)\theta^2/3\geq\theta^2$, and $|X-X'|\leq2<\pi$.
+The cosine inequality gives the stronger modulus bound
+$e^{-2\theta^2/\pi^2}$. If $N|\theta|>1$, then
+$|\sin x|/x\leq\sin1$ for $x\geq1$, by monotonicity up to $\pi$
+and $1/x$ thereafter. Also $\theta/\sin\theta<9/8$ and
+$\sin1\leq101/120$. Hence the modulus is at most $909/960$,
+smaller than $e^{-\theta^2/32}\geq1-\pi^2/512$.
+The value at zero is understood by continuity.
+
+Let a one-particle holonomy $W$ have angles $F_j$ on at most $M$
+disjoint phase modes. Pair each with an unused mode, and let $C$ swap
+the partners. Then $h=WCW^*C^*$ is a product of disjoint $SU(2)$
+rotations of angles $F_j$. Restriction of $\eta$ to their product gives
+a weighted sum of products of characters. Using
+\eqref{eq:uniform-spin-character}, the triangle inequality and
+$2(1-e^{-x})\geq x$ for $0\leq x\leq1$, when $\sum_jF_j^2\leq1$,
+\[
+ \nrm{(\Pi(h)-I)\sqrt\eta}_F^2
+        \geq p_\eta\sum_jF_j^2/32.
+\]
+Invariance under $C$ and $W$ bounds the left root norm by
+$2\nrm{(\Pi(W)-I)\sqrt\eta}_F$. Consequently
+\begin{equation}\label{eq:invariant-flux-floor}
+ \nrm{(\Pi(W)-I)\sqrt\eta}_F^2
+        \geq p_\eta\sum_jF_j^2/128.
+\end{equation}
+This estimate is independent of all spin, flavour and multiplicity
+dimensions; it does not assume nonnegative three-cycle characters.
+
+\paragraph{Optimization and coherent flags.}
+The existing fields have $\sum_jF_j^2<1$ and $|F_j|<\pi/4$
+for $M\geq12$. On $B_0$, $\sum_jF_j^2\geq\pi^2/M^3$.
+The same two-slot leakage lower and~\eqref{eq:invariant-flux-floor}
+give, for any fixed plane projection $Q$,
+\[
+ \ell\geq\frac{\pi^2}{384dM^3}
+                 \Tr\bar\rho(P_{B_0}\otimes Q).
+\]
+Invariance makes $Q$'s conditional expectation plane-independent.
+For $q$ in~\eqref{eq:operator-clock-law}, this probability is at least
+$p_{\bar\eta}/16\geq3/512$.
+Set $A=9/(1048576d\ln2)$ and $B=\pi^2/(131072d)$.
+If $a\leq A/M^2$, the comparison changes it by at most $3/1024$,
+so $\ell\geq B/M^3$.
+With $\ell\leq c/n$ and $S\geq bM$, optimization gives
+\[
+ S+na\geq c_H(c)n^{1/3},\qquad
+ c_H(c)=\min\left\{b(B/c)^{1/3},
+                   \frac{3(b^2A)^{1/3}}{2^{2/3}}\right\}.
+\]
+
+For coherent model flags the conditional entropy/gain inequalities
+above still hold. Here each $\chi_i\in[-1/2,1]$, because the
+three-cycle has order three and is conjugate to its inverse.
+The overall anchor bound $\sum_ib_i\chi_i\leq1/8$ gives mass
+at least $1/6$, not $1/2$, on $\chi_i\leq1/4$.
+Markov gives mass at least $11/12$ on $\ell_i\leq8/(5n)$;
+the intersection has mass at least $1/12$.
+The lower is therefore $c_H(8/5)n^{1/3}/12$.
+The fully flat diffuse upper and different exact corner replacement
+already proved above finish the theorem.
+
+\paragraph{The lower bound of Remark~\ref{rem:general-houghton}.} By Theorem~\ref{thm:extraction} with $\lambda=2$ and Proposition~\ref{prop:purity}, some round of a rank-rate
+service with $\epsilon\le\frac1{16}$ has distance at most $\frac1{16}$ and $\ell+a\le\frac{32}{15}(3Q+7+\log n)/n$. The one-round theorem~\cite[Theorem~5.5]{DouglasMghirbiB} gives
+$Q+\frac18\ge S(\rho)+\frac18\ge c_*(\ell+a)^{-\beta_H}$. If $Q\ge7+\log n$, then $\ell+a\le\frac{128}{15}Q/n$ and $Q^{1+\beta_H}\ge c\,n^{\beta_H}$. If $Q<7+\log n$, then
+$Q+\frac18\ge c_*(15n/(128(7+\log n)))^{\beta_H}$, which is impossible for large $n$. So $\Qs_{\Phi_H}(n,\epsilon)\ge c\,n^{\beta_H/(1+\beta_H)}$ for $n\ge n_0$.

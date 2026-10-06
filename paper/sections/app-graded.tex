@@ -1,0 +1,387 @@
+\section{A coherent entropy--production compiler}
+\label{app:graded}
+
+This appendix proves Theorem~\ref{thm:coherent}. The bath source is used
+to specify a finite bank; it is not an online supply. The two points that
+permit coherent responses are a full response-label work estimate and a
+simultaneous history-frame induction. Neither a forced-label scalar estimate
+nor independence of the observer's histories would suffice.
+
+\subsection{Compact source and full matrix work}
+Restrict the source to its support. Write $k=\dim K$, $l=\dim L\leq rk$,
+$\rho_g=B_g\rho B_g^*$, $S=S(\rho)$, and
+\[
+ \sigma_\mu=\sum_g\mu_g\rho_g,\quad a=S(\sigma_\mu)-S,
+ \qquad \sigma=r^{-1}\sum_g\rho_g,\quad a_u=S(\sigma)-S.
+\]
+Here $\mu_g=\Tr(A_g^*A_g)/d$ is the actual Choi-input weight.
+Minimizing the relative-entropy center gives
+\begin{equation}\label{eq:weighted-uniform-gain}
+ a_u\leq a/(r\mu_{\min}),\qquad \mu_{\min}\geq1/d.
+\end{equation}
+Indeed, evaluate the uniform center problem at $\sigma_\mu$ and use
+$r^{-1}\leq\mu_g/(r\mu_{\min})$. The gap-selected version of
+Lemma~\ref{lem:soft-source} gives a design source $\xi$ with
+\begin{align}\label{eq:compiler-compact-source}
+ \log_2 k'&\leq64(S+1)+16,& \log_2(1/p_{\min}(\xi))&\leq192(S+1)+51,\notag\\
+ n a_\xi&\leq C_r\log_2(e(n+1))(1+na),&c_\xi&\leq9/16<3/4.
+\end{align}
+The filter changes half trace distance by at most $1/32$, so a Gram
+entry changes by at most $1/16$. Selecting its threshold between source
+square-root eigenvalues supplies the displayed spectral floor with no
+second, horizon-dependent deletion. Common restrictions preserve every
+isometry and multiplication triangle. These are offline design choices.
+In the rest of the proof use this compact source and omit its subscript.
+
+If $a_u\geq a_0=(512r\ln2)^{-1}$, an exact service with $n$ fresh pure
+$r$-dimensional Stinespring cells and a charged clock costs $O_r(n+\log(n+1))$.
+Equation~\eqref{eq:compiler-compact-source} bounds this by the claimed
+quantity. Thus assume $a_u<a_0$ and $c\leq3/4$. The anchored triangle
+identities imply that
+$\sum_g A_g\otimes B_g^{\otimes t}$ is isometric for every integer $t$:
+the off-diagonal column product in each gadget block is
+$(B_1^*B_y-B_x^*B_z)/2$, and tensor powers preserve that equality.
+This argument requires the untwisted table; it is not a rule for
+arbitrary Kraus expansions.
+
+Put $P=\rho^{\otimes t}$, $T_g=B_g^{\otimes t}$ and
+\[
+ \Sigma_t=r^{-1}\sum_g\rho_g^{\otimes t},\qquad
+ R_t=(1-z)\Sigma_t+zI/l^t.
+\]
+In particular $\Sigma_t$ is not $\sigma^{\otimes t}$.
+Concavity and subadditivity give $0\leq S(\Sigma_t)-tS\leq ta_u$.
+For eigenvalues $p_i,q_j$ of $P,R_t$, define the label matrices, using
+natural logarithms in the work variable,
+\[
+ M_\beta(g,h)=\sum_{ij}p_i\overline{T_{g,ji}}T_{h,ji}
+ e^{\beta w_{ij}},\qquad w_{ij}=\ln(p_i/q_j),\quad D=M'_0.
+\]
+Each summand is a nonnegative multiple of a positive rank-one label
+matrix. If $G_{gh}=\Tr(\rho B_g^*B_h)$ and
+$\epsilon_0=(r-1)c^t$, then
+\begin{equation}\label{eq:full-work-moments}
+ (1-\epsilon_0)I\leq M_0\leq(1+\epsilon_0)I,\qquad
+ M_{-1}\leq(1+\epsilon_1)I,
+ \quad \epsilon_1=(r-1)\gamma^t+(r-1)z,
+\end{equation}
+where $\gamma=c+2\sqrt{2r\ln2\,a_u}\leq7/8$.
+For the second assertion, before regularization,
+\[
+ M_{-1}(g,h)=r^{-1}\sum_b[\Tr(\rho_b B_hB_g^*)]^t.
+\]
+Its diagonal is at most one. Pinsker applied to
+$D_2(\rho_b\Vert\sigma)\leq ra_u$ bounds every off-diagonal summand
+by $\gamma^t$, since $\Tr(\rho_gB_hB_g^*)=G_{gh}$.
+Gershgorin gives the upper bound. The flat regularizer contributes a
+positive matrix with trace at most $r$, giving the displayed $z$ term.
+This is an operator estimate on all labels, not only their diagonal.
+
+Direct summation and operator monotonicity of $\log$ give
+\[
+ \Tr D=r\{[S(\Sigma_t)-tS]\ln2+D_{\rm nat}(\Sigma_t\Vert R_t)\}
+ \leq T_0:=rt a_u\ln2-r\ln(1-z).
+\]
+The scalar function $\phi(w)=w-1+e^{-w}$ is nonnegative; hence
+$D-M_0+M_{-1}\succeq0$. With $e=\epsilon_0+\epsilon_1$ and
+$m=T_0+(r-1)e$, the preceding lower bound and trace estimate yield
+\begin{equation}\label{eq:work-variance}
+ -eI\leq D\leq mI,\quad
+ 0\leq D-M_0+M_{-1}\leq(m+e)I,\quad
+ M''_0\leq VI,
+ \quad V=2(1+L)(m+e),
+\end{equation}
+where $L=\max\{t\ln(1/p_{\min}),t\ln l+\ln(1/z)\}$.
+For $-L\leq w\leq L$, $w^2\leq2(1+L)\phi(w)$: for $w\leq0$
+use $\phi(w)\geq w^2/2$; for $w\geq0$, the derivative of
+$2(1+w)\phi(w)-w^2$ is $2w(1-e^{-w})$. Sum this scalar inequality
+against the positive label matrices. The same procedure, using the
+Taylor bound on $e^{\theta w}$, proves
+\begin{equation}\label{eq:work-mgf-gibbs}
+ M_\theta\leq
+ \exp\!\left(\epsilon_0+\theta m+
+ \frac{\theta^2V}{2(1-\theta L/3)}\right)I,
+ \qquad \sum_g T_gPT_g^*=r\Sigma_t\leq rR_t/(1-z).
+\end{equation}
+The first inequality holds for $0\leq\theta<3/L$. No operator
+monotonicity of the exponential is used. The second inequality is the
+incoming-flux certificate; its factor is $r$, not $r^t$.
+
+\subsection{Finite integer code and incoming flux}
+Set
+\[
+ \eta=z=\frac{\epsilon^2}{2^{20}r(n+1)^{12}},\quad
+ x=\ln\frac{2^{16}(n+1)^8}{\epsilon^2},\quad
+ t=\left\lceil\frac{\ln(8r/\eta)}{\ln(8/7)}\right\rceil.
+\]
+Then $\epsilon_0\leq\eta/8$, $\epsilon_1\leq r\eta$,
+$m=O_r(ta_u+\eta)$, $V=O_r((1+L)(ta_u+\eta))$.
+Write $h=1+L$, $x_+=x+n\epsilon_0$, and
+\begin{align*}
+ \theta&=\min\{(2h)^{-1},\sqrt{x_+/(nV)}\},\\
+ B_+&=n(m+\eta)+2\sqrt{nVx_+}+2hx_+,
+ &B_-&=n(\eta+\epsilon_1)+x.
+\end{align*}
+Alive energies are the integers $u=-\lceil B_-/\eta\rceil$
+through $v=\lceil B_+/\eta\rceil$. Put $b=e^\eta$,
+$s_i=\lceil-\ln p_i/\eta\rceil+8$,
+$t_j=\lceil-\ln q_j/\eta\rceil+8$,
+$E_{\min}=u-s_{\max}$, $E_{\max}=v+t_{\max}$,
+$D_b=\eta^{-2}e^{-\eta E_{\min}}$, and $d_E=\lceil D_b b^E\rceil$.
+Stock energies run from $u-s_{\max}$ through $v-s_{\min}$.
+There are $N=E_{\max}-E_{\min}+1$ physical sectors.
+
+Inside sector $E$, pack source coordinates $(i,E-s_i,a)$ of sizes
+$d_{E-s_i}$. The ceiling margins ensure
+\[
+ e^{-10\eta}p_i\leq d_{E-s_i}/d_E\leq p_i,
+ \qquad \sum_i d_{E-s_i}\leq d_E.
+\]
+Indeed the ceiling ratio differs from $b^{-s_i}$ by at most
+$1+\eta^2$, since every stock count is at least $\eta^{-2}$.
+Pack output coordinates analogously with $q_j,t_j$. Denote the
+coordinate isometries by $C_p,C_q$ and the common input range by
+$P_{\rm code}$. On that range set
+\[
+ \widehat B_g=C_q(T_g\otimes I_{\rm stock})C_p^*.
+\]
+All adjoint products are common compressions of $T_g^*T_h\otimes I$.
+The coded round is therefore isometric on
+$\mathbb C^d\otimes P_{\rm code}$ and can be completed to a unitary
+on the full system and bank. The stock and its coordinates specify
+matrix entries, not an additional retained tensor factor.
+
+In every alive sector its normalized trace mean is
+\[
+ \tau_E(\widehat B_g^*e^{\beta\eta\mathsf E}\widehat B_h)
+ =e^{\beta\eta E}M_E^\beta(g,h),\quad
+ M_E^\beta=\sum_{ij}\frac{d_{E-s_i}}{d_E}
+ \overline{T_{g,ji}}T_{h,ji}e^{\beta\eta(t_j-s_i)}.
+\]
+The summands remain positive label matrices. Thus
+\begin{align}\label{eq:coded-matrix-means}
+ \|M_E^0-I\|&\leq\epsilon_0+10\eta,\notag\\
+ M_E^\theta&\leq\kappa_+I,
+ &\kappa_+&=e^{\epsilon_0+\theta(m+\eta)+\theta^2V},\\
+ M_E^{-1}&\leq\kappa_-I,
+ &\kappa_-&=e^{\eta+\epsilon_1}.\notag
+\end{align}
+Means vanish outside the alive interval. The padding fraction is at
+most $10\eta$, independently of off-diagonal means.
+
+Amplify all sectors by the same dyadic factor $M$, providing a common
+export port. With
+$\Omega=\bigoplus_E(D_b b^E M)^{-1}I_{d_EM}$,
+the virtual input Gibbs operator is bounded by $P$ tensored with the
+stock Gibbs operator. Equation~\eqref{eq:work-mgf-gibbs}, output coding,
+and $q_jb^{t_j}\leq b^9$ imply
+\begin{equation}\label{eq:graded-inflow}
+ \sum_g\widehat B_g\Omega\widehat B_g^*
+ \leq\frac{rb^9}{1-\eta}\Omega,\qquad
+ \sum_E\tau_E(P_E\Gamma_QP_E)\leq re^{12\eta},
+ \quad\Gamma_Q=\sum_g\widehat B_g^*P_Q\widehat B_g.
+\end{equation}
+The input restriction commutes with the virtual Gibbs operator and
+can only decrease it. Also $\|\Gamma_Q\|\leq r$. Consequently inflow
+does not acquire a factor equal to the number of sectors.
+
+\subsection{Concentration, reshaping and export}
+Here is the concentration estimate used in the chronological argument.
+For a frame $F:\mathbb C^m\to(\bigoplus_{p=1}^N\mathbb C^{D_p})
+\otimes\mathbb C^s$, put $R=FF^*$,
+$g=\|F^*F\|$, $\alpha=\max_p\|\Tr_{D_p}R_{pp}\|$,
+and $D_{\min}=\min_pD_p$. For a Hermitian memory-only operator $A$
+and independent block Haar mixers $V=\bigoplus_pV_p$,
+\begin{equation}\label{eq:unequal-concentration}
+ \Pr\{\|F^*[(V^*AV-\mathbb EV^*AV)\otimes I]F\|\geq s_0\}
+ \leq2m\exp\left(-\frac{D_{\min}s_0^2}
+ {2(1+N)\alpha g\|A\|^2}\right).
+\end{equation}
+For completeness, use Hermitian Hilbert--Schmidt orthonormal bases
+$T_{p,a}$ and the product-group Laplacian
+$\mathcal L=\sum_{p,a}D_p^{-1}\partial_{p,a}^2$.
+Writing $X=V^*AV$, its centered diagonal and off-diagonal blocks all
+have Laplacian $-2$. Therefore the centered compression $Z$ satisfies
+$\mathcal LZ=-2Z$. The completeness identities
+$\sum_aT_{p,a}YT_{p,a}=\Tr(P_pYP_p)P_p$ and
+$\sum_aT_{p,a}^2=D_pP_p$ give
+\[
+ \sum_{p,a}D_p^{-1}(\partial_{p,a}Z)^2
+ \leq \frac{2(1+N)\alpha\|A\|^2}{D_{\min}}F^*F.
+\]
+To see the $1+N$ factor, apply
+$(XT-TX)R(XT-TX)^*\leq2XTRTX+2TXRXT$.
+The two unscaled sums are bounded respectively by
+$\alpha\|A\|^2I$ and $N\alpha\|A\|^2I$ after partial trace.
+Haar integration by parts then bounds
+$f(t)=\mathbb E\Tr e^{tZ}$ by $m e^{ct^2/4}$ with
+$c=2(1+N)\alpha g\|A\|^2/D_{\min}$.
+The required trace derivative inequality follows by diagonalizing $Z$
+and integrating the scalar convexity inequality for the exponential.
+Optimize exponential Markov at $t=2s_0/c$ and apply it to $-Z$ as well.
+This proof explains both unequal-sector validity and the memory-only
+restriction; it does not permit an operator on future history labels.
+
+Reshape $F$ by $\widetilde F_{(a,h),s}=\overline{F_{(a,s),h}}$.
+Its Gram is $\Tr_{\rm memory}R$, whereas its sector spectator marginal
+is the transpose of $F_p^*F_p$. Hence $\widetilde g\leq N\alpha$
+and $\widetilde\alpha\leq g$. Apply
+\eqref{eq:unequal-concentration} to $\Gamma_Q^T$ and use
+\eqref{eq:graded-inflow}. When $g\leq2$, the simultaneous inflow bound is
+\begin{equation}\label{eq:graded-spectator-recursion}
+ \alpha_{\rm call}\leq re^{12\eta}\alpha+
+ 2r\sqrt{N(1+N)\alpha\mathcal H/D_{\min}}.
+\end{equation}
+Each failure probability is at most $2s e^{-\mathcal H}$.
+Conjugation and transpose here are algebraic reshaping, not physical
+antiunitaries.
+
+After a sector Haar mixer, export a common $e$-dimensional port and
+replace it by a flat one. Column Grams and energy-weighted Grams are
+preserved. The new spectator marginal has blocks given by Haar
+conjugation of $I\otimes|u\rangle\langle v|$. Applying the single-sector
+estimate to their Hermitian parts gives
+\begin{equation}\label{eq:graded-export}
+ \alpha_{\rm next}\leq\alpha_{\rm call}/e^2+
+ 4\sqrt{2\alpha_{\rm call}\mathcal H/D_{\min}}.
+\end{equation}
+There are at most $2Ne^2$ tests. Explicitly, partial trace of the
+retained register gives a factor $1/e$ from the flat import's purifier;
+the mean contributes another $1/e$. The block-to-operator factor $e$
+in the fluctuation cancels the first factor. These are exact partial
+trace identities, not independence assumptions about frame entries.
+
+\subsection{One simultaneous history-frame induction}
+Initialize sector zero flat. Before each round and after each of the
+first $n-1$ rounds choose block mixers offline, then fix them publicly.
+After round $v<n$ replace
+$j_v=\lfloor v\log_2r/2\rfloor-\lfloor(v-1)\log_2r/2\rfloor$
+port qubits. There is no final replacement.
+For analysis alone delete input padding after the premixer and output
+energies outside the alive interval after the round. Let $F_v$ be the
+surviving history frame and
+\[
+ G_v=F_v^*F_v,\qquad H_v^\beta=F_v^*e^{\beta\eta\mathsf E}F_v,
+ \quad\beta=\theta,-1.
+\]
+Its columns are histories; the initial purifier, exports and import
+purifiers are spectators, all used only in this dilation. Initially
+$G_0=1$ and $\alpha_0\leq D_{\min}^{-1}$.
+
+Impose concentration on all $r^2$ unweighted label blocks, both weighted
+families, the padding projection, and each sector inflow. Use Hermitian
+real and imaginary parts with threshold $\eta/(2r)$ so every full label
+fluctuation is at most $\eta$. The Haar mean is a sum of
+$M_E^\beta$ tensored with positive parent-sector Grams.
+Thus the full matrix bounds~\eqref{eq:coded-matrix-means} imply,
+assuming parent norm at most two,
+\begin{align*}
+ \|E_{\rm prep}\|&\leq21\eta,
+ &\|G_{\rm call}-I_r\otimes G_{v-1}\|&\leq\delta_G:=2\epsilon_0+41\eta,\\
+ H_{\rm call}^{\beta}&\leq\kappa_\beta I_r\otimes H_{v-1}^{\beta}+\eta I,
+ &H_v^\beta&\leq(1+n\eta)\kappa_\beta^vI.
+\end{align*}
+Output cuts decrease positive weighted Grams; energy-preserving export
+preserves them exactly. Markov in Loewner order at $B_-,B_+$ gives
+\begin{equation}\label{eq:graded-exit}
+ \|E_{\rm exit}\|\leq\tau:=2(1+n\eta)e^{-x},\qquad
+ \|G_v-I\|\leq v(\delta_G+\tau)<1/16.
+\end{equation}
+For the upper tail, if $\theta=\sqrt{x_+/(nV)}$, the variance term is
+$x_+$ and the square-root buffer costs $2x_+$. In the other case put
+$y=\sqrt{nV}/(2h\sqrt{x_+})\leq1$; the variance-minus-buffer part is
+$x_+(y^2-2y-1)\leq-x_+$. In both cases
+$n\epsilon_0-x_+=-x$. Integer endpoints only help. The lower tail is
+$(1+n\eta)e^{-x}$. This also bounds every child before the output cut
+by two, closing the induction.
+
+Let $c_v=2^{2\lfloor v\log_2r/2\rfloor}r^{-v}\in(1/4,1]$.
+Applying $\sqrt{u+c\sqrt u}\leq\sqrt u+c/2$ to
+\eqref{eq:graded-spectator-recursion} and \eqref{eq:graded-export} gives
+\[
+ \sqrt{c_vD_{\min}\alpha_v}\leq
+ e^{6\eta}\sqrt{c_{v-1}D_{\min}\alpha_{v-1}}
+ +7\sqrt r(N+1)\sqrt{\mathcal H+1}.
+\]
+Consequently, for $v<n$,
+\[
+ \alpha_v\leq\mathcal B/D_{\min},\qquad
+ \mathcal B=1024r(n+1)^2(N+1)^2(\mathcal H+1).
+\]
+The final round requires no spectator bound after it.
+
+Here is an explicit, noncircular amplification. Set
+\begin{align*}
+ H_b&=\sum_Ed_E,\qquad e_*=2^{\lceil\log_2r/2\rceil},\\
+ T_w&=\eta\max\{|E_{\min}|,|E_{\max}|\},\\
+ Z_0&=1+\ln[128(n+1)N(r+1)^2e_*^2]+\ln H_b+n\ln r,\\
+ K_0&=512r^2(n+1)(N+1)^2/\eta,\\
+ A_0&=4+T_w+\ln K_0+Z_0,\\
+ M&=2^{\lceil\log_2[4e^{T_w}K_0A_0^2]\rceil},\qquad
+ \mathcal H=Z_0+\ln M.
+\end{align*}
+All quantities preceding $M$ are fixed without $M$.
+Then $M\geq e_*$, $\mathcal H\leq3A_0$, and
+\[
+ D_{\min}\geq M\eta^{-2}\geq
+ 4r\sqrt{(1+N)\mathcal B\mathcal H}\,e^{T_w}/\eta.
+\]
+This follows, for example, from
+$\sqrt{(1+N)\mathcal B\mathcal H}
+\leq32\sqrt r(n+1)(N+1)^{3/2}(\mathcal H+1)$ and
+$M\geq e^{T_w}K_0(\mathcal H+1)$.
+Column count is at most $r^n$ and spectator dimension at most $H_bMr^n$.
+There are at most $6r^2+N+1$ premixer tests and $2Ne_*^2$ export tests.
+The tail bounds and a union bound make each successive good choice
+exist with probability greater than $1/2$. Fix choices in chronological
+order. The tested frames depend only on the responses and earlier
+fixed matrices, never on an observer.
+
+\subsection{Complete adaptive error and the resource ledger}
+Purify an arbitrary adaptive, reference-assisted observer, including its
+measurement records. Its ideal final dilation has history coefficients
+$\psi_y$ with $\sum_y\|\psi_y\|^2=1$. The good physical dilation has
+the same coefficients $\sum_y\psi_y\otimes F_n|y\rangle$:
+all coded rounds have the canonical coefficients $A_g$, and all
+other bank operations act only on the bath. At each analytical deletion
+the removed vector has norm at most $\sqrt{21\eta}$ or $\sqrt\tau$.
+The intervening physical circuit, retaining exports in the comparison
+space, is isometric. Telescoping and the final polar isometry of $F_n$
+therefore give vector error at most
+\[
+ n(\sqrt{21\eta}+\sqrt\tau)+n(\delta_G+\tau)<\epsilon.
+\]
+This does not suppose discarded branches never return. Half trace
+distance of pure states is at most their vector distance, and partial
+trace contracts it. Thus the same public circuit works for every
+observer in the complete-experiment metric. No projection, history
+register, runtime random seed or postselection is used by the device.
+
+Encode the body into $\lceil\log_2H_b\rceil$ qubits, tensor the dyadic
+port, and add a pure reversible clock. Outside padding is invariant
+and initially empty. Precisely,
+\begin{gather*}
+ Q=\lceil\log_2H_b\rceil+\log_2M+\lceil\log_2(n+1)\rceil,
+ \\
+ P=Q-\log_2(d_0M)\leq Q,\quad C=0,
+ \quad J=\lfloor(n-1)\log_2r/2\rfloor.
+\end{gather*}
+Every retained workspace is counted; in this unrestricted-unitary
+specification model the fixed controlled matrices need no synthesis
+workspace. A retained fixed service-wire padding costs only $O_d(1)$.
+The physical initial source is flat on sector zero, not on the entire bank.
+
+The total natural-log energy width is
+$O_r(nta_u+(1+L)x+1)$, by $\sqrt{xy}\leq x+y$.
+The body contributes this width plus $2\ln(1/\eta)+\ln N+O(1)$.
+The amplification adds $T_w+\ln K_0+2\ln A_0+O(1)$;
+in particular $n\ln r$ occurs inside $\ln A_0$, not as $n$ qubits.
+Hence $Q\leq C_r[1+nta_u+(1+L)x]$.
+For $y=\ln[128(n+1)/\epsilon]$, the compact-source bounds give
+$t=O_r(y)$, $L\leq C_r y(S+1)$ and
+$nta_u\leq C_{d,r}y^2(1+na)$.
+Thus $Q\leq C_{d,r}y^2(1+S+na)$, proving the stated squared-log
+bound. The selected spectral floor enters only the work-range parameter
+$L$; concentration, chronological induction and the complete adaptive
+error estimate above are unchanged. All constants are independent of
+the original rank and spectrum.

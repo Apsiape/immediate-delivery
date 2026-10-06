@@ -1,0 +1,230 @@
+\section{Three regimes for anchored gadgets}\label{sec:classification}
+
+The closure law distinguishes sublinear from linear memory. In the gadget class, exact support and the anchors
+also distinguish bounded one-round cost from cost that diverges. The mechanism is compactness at bounded
+\emph{entropy}, followed by support-preserving conversion of a finite mixture to one maximally mixed bath.
+Slofstra and Vidick read the same three-way split (bounded, finite but divergent, infinite) off hyperlinear
+profiles~\cite[Section~2]{SlofstraVidick2018}; for sofic profiles of chunks, boundedness means that the chunk embeds in
+a finite group~\cite[Fact~3.5]{Cornulier2013}. For a linear-system game that can be won with probability approaching one,
+the entanglement needed to win with probability $1-\epsilon$ is governed by such a
+profile~\cite[Corollaries~5.2 and~5.3]{SlofstraVidick2018}. It stays bounded exactly when a finite-dimensional perfect
+strategy exists~\cite{CleveMittal2014,CleveLiuSlofstra2017}, and it is unbounded for some
+games~\cite{Slofstra2019,Slofstra2020}. There the dimension diverges as the error tends to zero; here memory diverges
+with the number of uses at fixed error, the leakage scale $1/n$ playing the role of the defect
+(Remark~\ref{rem:hyperlinear-upper}). Channel profiles correspond to group profiles by~\cite[Theorem~9.2]{DouglasMghirbiB}.
+
+\begin{theorem}[Gadget trichotomy]\label{thm:trichotomy}
+For a canonical untwisted anchored gadget, exactly one of the following holds.
+\begin{enumerate}[label=(\roman*),itemsep=3pt]
+\item $\Phi$ has an exact finite tracial factorization. Equivalently, a finite-dimensional unitary
+representation of $P_\Phi$ separates all labels, or a finite quotient
+of $P_\Phi$ distinguishes every named label. Then $\sup_n L^*_\Phi(n)<\infty$ and
+$\Qf(n,\epsilon)=O_\Phi(\log(n/\epsilon))$~\cite[Theorem~8.6]{DouglasMghirbiB}.
+\item $\Phi\in\overline{\mathcal F}$ but has no exact finite tracial factorization.
+Equivalently, the named labels are separated by a homomorphism
+$P_\Phi\to U(\mathcal R^\omega)$ but by no finite quotient. Then
+$L^*_\Phi(n)\to\infty$, $L^*_\Phi(n)=o(n)$, and $\Qs(n,\epsilon_n)\to\infty$ for every
+$0<\epsilon_n\le1/16$. If also $\log(1/\epsilon_n)=o(n)$, flat-import rank-rate services have $Q=o(n)$.
+\item $\Phi\notin\overline{\mathcal F}$. Equivalently, some distinct named
+labels are identified by every homomorphism
+$P_\Phi\to U(\mathcal R^\omega)$. Then $L^*_\Phi(n)=\Theta_\Phi(n)$ and
+$\Qs(n,\epsilon_n)=\Theta_\Phi(n)$ for every error sequence $0<\epsilon_n\le1/16$.
+\end{enumerate}
+All upper constructions have $C=0$ and $P\le Q$.
+\end{theorem}
+
+In (i), \cite[Theorem~8.6]{DouglasMghirbiB} allows exchange $\lfloor n\log r/2\rfloor$. Skipping exports of at most
+$\lceil\log r/2\rceil$ qubits, and holding from the start a maximally mixed qubit in place of each skipped import, meets the
+budget $\lfloor(n-1)\log r/2\rfloor$ with the same error and $O_r(1)$ more memory.
+
+Here $\mathcal R^\omega$ is a tracial ultrapower of the hyperfinite
+$\mathrm{II}_1$ factor. Separation means operator-distinct images;
+it does not require a map to preserve the regular group trace.
+Padding by a trivial representation and tensor amplification turn
+separation of the finite label set into the needed vanishing trace
+overlaps (compare~\cite[Lemma~2.2 and the proof of Lemma~2.6]{SlofstraVidick2018}). Lemma~\ref{lem:ultrapower-labels} gives this conversion.
+Finite-dimensional separation gives a finite quotient by residual
+finiteness of the finitely generated matrix image. These criteria
+concern the presented label group, not every element of its
+source-group image.
+
+In the middle regime memory diverges, possibly no faster than $\log n$, and the theorem gives no rate there.
+In the linear regime the error threshold is the fixed value $1/16$, whereas the general converse of
+Theorem~\ref{thm:closure-law} needs error below the channel's distance from the closure.
+
+\paragraph{Why bounded entropy is enough.}
+Take rounds with bounded source entropy and production $a_j\to0$. Bounded entropy keeps the sorted
+source spectra from spreading over ever more eigenvalues, so they converge. A round moves weight
+between bath eigenvalues through a doubly stochastic matrix, and small production forces the spectrum
+after a use to match the spectrum before it, up to $\sqrt{2\ln2\,a_j}$ in $\ell^1$. In the limit the
+round maps each eigenspace of the limiting source spectrum unitarily onto itself. So the limiting channel
+is a finite mixture of finite tracial factorizations (Lemma~\ref{lem:entropy-compactness}).
+This mixture conclusion holds for general channels. Anchors turn an exact-support mixture close to
+the canonical gadget into a separating representation.
+
+Let $B=\sup_n L^*_\Phi(n)$. Let $R_{\rm sep}$ be the least $\log m$ for which a representation $\pi$ of
+$P_\Phi$ on $\C^m$ satisfies $|\tau_m(\pi(v_g)^*\pi(v_h))|\le1/2$ for all distinct labels $g\ne h$. Then
+\[
+ R_{\rm sep}\le16(B+1)+\log_2(33(d^4+1)),\qquad
+ B\le\lceil\log_2(8r(r-1))\rceil R_{\rm sep}.
+\]
+The exact finite tracial factorization is obtained by Malcev residual finiteness of the finitely generated
+matrix image and its finite quotient's regular representation~\cite{Nica2013}. No bound on that quotient's
+order follows from the displayed representation bound. Appendix~\ref{app:compactness} proves the classification.
+
+\subsection{Known examples}
+
+\begin{table}[ht]
+\centering\small
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Regime & Criterion on $P_\Phi$; memory & Known examples\\
+\midrule
+(i) exact finite tracial factorization
+ & A finite quotient separates the labels; memory $O(\log(n/\epsilon))$.
+ & Labels separated in a finite, residually finite or maximally almost periodic group satisfying the
+   relations (Corollary~\ref{cor:map}): the two-element example of Section~\ref{sec:gadgets}, the
+   lamplighter $C_2\wr\Z$.\\
+\addlinespace
+(ii) in $\overline{\mathcal F}$, no finite factorization
+ & Labels separated in $U(\mathcal R^\omega)$ but by no finite quotient; memory diverges and is $o(n)$.
+ & Houghton's group $H_3$; the configuration-lamp group $\Gamma$.\\
+\addlinespace
+(iii) outside $\overline{\mathcal F}$
+ & Two labels identified by every homomorphism into $U(\mathcal R^\omega)$; memory $\Theta(n)$.
+ & Known only conditionally: the canonical gadget $\Phi_{\rm cert}$ of the group certificate
+   of~\cite{MghirbiDouglasD}, at an explicit distance from $\overline{\mathcal F}$
+   (Proposition~\ref{prop:explicit-canonical}). Nonempty exactly when some finitely presented group
+   is not hyperlinear (Proposition~\ref{prop:regime-iii}).\\
+\bottomrule
+\end{tabularx}
+\caption{The three regimes of Theorem~\ref{thm:trichotomy}, at fixed error at most $1/16$.}\label{tab:regimes}
+\end{table}
+
+The placements in regimes (i) and (ii) follow from results in this paper; regime (iii) is
+discussed after Proposition~\ref{prop:regime-iii}. The two-element example
+has $P_\Phi=\Z/2$. A gadget from the lamplighter $C_2\wr\Z$ has labels separated by finite quotients
+(Section~\ref{sec:lower}). The Houghton gadget has $P_{\Phi_H}\cong H_3$ (Section~\ref{sec:gadgets}).
+Every finite-dimensional representation of $H_3$ identifies a three-cycle label with the label $1$
+(Remark~\ref{rem:houghton-map}), so regime (i) fails. Since $H_3$ is amenable, it is hyperlinear, so it
+embeds in $U(\mathcal R^\omega)$~\cite{Pestov2008} and the labels are separated: this is regime (ii).
+For the configuration-lamp gadget, Corollary~\ref{cor:lamp} gives $L^*_\Phi(n)\to\infty$ and
+$\Qs(n,\epsilon)=o(n)$ at fixed error, which excludes regimes (i) and (iii).
+
+\begin{proposition}[Regime (iii) and non-hyperlinear groups]\label{prop:regime-iii}
+The following are equivalent.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Some canonical untwisted anchored gadget lies in regime (iii) of Theorem~\ref{thm:trichotomy}.
+\item Some finitely presented group $P$ has an element $\zeta\ne1$ such that $\pi(\zeta)=1$ for every
+homomorphism $\pi:P\to U(\mathcal R^\omega)$.
+\item Some finitely presented group is not hyperlinear.
+\end{enumerate}
+\end{proposition}
+
+For (a)$\Rightarrow$(b), take $P=P_\Phi$ and $\zeta=v_g^{-1}v_h$ for two identified labels. For
+(b)$\Rightarrow$(a), add the freely trivial word $ww^{-1}$, where $w$ represents $\zeta$, to a
+presentation of $P$; this makes $\zeta$ a label with its own anchor. Appendix~\ref{app:regime-iii}
+gives the proof, including the standard step (c)$\Rightarrow$(b).
+
+\paragraph{Which gadgets are known outside the closure?}
+Our companion paper~\cite{MghirbiDouglasD} gives explicit rational channels outside
+$\overline{\mathcal F}$, at explicit distances. Each factorizes exactly through a group von Neumann
+algebra. Its distances are the normalized Choi and half-diamond distances of Section~\ref{sec:model},
+and its closure of the noisy operations is $\overline{\mathcal F}$, so its bounds apply here unchanged.
+Write $\operatorname{dist}_\diamond(\Phi,\overline{\mathcal F})=\inf_{\Psi\in\overline{\mathcal F}}\ddia(\Phi,\Psi)$.
+
+\begin{proposition}[Mghirbi--Douglas~{\cite[Theorems~I and~III]{MghirbiDouglasD}}]\label{prop:rational-distances}
+Put $\delta_{\rm WZ}=2^{-2^{2^{1122000}}}$, the error tolerance of Wang and
+Zhi~\cite[(2.20)]{WangZhi2026}, and assume the theorems of~\cite{WangZhi2026}.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item A unital channel $\Phi_{12}$ on twelve qubits, with Kraus entries in $\{0,1,\pm3/5,4/5\}$ and
+Choi rank $949$, has $\operatorname{dist}_J(\Phi_{12},\overline{\mathcal F})\ge2^{-50}\delta_{\rm WZ}^2$
+and $\operatorname{dist}_\diamond(\Phi_{12},\overline{\mathcal F})\ge2^{-50}\delta_{\rm WZ}^2$.
+\item The fifteen-qubit channel $\Phi_{15}$ and its reductions $\Phi_1,\Phi_2$, on $M_d$ with
+$d=31\,981$ and $31\,982$, have Choi rank $11\,230$ and both distances at least
+$2^{-41}\delta_{\rm WZ}^2$.
+\item The fully referenced channel $\Phi_{\rm full}$ on $M_{44\,086}$, with a singleton anchor for
+each of its $11\,230$ labels, has
+$\operatorname{dist}_J(\Phi_{\rm full},\overline{\mathcal F})\ge2^{-36}\delta_{\rm WZ}^2$ and
+$\operatorname{dist}_\diamond(\Phi_{\rm full},\overline{\mathcal F})\ge2^{-21}\delta_{\rm WZ}^2$.
+\end{enumerate}
+\end{proposition}
+
+The constants are astronomically small: already $2^{1122000}$ has $337\,756$ decimal digits. They
+come from the rigidity estimate, not from the channels. Theorem~\ref{thm:closure-law}(b) turns them
+into explicit purity and memory bounds, as~\cite[Section~6]{MghirbiDouglasD} notes.
+
+\begin{corollary}[Theorem~\ref{thm:closure-law}(b) with~{\cite[Theorem~III]{MghirbiDouglasD}}]\label{cor:rational-memory}
+Every between-round service of $\Phi_{\rm full}$ with error at most $\epsilon$ satisfies
+\[
+ P+C\ge\frac{n\bigl(2^{-36}\delta_{\rm WZ}^2-\epsilon\bigr)_+^2}{2\ln2},\qquad
+ Q+C\ge\frac{n\bigl(2^{-36}\delta_{\rm WZ}^2-\epsilon\bigr)_+^2}{2\ln2}.
+\]
+With maximally mixed imports and $\epsilon\le2^{-37}\delta_{\rm WZ}^2$, this gives
+$Q\ge2^{-75}\delta_{\rm WZ}^4\,n$.
+\end{corollary}
+
+The memory is linear, but the bound reaches one qubit only at $n=2^{75}\delta_{\rm WZ}^{-4}$. It
+replaces a compactness argument by a number; it does not describe an experiment.
+
+None of these channels is a canonical gadget, so Theorem~\ref{thm:trichotomy} does not apply to
+them. Their blocks use $3/5$ and $4/5$ where~\eqref{eq:canonical-unitary} uses $1/\sqrt2$. Equal
+triangles share one block, while the canonical table gives every tagged prefix its own. Most labels
+have no anchor. $\Phi_{12}$, the output of the anchored-letter
+compiler~\cite[Definition~3.1]{MghirbiDouglasD}, has singletons only for the identity, the letters and
+some further labels: $364$ of its $949$ labels. $\Phi_2$ and $\Phi_{15}$ have singletons only for the
+identity and the witness, and $\Phi_1$ only for the identity. $\Phi_{\rm full}$ anchors every label but
+keeps the $3/5,4/5$ blocks.
+
+A canonical example comes from the same group construction. Take the presentation
+of~\cite[Section~7]{MghirbiDouglasD}, with $43$ generators and $4\,417$ relators of length at most
+$19$, and its group image $\Gamma$. One generator is the witness $j$, and $j\ne1$ in $\Gamma$. Let
+$\Phi_{\rm cert}$ be the canonical gadget of $\Gamma$, these generators and these relators. It acts on
+$M_d$ with $d=108\,364$, and the letter $j$ has its own singleton anchor. Every homomorphism from the
+presented group into a tracial matrix ultraproduct kills $j$~\cite[Theorem~1]{MghirbiDouglasDv1}. The
+presented group is countable, so a label-separating homomorphism into $U(\mathcal R^\omega)$ would give
+one into a tracial matrix ultraproduct: the von Neumann algebra generated by its image embeds
+trace-preservingly into one. That would contradict the certificate, so
+Lemma~\ref{lem:ultrapower-labels} places $\Phi_{\rm cert}$ outside $\overline{\mathcal F}$, in
+regime~(iii).
+
+The fully referenced bound of~\cite{MghirbiDouglasD} makes this example explicit.
+
+\begin{proposition}[An explicit canonical gadget outside the closure]\label{prop:explicit-canonical}
+Assume the rigidity theorem~\cite[Theorem~D.4]{MghirbiDouglasD}, which rests on~\cite{WangZhi2026}.
+Then
+\begin{align*}
+ \operatorname{dist}_J(\Phi_{\rm cert},\overline{\mathcal F})&\ge\frac{\delta_{\rm WZ}^2}{4096\cdot19^2\cdot108\,364}>2^{-38}\delta_{\rm WZ}^2,\\
+ \operatorname{dist}_\diamond(\Phi_{\rm cert},\overline{\mathcal F})&\ge\frac{\delta_{\rm WZ}^2}{4096\cdot19^2}>2^{-21}\delta_{\rm WZ}^2.
+\end{align*}
+\end{proposition}
+
+\begin{proof}
+By~\cite[Theorem~D.4]{MghirbiDouglasD}, unitaries whose relator defects are at most
+$\delta_{\rm WZ}$ have $\|v_j-I\|_2<2^{-17}$, in every matrix dimension. So $\delta_{\rm WZ}$ is a
+relator tolerance in the sense of~\cite[Lemma~7.3]{MghirbiDouglasD}. That lemma, from~\cite[Theorem~6]{MghirbiDouglasDv1},
+gives the displayed bounds, with $\ell_*=19$, for channels built from $3/5,4/5$ blocks with a
+singleton for every label. Its proof, with $k$ as there, uses the coefficients only twice. Each block
+entry $c$ has $|c|\le4/5$, which keeps the bath block within $3k$ of $c$ times its label unitary. Each
+block has $ab\ge12/25$, which turns the row-orthogonality defect, $13k$ or $(12+\sqrt2)k$, into a
+triangle defect below $32k$. The canonical coefficients $a=b=1/\sqrt2$ satisfy both. The canonical
+table contains every prefix triangle and every inverse triangle, every label has an anchor, and the
+anchors of $1$ and $j$ are distinct. The proof uses one anchor per label and treats blocks one at a
+time, so tagged repeats change nothing.
+\end{proof}
+
+So $\Phi_{\rm cert}$ is a canonical gadget in regime~(iii) at an explicit distance.
+Theorem~\ref{thm:closure-law}(b) gives
+$P+C\ge n(2^{-38}\delta_{\rm WZ}^2-\epsilon)_+^2/(2\ln2)$ for its between-round services, and
+Theorem~\ref{thm:trichotomy}(iii) gives linear memory at every error up to $1/16$, with a constant
+from compactness.
+
+These results are conditional. The certificate rests on Alekseev--Liu--Thom, Theorem~B, and Thom,
+Theorem~1.2~\cite{AlekseevLiuThom2026,Thom2026}. The explicit distances rest on the rigidity theorems
+of Wang and Zhi~\cite{WangZhi2026}, whose proofs follow steps of those two
+papers;~\cite[Section~1.4]{MghirbiDouglasD} lists which statements use them. All three are recent
+unrefereed preprints at the time of writing. Exact factorizability is unconditional. By contrast
+$\mathrm{MIP}^*=\mathrm{RE}$ and Haagerup--Musat imply nonconstructively an exactly factorizable
+nonclosure channel in some dimension, recorded for a Schur channel
+in~\cite[Corollary~3.11]{Musat2025}, but do not by themselves supply an explicit group or canonical
+gadget.

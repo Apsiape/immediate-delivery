@@ -1,0 +1,370 @@
+\section{Introduction}\label{sec:intro}
+
+A quantum channel is usually described by what it does to one input.
+Suppose instead that a device must apply the same channel $n$ times, and
+that each output must leave before the next input arrives. With a fresh
+pure environment for every use, the device needs almost no memory. But
+fresh pure qubits are a resource~\cite{RybarZiman2008}, and a device
+given little purity must keep what it cannot afford to throw away. How
+much must it keep, and what decides the answer?
+
+We count three resources. The memory $Q$ is the number of qubits the
+device keeps between uses. The exchange $J$ is the number of qubits it
+hands over for good and replaces with fresh ones. The purity of a
+register is its number of qubits minus its
+entropy~\cite{HorodeckiHorodeckiOppenheim2003}; $P$ is the purity of
+the initial memory and $C$ the total purity of the fresh qubits. Every
+reset, purifier and random seed the device keeps is counted. Unless we
+say otherwise, fresh qubits are maximally mixed, so $C=0$. The observer
+may keep a reference and may choose each input after seeing earlier
+outputs. The error is the largest half trace distance, over all such
+observers, between this whole experiment and $n$ independent uses of the
+channel. A device that releases each output before the next input
+arrives is a \emph{causal service}.
+
+The paper has three messages. Immediate release has a price, which a
+single qutrit channel already shows. One closed set of channels, those
+that a finite maximally mixed bath can imitate, separates cheap from
+expensive repeated use. Purity is known to mark this set, and we show
+that memory marks it too, for channels with a flat probe. And for
+channels built from group relations, at high precision, the memory of
+$n$ uses is governed by a single use.
+
+\paragraph{The price of immediacy.}
+Consider the Werner--Holevo channel~\cite{WernerHolevo2002} on
+$3\times3$ matrices,
+\[
+ \Theta(X)=\tfrac12(\Tr(X)I-X^T),\qquad H=\log_2 3.
+\]
+Up to a change of basis it is the spin-one channel that Landau and
+Streater used to show that a unital channel need not be a mixture of
+unitaries~\cite{LandauStreater1993}.
+
+\begin{introthm}[Theorems~\ref{thm:qutrit-purity} and~\ref{thm:qutrit-collective}]\label{thm:intro-qutrit}
+Every causal service of $\Theta$ whose error tends to zero needs
+supplied purity $P+C\geq(H-o(1))n$~\cite[Theorem~3.2(c) and Proposition~F.1(c)]{DouglasMghirbiB}, and exact causal
+services attain $P+C=nH+O(\sqrt n)$. If all $n$ outputs may be released
+together, $\Theta^{\otimes n}$ has an implementation with error
+$1/\mathrm{poly}(n)$ and supplied purity $O(\log n)$, refining the rate
+zero of~\cite{FaistBertaBrandao2019}.
+\end{introthm}
+
+The rate $H$ is the purity cost of an extreme channel, from earlier
+work~\cite{DouglasMghirbiB}. What is added here is a bound at finite
+error and the comparison with collective delivery. The reason for the
+rate is rigidity. The Choi state of $\Theta$ lives on a
+three-dimensional antisymmetric subspace, where tracing out the output
+acts as $\Theta$ itself, which has a bounded inverse. So a nearly correct
+use cannot correlate its output and reference with a purification of
+the memory, and each use must deposit $\log_2 3$ fresh bits of entropy
+there. Collective delivery avoids this by holding all inputs until the
+end, so its memory is linear.
+
+Letting outputs wait interpolates between the two. At error $n^{-2}$,
+with sublinear memory and linear exchange, batches much shorter than
+$\log n$ keep the full rate, while batches much longer than $\log n$
+have rate zero (Theorem~\ref{thm:batch-purity}). Rate zero for batches
+much longer than $\log n$ holds for every unital channel
+(Theorem~\ref{thm:unital-batch}). The same logarithmic threshold appears
+for a closed apparatus delivering an extreme ququart Schur
+channel~\cite[Theorems~7 and~8]{DouglasSchur}; we carry it to open
+services.
+
+The collective bound holds for every unital channel
+(Lemma~\ref{lem:collective-gaussian}, which
+extends~\cite[Theorem~1]{DouglasSchur}). At the level of rates it is a
+theorem of Faist, Berta and Brand\~ao. With trivial Hamiltonians,
+thermal operations are the noisy operations, work is counted in pure
+qubits, and unital channels have zero thermodynamic
+capacity~\cite{FaistBertaBrandao2019},
+\cite[Equation~(4.9) and Theorem~7.1]{FaistBertaBrandao2021}. The lemma
+adds the explicit $O(\log n)$ at polynomially small error. Classical
+randomness cannot explain it. The channel $\Theta$ is not
+factorizable~\cite[Example~3.1]{HaagerupMusat2011}, so its tensor powers
+stay a fixed distance from mixtures of
+unitaries~\cite[Section~6]{HaagerupMusat2011}. This refuted the
+asymptotic quantum Birkhoff conjecture of Smolin, Verstraete and
+Winter~\cite{SmolinVerstraeteWinter2005}; see also~\cite{Shor2010}.
+
+\paragraph{The dividing line.}
+A \emph{finite tracial factorization} of a channel is an implementation
+by one unitary acting on the input and a finite bath that starts
+maximally mixed. It uses no purity, and on a maximally mixed input it
+produces no bath entropy. Horodecki, Horodecki and Oppenheim introduced
+these implementations as noisy
+operations~\cite{HorodeckiHorodeckiOppenheim2003}, and Gour et al.\
+define noisy operations as their closure~\cite{GourEtAl2015}. Let
+$\overline{\mathcal F}$ be this closure. By Haagerup and Musat,
+$\overline{\mathcal F}$ consists of the factorizable channels that admit
+an ancilla embeddable in an ultrapower of the hyperfinite
+$\mathrm{II}_1$ factor~\cite[Theorem~3.6]{HaagerupMusat2015}, and it
+contains every factorizable channel exactly when Connes' embedding
+problem has a positive answer~\cite[Theorem~3.7]{HaagerupMusat2015}.
+Distance is the normalized Choi distance $d_J$, half the trace distance
+between Choi states.
+
+A channel of Choi rank $r$ has a \emph{flat probe} if some input, with a
+reference, leaves its minimal environment maximally mixed; equivalently,
+its entropy exchange~\cite{Schumacher1996} can reach $\log_2 r$. For such
+a channel in $\overline{\mathcal F}$, about $\frac12\log r$ exchanged
+qubits per use is the least that permits sublinear memory as the error
+tends to zero~\cite[Theorem~3.4]{DouglasMghirbiB}. From here on, unless
+we say otherwise, the exchange is at most $\lfloor(n-1)\log r/2\rfloor$
+and errors are at most $\frac1{16}$.
+
+\begin{introthm}[Theorem~\ref{thm:closure-law}]\label{thm:intro-closure}
+Let $\Phi$ be a channel on $M_d$.
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item If $\Phi\in\overline{\mathcal F}$ has a flat probe of rank
+$r\geq2$, then for every error sequence $\epsilon_n>0$ with
+$\log(1/\epsilon_n)=o(n)$ there are causal services with error at most
+$\epsilon_n$ and memory $Q=o(n)$.
+\item \cite[Theorem~3.2(b)]{DouglasMghirbiB} If $\Phi$ is at normalized
+Choi distance $\Delta>0$ from $\overline{\mathcal F}$, every causal
+service with imports between uses and error $\epsilon$ has, at any
+exchange, $P+C\geq{n(\Delta-\epsilon)_+^2/(2\ln2)}$. With maximally
+mixed imports its memory is therefore linear whenever $\epsilon<\Delta$.
+\end{enumerate}
+\end{introthm}
+
+Part~(a) sharpens~\cite[Corollary~3.3(c)]{DouglasMghirbiB}, which gives
+sublinear memory at an error that tends to zero at no prescribed rate.
+The mechanism of part~(b) is local
+tracialization~\cite[Lemma~5.4]{DouglasMghirbiB}: a use that raises the
+bath entropy only slightly, on a maximally mixed input, is close in
+Choi distance to a mixture of finite tracial factorizations
+(Lemma~\ref{lem:tracialization}). A channel a fixed distance from
+$\overline{\mathcal F}$ must therefore produce bath entropy at a
+positive rate, and supplied purity pays for it. The qutrit channel
+$\Theta$ lies at a positive distance from $\overline{\mathcal F}$,
+computed by Haagerup and Musat~\cite[Theorem~5.6 and
+Corollary~5.7]{HaagerupMusat2015} and restated in Choi distance in
+Proposition~\ref{prop:qutrit-gap}.
+
+The question of reusing one device without resets goes back to Ryb\'ar
+and Ziman~\cite{RybarZiman2008}. In their model one fixed unitary acts
+on a finite memory and each input, and a channel is repeatable if every
+use, on uncorrelated inputs, induces exactly that channel. They showed
+that random-unitary channels are repeatable and that nonunital channels
+are not repeatable with a finite memory. They left the other unital
+channels open~\cite[Section~IV]{RybarZiman2008}. Their entropy
+count~\cite[Equation~(3.7)]{RybarZiman2008} is the prototype of the
+purity bookkeeping behind Theorem~\ref{thm:intro-closure}(b).
+
+Proposition~\ref{prop:repeatable} answers their question: some unital
+channels that are not random-unitary are repeatable, and some unital
+channels are not. The positive half rests on known results. A Schur
+channel of Haagerup and Musat~\cite[Example~3.3]{HaagerupMusat2011} is
+unital and not random-unitary. Lie, Son, Boes, Ng and Wilming showed
+that it has a catalytic dilation, in which the memory state never
+changes~\cite[Proposition~15 and Appendix~C]{LieSonBoesNgWilming2026}.
+Such a device repeats its channel, here with one memory qubit. For the
+negative half we use the same bookkeeping. A device that repeats $\Phi$
+for $n$ uses with memory dimension $M$ has
+$\log M\geq n\operatorname{dist}_J(\Phi,\overline{\mathcal F})^2/(2\ln2)$.
+A channel that one finite memory repeats forever is a finite mixture of
+finite tracial factorizations. The qutrit channel $\Theta$ is unital, but
+repeating it $n$ times needs $\log M\geq n\log3$, which their $n$-cell
+device attains.
+
+Ryb\'ar and Ziman also proposed devices whose memory starts maximally
+mixed, which are our finite tracial factorizations, followed by a reset
+to the maximally mixed state. A reused reset device receives inputs
+correlated with its own memory, and repeatability says nothing about
+such inputs. Theorem~\ref{thm:intro-closure}(a) instead replaces about
+$\frac12\log r$ memory qubits per use by fresh maximally mixed ones,
+under joint error and with memory that may grow sublinearly. It can be
+read as an open-system, quantitative form of their proposal. Lie, Son,
+Boes, Ng and Wilming call the finite mixtures of finite tracial
+factorizations strongly factorizable~\cite{LieSonBoesNgWilming2026};
+their closure is $\overline{\mathcal F}$.
+
+Exact factorizability and membership in $\overline{\mathcal F}$ are
+different questions. Haagerup and Musat's equivalence, combined with
+$\mathrm{MIP}^*=\mathrm{RE}$~\cite{JiEtAl2020}, implies nonconstructively
+that in some finite dimension an exactly factorizable channel lies
+outside $\overline{\mathcal F}$; Musat records this for a Schur
+channel~\cite[Corollary~3.11]{Musat2025}. Our companion
+paper~\cite{MghirbiDouglasD} gives explicit rational examples, conditional
+on recent preprints. Their distance from $\overline{\mathcal F}$ is explicit
+but astronomically small (Proposition~\ref{prop:rational-distances}). In the other direction, some
+mixtures of two unitaries lie in $\overline{\mathcal F}$ but have no
+finite tracial factorization~\cite[Proposition~3.6]{Musat2025}. Musat
+and R\o rdam give channels in $\overline{\mathcal F}$ with no
+finite-dimensional ancilla at all, in every dimension
+$d\geq11$~\cite[Theorem~4.1]{MusatRordam2019}; Mori lowers this to
+$d\geq8$~\cite[Theorem~2.5]{Musat2025}.
+
+\paragraph{Three regimes for group gadgets.}
+A \emph{canonical gadget} (Section~\ref{sec:gadgets}) is a channel built
+from a finite list of relations in a group, by the construction
+of~\cite[Section~9]{DouglasMghirbiC}. Its Kraus operators are indexed by
+finitely many group elements, the \emph{labels}, and it is factorizable
+through the group von Neumann algebra. Write $P_\Phi$ for the group
+presented by the gadget's own relations. For gadgets the dividing line
+refines into three regimes at every fixed error
+(Theorem~\ref{thm:trichotomy} and Table~\ref{tab:regimes}). Memory is at
+most logarithmic when a finite quotient of $P_\Phi$ separates the
+labels; the gadget then has an exact finite tracial
+factorization~\cite[Theorem~8.6]{DouglasMghirbiB}. Memory diverges but
+stays sublinear when the labels are separated only by unitaries in a
+tracial ultrapower of the hyperfinite factor. Otherwise it is linear.
+The linear regime contains a gadget exactly when some finitely presented
+group is not hyperlinear (Proposition~\ref{prop:regime-iii}).
+
+Slofstra and Vidick read the same three-way split off hyperlinear
+profiles~\cite[Section~2]{SlofstraVidick2018}. For linear-system games
+it governs the entanglement needed for near-perfect
+play~\cite{CleveLiuSlofstra2017,Slofstra2019,SlofstraVidick2018}. There
+the dimension diverges as the error tends to zero; here memory diverges
+with the number of uses at fixed error.
+
+\paragraph{One use governs many.}
+Realize one use of a gadget $\Phi$ by a unitary acting on the input and a
+bath in state $\rho$. Over $n$ uses the bath entropy $S=S(\rho)$ is paid
+once, and the entropy $a$ that one use adds to the bath (with maximally
+mixed input) is paid $n$ times. So the natural cost of the use is
+$S+na$. Let the \emph{profile} $Z_\Phi(n)$ be the least such cost over
+uses whose output stays exactly in the span of the gadget's Kraus
+operators and which tell the labels apart to a fixed coarse accuracy
+(Definition~\ref{def:exact-profile}). The bath state may be coherent.
+
+\begin{introthm}[Theorem~\ref{thm:main}]\label{thm:intro-memory}
+Let $\Phi$ be a canonical gadget with Choi rank $r\geq2$, and let
+$\epsilon\leq1/[n\log_2^2(en)]$. The least memory $Q$ of a causal service
+of $\Phi$ with error $\epsilon$ satisfies
+\[
+ c\,(1+Z_\Phi(n))\ \leq\ 1+Q\ \leq\ C\log_2^2(n/\epsilon)\,(1+Z_\Phi(n)),
+\]
+with constants that depend only on the dimension and the Choi rank.
+\end{introthm}
+
+At fixed error the lower bound is a second profile, $L^*_\Phi(n)$, which
+also allows each use a leakage of order $1/n$ outside the Kraus span
+(Definition~\ref{def:profile}). Whether $Z_\Phi(n)$ and $L^*_\Phi(n)$
+agree up to polylogarithmic factors is the main open problem
+(Problem~\ref{prob:keep-bias}).
+
+The profiles make intermediate scales visible. For the configuration-lamp
+gadget of~\cite[Section~11]{DouglasMghirbiC}, memory is
+$n^{1/2+o(1)}$~\cite[Theorem~11.1(b)]{DouglasMghirbiC}, and the
+fixed-error profile $L^*_\Phi$ matches it (Corollary~\ref{cor:lamp}).
+For Houghton's channel, devices whose uses act through Houghton's group,
+with negligible discard, need memory $n^{1/3}$ up to logarithmic
+factors, and such devices attain it
+(Theorem~\ref{thm:houghton-genuine}). For arbitrary devices, $n^{1/3}$
+up to logarithms is an upper bound~\cite[Corollary~6.7]{DouglasMghirbiB},
+and the exponent is open.
+
+\paragraph{Related work.}
+Memory channels~\cite{KretschmannWerner2005,CarusoEtAl2014} and collision
+models~\cite{CiccarelloEtAl2022} describe repeated interactions with an
+environment. Sequential protocols are described by quantum
+combs~\cite{ChiribellaDArianoPerinotti2009} and
+strategies~\cite{GutoskiWatrous2007}; our error uses their adaptive
+discrimination setting. The memory needed to realize a given comb has
+been minimized when discarding is free~\cite{BisioEtAl2011,BisioEtAl2012};
+here discarding costs exchange and every retained qubit counts.
+Programmable processors store a channel in a program
+register~\cite{NielsenChuang1997,HilleryZimanBuzek2002}; here the channel
+is fixed and the memory serves its repetition. Process tensors describe
+the multi-time response to interventions and detect environmental
+memory~\cite{PollockEtAl2018}. Here the target process has independent
+uses, and the memory belongs to its resource-constrained implementation.
+Quantum statistical complexity minimizes simulator entropy for
+prescribed output statistics~\cite{GuEtAl2012}, not for a channel on
+arbitrary entangled inputs. Mendl and Wolf analyze the mixed-unitary
+structure of unital and covariant channels~\cite{MendlWolf2009}; Haagerup
+and Musat determined which members of their qutrit family are
+factorizable~\cite[Corollary~5.7]{HaagerupMusat2015}, the input to
+Proposition~\ref{prop:qutrit-gap}. On the operator-algebra side, a
+unital channel is factorizable exactly when its iterates are
+compressions of the iterates of one trace-preserving automorphism of a
+larger algebra, equivalently when it has a Markov
+dilation~\cite[Theorem~4.4]{HaagerupMusat2011}; Haagerup and Musat
+credit the first equivalence to K\"ummerer. These are iterates of the
+channel, not independent uses.
+
+Thermodynamics prices processes in work. Faist and Renner give the
+single-shot work cost of a process on a specified
+input~\cite{FaistRenner2018}. Faist, Dupuis, Oppenheim and Renner bound
+the work cost of a logical process on a fixed input by a smooth
+max-entropy of the discarded information given the
+output~\cite{FaistDupuisOppenheimRenner2015}. Both allow every
+Gibbs-preserving map for free; with trivial Hamiltonians these are the
+unital channels, so $\Theta$ costs nothing there. Gibbs-preserving maps
+can outperform thermal operations on single
+instances~\cite{FaistOppenheimRenner2015}, but for i.i.d.\
+implementations the two cost the same~\cite{FaistBertaBrandao2019},
+\cite[Theorem~7.1]{FaistBertaBrandao2021}.
+Theorem~\ref{thm:intro-qutrit} shows that the gap reopens, at the full
+rate $H$, when each output must leave at once. Faist, Berta and
+Brand\~ao asked how their costs change under distinguishability measures
+suited to memory effects~\cite{FaistBertaBrandao2019}. For trivial
+Hamiltonians the answer depends on the delivery contract: the qutrit
+lower bound needs only fresh entangled inputs chosen in advance, so the
+jump comes from immediate release, not from the stronger measure.
+
+Catalysis is the closest neighbour. Exact return of a catalyst's marginal
+can coexist with correlations: entropy and rank govern unitary state
+conversion~\cite{Wilming2022}, and free energy governs approximate
+correlated-catalytic conversion under Gibbs-preserving
+operations~\cite{ShiraishiSagawa2021}. Lie and Jeong show that every
+catalytic channel is factorizable, so that not every unital channel is
+catalytic, and treat uncorrelatedness as a consumable randomness
+resource~\cite{LieJeong2021}. Boes et al.\ show that a quantum source of
+randomness of dimension $\sqrt d$ suffices for every noisy state
+transition on a $d$-dimensional system~\cite{BoesEtAl2018}, a halving of
+the same kind as the exchange rate $\frac12\log r$. Son et al.\ show that
+exact catalyst return near one input implies return on every
+input~\cite{SonEtAl2026}. Returning a marginal is weaker than simulating
+a full adaptive experiment; here retained catalysts count as memory and
+every import is independent and charged. Channel resource theories
+quantify processes under specified free
+operations~\cite{GourWinter2019}, thermodynamic ones
+included~\cite{FaistBertaBrandao2021}; our additional constraint is the
+chronological memory and exchange budget.
+
+\paragraph{Relation to earlier papers.}
+The Houghton paper~\cite{DouglasMghirbiA} supplies the far-commutator
+area bound and the finite models of Houghton's group; the presentation
+itself is Johnson's, as used in~\cite[Section~4]{DouglasMghirbiB}. The
+causal-memory paper~\cite{DouglasMghirbiB} supplies the model, the step
+from a service to a single good use, the service at the optimal exchange
+rate, and the purity bounds behind Theorem~\ref{thm:intro-qutrit} and
+Theorem~\ref{thm:intro-closure}(b). The configuration-lamps
+paper~\cite{DouglasMghirbiC} supplies the gadget construction and the
+lamp channel's memory laws. The rational-channel
+paper~\cite{MghirbiDouglasD} supplies exactly factorizable channels at an
+explicit distance from $\overline{\mathcal F}$, and the group certificate
+behind our canonical example in regime~(iii), conditional on recent
+preprints~\cite{WangZhi2026,AlekseevLiuThom2026,Thom2026}. Closed repeated
+use~\cite{DouglasClosedMemory}, the no-reset setting
+of~\cite{RybarZiman2008}, concerns one unchanging bath with no exchange.
+Finite numerical checks of the constants are in the accompanying
+\texttt{verify} directory; they support but do not replace the proofs.
+
+\paragraph{Organization.}
+Section~\ref{sec:model} specifies the model. The qutrit separation comes
+first, followed by the dividing line and the one-use memory bounds. The
+remaining sections develop examples and the open comparison. Each main
+statement links to its proof.
+
+The appendices fall into three groups. Appendices~\ref{app:purity},
+\ref{app:closure-proofs}, \ref{app:compactness}, \ref{app:graded},
+\ref{app:static} and~\ref{app:lower} prove the results of
+Sections~\ref{sec:model}--\ref{sec:lower}: the qutrit and batching
+results, the closure law and repeatability, the gadget classification,
+the memory law with its static comparisons, and the one-round lower
+bound. Appendix~\ref{app:houghton} proves the Houghton results of
+Section~\ref{sec:houghton}, which also use the device of
+Theorem~\ref{thm:houghton-groups} and the cap of
+Proposition~\ref{prop:sixth}. The rest is specialized.
+Appendix~\ref{sec:monomial} bounds a mixture profile for phased monomial
+dynamics. Appendices~\ref{sec:flat}, \ref{sec:biased}
+and~\ref{sec:obstructions}, with proofs in Appendices~\ref{app:frames},
+\ref{app:flat}, \ref{app:biased} and~\ref{app:obstructions}, develop
+flat-source, conserved-bias and spatial constructions and their limits.
+Appendices~\ref{app:houghton-sources}--\ref{app:houghton-moderate} extend
+the Houghton analysis; Section~\ref{sec:houghton} summarizes their
+results.

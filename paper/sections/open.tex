@@ -1,0 +1,179 @@
+\section{What remains open}\label{sec:open}
+
+The high-precision law leaves a quantitative fixed-error question.
+The following four problems separate it from the sharper Houghton
+rate, entropy-rate service and autonomous local realization.
+
+\begin{problem}[The concentration conjecture]\label{prob:keep-bias}
+For every canonical untwisted anchored gadget $\Phi$, do constants
+$C_\Phi<\infty$ and $p<\infty$ exist such that, for all $n\geq1$,
+\[
+ Z_\Phi(n)\leq C_\Phi\log_2^p(en)(1+L^*_\Phi(n))?
+\]
+\end{problem}
+
+A positive answer would complete the universal memory comparison at
+all accuracies (Section~\ref{sec:entropic}).
+
+\paragraph{Matrix form.}
+By Proposition~\ref{prop:Z-matrix}, $Z_\Phi(n)$ minimizes
+$S(\rho)+na$ over exact solutions: a state $\rho$ and a positive block
+matrix $Y=[Y_{gh}]$ with $Y_{gg}=I$, $Y_{1[y]}=Y_{[x][z]}$ for every
+triangle $(x,y,z)$, and $|\Tr\rho Y_{gh}|\leq1/2$ for $g\ne h$.
+The profile $L^*_\Phi(n)$ minimizes the same cost over near-solutions:
+rounds that may leave the Kraus span, with probability at most
+$2/(15n)$ when the bath is in state $\rho$ and the input is maximally
+mixed. The defect is thus weighted by the source $\rho$, not by the
+normalized trace. The conjecture asks whether every cheap
+$\rho$-weighted near-solution can be traded for an exact solution, of
+any size and with any source, at a polylogarithmic increase in cost.
+The exact solution need not be close to the near-solution.
+
+\paragraph{Relation to group stability.}
+Stability asks whether almost-homomorphisms of a group are close to
+homomorphisms. In the Frobenius norm, cohomology vanishing gives
+stability and yields finitely presented groups that are not
+approximated by unitary matrices~\cite{DeChiffreEtAl2020}. In the
+normalized Hilbert--Schmidt metric, infinite hyperlinear groups with
+property~(T) are not stable, and Becker and Lubotzky proposed a
+flexible notion that allows the space to be enlarged before
+correcting~\cite[Section~4.4]{BeckerLubotzky2020}. The conjecture is
+flexible in the same way. It differs in two respects: the defect is
+weighted by the source state $\rho$ rather than by the normalized
+trace, and the price is the entropy cost $S+na$ rather than a distance
+or a dimension. No reduction between the two questions is known.
+
+\paragraph{Where the conjecture is open.}
+The conjecture holds in regimes (i) and (iii) of
+Theorem~\ref{thm:trichotomy}. In regime (i), an exact finite tracial
+factorization is an exact solution with zero production, so $Z_\Phi$ is
+bounded. In regime (iii), $L^*_\Phi(n)$ is linear, while
+$Z_\Phi(n)\leq n\log r$. In regime (ii) the proved repair gives
+$Z(n)\leq C[1+L^*(n)+\sqrt n\log n]$, together with the sharper
+horizon envelope, so matching holds above the square-root scale up to
+logarithms. The open range is regime (ii) below $\sqrt n$.
+Concentration on an exact kernel and weighted affine trace defect
+$O(1/n)$ are sufficient mechanisms; mean support leakage $O(1/n)$
+alone implies neither. Exact rectangular frames can satisfy the local
+gadget identities without extending to global group representations,
+so representation repair addresses a stronger question.
+
+The first concrete target is Houghton's channel $\Phi_H$. It lies in
+regime (ii), and $L^*_{\Phi_H}(n)\leq Cn^{1/3}$
+(Proposition~\ref{prop:ceiling-houghton}), below the scale where the
+proved repair gives matching bounds.
+
+\paragraph{A permutation subcase.}
+For permutation rounds, triangle-bad points have mass
+$O(1/n)$ by Lemma~\ref{lem:perm-leak}. One may ask for an exact
+replacement whose entropy and production remain within
+logarithmic factors of the original cost. Collisions and the
+entropy cost of the good-point restriction still need control.
+Houghton's $H_3$ is not P-stable: it is amenable, hence sofic,
+and not residually finite, whereas a sofic P-stable group must
+be residually finite~\cite{GlebskyRivera2009},
+\cite[Theorem~7.2(ii)]{ArzhantsevaPaunescu2015},
+\cite[discussion after Proposition~8.5]{BeckerLubotzkyThom2019}.
+So no general nearby repair by permutation representations exists for
+$H_3$. This leaves open whether the optimized costs separate, and
+whether unrestricted quantum devices outperform permutation ones.
+
+\paragraph{The flat subcase.}
+A useful special case asks whether every coarse-correct flat round with
+leakage $O(1/n)$ admits an exact family of cost
+$\mathrm{polylog}(n)(1+S+na)$, allowing a larger bath and fixed
+coarse-error slack. Rounds with exactly zero production, of any source
+spectrum, reduce to a finite tracial factorization at entropy-scale
+dimension with a multiplicative leakage loss (Appendix~\ref{app:static}).
+Positive production remains outside that reduction. The second-order
+obstruction of Appendix~\ref{sec:flat} concerns twisted identities,
+while this conjecture concerns untwisted optimized costs.
+
+\begin{problem}[All-family Houghton sharpness]\label{prob:houghton}
+Is $L^*_{\Phi_H}(n)\geq n^{1/3}/\mathrm{polylog}(n)$? More weakly,
+is $Q^*_{\Phi_H}(n,\epsilon)\geq n^{1/3-o(1)}$ at fixed
+$\epsilon\leq1/16$?
+\end{problem}
+
+A positive answer would show that the cube-root constructions remain
+optimal beyond genuine group devices. Table~\ref{tab:houghton-scope} in Appendix~\ref{app:houghton-sources}
+separates the operational theorem from the static bounds for explicit
+smoothed rounds. Those bounds reach the cube-root scale for a moderate
+number of tensor copies and for stationary sources. For general sources
+with positive production they lie between the quarter- and cube-root
+scales. Small production has not been shown to force a source near the
+stationary algebra, and a uniform spectral estimate for the killed
+Laplacian of Appendix~\ref{app:houghton-coercivity} is open. Other
+rounds, and mixtures over clock sizes with positive production, remain
+beyond these bounds. The one-round operational method has its stated
+$n^{1/6}$ ceiling; a lower bound for $Z$ would need a separate
+all-family argument.
+
+\begin{problem}[Low-purity and nonflat-probe entropy-rate service]\label{prob:closure-purity}
+For $\Phi\in\overline{\mathcal F}$ and
+$\log(1/\epsilon_n)=o(n)$, can every flat-probe target be served
+with maximally mixed imports, $J\leq\lfloor(n-1)\log r/2\rfloor$,
+$Q=o(n)$ and $P=O(\log(n/\epsilon_n))$?
+For arbitrary nonflat probes, does sublinear service with maximally
+mixed imports hold at exchange rate $H(\Phi)/2$, where $H(\Phi)$
+is the maximum entropy of a complementary output?
+\end{problem}
+
+These questions test whether sublinear memory can coexist with small
+initial purity, and whether rank can be replaced by complementary
+entropy in the general compiler. The principal upper constructions charge $P\leq Q$;
+the nonflat rank-rate compiler does not give a half-complementary-entropy
+import threshold. With unrestricted imported purity the any-exchange
+converse controls $Q+C$: a pure replacer can recycle one retained
+qubit using one fresh pure qubit after each round.
+
+\paragraph{Spatial and spectral refinements.}
+For devices that move points along a Schreier graph through nested sets
+with balanced boundaries (the collar devices of Section~\ref{sec:biased}),
+and for the configuration-lamp devices, the sharp memory rates are
+open, independently of the general compiler. The rank-based profile
+$U_\Phi$ and the entropy-based profiles may also differ: source entropy
+charges the occupied spectrum, while $U_\Phi$ charges the logarithm of
+the ambient rank. How far apart they can be is open.
+
+By an \emph{exact stationary compression} we mean the following.
+Start a finite-dimensional probe coupled to a spin reservoir in
+its tracial product state, evolve by a fixed finite-range
+interaction, and trace out the reservoir. The reduced channels
+$\Psi_t$ converge as $t\to\infty$ to $\Phi$ on every probe input,
+including a reference (equivalently, in diamond norm at fixed
+probe dimension). The target is this exact limit, rather than
+one selected finite-time approximation. All controllers and
+their initial states must belong to the specified dynamics.
+
+\begin{problem}[An expensive autonomous local stationary limit]\label{prob:local-limit}
+Is a channel with a super-polylogarithmic finite-mixture profile the
+exact stationary compression of finite-range quantum spin dynamics
+in a tracial product reservoir?
+\end{problem}
+
+Such a construction would connect finite-memory approximation cost to
+an autonomous local reservoir. Known local-dynamics arguments exclude
+only narrow classes, so autonomous local realization remains open.
+This construction question is independent of the concentration conjecture.
+
+\paragraph{Repeatability without resets.}
+Proposition~\ref{prop:repeatable}, with the catalytic dilation of Lie,
+Son, Boes, Ng and Wilming, answers Ryb\'ar and Ziman's
+question~\cite{RybarZiman2008}: some unital channels that are not
+random-unitary are repeatable, and some unital channels are not. What
+remains is to identify the repeatable channels. Catalytic channels are
+repeatable, and repeatable channels are finite mixtures of finite
+tracial factorizations. Lie, Son, Boes, Ng and Wilming show that the
+catalytic channels form a strict subset of these
+mixtures~\cite[Appendix~C]{LieSonBoesNgWilming2026}, so at least one of
+the two inclusions is strict. We do not know which. A repeatable device
+must reproduce the channel at every use, but its memory state may move;
+a catalytic device keeps it fixed. Haagerup, Musat and Ruskai's channels $\Phi_{\alpha,\beta}$ on $M_3$ are
+extreme among unital channels for $|\alpha|^2\notin\{0,\frac12,1\}$, are
+not unitary, and have finite tracial factorizations with one bath
+qubit~\cite{HaagerupMusatRuskai2021}. They are not
+catalytic~\cite[Appendix~C]{LieSonBoesNgWilming2026}. If one of them is
+repeatable, the catalytic channels are a strict subset of the repeatable
+ones. If one of them is not, the repeatable channels are a strict subset
+of the finite mixtures.

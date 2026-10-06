@@ -1,0 +1,89 @@
+%======================================================================
+\section{Limits of specified constructions}\label{sec:obstructions}
+%======================================================================
+
+This appendix gives method-scoped obstructions: the device of~\cite[Theorem~12.2]{DouglasMghirbiC} cannot reach Shannon cost, a twisted rounding
+cannot keep the bath at second order, a rounding cannot keep square families square, and the one-round method of~\cite{DouglasMghirbiB} cannot
+certify the Houghton exponent.
+
+\subsection{Global scrambling}
+
+Let $\Phi_\Z$ be the gadget of $\Z$ with labels $1,\sfa,\sfa^{-1}$: $d=5$ and label weights $\mu=(\frac25,\frac3{10},\frac3{10})$.
+
+\begin{theorem}[Global scrambling pays rank room]\label{thm:global-haar}
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item Let $k\ge3$, $U$ the cyclic shift on $\C^k$ and $0<\vartheta<\pi/2$. The maps
+\[
+B_1=\begin{pmatrix}I\\0\end{pmatrix},\qquad B_\sfa=\begin{pmatrix}\cos\vartheta\,U\\\sin\vartheta\,U\end{pmatrix},\qquad
+B_{\sfa^{-1}}=\begin{pmatrix}\cos\vartheta\,U^*\\-\sin\vartheta\,U^*\end{pmatrix}
+\]
+form an exact rectangular dilation of $\Phi_\Z$ with $k'=2k$, so its room is exactly one bit, while its flat round has leakage $0$, distance $0$ and
+entropy production $a=h_2(0.6\sin^2\vartheta)=\Theta(\vartheta^2\log(1/\vartheta))$.
+\item Let $\mathcal A$ be a $D$-dimensional subspace of $\C^k\otimes\C^m$ and $Y_g=(B_g\otimes I)\mathcal A$. Every projection $\Pi$ with
+$\Tr(\Pi P_{Y_1})\ge(1-\eta)D$ and $\Tr(\Pi P_{Y_\sfa})\ge(1-\eta)D$ has $\rank\Pi\ge D(2-2\eta/(1-\cos\vartheta))$.
+\item Run the device of~\cite[Theorem~12.2]{DouglasMghirbiC} for a gadget channel and an exact rectangular dilation with $q=k'/k$, with independent Haar
+unitaries $V_t$ on the active space of dimension $N_{t-1}$, and let $\sigma_t$ be the memory state for the observer that inputs $\tau_d$ in every round.
+Then $\E[\Tr\sigma_t^2\mid\sigma_{t-1}]\le s_2\Tr\sigma_{t-1}^2+2(1-s_2)/N_{t-1}$ with $s_2=\sum_g\mu_g^2$. If $qs_2<1$, then for each $t$, with probability at
+least $\frac12$ over the Haar unitaries, every projection $\Pi$ with $\Tr(\Pi\sigma_t)\ge1-\eta$ has $\rank\Pi\ge(1-\eta)^2(1-qs_2)D_t/(12q)$, where $D_t$ is
+the dimension of the active space after round $t$.
+\end{enumerate}
+\end{theorem}
+
+In that device the round-one memory branches forced by anchor inputs are the flat states $P_{Y_g}/D_0$, so by (b) a truncation that keeps a fraction
+$1-\eta$ of every forced branch keeps $\log(2-2\eta/(1-\cos\vartheta))$ bits of growth: $0.9997$ bit at $\vartheta=0.1$ and $\eta=10^{-6}$, where
+$a=0.053$. By (c) the smoothed rank of the accumulated memory is within $O(1)$ bits of the whole active space. The device reads only the flat Gram
+(Theorem~\ref{thm:robust}(a)), re-randomization flattens the bias, and the memory fills the rank-grown space. This blocks the route, not the law:
+the round of (a) is an exact flat round, which path registers stream at its Shannon cost (Theorem~\ref{thm:flat-zero}(a)).
+
+\subsection{Rounding at second order}
+
+The following statement was a natural target for the upper half at the full leakage scale: a leaky flat round can be made exact on the same bath,
+up to a constant, at a cost of the order of its leakage.
+
+\begin{corollary}[Second-order rounding is false]\label{cor:second-order}
+There are no constants $C_0,C_1$ such that every flat round of $\Phi_\omega$, $\theta=(\sqrt5-1)/2$, with distance at most $\frac1{16}$ and leakage
+$\ell$ has a zero-leakage flat round with $S'\le S+C_0$, distance at most $\frac14$ and $a'\le a+C_1\ell\log(1/\ell)$.
+\end{corollary}
+
+This is Theorem~\ref{thm:twisted}(b) with $\lambda=\gamma=1$. The witness is a twisted gadget, a gadget evaluated in the twisted group von Neumann
+algebra of $\Z^2$; it has a flat probe, lies in the closure of finite tracial channels, and has the structure that the arguments of
+Sections~\ref{sec:flat} and~\ref{sec:biased} use.
+
+\subsection{Square fibres}
+
+A round is \emph{square} if its slot operators are unitaries of one space. For leaky rounds of block-monomial form a rounding that keeps the monomial
+pattern exists (it is part of the construction of Theorem~\ref{thm:BF}), but it cannot keep the fibres square.
+
+\begin{proposition}[Square families cannot be rounded to square families]\label{prop:square}\leavevmode
+\begin{enumerate}[label=(\alph*),itemsep=1pt]
+\item $\Phi_\omega$ has square flat rounds with $a=0$ and leakage tending to $0$ (Theorem~\ref{thm:twisted}(b)), but no zero-leakage square round.
+\item $\Phi_H$ has square flat rounds with $a=0$, distance at most $\frac1{16}$ and leakage tending to $0$, but no zero-leakage square round at distance below
+$\frac12$. No gadget channel whose labels no finite-dimensional representation separates has a zero-leakage square round at distance below $\frac12$.
+\end{enumerate}
+\end{proposition}
+
+So a rounding of leaky rounds must in general leave the square class: the target for leaky block-monomial rounds is a family with rectangular
+fibres, whose room is of order $\sqrt\ell$.
+
+\subsection{The one-round method}
+
+The lower bound $c\,n^{1/(2\log107+2)}$ for Houghton's channel comes from the one-round theorem~\cite[Theorem~5.5]{DouglasMghirbiB}, whose proof certifies $N$
+approximately commuting copies of $S_3$ in the memory of one round and converts each into a sixteenth of a bit
+(\cite[Appendix~B, proof of Theorem~5.5]{DouglasMghirbiB}). The certification needs
+\begin{equation}\label{eq:amplification}
+10^8\sqrt N\,\max\{N,A^*(3N)\}\,2^{17}\sqrt\nu\ \le\ 1,\qquad \nu=\ell+a,
+\end{equation}
+where $A^*(M)$ is the largest area of a commutator $[\sigma_p^{\pm1},\sigma_q^{\pm1}]$, $\sigma_j=\sfa^j\alpha\sfa^{-j}$, $0\le p,q\le M$, $|p-q|\ge2$, in
+Johnson's presentation~\cite[Section~4.1]{DouglasMghirbiB}.
+
+\begin{proposition}[The one-round method is capped at $n^{1/6}$]\label{prop:sixth}
+Every $N\ge8$ that satisfies~\eqref{eq:amplification} has $N\le7.13\cdot10^{-6}\,\nu^{-1/5}$, whatever upper bound on $A^*$ is used. Consequently, combined
+with Theorem~\ref{thm:extraction} and Proposition~\ref{prop:purity} at the rank rate, the method certifies $\Qs_{\Phi_H}(n,\epsilon)\ge Q_0$ only for
+$Q_0=O(n^{1/6})$.
+\end{proposition}
+
+The cap comes from the quadratic lower bound on far-commutator areas~\cite[Proposition~4.4]{DouglasMghirbiB} together with the row sums of the
+sector bound, which make $N$ copies cost $N^{5/2}$ in~\eqref{eq:amplification}. Lemma~\ref{lem:sector} removes the row sums when the copies
+commute exactly, and Theorem~\ref{thm:genuine} then reaches $n^{1/3}$; for general devices a proof of the exponent $\frac13$ needs a sector bound that
+is local in the same sense for copies that commute only approximately, or an argument that reads more than one round. The proofs of this section are
+in Appendix~\ref{app:obstructions}.

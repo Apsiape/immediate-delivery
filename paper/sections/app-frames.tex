@@ -1,0 +1,223 @@
+%======================================================================
+\section{Proofs for Section~\ref{sec:flat}: blocks and paths}\label{app:frames}
+%======================================================================
+
+Two further facts are used.
+\begin{itemize}[leftmargin=2.8em]
+\item[(F3)] \emph{Partial traces.} For a frame $F$ with $R=FF^*$ and operators $Y$ on the memory, $\Tr_{\rm mem}[(Y\otimes I)R(Y\otimes I)^*]=\Tr_{\rm mem}[(Y^*Y\otimes I)R]$;
+the map $Y\mapsto\Tr_{\rm mem}[(Y\otimes I)R]$ is positive; and $\Tr_{\rm mem}[(P_p\otimes I)R]=\Tr_{H_p}R_p$.
+\item[(F4)] \emph{Reduced states.} If $\rho(u)$ denotes the observer's reduced state of a vector $u$, then
+$\frac12\nrm{\rho(u)-\rho(v)}_1\le\frac12\nrm{\ket u\bra u-\ket v\bra v}_1\le\frac12\nrm{u-v}(\nrm u+\nrm v)$, and isometries on systems the observer does not hold
+do not change $\rho(\cdot)$. Errors are always compared in this form, so that vectors of different spaces, such as a physical device and a proof object, are
+never subtracted.
+\end{itemize}
+
+\subsection{Concentration and export}
+
+\begin{proof}[Proof of Lemma~\ref{lem:concentration}]
+(a) Write $Z=\sum_pZ_p$ with $Z_p$ depending only on $V_p$. For each $p$ fix a Hermitian orthonormal basis $(T_{p,a})_a$ of $M_{D_p}$ for the Hilbert--Schmidt
+inner product, so that $\sum_aT_{p,a}YT_{p,a}=\Tr(Y)I$ and $\sum_aT_{p,a}^2=D_pI$, and let $\partial_{p,a}$ be the derivative along $V_p\mapsto V_pe^{iuT_{p,a}}$ at
+$u=0$. Haar measure is invariant under these flows, so $\E[(\partial f)h]=-\E[f\,\partial h]$ for smooth matrix-valued $f,h$. Put
+$\mathsf L_p=\sum_a\partial_{p,a}^2$.
+
+\emph{Generator.} With $X=V_p^*A_pV_p$, $\partial_{p,a}X=i[X,T_{p,a}]$ and $\partial_{p,a}^2X=-[T_{p,a},[T_{p,a},X]]$; summing, $\mathsf L_pX=-2D_pX+2\Tr(X)I$, and
+$\Tr X=\Tr A_p$, so $\mathsf L_pZ_p=-2D_pZ_p$. Also $\partial_{p,a}Z=\partial_{p,a}Z_p$.
+
+\emph{Carr\'e du champ.} $\partial_{p,a}Z=F_p^*(Y_{p,a}\otimes I)F_p$ with $Y_{p,a}=i(XT_{p,a}-T_{p,a}X)$ Hermitian, so
+$\sum_a(\partial_{p,a}Z)^2=F_p^*[\sum_a(Y_{p,a}\otimes I)R_p(Y_{p,a}\otimes I)]F_p$. By $(P-P')R(P-P')^*\le2PRP^*+2P'RP'^*$,
+$\sum_a(XT_a\otimes I)R_p(T_aX\otimes I)=(X\otimes I)(I\otimes\Tr_{H_p}R_p)(X\otimes I)\le\alpha_pX^2\otimes I$, and
+$\sum_a(T_aX\otimes I)R_p(XT_a\otimes I)=I\otimes\Tr_{H_p}[(X\otimes I)R_p(X\otimes I)]\le\nrm X^2\alpha_pI$; the last inequality is tested on an exterior vector
+$v$, for which $R_v=(I\otimes\bra v)R_p(I\otimes\ket v)\ge0$ satisfies $\Tr(XR_vX)\le\nrm X^2\Tr R_v$. Hence
+$\sum_a(\partial_{p,a}Z)^2\le4\alpha_p\nrm{A_p}^2F_p^*F_p$, and this is $0$ when $A_p=0$.
+
+\emph{Trace exponential.} Let $f(\theta)=\E\Tr e^{\theta Z}$. Integration by parts with $\mathsf L_pZ_p=-2D_pZ_p$ gives
+$f'(\theta)=\sum_p\E\Tr(Z_pe^{\theta Z})=\sum_p(2D_p)^{-1}\sum_a\E\Tr[(\partial_{p,a}Z)(\partial_{p,a}e^{\theta Z})]$. With
+$\partial e^{\theta Z}=\theta\int_0^1e^{u\theta Z}(\partial Z)e^{(1-u)\theta Z}du$ and $\int_0^1e^{u\lambda+(1-u)\mu}du\le(e^\lambda+e^\mu)/2$ in an eigenbasis of $Z$,
+$\Tr[(\partial Z)(\partial e^{\theta Z})]\le\theta\Tr[(\partial Z)^2e^{\theta Z}]$. So
+$f'(\theta)\le\theta\,\E\Tr[\sum_p(2\alpha_p\nrm{A_p}^2/D_p)F_p^*F_pe^{\theta Z}]\le2\theta\kappa g_0f(\theta)$, using
+$\sum_{p:A_p\ne0}F_p^*F_p\le g_0I$ and $\Tr(Ye^{\theta Z})\le\nrm Y\Tr e^{\theta Z}$ for $Y\ge0$. Hence $f(\theta)\le Ne^{\theta^2\kappa g_0}$, and
+$\Pr\{\lambda_{\max}(Z)\ge s\}\le e^{-\theta s}f(\theta)=Ne^{-s^2/(4\kappa g_0)}$ at $\theta=s/(2\kappa g_0)$; the same holds for $-Z$.
+
+(b) Let $\widetilde T_{p,a}$ be $T_a$ on $H_p$ and $0$ elsewhere, and $\partial_{p,a}$ the derivative along $V_p\mapsto V_pe^{iuT_a}$; then
+$\partial_{p,a}X=i[X,\widetilde T_{p,a}]$. Since $\sum_a\widetilde T_{p,a}Y\widetilde T_{p,a}=\Tr(P_pYP_p)P_p$ and $\sum_a\widetilde T_{p,a}^2=DP_p$,
+$\sum_{p,a}[\widetilde T_{p,a},[\widetilde T_{p,a},X]]=2D(X-\sum_p\tau(X_{pp})P_p)$, and $\tau(X_{pp})=\tau(A_{pp})$ does not depend on $V$; so the Laplacian of
+the product group satisfies $\mathsf LZ=-2DZ$. Here the equal dimensions are needed. With $Y_{p,a}=i(X\widetilde T_{p,a}-\widetilde T_{p,a}X)$,
+\[
+\sum_{p,a}(\partial_{p,a}Z)^2\le2F^*\Bigl[\sum_{p,a}(X\widetilde T_{p,a}\otimes I)R(\widetilde T_{p,a}X\otimes I)+\sum_{p,a}(\widetilde T_{p,a}X\otimes I)R(X\widetilde T_{p,a}\otimes I)\Bigr]F .
+\]
+The first sum is $(X\otimes I)(\sum_pP_p\otimes\Tr_{H_p}R_p)(X\otimes I)\le\alpha_*\nrm A^2I$. The second is $\sum_pP_p\otimes\Tr_{\rm mem}[(XP_pX\otimes I)R]$ by (F3),
+and $XP_pX=V^*AP_pAV$ because $V$ commutes with $P_p$. The positive operator $AP_pA$ lives on the blocks of $N(p)=\{p':A_{p'p}\ne0\}$, so by Cauchy--Schwarz
+$AP_pA\le|N(p)|\sum_{p'\in N(p)}P_{p'}AP_pAP_{p'}\le|N(p)|\sum_{p'\in N(p)}\nrm{A_{p'p}}^2P_{p'}=:\Lambda_p$, which commutes with $V$. Hence $V^*AP_pAV\le\Lambda_p$
+and, by (F3), $\Tr_{\rm mem}[(XP_pX\otimes I)R]\le|N(p)|\sum_{p'}\nrm{A_{p'p}}^2\Tr_{H_{p'}}R_{p'}\le\Delta^2\nrm A^2\alpha_*I$. So
+$\sum(\partial Z)^2\le2(1+\Delta^2)\nrm A^2\alpha_*F^*F$ for every $V$. As in (a), $f'(\theta)\le\theta(1+\Delta^2)\nrm A^2\alpha_*g\,f(\theta)/D$,
+$f(\theta)\le N\exp(\theta^2(1+\Delta^2)\nrm A^2\alpha_*g/(2D))$, and the tail follows at $\theta=sD/((1+\Delta^2)\nrm A^2\alpha_*g)$.
+\end{proof}
+
+For a free permutation round with point blocks, the Hermitian and anti-Hermitian parts of $\lambda_g^*\lambda_h\otimes I$ ($g\ne h$) couple each block to at
+most two blocks, so $\Delta=2$ there.
+
+\begin{proof}[Proof of Lemma~\ref{lem:export}]
+(a) Export and import rearrange the columns of each block isometrically: the port moves to the exterior, and a maximally entangled pair joins the new port
+and a new exterior register. So the block Grams do not change. The new exterior marginal of block $p$ is $Y_p\otimes I_e/e$ with
+$Y_p=\Tr_{\widetilde H_p}[(V'_p\otimes I)R_p(V'_p\otimes I)^*]$, a function of $V'_p$ alone, so $\alpha_p(F')=\nrm{Y_p}/e$, and $\E Y_p=(I_e/e)\otimes\Tr_{H_p}R_p$ has
+norm $\alpha_p/e$. As in~\cite[Lemma~A.4]{DouglasMghirbiB}, the frame $\widehat F_p:\C^S\to H_p\otimes\C^N$ with entries
+$\widehat F_{(q,y),\sigma}=\overline{F_{(q,\sigma),y}}$ satisfies $\Tr_{H_p}[(X\otimes I)R_p]=\widehat F_p^*(X^T\otimes I)\widehat F_p$, $\widehat F_p^*\widehat F_p=\Tr_{H_p}R_p$ and
+$\alpha(\widehat F_p)=g_p$, and the block $(k,l)$ of $Y_p$ is $\Tr_{H_p}[(X_{kl}\otimes I)R_p]$ with $X_{kl}^T=\overline{V'_p}^{\,*}(I\otimes\ket k\bra l)\overline{V'_p}$, which is
+Haar. Part (a) of Lemma~\ref{lem:concentration} for one block, applied to $\widehat F_p$ ($S$ columns) and to the Hermitian parts of $I\otimes\ket k\bra l$ at level
+$z_p=2\sqrt{\alpha_pg_p\ln(8Se^2N)/D_p}$, fails for each of the $2e^2$ events with probability at most $2Se^{-\ln(8Se^2N)}=1/(4e^2N)$; so block $p$ fails with
+probability at most $1/(2N)$, and some block with probability at most $\frac12$. Otherwise each block of $Y_p$ is within $2z_p$ of its mean, the $e\times e$ block
+matrix within $2ez_p$, so $\nrm{Y_p}\le\alpha_p/e+2ez_p$ and $\alpha_p(F')\le\alpha_p/e^2+2z_p$. The second form is $2\sqrt{uv}\le\eta u+v/\eta$ with
+$u=\alpha_p/e^2$ and $v=4e^2g_p\ln(8Se^2N)/D_p$.
+
+(b) The block-$Q$ part of the frame after the round has $R'_Q=\sum_i(P'_QB_iV\otimes I)R(V^*B_i^*P'_Q\otimes I)$, so by (F3)
+$\Tr_{H'_Q}R'_Q=\Tr_{\rm mem}[(V^*\Gamma_QV\otimes I)R]$. If $\Gamma_Q$ is block diagonal, $V^*\Gamma_QV=\bigoplus_pV_p^*(P_p\Gamma_QP_p)V_p\le\sum_p\nrm{P_p\Gamma_QP_p}P_p$,
+and (F3) gives $\alpha_Q(F')\le\sum_p\nrm{P_p\Gamma_QP_p}\alpha_p(F)$.
+\end{proof}
+
+For a free permutation round with point blocks, a basis permutation before the round (absorbed in $F$) and a fixed partial injection $\iota$ of points after
+it, $\Gamma_Q=\sum_gP_{(\iota\lambda_g)^{-1}(Q)}\otimes I_m$ is diagonal, $(\iota\lambda_g)^{-1}(Q)$ is at most one point for each $g$, and no two labels send a point
+to the same point. So $\nrm{P_p\Gamma_QP_p}\le1$ for every point $p$, at most $r$ points have $\nrm{P_p\Gamma_QP_p}=1$, and $\alpha_Q(F')\le r\max_p\alpha_p(F)$: this is
+the inflow factor of~\cite[Theorem~12.2]{DouglasMghirbiC}.
+
+\subsection{Paths}
+
+\begin{proof}[Proof of Lemma~\ref{lem:pathlaw}]
+The matrix $M^{(b)}$ is the Gram matrix of the vectors $C^{(b)}_j$ in the normalized Hilbert--Schmidt space, so $M^{(b)}\ge0$, and
+$\sum_bC^{(b)*}_iC^{(b)}_j=B_i^*(\sum_bJ_bJ_b^*)B_j=B_i^*B_j$ gives $\sum_bM^{(b)}=[\tau_k(B_i^*B_j)]=I_r$. With the Stinespring isometry $V:\xi\mapsto\sum_iA_i\xi\otimes\ket i$,
+$\widetilde A^{(b)}:=\sum_{i,j}\bra iM^{(b)}\ket jA_i^*A_j=V^*(I\otimes M^{(b)})V$, so $\widetilde A^{(b)}\ge0$, $\sum_b\widetilde A^{(b)}=I$, and
+$w(b)=\nrm{\widetilde A^{(b)}}\le\nrm{M^{(b)}}\le\Tr M^{(b)}$.
+
+(a) $(\beta I-X_b)\otimes M^{(b)}$ and $(\beta I+X_b)\otimes M^{(b)}$ are positive; summing over $b$ and using $\sum_bI\otimes M^{(b)}\le I$ gives
+$-\beta I\le\sum_bX_b\otimes M^{(b)}\le\beta I$.
+
+(b) In the ideal experiment round $s$ applies $V_s:\xi\mapsto\sum_iA_i\xi\otimes\ket i_{E_s}$, and $E_s$ is never touched again. Let
+$N_{\le s}=M^{(b_1)}\otimes\cdots\otimes M^{(b_s)}$ on $E_1,\dots,E_s$. Summing over the later letters (the matrices $M^{(b)}$ sum to $I$),
+$\Pr(b_1,\dots,b_s)=\langle X|N_{\le s}|X\rangle$, and since nothing acts on $E_{\le s}$ after round $s$ this equals $\langle X_s|N_{\le s}|X_s\rangle$ for the global
+vector $X_s$ right after round $s$. Write $X_s=(V_s\otimes I)Y_s$, with $Y_s$ the vector just before the use of round $s$. Then
+$\Pr(b_{\le s})=\langle Y_s|\widetilde A^{(b_s)}\otimes N_{<s}|Y_s\rangle\le w(b_s)\langle Y_s|I\otimes N_{<s}|Y_s\rangle=w(b_s)\Pr(b_{<s})$, because
+$(w(b_s)I-\widetilde A^{(b_s)})\otimes N_{<s}\ge0$ and $E_{<s}$ is untouched between round $s-1$ and $Y_s$. The same computation with $\sum_b\widetilde A^{(b)}=I$ shows that
+$\Pr$ is a probability law. So the conditional law $q$ of $b_s$ given $b_{<s}$ satisfies $q_b\le w(b)$, and $\E[w(b_s)^{-\theta}\mid b_{<s}]\le\kappa_\theta$; by the tower
+property $\E[W(p)^{-\theta}]\le\kappa_\theta^n$, and Markov's inequality gives $\Pr\{W(p)<2^{-\lambda}\}=\Pr\{W(p)^{-\theta}>2^{\theta\lambda}\}\le\kappa_\theta^n2^{-\theta\lambda}$.
+Since $w\le1$, $W$ does not increase along extensions, so $P_t(\lambda)$ is prefix-closed; $W(p)$ depends only on the type of $p$; and
+$\sum_{p\in[c]^t}W(p)=2^{tu'}$ with $W(p)\ge2^{-\lambda}$ on $P_t(\lambda)$ gives $|P_t(\lambda)|\le2^{\lambda+tu'}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:pathreg}]
+\emph{The device.} Let $h=\log r$, $E_p=2^{\lceil h/2\rceil}$, $J_t=\lfloor th/2\rfloor$, $j_t=J_t-J_{t-1}$ and $e_t=2^{j_t}$ (the export schedule
+of~\cite[Theorem~12.2]{DouglasMghirbiC}), $x=\log(32n/\epsilon^2)$, $\lambda=(n\log\kappa_\theta+x)/\theta$ and $P_t=P_t(\lambda)$. The memory consists of a register
+with $2^{\lceil\lambda+nu'\rceil}\ge\max_t|P_t|$ values, holding $\mathrm{rank}_t(p)$, the rank of $p$ in a fixed enumeration of $P_t$; a register $\C^c$; $K$; and
+$\C^m=\C^{m'}\otimes\C^{E_p}$, whose last factor is the port. So $Q=\lceil\lambda+nu'\rceil+\lceil\log c\rceil+\lceil\log k\rceil+\lceil\log m\rceil$. Initially the register
+holds $\mathrm{rank}_0(\varnothing)$, $\C^c$ holds $\ket1$ and $K\otimes\C^m$ is maximally mixed. Round $t$ applies: (1) controlled on $\mathrm{rank}_{t-1}(p)$, a unitary
+$V_{t,p}$ on $K\otimes\C^m$; (2) a unitary extension of $W\otimes I_m$ from $\C^d\otimes\ket1\otimes K\otimes\C^m$ to $\C^d\otimes\C^c\otimes K\otimes\C^m$, identifying
+$J_bK$ with $\ket b\otimes K$, and the release of the output; (3) a permutation of the register values and $[c]$ that maps $(\mathrm{rank}_{t-1}(p),b)$ to
+$(\mathrm{rank}_t(pb),1)$ whenever $pb\in P_t$ (an injective partial map, completed to a permutation); (4) controlled on $\mathrm{rank}_t(p')$, a unitary $V'_{t,p'}$; (5) if
+$t<n$, the export of $j_t$ port qubits and the import of $j_t$ maximally mixed qubits. All unitaries are fixed in advance, so $C=0$ and $J=J_{n-1}$.
+
+\emph{Proof object.} The untruncated device has memory $\bigoplus_{p\in[c]^t}H_p$, $H_p\cong K\otimes\C^m$ of dimension $D_b=km$, replaces step (3) by the relabelling
+of block $p\otimes\ket b$ as block $pb$, and uses unitaries $V_{t,p}$, $V'_{t,p'}$ for all paths. It is an isometric evolution, and on the blocks of $P_{t-1}$ it
+coincides with the device up to the relabelling of the register. Its frame $F_t:\C^{r^t}\to(\bigoplus_pH_p)\otimes\C^{S_t}$ has one column per Kraus history;
+$F_0$ is one unit vector with $\alpha(F_0)=1/D_b$; and the column $(y,i)$ of block $pb$ after the round is $(C^{(b)}_i\otimes I_m\otimes I)(V_{t,p}\otimes I)F_{t-1,p}\ket y$.
+Let $G_{t,\tau}=\sum_{p\text{ of type }\tau}F_{t,p}^*F_{t,p}$ and $\Gamma_{t,\tau}=\sum_{p\text{ of type }\tau}M^{(p_1)}\otimes\cdots\otimes M^{(p_t)}$.
+
+\emph{Induction.} Put $\delta_1=\epsilon/2$, $\eta=\epsilon^2/(32n^2(n+1)^{c-1})$, $L_*=\ln(8D_br^nE_p^2c^n)$ and $A=4e(1+8E_p^2n^2L_*)$. For $0\le t\le n$ we show
+(I1) $\nrm{F_t^*F_t-I}\le t\delta_1/n$; (I2) $\alpha_p(F_t)\le A/D_b$ for every $p$ (for $t\le n-1$); (I3) $\nrm{G_{t,\tau}-\Gamma_{t,\tau}}\le t\eta$ for every type
+$\tau$. All hold at $t=0$. Assume them at $t-1$, so $g(F_{t-1})\le2$.
+
+\emph{Choice of $V_t$.} Apply Lemma~\ref{lem:concentration}(a) to $F_{t-1}$ with the following operators; always $\nrm{A_p}\le r$, since $\nrm{B_i}^2$ and
+$\nrm{C^{(b)}_i}^2$ are at most $\nrm{\sum_iB_i^*B_i}=r$, so $\kappa\le(A/D_b)r^2/D_b$ and $g_0\le2$. (E1) For each $(i,j)$, the Hermitian and anti-Hermitian parts of
+$B_i^*B_j\otimes I_m$ in every block, at level $s_1=\delta_1/(2rn)$: the block $(i,j)$ of the full Gram matrix after the round is
+$\sum_pF_p^*[(V_p^*(B_i^*B_j\otimes I_m)V_p)\otimes I]F_p$, because children of different letters or different parents are orthogonal, and its mean is
+$\tau(B_i^*B_j)F^*F=\delta_{ij}F^*F$; on success the $r\times r$ block matrix deviates by at most $2rs_1=\delta_1/n$, which gives (I1). (E2) For each type $\tau'$ of
+length $t$, each letter $b$, each $(i,j)$ and the Hermitian or anti-Hermitian part of $C^{(b)*}_iC^{(b)}_j\otimes I_m$ on the blocks of type $\tau'-e_b$ ($A_p=0$ elsewhere),
+at level $s_3=\eta/(2cr)$. The new type Gram is $G'_{\tau'}=\sum_b\sum_{p\in\tau'-e_b}F_p^*[(V_p^*X^{(b)}V_p)\otimes I]F_p$ with
+$X^{(b)}=[C^{(b)*}_iC^{(b)}_j\otimes I_m]_{ij}$, whose mean is $\sum_bG_{t-1,\tau'-e_b}\otimes M^{(b)}$ by Schur's lemma; on success it deviates from that mean by at most
+$2crs_3=\eta$, and Lemma~\ref{lem:pathlaw}(a) with $X_b=G_{t-1,\tau'-e_b}-\Gamma_{t-1,\tau'-e_b}$ gives $\nrm{G_{t,\tau'}-\Gamma_{t,\tau'}}\le(t-1)\eta+\eta$, which is (I3).
+Each event fails with probability at most $2r^n\exp[-s^2D_b^2/(8Ar^2)]$; there are $N_E=2r^2(1+c(n+1)^{c-1})$ events and $s_3\le s_1$, so all succeed with
+probability at least $\frac12$ if
+\begin{equation}\label{eq:Db}
+D_b^2\ \ge\ 8Ar^2\ln(4r^nN_E)/s_3^2,\qquad s_3=\epsilon^2/(64crn^2(n+1)^{c-1}).
+\end{equation}
+Fix such a $V_t$.
+
+\emph{Inflow.} By (F3), for the child block $pb$, $\Tr_{H_{pb}}(F'_{pb}F'^*_{pb})=\Tr_{H_p}[((V_p^*\Gamma_bV_p)\otimes I)R_p]$ with
+$\Gamma_b=\sum_iC^{(b)*}_iC^{(b)}_i\otimes I_m\le\sum_iB_i^*B_i\otimes I_m=rI$, so $\alpha_{pb}\le r\,a_{t-1}$ with $a_{t-1}:=\max_p\alpha_p(F_{t-1})$. Each child has a single
+parent; this is where the tree structure of paths is used.
+
+\emph{Choice of $V'_t$.} Lemma~\ref{lem:export}(a) with $e=e_t$, $\eta=1/n$, $g_p\le2$, at most $c^t$ blocks and $S_te_t^2\le D_br^nE_p^2$ gives
+$a_t\le(1+1/n)r\,a_{t-1}/e_t^2+8E_p^2nL_*/D_b$; in rounds with $j_t=0$, $a_t\le r\,a_{t-1}$ directly. With $c_t=2^{2J_t}r^{-t}\in(\frac14,1]$ and $c_tr/e_t^2=c_{t-1}$,
+$c_ta_t\le(1+1/n)c_{t-1}a_{t-1}+8E_p^2nL_*/D_b$, so $c_ta_t\le(1+1/n)^t(1+8E_p^2n^2L_*)/D_b$ and $a_t\le A/D_b$, which is (I2).
+
+\emph{Error.} Purify the observer. The device acts on the input and the memory only through $W$, so the untruncated final vector is
+$\tilde x_n=\sum_y\psi_y\otimes F_n\ket y=(I\otimes F_n)X$, with the observer's vectors $\psi_y$ of the ideal experiment and $X=\sum_y\psi_y\otimes\ket y$ a unit vector, and
+$\nrm{\tilde x_n}=1$. Let $\Pi$ project onto the blocks of $P_n$, $\omega=\nrm{(I-\Pi)\tilde x_n}^2$, $x_n$ the physical final vector and $T$ the polar isometry of $F_n$.
+\begin{enumerate}[label=\arabic*.,itemsep=1pt]
+\item \emph{Polar step.} $\nrm{\tilde x_n-(I\otimes T)X}\le\nrm{(F_n^*F_n)^{1/2}-I}\le\nrm{F_n^*F_n-I}\le\delta_1$, since $|\sqrt u-1|\le|u-1|$ for $u\ge0$.
+\item \emph{Truncation.} The untruncated dynamics never changes the prefix of a path, the observer does not act on the memory, and $P_t$ is prefix-closed; so
+the projection onto ``first exit from $P$ at time $t$'' commutes with all later rounds, and with $\Pi_{{\rm fe}=t}$ that projection,
+$\sum_t\nrm{\Pi_{{\rm fe}=t}\tilde x_n}^2=\omega$. Let $g_t$ be the good part of $\tilde x_t$ (blocks of $P_t$), embedded in the physical memory, and $\mathcal U_t$ the
+physical round together with the observer's operation. On the good part the physical round is the untruncated one, and the permutation of step (3) maps good
+inputs bijectively onto good outputs, so $\mathcal U_tg_{t-1}=g_t+d_t$ with $\nrm{d_t}=\nrm{\Pi_{{\rm fe}=t}\tilde x_t}=\nrm{\Pi_{{\rm fe}=t}\tilde x_n}$. From
+$x_t-g_t=\mathcal U_t(x_{t-1}-g_{t-1})+d_t$ and $x_0=g_0$, $\nrm{x_n-g_n}\le\sum_t\nrm{d_t}\le\sqrt{n\omega}$. Discarded branches may re-enter good register values;
+the bound does not care.
+\item \emph{Discarded weight.} $P_n$ is a union of types, so $\omega=\sum_{\tau\notin P_n}\langle X|I\otimes G_{n,\tau}|X\rangle\le\sum_{\tau\notin P_n}\langle X|I\otimes\Gamma_{n,\tau}|X\rangle+|\mathcal T_n|n\eta$,
+using $|\langle X|I\otimes Y|X\rangle|\le\nrm Y$ and (I3); here $|\mathcal T_n|\le(n+1)^{c-1}$ is the number of types, so $|\mathcal T_n|n\eta\le\epsilon^2/(32n)$. The first
+term is the probability under the path law that $W(p)<2^{-\lambda}$, at most $\kappa_\theta^n2^{-\theta\lambda}=2^{-x}=\epsilon^2/(32n)$ by Lemma~\ref{lem:pathlaw}(b). So
+$\omega\le\epsilon^2/(16n)$.
+\item By (F4), with $\nrm{x_n}=\nrm{\tilde x_n}=1$ and $\nrm{g_n}\le1$, the observer's state from $x_n$ is within $\sqrt{n\omega}$ of that from $g_n$, which equals that from
+$\Pi\tilde x_n$; that is within $\sqrt\omega$ of the state from $\tilde x_n$, which is within $\delta_1$ of the ideal state from $(I\otimes T)X$. The error is at most
+$\delta_1+(1+\sqrt n)\sqrt\omega\le\epsilon/2+(1+\sqrt n)\epsilon/(4\sqrt n)<\epsilon$.
+\end{enumerate}
+
+\emph{Memory.} $Q\le\lambda+nu'+\log c+\log k+\log m+4$. Condition~\eqref{eq:Db} reads $D_b\ge K_{r,c}n^{c+3}\epsilon^{-2}(\ln D_b+n)^{1/2}$ up to constants, since
+$A=O(n^2L_*)$ and $L_*=O_r(n+\ln D_b)$; take $m'$ least with $D_b=km'E_p$ satisfying it. Then $\log m=\log(D_b/k)=O_r(\log(n/\epsilon)+\log(2+\log k))$, as in the
+proof of~\cite[Theorem~12.2]{DouglasMghirbiC}.
+\end{proof}
+
+\subsection{Flat rounds}
+
+\begin{proof}[Proof of Lemma~\ref{lem:top}]
+Each $B_gB_g^*/k\le I/k$, so the eigenvalues $\lambda_1\ge\lambda_2\ge\cdots$ of $\bar\tau$ are at most $1/k$, and $a=\sum_i\lambda_i\log(1/(k\lambda_i))$ with nonnegative
+terms. There are at least $k$ positive eigenvalues, so $x:=\lambda_k>0$; put $y=kx\in(0,1]$. For $i>k$, $\lambda_i\le x$, so the tail contributes at least $w\log(1/y)$.
+For $i\le k$, $\log(1/(k\lambda_i))\ge(1-k\lambda_i)/\ln2$ and $\lambda_i\ge x$, so the top contributes at least $(x/\ln2)\sum_{i\le k}(1-k\lambda_i)=(x/\ln2)(k-k(1-w))=yw/\ln2$.
+Hence $a\ge(w/\ln2)(y-\ln y)\ge w/\ln2$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:flat-zero}]
+(a) By Lemma~\ref{lem:zero-leak} with $u=0$, the round restricted to $K=\supp\rho$ is an exact rectangular dilation $(B_g)$, and since the $A_g$ have disjoint supports,
+$T(\rho)=\sum_g\mu_gB_gB_g^*/k=:\bar\tau$, so $a=S(\bar\tau)-\log k$. Restrict $\C^{k'}$ to the span of the ranges ($k'\le rk$) and choose the pieces: $J_1K$ the
+top-$k$ eigenspace of $\bar\tau$, and the complement, padded, cut into $k$-dimensional pieces, $c\le r+1$ in all. Then
+$\bra gM^{(1)}\ket g=\Tr(P_{J_1K}\omega_g)$ with $\omega_g=B_gB_g^*/k$, and
+\[
+\beta:=\sum_{b\ge2}w(b)\le\sum_{b\ge2}\Tr M^{(b)}=\sum_g(1-\bra gM^{(1)}\ket g)\le\mu_{\min}^{-1}\sum_g\mu_g(1-\bra gM^{(1)}\ket g)\le d\,a\ln2
+\]
+by Lemma~\ref{lem:top}, since $\mu_{\min}\ge1/d$. As $w(1)\le1$, $u'\le\log(1+\beta)\le1.443\beta$. For $q\le w$, $\sum_bq_bw(b)^{-\theta}\le\sum_bw(b)^{1-\theta}\le1+(c-1)^\theta\beta^{1-\theta}$
+by H\"older's inequality over $b\ge2$, so $\kappa_\theta\le1+(c-1)^\theta\beta^{1-\theta}$. Take $\theta=1/\log(1/\bar\beta)$ with $\bar\beta=\max(\beta,\epsilon^2/n^2)\le\frac14$;
+this needs $a\le1/(4d\ln2)$. Then $\theta\le\frac12$ and $\bar\beta^{-\theta}=2$, so $(c-1)^\theta\beta^{1-\theta}\le2\sqrt{c-1}\,\bar\beta$ and
+$\log\kappa_\theta/\theta\le2.885\sqrt{c-1}\,\bar\beta\log(1/\bar\beta)$. Also $\log(32n/\epsilon^2)/\theta=\log(1/\bar\beta)\log(32n/\epsilon^2)\le2\log(n/\epsilon)\log(32n/\epsilon^2)$,
+and if $\bar\beta=\epsilon^2/n^2$ then $n\bar\beta\log(1/\bar\beta)=2(\epsilon^2/n)\log(n/\epsilon)\le2$. Theorem~\ref{thm:pathreg} gives the first bound, since $x\log(1/x)$
+increases on $(0,1/e)$ and $\beta\le d\,a\ln2$. For the second: if $a\ge\epsilon^2/n^2$ then $\log(e/a)\le1.443+2\log(n/\epsilon)$, and if $a<\epsilon^2/n^2$ then
+$n\,a\log(e/a)\le(\epsilon^2/n)(1.443+2\log(n/\epsilon))\le2.45$; so $n\,a\log(e/a)\le2.45+n\,a(1.443+2\log(n/\epsilon))$, and every term is at most
+$K\log^2(n/\epsilon)(1+\log k+n\,a)$. If $a>1/(4d\ln2)$, Theorem~\ref{thm:robust}(a) with $G=I$, which is~\cite[Theorem~12.2]{DouglasMghirbiC}, gives $Q\le\log k+n\log(k'/k)+O_r(\log(n/\epsilon)+\log(2+\log k))$ with
+$\log(k'/k)\le\log r\le4d\ln2\log r\cdot a$.
+
+(b) The changes to the proof of Theorem~\ref{thm:pathreg} are those of Theorem~\ref{thm:robust}(a). (I1) becomes $\nrm{F_t^*F_t-G^{\otimes t}}\le e^{1/2}t\delta_1/n$:
+the mean of the block $(i,j)$ after a round is $\tau(B_i^*B_j)F^*F$, so the deviation $e_t$ from $G^{\otimes t}$ satisfies $e_t\le\nrm Ge_{t-1}+\delta_1/n$, and
+$\nrm G^n\le e^{n\gamma}\le e^{1/2}$; then $g(F_t)\le4$, and $2$ is replaced by $4$ in~\eqref{eq:Db} and in Lemma~\ref{lem:export}(a). (I2) is unchanged, since
+$\sum_iB_i^*B_i=rI$ by Lemma~\ref{lem:dilation}(b). (I3) becomes $\nrm{G_{t,\tau}-\Gamma_{t,\tau}}\le e^{1/2}t\eta$; we run the construction with $\eta/\sqrt e$ in place of $\eta$, which
+restores the discarded-weight bound $\omega\le\epsilon^2/(16n)$ and changes only constants. This uses Lemma~\ref{lem:pathlaw}(a) with
+$\sum_bM^{(b)}=G$, which gives $\nrm{\sum_bX_b\otimes M^{(b)}}\le\beta\nrm G$. Applying $\id\otimes\tau_K$ to $W^*W=I$ gives
+$\sum_b\widetilde A^{(b)}=\sum_{i,j}G_{ij}A_i^*A_j=I$, so the path law is still a probability law and Lemma~\ref{lem:pathlaw}(b) holds verbatim. In the polar step,
+$\Gamma=G^{\otimes n}\ge(1-\gamma)^nI\ge e^{-1}I$, and as in Theorem~\ref{thm:robust}(a), $\nrm{(F_n^*F_n)^{1/2}-\Gamma^{1/2}}\le e^{1/2}\delta_1/e^{-1/2}=e\delta_1$; so
+$\tilde x_n$ is within $e\delta_1$ of $(I\otimes T)(I\otimes\Gamma^{1/2})X$, the final vector of the experiment that applies $\Phi_W(X)=\sum G_{ji}A_iXA_j^*$ in every round, and a
+hybrid over the rounds costs $n\,\ddia(\Phi_W,\Phi)\le\frac n2\gamma$. With $\delta_1=\epsilon/(2e)$ the error is at most $\epsilon+\frac n2\gamma$.
+
+(c) By Lemma~\ref{lem:zero-leak} the round gives isometries $B_g=X_g|_K$ forming a gadget family with flat Gram $G$, $G_{gg}=1$ and $|G_{gh}|\le c$. By
+Theorem~\ref{thm:robust}(b) the family $(B_g^{\otimes t})$ is a gadget family with Gram entries $G_{gh}^t$, so $\gamma_t:=\nrm{G^{(t)}-I}\le(r-1)c^t\le\epsilon/(4n)$,
+$n\gamma_t\le\frac12$ and $\frac n2\gamma_t\le\epsilon/8$. Its flat entropy production $a_t=S(\sum_g\mu_g\omega_g^{\otimes t})-t\log k$ is at most $t\,a$ by subadditivity,
+since every one-factor marginal of $\sum_g\mu_g\omega_g^{\otimes t}$ is $\bar\tau$. Restrict the codomain to the span of the ranges of the $B_g^{\otimes t}$, of dimension at
+most $rk^t$, and take the pieces of (a) for the $t$-fold family; Lemma~\ref{lem:top} applies to it, so $\beta_t\le d\,a_t\ln2\le d\,t\,a\ln2$. Part (b) with the choice of
+$\theta$ of (a) gives the second bound when $d\,t\,a\ln2\le\frac14$; otherwise Theorem~\ref{thm:robust}(c), run at error $2\epsilon/(e^2+1)$ so that
+its error is at most $2\epsilon$, gives $Q\le t'\log k+nt'\log(k'/k)+O_r(\cdot)$ with its own $t'\le t+2$ and
+$\log(k'/k)\le\log r\le4d\,t\ln2\log r\cdot a$. For the polylogarithmic form, $t\le\log(4rn/\epsilon)+1\le3\log(n/\epsilon)+\log(8r)$ for $n\ge2$ and $\epsilon<1$, and
+$ta\log(e/(ta))\le t\,a\log(e/a)$.
+\end{proof}

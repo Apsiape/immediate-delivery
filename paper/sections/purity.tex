@@ -1,0 +1,167 @@
+\section{A sharp qutrit supplied-purity rate}\label{sec:qutrit-purity}
+
+The general nonclosure converse measures distance to a tracial closure.
+For the qutrit Werner--Holevo channel~\cite{WernerHolevo2002} a stronger converse measures an
+entire bit rate. Put
+\[
+ \Theta(X)=\tfrac12(\Tr(X)I-X^T),\qquad H=\log_2 3,
+ \qquad g_D(t)=2t\log_2D+(1+t)h_2\!\left(\frac{t}{1+t}\right).
+\]
+Its normalized Choi state is the flat state on the three-dimensional
+antisymmetric subspace. In this section only, we also permit prescribed,
+independent imports and permanent exports during a round. Their timing
+and states are fixed independently of the observer and device state,
+and their purity is counted in $P+C$. Elsewhere exchange happens only
+between rounds.
+
+\begin{theorem}[Qutrit purity, at arbitrary exchange timing]\label{thm:qutrit-purity}
+Every immediate-output service of $\Theta$ with complete-experiment
+error at most $\epsilon$ satisfies
+\[
+ P+C\geq n\left[H-g_9\!\left(\min\{1,10\sqrt\epsilon\}\right)\right]_+.
+\]
+There are exact services with
+\[
+ Q=O(\sqrt n),\quad P+C=nH+O(\sqrt n+\log n),
+ \quad J=nH+O(\sqrt n).
+\]
+Consequently the optimal asymptotic supplied-purity rate is $H$ when
+the error tends to zero, even under the enlarged timing contract.
+\end{theorem}
+
+The attained rate equals the purity supplied by one pure three-dimensional
+Stinespring environment per round. The lower bound comes from rigidity
+(Lemma~\ref{lem:qutrit-rigidity}). The Choi state of $\Theta$ is the flat
+state on the three-dimensional antisymmetric subspace of reference and
+output, so a round that implements $\Theta$ nearly correctly keeps them
+nearly inside that subspace. There, tracing out the output acts as
+$\Theta$ itself, which is invertible with stabilized inverse norm at
+most $9$. The reference starts independent of a purification of the bath,
+so reference and output stay nearly independent of it too. Each use must then raise the bath entropy by
+nearly $\log_2 3$ fresh bits, and these gains add up to at most the
+supplied purity. The argument holds for every bath dimension and for
+memories correlated with earlier outputs. It is a vanishing-error
+statement: at coarse error its continuity bound may be vacuous.
+The $O(\sqrt n)$ terms of the upper bound come from packing. The pure
+qutrit environments of $\lceil\sqrt n\rceil$ consecutive rounds share
+one bank of $\lceil\lceil\sqrt n\rceil H\rceil$ qubits, which is exported
+when full. Memory holds one bank, and rounding loses less than one qubit
+per bank.
+
+Theorem~\ref{thm:qutrit-purity} is the finite-error form of a law that
+holds for every channel. For any $\Phi$, the least supplied-purity rate at
+vanishing error is the purity cost $\kappa(\Phi)$ of closed repeated
+use~\cite[Definition~1.3]{DouglasClosedMemory}, and with memory $o(n)$
+the achievable exchange and purity rates $(j,p)$ fill the region
+$p\geq\kappa(\Phi)$, $j\geq p$, $2j-p\geq H(\Phi)$, where $H(\Phi)$ is the
+largest entropy of a complementary output~\cite[Theorems~3.2 and~3.4]{DouglasMghirbiB}.
+The map $\Theta$ is an extreme point of the channels on $M_3$, so
+$\kappa(\Theta)=H(\Theta)=H$~\cite[Proposition~F.1(c)]{DouglasMghirbiB},
+and the banks above sit at the corner $j=p=H$, where the least purity
+and the least exchange are reached together. This section adds the
+explicit finite-error bound, the enlarged timing contract, exact services
+with memory $O(\sqrt n)$, and the comparison with collective and batched
+delivery below. The cost $\kappa$ vanishes exactly on
+$\overline{\mathcal F}$~\cite[Theorem~3.2]{DouglasMghirbiB}, so gadgets in
+the first two regimes of Theorem~\ref{thm:trichotomy} have $\kappa=0$ and
+those in the linear regime have $\kappa>0$.
+
+\begin{proposition}[The static qutrit gap; Haagerup--Musat~{\cite[Theorem~5.6 and Corollary~5.7]{HaagerupMusat2015}}]\label{prop:qutrit-gap}
+In normalized Choi distance,
+\[
+ \operatorname{dist}_J(\Theta,\overline{\mathcal F})=2/27.
+\]
+A closest point is $(2/27)W_3^++(25/27)W_3^-$, where $W_3^-=\Theta$ and
+$W_3^+(X)=(\Tr(X)I+X^T)/4$.
+\end{proposition}
+
+As in~\cite[Section~4 and the proof of Theorem~5.6(2)]{HaagerupMusat2015}, Werner twirling reduces the question to the line
+$\lambda W_3^++(1-\lambda)W_3^-$, whose normalized Choi distance from
+$\Theta$ is $\lambda$. Haagerup--Musat's factorizability threshold
+places the closest factorizable point at
+$\lambda=2/27$~\cite[Theorem~5.6 and Corollary~5.7]{HaagerupMusat2015},
+and that point has a finite tracial factorization with a three-dimensional
+bath~\cite[Theorem~5.6(1)]{HaagerupMusat2015}. The proposition gives an explicit example for Theorem~\ref{thm:closure-law}(b).
+The sharper rate theorem uses antisymmetric-support rigidity instead.
+Appendix~\ref{app:purity} proves both statements.
+
+\begin{theorem}[Collective qutrit implementation]\label{thm:qutrit-collective}
+For $n\geq1$ and $0<\epsilon\leq1/2$, there is one unitary
+implementation of $\Theta^{\otimes n}$ with all outputs released
+together, half-diamond error at most $\epsilon$, and
+\begin{align*}
+ Q_{\rm bath}&\leq nH/2+2\log_2(1/\epsilon)+2\log_2(n+1)+O(1),\\
+ P&\leq2\log_2(1/\epsilon)+2\log_2(n+1)+O(1),\qquad J=C=0,\\
+ Q_{\rm peak}&\leq2n+Q_{\rm bath}+O(1).
+\end{align*}
+Here $Q_{\rm bath}$ counts the fixed auxiliary bath and
+$Q_{\rm peak}$ also counts accepted input/output payload registers
+held until delivery. Subexponential inverse error gives
+supplied-purity rate zero with linear peak retained memory.
+\end{theorem}
+
+The proof applies Lemma~\ref{lem:collective-gaussian}, which holds
+for every unital channel. For a fixed unital channel $\Psi$, it gives
+an implementation of $\Psi^{\otimes n}$ with all outputs released
+together, error $1/\mathrm{poly}(n)$ and supplied purity $O(\log n)$.
+At the level of rates this is the zero thermodynamic capacity of
+unital channels with trivial Hamiltonians~\cite{FaistBertaBrandao2019},
+\cite[Equation~(4.9) and Theorem~7.1]{FaistBertaBrandao2021}. The lemma
+adds the explicit $O(\log n)$ term, and Theorem~\ref{thm:qutrit-purity}
+shows that immediate delivery raises the rate to $H$.
+
+The collective construction holds the inputs until delivery, so its
+memory is linear. The inputs are chosen by the observer, so they are
+not independent imports, and releasing them as outputs is not replacement
+exchange. Purity is therefore $P=Q_{\rm bath}-S(\beta_{\rm bath})$,
+not $Q_{\rm peak}-S(\beta_{\rm bath})$. The same convention applies to
+batching with sequential input arrivals.
+
+\begin{theorem}[Logarithmic batching threshold]\label{thm:batch-purity}
+Fix contiguous batch lengths $1\leq b_n=o(n)$, complete adaptive error
+$n^{-2}$, $Q_{\rm peak}=o(n)$ and $J=O(n)$. Let $R[b]$ be the infimum achievable
+$\limsup(P+C)/n$, and put
+$x=\limsup_{n\to\infty}\log_2n/b_n\in[0,\infty]$. Then
+\[
+ H\min\{1,x/\log_2 9\}\leq R[b]\leq\min\{H,6x\}.
+\]
+In particular $R[b]=H$ for $b_n=o(\log n)$, and $R[b]=0$ if and
+only if $b_n/\log n\to\infty$. More generally $R[b]=H$ whenever
+$x\geq\log_2 9$, including $b_n\sim c\log_2n$ with
+$c\leq1/\log_2 9$. The remaining part of the critical logarithmic
+curve is not determined. In the superlogarithmic regime the zero-rate
+construction also has $J=nH/2+o(n)$; at critical logarithmic batching
+only $J=O(n)$ is asserted.
+\end{theorem}
+
+The same logarithmic threshold appears for a closed apparatus serving a
+ququart Schur channel on a delivery schedule~\cite[Theorems~7 and~8]{DouglasSchur}.
+Theorem~\ref{thm:batch-purity} carries it to open services with exchange.
+Its upper half holds for every unital channel, with $H$ replaced by $\log_2r$.
+
+\begin{theorem}[Batching any unital channel]\label{thm:unital-batch}
+Let $\Psi$ be a unital channel on $M_d$ with Choi rank $r$. Under the
+contract of Theorem~\ref{thm:batch-purity}, let $R_\Psi[b]$ be the
+infimum achievable $\limsup(P+C)/n$ for services of $\Psi$, with $x$ as
+there. Then
+\[
+ R_\Psi[b]\leq\min\{\log_2r,\,6x\}.
+\]
+In particular $R_\Psi[b]=0$ if $b_n/\log n\to\infty$, and the
+zero-rate construction then has $J=\tfrac n2\log_2r+o(n)$. With all
+outputs released together, rate zero is the zero thermodynamic capacity
+of unital channels~\cite{FaistBertaBrandao2019},
+\cite[Equation~(4.9) and Theorem~7.1]{FaistBertaBrandao2021}.
+\end{theorem}
+
+For $\Theta$, $r=3$ and this is the upper half of
+Theorem~\ref{thm:batch-purity}. For a closed apparatus serving one
+ququart Schur channel, independent delayed blocks give purity $o(n)$
+under superlogarithmic delay~\cite[Theorem~8]{DouglasSchur}. The lower
+half has no analogue for all unital channels. A channel with a finite
+tracial factorization of bath dimension $M$, such as an equal mixture of
+$M$ unitaries, has exact immediate services with $P+C=O(\sqrt n)$,
+$Q=O(\sqrt n)$ and $J=n\log_2M+O(\sqrt n)$. Each round uses its own
+maximally mixed bath, and the baths are packed in banks as in the proof
+of Theorem~\ref{thm:qutrit-purity}, so each bank costs less than one
+qubit of purity.

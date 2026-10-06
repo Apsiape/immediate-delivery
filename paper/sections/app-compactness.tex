@@ -1,0 +1,272 @@
+\section{Entropy compactness and the gadget classification}\label{app:compactness}
+
+This appendix first establishes a general-channel compactness statement. The later steps use the singleton
+anchors and untwisted table explicitly. In particular, the finite-mixture conclusion in the first lemma must
+not be replaced by a single-factor conclusion for an arbitrary channel.
+
+\subsection{Spectral tightness and finite limiting layers}
+
+\begin{lemma}[Entropy compactness]\label{lem:entropy-compactness}
+Let rounds on a fixed $M_d$ have channels $\Psi_j\to\Theta$, bounded source entropy, and production $a_j\to0$.
+Then $\Theta$ is a finite convex mixture of finite tracial factorizations.
+\end{lemma}
+\begin{proof}
+Diagonalize source and output bath states in separate decreasing eigenbases, with spectra $p_{ji},q_{jl}$.
+Write the system blocks of the unitary as $U_{j,li}$ and put
+$w_{j,li}=\Tr(U_{j,li}^*U_{j,li})/d$. Unitarity makes $w_j$ doubly stochastic and $q_j=w_jp_j$.
+The probability arrays $w_{j,li}p_{ji}$ and $w_{j,li}q_{jl}$ have relative entropy $a_j$ in bits. Pinsker gives
+\[
+ \delta_j:=\sum_{li}w_{j,li}|p_{ji}-q_{jl}|\le\sqrt{2\ln2\,a_j}\longrightarrow0.
+\]
+Sorted matching minimizes absolute-distance transport. Indeed, integrate threshold indicators: any doubly
+stochastic coupling mismatches at least the difference between the numbers of eigenvalues above each threshold.
+Hence $\sum_i|p_{ji}-q_{ji}|\le\delta_j$.
+
+Sorted eigenvalues obey $p_{ji}\le1/i$. If the entropy bound is $B$, then
+$\sum_{i>K}p_{ji}\le{B/\log_2(K+1)}$; the same holds for $q_j$ with a bounded entropy bound.
+After adjoining zero coordinates, diagonal subsequence extraction gives pointwise spectral limits, and these
+tail bounds upgrade convergence to $\ell^1$. Both limits are the same probability list $p$, with
+$S(p)\le\liminf_jS(p_j)\le B$.
+
+All blocks $U_{j,li}$ are contractions. A further diagonal subsequence gives limits $U_{li}$.
+If $p_i\ne p_l$, the transport bound forces $U_{li}=0$.
+Fix $p_i=\lambda>0$ and choose $K$ with $1/(K+1)\le\lambda/4$. Eventually $p_{ji}\ge\lambda/2$, so
+\[
+ \sum_{l>K}w_{j,li}\le4\delta_j/\lambda\longrightarrow0.
+\]
+The analogous row estimate follows from $q_{jl}\ge\lambda/2$. Thus no positive-weight column or row escapes
+to infinity. The set $I_\lambda=\{i:p_i=\lambda\}$ is finite, of size $k_\lambda\le1/\lambda$.
+In the unitary column identities, terms outside this set vanish: finite unequal-eigenvalue terms vanish
+entrywise, tails vanish in squared block norm, and cross-column tails vanish by Cauchy--Schwarz.
+Therefore $V_\lambda=[U_{li}]_{l,i\in I_\lambda}$ is a finite square isometry, hence unitary.
+
+Let $\Theta_\lambda$ be the channel of this finite tracial factorization. Splitting the source at a finite index cutoff makes its
+tail channel mass uniformly small. On each retained positive-weight column the preceding no-escape estimate
+permits taking the blockwise limit. This proves
+\[
+ \Theta=\sum_{\lambda>0}k_\lambda\lambda\,\Theta_\lambda,
+ \qquad\sum_{\lambda>0}k_\lambda\lambda=1.
+\]
+It remains to reduce a countable barycenter to a finite one. In a finite-dimensional real space, the
+barycenter of bounded atoms with strictly positive weights lies in their convex hull. To see this, if the
+barycenter lies on a relative boundary of the closed convex hull, a supporting functional has its maximum
+at the barycenter. Every positive-weight atom must attain that maximum; restrict to its lower-dimensional
+affine hyperplane. Repeat until the barycenter is in relative interior. A small simplex around it can then
+be approximated by vertices in the convex hull, still containing the barycenter. Carath\'eodory elimination
+leaves at most $d^4+1$ of the original Choi atoms. Their dimensions are finite, proving the lemma.
+\end{proof}
+
+\subsection{Exact support, rational weights and separation}
+
+\begin{lemma}[Support-preserving copies]\label{lem:support-copies}
+Let $\Theta=\sum_ip_i\Theta_i$ be a finite mixture of finite tracial factorizations of bath dimensions $m_i\le m$.
+For $0<\gamma<1$, it has an approximant $\Gamma$ with a finite tracial factorization of bath dimension at most
+$\lceil(d^4+1)m/\gamma\rceil$, half-diamond error less than $\gamma$, and
+$\cJ(\Gamma)\le\cJ(\Theta)/(1-\gamma)$.
+In particular, a common exact Choi support is preserved.
+\end{lemma}
+\begin{proof}
+Reduce to $L\le d^4+1$ original atoms. Put $N=\lceil(d^4+1)m/\gamma\rceil$,
+$c_i=\lfloor Np_i/m_i\rfloor$ and $N'=\sum_ic_im_i$. The missing fraction
+$\delta=(N-N')/N$ is less than $\gamma$, so $N'>0$.
+Take the block-diagonal unitary with $c_i$ copies of each factor, on a bath of dimension $N'$, as in the proof
+of~\cite[Theorem~3.6]{HaagerupMusat2015}.
+Its channel $\Gamma$ obeys $\Theta=(1-\delta)\Gamma+\delta\Theta_{\rm rem}$ for a channel
+$\Theta_{\rm rem}$ (omit it if $\delta=0$). This proves both bounds. There is no filler channel.
+\end{proof}
+
+A finite tracial factorization with exact target support has a unitary expansion $\sum_gA_g\otimes B_g$
+(compare~\cite[Theorem~2.2]{HaagerupMusat2011}):
+each bath-entry Kraus vector must belong to the target Kraus span by Choi positivity.
+The anchors make all square $B_g$ unitary, and the triangle columns give $B_1^*B_y=B_x^*B_z$.
+After gauging $V_g=B_1^*B_g$, these are exactly the relations of $P_\Phi$.
+The two-anchor reference input gives
+\begin{equation}\label{eq:anchor-gap-classification}
+ |\tau(V_g^*V_h)|\le2\ddia(\Theta,\Phi),\qquad g\ne h.
+\end{equation}
+If no finite representation separates the whole finite label set, some fixed pair is equal in every finite
+representation. Otherwise a finite direct sum of pair-separating representations separates all pairs.
+Thus every exact-support finite tracial mixture is at diamond distance at least $1/2$ from $\Phi$.
+
+\begin{proof}[Bounded branch of Theorem~\ref{thm:trichotomy}]
+Suppose $B=\sup_nL^*_\Phi(n)<\infty$. Near-minimizers have bounded $S$, $a\to0$ and $\ell\to0$.
+Their channels have a convergent subsequence with limit $\Theta$ at distance at most $1/16$ from $\Phi$,
+with exact target support. The compactness proof gives spectral layers with weights
+$w_\lambda=k_\lambda\lambda$ and
+\[
+ S(p)=H(w)+\sum_\lambda w_\lambda\log k_\lambda\le B.
+\]
+All layers have exact support. Discard those with $\log k_\lambda>16(B+1)$; their mass is below $1/16$.
+The remaining normalized barycenter has bath cap $2^{16(B+1)}$. Even if it has infinitely many layers,
+the preceding barycenter argument leaves at most $d^4+1$ of them, without changing the channel.
+Lemma~\ref{lem:support-copies} at $\gamma=1/32$ gives one exact-support factor of dimension
+at most $33(d^4+1)2^{16(B+1)}$, at distance less than $5/32$ from $\Phi$.
+Equation~\eqref{eq:anchor-gap-classification} gives a separating representation with trace gap below $5/16$.
+This proves the displayed bound on $R_{\rm sep}$.
+
+Conversely, tensor a representation with gap at most $1/2$ to degree
+$t=\lceil\log_2(8r(r-1))\rceil$. The exact unitary table has zero production and leakage and
+half-diamond error at most $r(r-1)2^{-t}/2\le1/16$.
+It gives $B\le tR_{\rm sep}$. A representation merely separating the labels acquires a strict trace gap by
+adding a trivial summand, then a finite tensor power makes the gap at most $1/2$.
+Robust rank streaming (Theorem~\ref{thm:robust}(c)) gives logarithmic service memory.
+
+Finally the matrix image of $P_\Phi$ is finitely generated. Malcev's residual-finiteness theorem~\cite{Nica2013}
+gives a finite quotient separating each of the finitely many label pairs; take their finite product.
+Its regular representation has trace overlaps exactly $\delta_{gh}$ and obeys all relations.
+It therefore gives an exact finite tracial factorization of $\Phi$.
+The converse follows from the exact-support expansion above. The same fixed-pair argument proves that an
+exact finite tracial mixture for this gadget also implies a single exact finite tracial factorization.
+\end{proof}
+
+\subsection{Ultrapower separation and closure}
+
+\begin{lemma}[Ultrapower label criterion]\label{lem:ultrapower-labels}
+A canonical untwisted anchored gadget is in $\overline{\mathcal F}$
+if and only if some homomorphism
+$P_\Phi\to U(\mathcal R^\omega)$ separates its named labels.
+If there is no such homomorphism, some fixed distinct pair is
+identified by every such homomorphism.
+\end{lemma}
+\begin{proof}
+For a channel in the closure, Haagerup--Musat's factorization
+in $\mathcal R^\omega$ gives a unitary whose coefficient expansion
+has exact canonical support
+\cite[Theorem~3.6]{HaagerupMusat2015}; the expansion is that
+of~\cite[Theorem~2.2]{HaagerupMusat2011} (compare~\cite[Proposition~3.9]{Musat2025}).
+Faithfulness of the trace makes every orthogonal Kraus coefficient
+zero. The singleton anchors make the remaining coefficients
+unitary; triangle column orthogonality gives the relations of
+$P_\Phi$ after gauging by the identity coefficient. Equality of
+the target Choi matrix makes distinct-label trace overlaps zero.
+This separates the labels.
+
+Conversely, let $\pi$ separate the labels. Work throughout with
+finite matrix approximants of the finitely many images $\pi(v_g)$,
+so that every construction below stays inside matrix algebras with
+normalized trace. Replace $\pi$ by $\pi\oplus1$, with equal tracial
+weights on the two summands. For $g\ne h$ the overlap in
+$\mathcal R^\omega$ becomes $(1+\tau(\pi(v_g)^*\pi(v_h)))/2$, of modulus
+strictly below one: there the trace is faithful, so for a unitary $u$,
+$|\tau(u)|\le1$ with equality only when $u$ is a scalar unitary
+$e^{i\theta}I$; then the overlap is $(1+e^{i\theta})/2$, and $\theta=0$
+is excluded because $\pi$ separates the labels. So the finitely many
+overlaps have modulus at most $1-\delta$ for some $\delta>0$, and along
+$\omega$ those of the matrix approximants have modulus at most
+$1-\delta/2$.
+Tensor powers, or tensor-conjugate powers (the tensor-power trick
+of~\cite[Lemma~2.2]{SlofstraVidick2018}), drive these finitely
+many overlaps to zero while preserving every relation up to defects
+that vanish along the ultrafilter. The resulting finite matrix
+tuples have vanishing triangle defects. Form the actual physical gadget
+blocks with lower-right entry $-V_xV_y$. Their slot Choi matrices
+approach the canonical table, because equal-label slot defects
+and distinct-label overlaps tend to zero. This yields finite tracial
+factorizations converging to $\Phi$; the same amplification is quantified
+in Appendix~\ref{app:hyperlinear-upper}.
+
+Finally, if each pair were separated by some homomorphism, the
+finite direct sum of those maps would separate every pair and
+embed in $\mathcal R^\omega$. Its contrapositive gives the fixed
+pair assertion. This argument concerns finite label separation,
+rather than hyperlinearity of all of $P_\Phi$.
+\end{proof}
+
+\subsection{Closure-only and nonclosure branches}
+
+At any fixed entropy bound $B$ and coarse distance $u<1/2$, absence of finite label separation implies
+\begin{equation}\label{eq:fixed-entropy-gap}
+ \inf\{a+\ell:S\le B,\ \ddia\le u\}>0.
+\end{equation}
+Otherwise compactness would give an exact-support finite mixture at distance below $1/2$, contradicting
+the anchor obstruction. In particular $L^*_\Phi(n)\to\infty$ on the nonseparating branch.
+If $\Phi\in\overline{\mathcal F}$, positive-Gram repair and scalar completion
+(Lemma~\ref{lem:generic-repair}) give exact-target flat rounds with finite $S_\delta$ and $a_\delta\to0$.
+Then $L^*_\Phi(n)\le S_\delta+na_\delta$; take $n\to\infty$ and then $\delta\to0$ to obtain $o(n)$.
+The closure service upper is Theorem~\ref{thm:closure-law}(a).
+If service memory had a bounded subsequence, the precise extracted production bound of
+Theorem~\ref{thm:lower} would give $a=O((1+\log n)/n)$ at bounded $S$, contradicting
+\eqref{eq:fixed-entropy-gap}. This proves the middle branch.
+
+For the last branch we need the following qualitative amplification, specific to the gadget.
+\begin{lemma}[Support amplification]\label{lem:support-amplification}
+If $\Theta\in\overline{\mathcal F}$ has exact target support and $\ddia(\Theta,\Phi)<1/2$, then
+$\Phi\in\overline{\mathcal F}$.
+\end{lemma}
+\begin{proof}
+Take channels $\Psi_j\to\Theta$ with finite tracial factorizations, with unitaries $U_j=\sum_gA_g\otimes X_{jg}+L_j$,
+$\|L_j\|_2^2=\ell_j\to0$ in normalized joint trace. Polar extensions of their singleton anchor blocks
+give square unitaries $R_{jg}$ with
+$\|X_{jg}-R_{jg}\|_2\le2\sqrt{d\ell_j}$.
+The table $W_j=\sum_gA_g\otimes R_{jg}$ has norm at most $\sqrt2$ and
+$\|U_j-W_j\|_2\le(1+2\sqrt d)\sqrt{\ell_j}$.
+Its column defects therefore tend to zero. Gauging by $R_{j1}^*$ gives unitaries $V_{jg}$,
+$V_{j1}=I$, with triangle error at most
+$\kappa_j=2\sqrt d(1+\sqrt2)(1+2\sqrt d)\sqrt{\ell_j}$.
+Anchor testing and polar error give trace overlaps at most
+$2\ddia(\Psi_j,\Phi)+2\sqrt{d\ell_j}$, eventually bounded by $c_0<1$.
+
+Construct actual unitary gadget blocks with lower-right entry $-V_{jx}V_{jy}$, not $-V_{jz}$.
+Every slot response $Q_a$ is within $\kappa_j$ of its canonical label response. Equal-label slots therefore
+have $1-|\tau(Q_a^*Q_b)|^2\le4\kappa_j^2$; different-label slots eventually have overlap at most $c_1<1$.
+Replace all unitary responses by $(V\otimes\overline V)^{\otimes k}$.
+This multiplicative map preserves actual unitary blocks; scalar slot signs remain outside the map.
+Slot correlations become $|\tau(Q_a^*Q_b)|^{2k}$.
+There are at most $2d$ slots and their squared scalar coefficients sum to $d$.
+The Choi error is thus at most $d(4k\kappa_j^2+c_1^{2k})$.
+Choose $k$ first and $j$ second to make this arbitrarily small, proving closure membership.
+\end{proof}
+
+For nonclosure $\Phi$, the compact set
+$\{\Theta\in\overline{\mathcal F}:\ddia(\Theta,\Phi)\le1/8\}$ has a strictly positive minimum leakage
+$\eta$ by this lemma; if the set is empty, use $\eta=1$.
+Put $\eta'=\min(\eta,1)$ and
+$a_* =\min\{1/(2048d^2\ln2),\eta'^2/(32\ln2)\}$.
+A qualifying round with $a\le a_*$ tracializes to a channel in closure at Choi distance
+$h\le\sqrt{2\ln2 a_*}\le\min(1/(32d),\eta'/4)$.
+Its target diamond distance is at most $1/16+dh\le3/32<1/8$ and its leakage is at most $2/(15n)+h$,
+below $\eta$ for sufficiently large $n$. This is impossible. Hence
+$L^*_\Phi(n)\ge na_*$ eventually. The pure Stinespring round gives $L^*_\Phi(n)\le n\log r$.
+Theorem~\ref{thm:lower} gives the linear rank-rate memory lower at every $\epsilon\le1/16$;
+the exact independent-cell service gives the linear upper. This completes Theorem~\ref{thm:trichotomy}.
+
+\subsection{Regime (iii) and non-hyperlinear groups}\label{app:regime-iii}
+
+A countable group is hyperlinear exactly when it is isomorphic to a subgroup of
+$U(\mathcal R^\omega)$~\cite[Remark~8.4 and Theorem~8.5]{Pestov2008}.
+
+\begin{proof}[Proof of Proposition~\ref{prop:regime-iii}]
+(a)$\Rightarrow$(b). By Theorem~\ref{thm:trichotomy}(iii), distinct labels $g\ne h$ are identified by
+every homomorphism $P_\Phi\to U(\mathcal R^\omega)$, and $P_\Phi$ is finitely presented. Put
+$\zeta=v_g^{-1}v_h$. Then $q(\zeta)=g^{-1}h\ne1$, so $\zeta\ne1$, and every such homomorphism kills $\zeta$.
+
+(b)$\Rightarrow$(a). Let $P=\langle S\mid R_0\rangle$ with $S$ and $R_0$ finite. Drop empty relators and
+replace each relator $\sigma=s^{\pm1}$ of length one by its conjugate $s\sigma s^{-1}$; the normal
+closure is unchanged. Choose a word $w$ of length at least two representing $\zeta$, appending $ss^{-1}$
+if necessary. Let $\Phi$ be the canonical gadget of $G=P$, the generating set $S$ and the list
+$R=R_0\cup\{ww^{-1}\}$. Every word in $R$ has length at least two and equals $1$ in $P$. The tagged
+prefix of $ww^{-1}$ at position $|w|$ names $\zeta$, so $\zeta$ and $1$ are distinct labels.
+
+In $P_\Phi$ the triangle $(s,s^{-1},\varnothing)$ gives $v_{[s^{-1}]}=v_{[s]}^{-1}$. For a word
+$\sigma_1\cdots\sigma_m\in R$, the triangles $(p_{i,j-1},\sigma_j,p_{i,j})$ give
+$v_{[p_{i,j}]}=v_{[\sigma_1]}\cdots v_{[\sigma_j]}$ by induction on $j$; at $j=m$ the prefix is empty, so
+$v_{[\sigma_1]}\cdots v_{[\sigma_m]}=1$. Hence $s\mapsto v_{[s]}$ defines a homomorphism
+$\theta:P\to P_\Phi$, and $\theta(\zeta)=v_{[w]}=v_\zeta$. For every homomorphism
+$\pi:P_\Phi\to U(\mathcal R^\omega)$, the composite $\pi\theta$ kills $\zeta$, so $\pi(v_\zeta)=1=\pi(v_1)$.
+Theorem~\ref{thm:trichotomy} places $\Phi$ in regime (iii).
+
+(b)$\Rightarrow$(c). A homomorphism that kills $\zeta\ne1$ is not injective, so $P$ is not hyperlinear.
+
+(c)$\Rightarrow$(b). Let $P$ be finitely presented and suppose that every $\zeta\ne1$ survives some
+homomorphism $\pi_\zeta:P\to U(\mathcal R^\omega)$. Enumerate $P\setminus\{1\}$ as
+$\zeta_1,\zeta_2,\ldots$ and choose orthogonal projections $p_k\in\mathcal R$ with $\tau(p_k)=2^{-k}$.
+Each corner $p_k\mathcal Rp_k$ is a hyperfinite $\mathrm{II}_1$ factor, so there is a $*$-isomorphism
+$\theta_k:\mathcal R\to p_k\mathcal Rp_k$. It scales $\nrm\cdot_2$ by $2^{-k/2}$, so applying it to
+representing sequences gives an injective $*$-homomorphism
+$\theta_k^\omega:\mathcal R^\omega\to p_k\mathcal R^\omega p_k$ with $\theta_k^\omega(1)=p_k$. The
+orthogonal sums $\pi(x)=\sum_k\theta_k^\omega(\pi_{\zeta_k}(x))$ converge in $\nrm\cdot_2$ on bounded sets
+and define a homomorphism $\pi:P\to U(\mathcal R^\omega)$. Since
+$p_k\pi(\zeta_k)p_k=\theta_k^\omega(\pi_{\zeta_k}(\zeta_k))\ne p_k$, the map $\pi$ is injective, so $P$
+is hyperlinear. Contrapositively, a finitely presented group that is not hyperlinear has an element
+$\zeta\ne1$ killed by every homomorphism into $U(\mathcal R^\omega)$.
+\end{proof}

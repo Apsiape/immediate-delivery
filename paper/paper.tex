@@ -1,0 +1,123 @@
+% The memory and purity cost of immediate delivery.
+% Compile: python build.py (three pdflatex passes).
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{microtype}
+\setlength{\emergencystretch}{2em}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\hypersetup{pdftitle={The memory and purity cost of immediate delivery},
+pdfauthor={Seth Douglas and Nidhal Mghirbi},pdfkeywords={quantum channels, quantum memory, causal simulation,
+factorizable channels, Faber-Krahn profile, Houghton groups, sofic approximation}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{introthm}{Theorem}
+\renewcommand{\theintrothm}{\Alph{introthm}}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\FSym}{FSym}
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Ad}{Ad}
+\newcommand{\ddia}{d_\diamond}
+\newcommand{\cK}{\mathcal K}
+\newcommand{\cJ}{\mathcal J}
+\newcommand{\cL}{\mathcal L}
+\newcommand{\cT}{\mathcal T}
+\newcommand{\cU}{\mathcal U}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+\newcommand{\R}{\mathbb R}
+\newcommand{\E}{\mathbb E}
+\newcommand{\Ls}{L^{*}}
+\newcommand{\Qs}{Q^{*}}
+\newcommand{\Zp}{Z_\Phi}
+\newcommand{\Qf}{Q^{*}_{\rm flat}}
+\newcommand{\sfa}{\mathsf a}
+\newcommand{\sfb}{\mathsf b}
+\newcommand{\ket}[1]{\lvert #1\rangle}
+\newcommand{\bra}[1]{\langle #1\rvert}
+\newcommand{\nrm}[1]{\lVert #1\rVert}
+\newcommand{\Off}{\operatorname{Off}}
+\newcommand{\id}{\mathrm{id}}
+\renewcommand{\Re}{\operatorname{Re}}
+
+\title{The memory and purity cost of immediate delivery}
+\author{Seth Douglas \and Nidhal Mghirbi}
+\date{October 2026}
+
+\begin{document}
+\maketitle
+
+\input{sections/abstract}
+
+\clearpage
+\setcounter{tocdepth}{1}
+{\small\tableofcontents}
+\clearpage
+
+\input{sections/intro}
+\input{sections/model}
+\input{sections/purity}
+\input{sections/closure}
+\input{sections/classification}
+\input{sections/entropic}
+\input{sections/lower}
+\input{sections/houghton}
+\input{sections/open}
+
+\paragraph{AI assistance.}
+Generative AI was used in mathematical exploration, proof checking, code development and writing. The authors are
+responsible for the content.
+
+\clearpage
+\appendix
+\input{sections/app-purity}
+\input{sections/app-closure-proofs}
+\input{sections/app-compactness}
+\input{sections/monomial}
+\input{sections/app-graded}
+\input{sections/app-static}
+\input{sections/flat}
+\input{sections/biased}
+\input{sections/obstructions}
+\input{sections/app-lower}
+\input{sections/app-frames}
+\input{sections/app-flat}
+\input{sections/app-biased}
+\input{sections/app-devices}
+\input{sections/app-houghton}
+\input{sections/app-houghton-sources}
+\input{sections/app-houghton-stability}
+\input{sections/app-houghton-coercivity}
+\input{sections/app-houghton-moderate}
+\input{sections/app-obstructions}
+
+\clearpage
+{\small\input{references}}
+
+\end{document}

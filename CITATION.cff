@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "Please cite the manuscript; this repository supplies its source and verification scripts."
+type: software
+title: "The memory and purity cost of immediate delivery"
+version: 1.0.0
+license:
+  - CC-BY-4.0
+  - MIT
+authors:
+  - family-names: Douglas
+    given-names: Seth
+  - family-names: Mghirbi
+    given-names: Nidhal
+url: "https://github.com/Apsiape/immediate-delivery"
+repository-code: "https://github.com/Apsiape/immediate-delivery"
+preferred-citation:
+  type: generic
+  title: "The memory and purity cost of immediate delivery"
+  authors:
+    - family-names: Douglas
+      given-names: Seth
+    - family-names: Mghirbi
+      given-names: Nidhal
+  year: 2026
+  version: 1.0.0
+  notes: "Preprint with accompanying verification scripts; see RIGHTS.md for license scope."

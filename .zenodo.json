@@ -1,0 +1,52 @@
+{
+  "title": "The memory and purity cost of immediate delivery",
+  "upload_type": "publication",
+  "publication_type": "preprint",
+  "version": "1.0.0",
+  "creators": [
+    {
+      "name": "Douglas, Seth"
+    },
+    {
+      "name": "Mghirbi, Nidhal"
+    }
+  ],
+  "description": "<p>How much memory does a device need to apply one quantum channel n times, if each output must leave before the next input arrives? The paper counts the qubits the device keeps, the qubits it exchanges for fresh ones, and the purity it is given, with error measured on the whole experiment against an adaptive observer.</p><p>Immediate release has a price. For the qutrit Werner-Holevo channel, vanishing error requires log2 3 bits of purity per use, a known rate; the paper adds a bound at finite error. If all outputs may leave together, O(log n) bits suffice in total at polynomially small error. At error n^-2 the change comes when outputs wait in batches of about log n, and the zero-purity side holds for every unital channel.</p><p>Purity separates cheap from expensive repeated use along one set of channels, the closure of those that a finite, maximally mixed bath implements exactly. The paper proves a converse for memory: a channel in the closure with a flat probe can be served with maximally mixed fresh qubits, the optimal exchange rate and sublinear memory at any error that is not exponentially small. For channels built from finitely many group relations, memory at fixed error is at most logarithmic, divergent but sublinear, or linear, the last exactly when some finitely presented group is not hyperlinear. Along the way, Rybar and Ziman's question on repeating a channel without resets is answered.</p><p>At high precision, the memory of n uses of such a channel equals, up to squared logarithms, the cost of the best single use that never leaves the channel's support. Devices acting through Houghton's group need, and can attain, memory n^(1/3) up to logarithmic factors. Whether the single-use law also holds at fixed error is open.</p><p>This archive includes the paper, its LaTeX source and the finite numerical checks; they support but do not replace the proofs.</p>",
+  "keywords": [
+    "quantum channels",
+    "quantum memory",
+    "causal simulation",
+    "purity",
+    "factorizable channels",
+    "noisy operations",
+    "repeatable channels",
+    "sofic approximation",
+    "Houghton groups"
+  ],
+  "access_right": "open",
+  "license": "cc-by-4.0",
+  "language": "eng",
+  "notes": "The authors' archive content is licensed CC BY 4.0. Software is additionally available under MIT at the recipient's option; see RIGHTS.md. This is a preprint, not a claim of journal peer review.",
+  "related_identifiers": [
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.23070869",
+      "relation": "cites"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.23070870",
+      "relation": "cites"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.23111927",
+      "relation": "cites"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.23196593",
+      "relation": "cites"
+    },
+    {
+      "identifier": "https://arxiv.org/abs/2609.18267",
+      "relation": "cites"
+    }
+  ]
+}

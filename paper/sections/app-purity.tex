@@ -1,0 +1,385 @@
+\section{Antisymmetric rigidity and purity accounting}\label{app:purity}
+
+\subsection{A dimension-free local estimate}
+
+\begin{lemma}[Antisymmetric support decouples the source purifier]\label{lem:qutrit-rigidity}
+Let a finite unitary round have source $\beta$, channel $\Psi$, and
+$\delta=d_J(\Psi,\Theta)$. Purify the source by $F$, feed a Bell pair
+on $RA$, and denote the final $RYF$ marginal by $\chi$. Then
+\[
+ \|\chi-\cJ(\Theta)\otimes\beta_F\|_1\leq20\sqrt\delta,
+ \qquad a\geq H-g_9(\min\{1,10\sqrt\delta\}).
+\]
+\end{lemma}
+\begin{proof}
+Choose the antisymmetric isometry $W:\C^3\to RY$, sending the three
+coordinate vectors to the normalized alternating pairs, with signs
+chosen so its partial-trace channel is $\Theta$. Put $P=WW^*$.
+Since $\cJ(\Theta)=P/3$, support loss
+$\Tr((I-P)\chi)\leq\delta$. Gentle projection gives
+$\|\chi-P\chi P\|_1\leq2\sqrt\delta$.
+The untouched marginal is $\chi_{RF}=\tau_3\otimes\beta_F$.
+Thus, for the subnormalized $\zeta=W^*P\chi PW$,
+\[
+ \|(\Theta\otimes\id_F)(\zeta)-\tau_3\otimes\beta_F\|_1
+ \leq2\sqrt\delta.
+\]
+The inverse linear map is
+$\Theta^{-1}(Y)=\Tr(Y)I-2Y^T$. The first summand has stabilized
+trace norm $3$, and transposition on $M_3$ has stabilized trace norm
+$3$, so the inverse has norm at most $9$. This also acts on
+subnormalized and nonpositive differences. Since
+$\Theta(\tau_3)=\tau_3$, it follows that
+$\|\zeta-\tau_3\otimes\beta_F\|_1\leq18\sqrt\delta$.
+Re-embedding by $W$ and adding the gentle error~\cite[Lemma~9]{Winter1999} proves the first claim.
+
+The global state on $RYB'F$ is pure. Therefore the actual global
+bath gain is
+$S(B')-S(\beta)=H(RY|F)_\chi$. Conditional-entropy continuity
+on the fixed dimension $\dim(RY)=9$ gives the second claim
+\cite[Lemma~2]{Winter2016}; its comparison state has conditional
+entropy $\log_2 3$. No bound on $\dim F$ is used.
+\end{proof}
+
+\subsection{Exports, imports and exact banks}
+
+\begin{proof}[Proof of Theorem~\ref{thm:qutrit-purity}]
+Send fresh Bell inputs and retain every output and reference.
+Each round's marginal Choi error is at most $\epsilon$, even when
+the memory is correlated with past outputs.
+For an intra-round exchange schedule, place every prescribed independent
+import at the mathematical beginning and retain every export to the
+mathematical end. Extend each operation by identities on unused imports
+and retired exports. This gives one finite unitary round with the same
+reduced channel. It is bookkeeping, not a smaller-memory implementation.
+
+Let active dimensions before and after be $b,b'$, the product import
+dimension be $a_0$, and the product export dimension be $g$. Then
+$ba_0=b'g$. If active marginals are $\eta,\eta'$, and the independent
+import state is $\sigma$, subadditivity bounds the round's global gain by
+\begin{align*}
+ a_{\rm glob}
+ &\leq S(\eta')+\log_2g-S(\eta)-S(\sigma)\\
+ &=F(\eta)+c-F(\eta'),
+ \quad F(\eta)=\log_2b-S(\eta),\quad
+ c=\log_2a_0-S(\sigma).
+\end{align*}
+This uses only unconditional marginals and remains valid with past
+correlations. Summing telescopes to $\sum_ta_{\rm glob,t}\leq P+C$,
+because the final deficit is nonnegative. Each gain is nonnegative
+for the reconstructed round with maximally mixed system input.
+Lemma~\ref{lem:qutrit-rigidity} proves the lower, including its positive
+part. Correlated imports would require their joint deficit to be charged;
+adaptive state selection during a round is not included.
+
+For the exact upper, let $b=\lceil\sqrt n\rceil$ and
+$q=\lceil bH\rceil$. Encode $b$ pure qutrit Stinespring cells in
+$q$ qubits. Apply the cell isometry at its round and never touch that cell
+again until the bank is exported. For every full bank except the last,
+export all $q$ qubits and import a pure bank. Unused cells in the final
+bank stay pure; no accuracy error occurs. A reversible schedule clock
+costs $\lceil\log_2(n+1)\rceil$ pure qubits, and a fixed wire encoding
+costs $O(1)$. With $B=\lceil n/b\rceil$,
+\[
+ Q=q+O(\log n),\quad P+C=Bq+O(\log n),\quad J=(B-1)q.
+\]
+Since $Bb=n+O(b)$ and $B=O(\sqrt n)$, these are the claimed ledgers.
+Unitary extensions preserve the encoded bank and its unused padding.
+They realize independent channels for every adaptive observer.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:qutrit-gap}]
+Werner twirling fixes $\Theta$, contracts Choi trace distance and
+preserves factorizability: each conjugation preserves it, and convex
+mixtures and limits preserve the relevant closure. The twirled channel
+is $T_\lambda=\lambda W_3^++(1-\lambda)W_3^-$. Its two normalized
+Choi states occupy orthogonal symmetric and antisymmetric subspaces,
+so $d_J(T_\lambda,\Theta)=\lambda$.
+Haagerup--Musat's twirl calculation gives
+$\lambda\geq2/27$ for every factorizable twirl, and an exact
+factorization at equality through $M_3\otimes M_3$
+\cite[Lemmas~5.4 and~5.5, Theorem~5.6 and Corollary~5.7]{HaagerupMusat2015}. The threshold persists under limits.
+This proves both bounds for the closure $\overline{\mathcal F}$. The published
+full cb distance is $4/27$ (half-diamond distance $2/27$); no generic conversion of that norm into
+Choi distance is needed.
+\end{proof}
+
+\subsection{A lower bound for delayed batches}
+
+Suppose contiguous batches contain $b_n=o(n)$ qutrit inputs and release
+their outputs together, with complete error at most $n^{-2}$.
+Within and between batches allow the prescribed independent exchange
+just accounted for. Define
+\[
+ K_n=\left\lfloor\frac{\log_2n-3\log_2\log_2(n+2)}{\log_2 9}
+       \right\rfloor.
+\]
+The following assertion concerns sufficiently large $n$, so $K_n\geq1$.
+\begin{proposition}[Batch probes]\label{prop:batch-purity-lower}
+Every such service satisfies
+\[
+ \frac{P+C}{n}\geq (H-o(1))\min\{1,K_n/b_n\}.
+\]
+In particular $b_n=o(\log n)$ forces asymptotic supplied-purity
+rate $H$, and the exact banks above attain it with $Q_{\rm peak}=o(n)$,
+$J=O(n)$. For arbitrary $b_n$, if $R[b]$ is the infimum achievable
+$\limsup(P+C)/n$ under these resource constraints and
+$x=\limsup_{n\to\infty}\log_2n/b_n\in[0,\infty]$, then
+\[
+ R[b]\geq H\min\{1,x/\log_2 9\}.
+\]
+\end{proposition}
+\begin{proof}
+In a full batch probe $m=\min(b_n,K_n)$ inputs with Bell pairs and
+set the others to $\tau_3$. Regard the unused inputs as an analytical
+bath, and retain their outputs at the mathematical end. By subadditivity
+and their maximum entropy, its gain is at most the actual bath gain:
+\[
+ S(B'Y_0)-S(B)-(b_n-m)H\leq S(B')-S(B).
+\]
+Tensor the alternating isometry $m$ times. Support loss is at most
+$n^{-2}$, and the stabilized inverse bound is $9^m$. The proof of
+Lemma~\ref{lem:qutrit-rigidity} now gives half trace distance at most
+$t_n=(1+9^m)/n$ from the decoupled target state. Consequently the
+physical bath gain is at least $mH-g_{9^m}(t_n)$.
+By the definition of $K_n$,
+$t_n\leq n^{-1}+(\log_2(n+2))^{-3}$.
+Since $\log_2(9^m)=m\log_2 9$,
+$g_{9^m}(t_n)=o(m)$ uniformly for $1\leq m\leq K_n$.
+The leftover batch has fewer than $b_n=o(n)$ rounds and nonnegative
+global gain, so it can be dropped from the lower sum.
+There are $\lfloor n/b_n\rfloor$ full batches. The deficit ledger
+therefore gives the displayed bound. Write $z_n=\log_2n/b_n$. Since
+$K_n/\log_2n\to1/\log_2 9$, the bounded factors obey
+\[
+ \limsup_{n\to\infty}\min\{1,K_n/b_n\}
+ =\min\{1,(\limsup_{n\to\infty}z_n)/\log_2 9\}.
+\]
+For finite $\limsup z_n$ this follows by continuity and a subsequence
+attaining the limsup; for infinite limsup the same subsequence makes
+the capped expression tend to one. The uniform $o(1)$ and the
+discarded fraction $b_n/n=o(1)$ vanish before taking the limsup.
+The lower holds for every admissible service sequence and hence for
+their infimum $R[b]$. This proves the stated bound.
+\end{proof}
+
+\subsection{A counted collective Gaussian implementation}
+
+The following finite matrix argument controls both the isometry and
+the implemented channel. A small input Gram alone would not control
+the channel's Kraus coefficient Gram.
+
+\begin{lemma}[Rectangular Gaussian packing, extending~{\cite[Theorem~1]{DouglasSchur}}]\label{lem:collective-gaussian}
+Let $\Psi$ be a unital trace-preserving channel on $M_D$ with $r$
+Kraus operators. For $0<\delta\leq1/2$ it has a finite unitary
+implementation of half-diamond error at most $\delta$ with a flat
+rank-$k$ source in a dyadic $m$-dimensional bath, where
+\begin{align*}
+ \log_2 k&=\lceil\tfrac12\log_2r\rceil,\\
+ \log_2m&\leq\tfrac12\log_2r+2\log_2(1/\delta)
+       +2\log_2\bigl(1+\ln(8Dk)\bigr)+O(1).
+\end{align*}
+Its supplied purity is $\log_2(m/k)$; no random seed is supplied.
+\end{lemma}
+\begin{proof}
+Write $\Psi(X)=\sum_\alpha A_\alpha X A_\alpha^*$ and let
+$G_\alpha$ be independent $m\times k$ complex Gaussian matrices
+with entry variance $1/m$. Put $W=\sum_\alpha A_\alpha\otimes G_\alpha$,
+$Z=W^*W-I$. We first justify the dimension-uniform moment estimate
+\[
+ \|\E Z^{2p}\|\leq(2p)!(k/m)^p,\qquad k\leq m.
+\]
+Wick expansion of a $q$th power and cancellation of fixed points
+under centering give
+\[
+ \E Z^q=\sum_{\substack{\pi\in S_q\\\pi\text{ has no fixed point}}}
+  m^{c(\pi)-q}k^{c(\gamma\pi)-1}T_\pi\otimes I_k,
+ \qquad \gamma=(1\,2\,\cdots\,q).
+\]
+Here $c$ counts cycles. Row-index loops supply the $m$ powers,
+column-index loops the $k$ powers; the one external column pair
+accounts for the exponent minus one. Removing a fixed point
+contracts $\sum_\alpha A_\alpha^*A_\alpha=I$ and leaves the other
+loop factors unchanged, exactly matching the subtraction of $I$.
+The contracted system word is
+$T_\pi=\sum_{\alpha_1,\ldots,\alpha_q}
+ A_{\alpha_1}^*A_{\alpha_{\pi(1)}}\cdots
+ A_{\alpha_q}^*A_{\alpha_{\pi(q)}}$.
+
+Each $T_\pi$ is a contraction, including crossing pairings.
+Read its word from right to left. At a label's first occurrence create
+that label with either isometry
+$v\mapsto\sum_\alpha A_\alpha v\otimes\ket\alpha$ or
+$v\mapsto\sum_\alpha A_\alpha^*v\otimes\ket\alpha$.
+Both are isometries, respectively by trace preservation and unitality.
+At its second occurrence erase it by the adjoint of its creation map.
+Permuting the open label registers is unitary. Each label appears
+once starred and once unstarred, so this construction gives exactly
+the contracted word and bounds its norm by one.
+For a fixed-point-free permutation $c(\pi)\leq q/2$, and
+$c(\pi)+c(\gamma\pi)\leq q+1$. The latter follows from the triangle
+inequality for transposition length $|\sigma|=q-c(\sigma)$.
+With $a=q-c(\pi)\geq q/2$ the coefficient is at most
+$(k/m)^a\leq(k/m)^{q/2}$. There are at most $q!$ terms, proving
+the moment bound.
+
+Choose $k=2^{\lceil(\log_2r)/2\rceil}$,
+$p=\lceil\ln(8Dk)\rceil$, $\eta=\delta/2$, and take $m$ to be
+the least power of two at least $1024kp^2/\eta^2$.
+Since $Z$ is Hermitian, trace Markov gives
+\[
+ \Pr\{\|Z\|>\eta\}\leq
+ Dk\left(\frac{4p^2k}{m\eta^2}\right)^p<1/4.
+\]
+Also $C_{\alpha\beta}=k^{-1}\Tr(G_\alpha^*G_\beta)$ is the
+covariance matrix of $mk$ independent standard Gaussian samples
+divided by $mk$. For a fixed unit vector its quadratic form is the
+mean of $mk$ exponential variables; exponential Markov bounds the
+two tails. A $1/4$-net of the complex unit sphere, of size at most
+$9^{2r}$, gives
+\[
+ \Pr\{\|C-I\|>\eta\}
+ \leq2\,9^{2r}\exp(-mk\eta^2/32)<1/4.
+\]
+The chosen parameters suffice since $k^2\geq r$.
+Hence one realization satisfies both bounds. Fix it as hardware.
+
+Before normalization, tracing $W(X\otimes I_k/k)W^*$ implements
+the Kraus coefficient matrix $C^T$. Its distance from $I$ is the
+same as that of $C$. The coefficient perturbation has
+diamond norm at most $\eta$: use the Stinespring isometry of $\Psi$
+and trace duality with $C-I$. Polar normalization
+$V=W(W^*W)^{-1/2}$ gives an isometry with
+$\|V-W\|\leq\eta$, $\|W\|\leq\sqrt{1+\eta}$.
+Left-right multiplication bounds its additional diamond error by
+$3\eta$. The total half-diamond error is at most $2\eta=\delta$.
+Complete $V:\C^D\otimes\C^k\to\C^D\otimes\C^m$ to a unitary
+on the bath $\C^m$, initialized uniformly on the embedded $\C^k$.
+This source has entropy $\log_2k$, giving the stated ledger.
+All probabilities prove finite existence; neither normalization nor
+Gaussian randomness is an online operation or postselection.
+\end{proof}
+
+For $\Theta^{\otimes b}$, $D=r=3^b$ exactly. Thus the lemma yields
+\begin{equation}\label{eq:qutrit-collective-ledger}
+\begin{aligned}
+ Q_{{\rm bath},b}&\leq bH/2+2\log_2(1/\delta)+2\log_2(b+1)+O(1),\\
+ P_b&\leq2\log_2(1/\delta)+2\log_2(b+1)+O(1).
+\end{aligned}
+\end{equation}
+The $b$ accepted system registers are held until the batch output;
+they use at most $2b$ encoded qubits and are
+counted in $Q_{\rm peak}$. They are observer payload, rather than
+part of the fixed auxiliary source whose entropy deficit is $P_b$.
+They leave as the system output, so their release does not add to
+$J$. With $b=n$, the displayed bath ledger and this custody count
+prove Theorem~\ref{thm:qutrit-collective}.
+
+\begin{proof}[Proof of Theorem~\ref{thm:batch-purity}]
+The lower is Proposition~\ref{prop:batch-purity-lower}; exact banks
+give $R[b]\leq H$ for every allowed batch sequence.
+For $b_n\geq\log_2n$, put $B=\lceil n/b_n\rceil$ and
+$\delta=n^{-2}/B$. Renew the whole collective bath independently
+between batches. The adaptive hybrid costs at most $B\delta=n^{-2}$,
+since there are no retained bank correlations after its permanent
+export. From~\eqref{eq:qutrit-collective-ledger} and $Bb_n\leq n+b_n$,
+\begin{align*}
+ P_b\leq4\log_2n+2\log_2B+2\log_2(b_n+1)+O(1)
+       &\leq6\log_2n+O(1),\\
+ Q_{{\rm bath},b}&\leq b_nH/2+O(\log n).
+\end{align*}
+Add a pure reversible clock of $O(\log n)$ qubits, charged once.
+A shorter final batch uses its own smaller $k,m$ and flat inactive
+padding in the common bank; that padding costs zero purity, not
+an uncharged pure register. The payload bank can accept inputs in sequence and be transformed
+in place by the collective unitary. Hence
+$Q_{\rm peak}\leq(2+H/2)b_n+O(\log n)=o(n)$ and $J=O(n)$.
+The supplied rate is at most
+$6\log_2n/b_n+o(1)$ in this range. For smaller $b_n$ use exact banks;
+the pointwise minimum with exact banks is
+$\min\{H,6z_n\}+o(1)$ (when $z_n>1$, exact banks already
+achieve the minimum). The same limsup identity gives
+$R[b]\leq\min\{H,6x\}$, including $x=\infty$.
+If $b_n/\log n\to\infty$, renewing the $O(\log n)$ overhead
+$O(n/b_n)$ times costs $o(n)$ exchange, and the leftover batch
+changes it by $O(b_n+\log n)=o(n)$. Hence $J=nH/2+o(n)$.
+This last near-minimal exchange assertion is not made at critical
+logarithmic batching. The lower is positive exactly when $x>0$. For the nonnegative
+sequence $z_n$, $x=0$ is equivalent to $b_n/\log_2n\to\infty$,
+which proves the zero-rate criterion. If $b_n=o(\log n)$ then
+$x=\infty$, so the corrected lower is $H$ and matches exact banks.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:unital-batch}]
+Write $z_n=\log_2n/b_n$, so $x=\limsup_nz_n$.
+
+\emph{Exact banks.} Fix a Stinespring isometry of $\Psi$ with a pure
+environment of dimension $r$. The banks in the proof of
+Theorem~\ref{thm:qutrit-purity}, with $r$-dimensional cells and
+$q=\lceil\lceil\sqrt n\rceil\log_2r\rceil$, give exact services with
+$Q=O(\sqrt n)$, $P+C=n\log_2r+O(\sqrt n)$ and $J=O(n)$. Holding each
+output until its batch ends keeps the error zero and adds at most
+$b_n\lceil\log_2d\rceil$ payload qubits to $Q_{\rm peak}$.
+
+\emph{Collective batches.} Let $n\geq2$, $B=\lceil n/b_n\rceil$ and
+$\delta=n^{-2}/B$. A batch of $b'\leq b_n$ inputs uses
+Lemma~\ref{lem:collective-gaussian} for $\Psi^{\otimes b'}$, which is
+unital with $D=d^{b'}$ and Choi rank $r^{b'}\leq d^{2b'}$. Thus
+$k\leq2d^{b'}$ and $1+\ln(8Dk)\leq4(b_n+1)(1+\ln d)$. Since
+$B(b_n+1)\leq3n+1$, the source purity obeys
+\[
+ \log_2(m/k)\leq4\log_2n+2\log_2\bigl(B(b_n+1)\bigr)+2\log_2(1+\ln d)+O(1)
+ \leq s_n,
+\]
+where $s_n=6\log_2n+2\log_2(1+\ln d)+c$ and $c$ is an absolute
+constant. Also $\log_2m\leq\frac{b_n}2\log_2r+1+s_n$ for $b'=b_n$.
+
+The memory holds a payload bank of $b_n\lceil\log_2d\rceil$ qubits, a
+bath bank of $\log_2m$ qubits sized for $b'=b_n$, and a pure reversible
+clock of $\lceil\log_2(n+1)\rceil$ qubits. The inputs of a batch enter
+the payload bank as they arrive. After the last one, the collective
+unitary acts on the payload and bath banks in place, and the outputs are
+released. Between batches the bath bank is exported, and a fresh one is
+imported in the lemma's source state: $\log_2k$ maximally mixed qubits
+and $\log_2(m/k)$ pure ones. A shorter final batch uses its own smaller
+$k$ and $m$. Its unused bath qubits are imported maximally mixed and are
+never touched, so they cost no purity.
+
+No output is released inside a batch. So the inputs of a batch form one
+joint input, entangled with the observer's reference and with all
+earlier outputs. The batch applies a channel within half-diamond
+distance $\delta$ of $\Psi^{\otimes b'}$. Its bath is then exported for
+good, the next batch starts from a fresh independent import, and the
+clock is pure and never meets an input. Replace the batch channels by
+$\Psi^{\otimes b'}$ one at a time. At each step the state entering the
+batch is unchanged and everything after it is a fixed channel, so the
+observer's final state moves by at most $\delta$. The complete adaptive
+error is at most $B\delta=n^{-2}$.
+
+The first bath and the clock give $P\leq s_n+\log_2n+2$, and the $B-1$
+imports give $C\leq(B-1)s_n$. With $B-1\leq n/b_n$,
+\begin{align*}
+ P+C&\leq Bs_n+\log_2n+2,\qquad
+ J=(B-1)\log_2m\leq\tfrac n2\log_2r+\frac{(1+s_n)n}{b_n},\\
+ Q_{\rm peak}&\leq\bigl(\lceil\log_2d\rceil+\tfrac12\log_2r\bigr)b_n
+ +s_n+\log_2n+3.
+\end{align*}
+Hence $(P+C)/n\leq6z_n+(s_n-6\log_2n)/b_n+(s_n+\log_2n+2)/n$.
+
+\emph{Choice.} For each $n$, use collective batches if $6z_n<\log_2r$,
+and exact banks otherwise. In the first case $b_n>6\log_2n/\log_2r$.
+The two error terms are then $O_d(1/\log n)$,
+$J\leq\frac32n\log_2r+o(n)$, and $Q_{\rm peak}=O(b_n+\log n)=o(n)$. In
+both cases the contract holds and
+\[
+ \frac{P+C}n\leq\min\{\log_2r,6z_n\}+o(1).
+\]
+The map $t\mapsto\min\{\log_2r,6t\}$ is continuous and nondecreasing on
+$[0,\infty]$, so the limsup of the right side is $\min\{\log_2r,6x\}$.
+This proves the bound, including $x=\infty$.
+
+If $r=1$, exact banks have $J=0$. If $r\geq2$ and $b_n/\log n\to\infty$,
+then $z_n\to0$ and collective batches are used for all large $n$. Since $\log_2m\geq\log_2k\geq\frac{b_n}2\log_2r$ and
+$B-1\geq n/b_n-1$, also $J\geq\frac n2\log_2r-\frac{b_n}2\log_2r$.
+Hence $J=\frac n2\log_2r+o(n)$.
+\end{proof}
